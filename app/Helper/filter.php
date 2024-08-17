@@ -1,0 +1,106 @@
+<?php 
+// require_once('../Controller/functions.php');
+class Filter{
+    private $filter = [];
+
+
+    function __construct(public $table_name, public $prefix){}
+    private function sessionSet($data){
+        if(isset($_POST[$data]) and $_POST[$data]!= ''){
+            $_SESSION[$this->prefix][$data] = $_POST[$data];
+        }else{
+            unset($_SESSION[$this->prefix][$data]);
+        }
+    }
+    function filterCheck($db, $data, $condition, $loc,$join = [], $limit = 1, $sortField = 'id', $sortOrder = 'ASC'){
+        if(!isset($_SESSION[$this->prefix])){
+            $_SESSION[$this->prefix][$condition] = [];
+        }
+        if(isset($_POST['filtered'])){
+            foreach($data as $data=>$type){
+                    $this->sessionSet(str_replace('.', '_', $data));
+                    if (isset($_SESSION[$this->prefix][str_replace('.', '_', $data)]) && ($_SESSION[$this->prefix][str_replace('.', '_', $data)] != '')) {
+                        if ($type === 'like') {
+                            $this->filter[] = $data." LIKE '%" . $_POST[str_replace('.', '_', $data)] . "%'";
+                        }elseif ($type === '=') {
+                            $this->filter[] = $data." = '" . $_POST[str_replace('.', '_', $data)] . "'";
+                        }elseif($type === 'find_in_set'){
+                            $data = explode(',', $_POST[$_POST[str_replace('.', '_', $data)]]);
+                            foreach($data as $value){
+                                $this->filter[] = "find_in_set($value, $data)";
+                            }
+                        }
+                        elseif($type === 'date'){
+                            $date = changeDate($_POST[str_replace('.', '_', $data)]);
+                            $this->filter[] = $data." LIKE '%" . $date . "%'";
+                        }
+                    elseif($type == 'in' and isset($_POST[str_replace('.', '_', $data)])){
+                        $input = implode(', ', $_POST[str_replace('.', '_', $data)]);
+                        $this->filter[] = $data." IN ($input)";
+                    }
+                    elseif($type == 'price' and isset($_POST[str_replace('.', '_', $data)])){
+                        $input = intval(str_replace(',', '', (securityCheck($_POST[str_replace('.', '_', $data)]))));
+                        $this->filter[] = $data." = $input";
+                    }
+                }
+            }
+            $_SESSION[$this->prefix][$condition] = $this->returnValue();
+        }
+        if(isset($_POST['unFilter'])){
+            unset($_SESSION[$this->prefix]);
+            redirect($loc);
+    }   
+
+    if(!empty($join)){
+        return $this->joinCondition($db,$join, $condition, $limit, $sortField, $sortOrder);
+        }
+}
+
+    function is_exist($data){
+        return isset($_SESSION[$this->prefix][$data])?$_SESSION[$this->prefix][$data]:'';
+    }
+    private function returnValue(){
+        return $this->filter;
+    }
+
+    function loopQuery($db, $data){
+        $condition = [];
+        if(isset($data) and is_countable($data)){
+            $condition = $data;
+        }
+        if(!empty($condition)){
+            foreach($condition as $cond){
+                if(!empty($cond)){
+                    $db->where($cond);
+                }
+            }
+        }
+    }
+
+    private function joinCondition($db,$query,$cond,$limit, $sortField, $sortOrder)  {
+        global $pages;
+        global $page;
+        $condition = [];
+        if(!empty($_SESSION[$this->prefix][$cond]) and count($_SESSION[$this->prefix][$cond]) > 0){
+            $condition = ($_SESSION[$this->prefix][$cond]);
+        }
+        
+        if(!empty($condition)){
+            $db->pageLimit = $limit;
+            $condition=(implode(' AND ', $condition));
+            $total=$db->rawQuery($query[0].' '.$condition);
+
+            if (isset($_GET['page'])) 
+            $page = $_GET['page'];
+            $limitation = ($page - 1)*$limit;
+            $pages = ceil($total[0]['total'] / $db->pageLimit);
+        
+            return $db->rawQuery($query[1].' WHERE '.$condition." ORDER BY $sortField $sortOrder LIMIT $limitation, $limit");
+
+            }else{
+            pageLimit( $this->table_name, $limit, false);
+            $limitation = ($page - 1)*$limit;   
+            return $db->rawQuery($query[1]." ORDER BY $sortField $sortOrder LIMIT $limitation, $limit");                    
+        }
+    }
+}
