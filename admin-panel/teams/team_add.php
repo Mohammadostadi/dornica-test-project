@@ -1,6 +1,6 @@
 <?php
 
-require_once('../app/loader.php');
+require_once('../../app/loader.php');
 $validator = new validator();
 
 
@@ -12,7 +12,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
     $instagram = securityCheck($_REQUEST['instagram']);
     $whatsapp = securityCheck($_REQUEST['whatsapp']);
     $telegram = securityCheck($_REQUEST['telegram']);
-    $picture = $validator->imageCheck("../assets/images/team/", $_FILES["fileToUpload"], "fileToUpload");
+    $picture = $validator->imageCheck("../../assets/images/team/", $_FILES["fileToUpload"], "fileToUpload");
     $validator->empty($fname, 'fname', 'فیلد نام شما نباید خالی باشد');
     $validator->empty($lname, 'lname', 'فیلد نام خانوادگی شما نباید خالی باشد');
     $validator->empty($title, 'title', 'فیلد سمت شما نباید خالی باشد');
@@ -52,7 +52,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
 
 
     <?php
-        require_once('../layout/css.php');
+        require_once('../../layout/css.php');
     ?>
 
     <title>اضافه کردن تیم</title>
@@ -62,8 +62,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
 
 <main class="page-content">
 <?php 
-        require_once('../layout/header.php');
-        require_once('../layout/asidebar.php');
+        require_once('../../layout/header.php');
+        require_once('../../layout/asidebar.php');
     ?>
     <!--start wrapper-->
     <div class="wrapper container my-5">
@@ -163,7 +163,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
 </main>
 
 <?php 
-        require_once('../layout/js.php');
+        require_once('../../layout/js.php');
     ?>
 </body>
 

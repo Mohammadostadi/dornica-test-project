@@ -1,6 +1,6 @@
 <?php
 $prefix = 'admin';
-require_once ('../app/loader.php');
+require_once ('../../app/loader.php');
 $filter = new Filter('admin', 'admin_filter');
 sortInTable($prefix, 'admins_list', 'page');
 $data = [
@@ -29,7 +29,7 @@ $res = $db->orderBy($sortField, $sortOrder)
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?php
-    require_once ('../layout/css.php');
+    require_once ('../../layout/css.php');
     ?>
 
 
@@ -43,13 +43,13 @@ $res = $db->orderBy($sortField, $sortOrder)
     <div class="wrapper">
         <!--start top header-->
         <?php
-        require_once ('../layout/header.php');
+        require_once ('../../layout/header.php');
         ?>
         <!--end top header-->
 
         <!--start sidebar -->
         <?php
-        require_once ('../layout/asidebar.php');
+        require_once ('../../layout/asidebar.php');
         ?>
         <!--end sidebar -->
 
@@ -59,7 +59,7 @@ $res = $db->orderBy($sortField, $sortOrder)
             <!--breadcrumb-->
 
             <?php
-            require_once ('../layout/message.php');
+            require_once ('../../layout/message.php');
             ?>
             <div class="page-breadcrumb   d-sm-flex align-items-center mb-3">
                 <div class="breadcrumb-title pe-3">جداول</div>
@@ -92,7 +92,7 @@ $res = $db->orderBy($sortField, $sortOrder)
                                 <div class="card-body">
                                     <div class="card-header">
                                         <div
-                                            id="<?= (isset($_SESSION['admin_filter']['admin']) and !empty($_SESSION['admin_filter']['admin'])) ? "" : "filter-row" ?>">
+                                            id="<?= (isset($_SESSION['admin_filter']['admin']) and !empty($_SESSION['admin_filter']['admin'])) ? "" : "filter-row" ?>" class="<?= (isset($_SESSION['admin_filter']['admin']) and !empty($_SESSION['admin_filter']['admin'])) ? "" : "d-none" ?>">
                                             <form class=" d-flex justify-content-around align-content-start" id="form"
                                                 action="admins_list.php?page=1" method="post">
                                                 <div class="row g-3">
@@ -205,22 +205,15 @@ $res = $db->orderBy($sortField, $sortOrder)
         <!--end page main-->
 
         <?php
-        require_once ('../layout/footer.php');
+        require_once ('../../layout/footer.php');
         ?>
     </div>
     <!--end wrapper-->
     <script>
         const path = 'admin_delete.php'
     </script>
-    <?php require_once ('../layout/js.php'); ?>
-    <script>
-        $(document).ready(function () {
-            $("#filter-row").hide();
-            $('#_filter').click(function () {
-                $('#filter-row').toggle(400);
-            });
-        });
-    </script>
+    <?php require_once ('../../layout/js.php'); ?>
+    
 </body>
 
 

@@ -1,11 +1,11 @@
 <?php
 
-require_once('../app/loader.php');
+require_once('../../app/loader.php');
 $id = securityCheck($_REQUEST['id']);
 $setting = $db->where('id', $id)
 ->getOne('setting');
 if($id != 1 or empty($setting)){
-    redirect('../error/error-404.php');
+    redirect('../../error/error-404.php');
 }
 $validator = new validator();
 
@@ -27,11 +27,9 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
     if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
         $validator->set('email', 'فرمت ایمیل صحیح نمیباشد');  
     }
-    $picture = $validator->imageUpdate("../assets/images/setting/", $_FILES["fileToUpload"], "fileToUpload", $setting['logo']);
-    if(isset($picture)){
-        array_map('unlink', glob("../assets/images/upload/*.*"));
-    }
+    $picture = $validator->imageUpdate("../../assets/images/setting/", $_FILES["fileToUpload"], "fileToUpload", $setting['logo']);
     if ($validator->count_error() == 0) {
+        array_map('unlink', glob("../../assets/images/upload/*.*"));
         if(isset($picture)){
             $db->update('setting', [
                 'title'=>$title,
@@ -75,7 +73,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <?php
-        require_once('../layout/css.php');
+        require_once('../../layout/css.php');
     ?>
     <title>تنظیمات</title>
 </head>
@@ -83,8 +81,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
 <body>
 <main class="page-content">
 <?php 
-        require_once('../layout/header.php');
-        require_once('../layout/asidebar.php');
+        require_once('../../layout/header.php');
+        require_once('../../layout/asidebar.php');
     ?>
     <div class="wrapper container my-5">
         <!--start content-->
@@ -148,7 +146,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
                                         <label class="form-label">لوگو</label>
                                         <div class="row">
                                             <div class="col-12 text-center bg-light my-3 rounded preview">
-                                                <img src="../<?= $setting['logo']?>" class="rounded-circle shadow m-3" id="img" width="100" height="100" alt="">
+                                                <img src="../../<?= $setting['logo']?>" class="rounded-circle shadow m-3" id="img" width="100" height="100" alt="">
                                             </div>
                                             <div class="col-12">
                                                 <input type="file" class="form-control" aria-label="file example" id="fileToUpload" name="fileToUpload">
@@ -175,17 +173,17 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
     </div>
 </main>
 <?php 
-        require_once('../layout/js.php');
+        require_once('../../layout/js.php');
     ?>
-    <script src="../assets/ckeditor/ckeditor.js"></script>
-    <script src="../assets/ckeditor/adapters/jquery.js"></script>
+    <script src="../../assets/ckeditor/ckeditor.js"></script>
+    <script src="../../assets/ckeditor/adapters/jquery.js"></script>
     <script>
         $(document).ready(function(){
             $('#editor1').ckeditor();
         });
     </script>
     
-    <?php require_once('../layout/update_image.php') ?>
+    <?php require_once('../../layout/update_image.php') ?>
 </body>
 
 

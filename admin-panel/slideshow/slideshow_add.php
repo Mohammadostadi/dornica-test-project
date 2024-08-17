@@ -1,12 +1,12 @@
 <?php
 
-require_once('../app/loader.php');
+require_once('../../app/loader.php');
 
 $validator = new validator();
 
 if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
     $title = securityCheck($_REQUEST['name']);
-    $picture = $validator->imageCheck('../assets/images/slideshow/', $_FILES["fileToUpload"], 'fileToUpload');
+    $picture = $validator->imageCheck('../../assets/images/slideshow/', $_FILES["fileToUpload"], 'fileToUpload');
     $validator->empty($title, 'name', 'فیلد عنوان شما نباید خالی باشد');
     if ($validator->count_error() == 0) {
             $db->insert('slideshows', [
@@ -31,7 +31,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <?php
-        require_once('../layout/css.php');
+        require_once('../../layout/css.php');
     ?>
     <title>افزودن اسلاید شو</title>
 </head>
@@ -40,8 +40,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
 
 <main class="page-content">
 <?php 
-        require_once('../layout/header.php');
-        require_once('../layout/asidebar.php');
+        require_once('../../layout/header.php');
+        require_once('../../layout/asidebar.php');
     ?>
     <div class="wrapper container my-5">
         <!--start content-->
@@ -93,7 +93,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
 
 
 <?php 
-        require_once('../layout/js.php');
+        require_once('../../layout/js.php');
     ?>
 </body>
 

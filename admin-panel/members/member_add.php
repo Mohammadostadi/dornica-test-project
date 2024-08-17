@@ -1,6 +1,6 @@
 <?php
 
-require_once('../app/loader.php');
+require_once('../../app/loader.php');
 
 $provinceList = $db->where('status', 1)
 ->orderBy('name', 'ASC')
@@ -18,7 +18,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
         $address = securityCheck($_REQUEST['address']);
         $bdate = securityCheck($_REQUEST['birthday']);
         $password = securityCheck($_REQUEST['password']);
-        $picture = $validator->imageCheck("../assets/images/members/", $_FILES["fileToUpload"], "fileToUpload");
+        $picture = $validator->imageCheck("../../assets/images/members/", $_FILES["fileToUpload"], "fileToUpload");
         $validator->empty($fname, 'fname', 'فیلد نام شما نباید خالی باشد');
         $validator->existValue('members', 'national_code', $ncode, 'فیلد کدملی تکراری میباشد');
         $validator->existValue('members', 'email', $email, 'فیلد ایمیل تکراری میباشد');
@@ -80,10 +80,10 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
 
 
     <?php
-        require_once('../layout/css.php');
+        require_once('../../layout/css.php');
     ?>
     
-    <link type="text/css" rel="stylesheet" href="../assets/datePiker/css/persianDatepicker-default.css" />
+    <link type="text/css" rel="stylesheet" href="../../assets/datePiker/css/persianDatepicker-default.css" />
 
     <title>اضافه کردن ممبر</title>
 </head>
@@ -92,8 +92,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
 
 <main class="page-content">
     <?php
-        require_once('../layout/header.php');
-        require_once('../layout/asidebar.php');
+        require_once('../../layout/header.php');
+        require_once('../../layout/asidebar.php');
     ?>
     <!--start wrapper-->
     <div class="wrapper container my-5">
@@ -229,7 +229,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
 </main>
 
 <?php
-        require_once('../layout/js.php');
+        require_once('../../layout/js.php');
     ?>
 
 <script>
@@ -250,13 +250,13 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
         });
 </script>
 
-<script type="text/javascript" src="../assets/datePiker/js/persianDatepicker.min.js"></script>
+<script type="text/javascript" src="../../assets/datePiker/js/persianDatepicker.min.js"></script>
 <script type="text/javascript">
     $("#date").persianDatepicker({formatDate: "YYYY/0M/0D"});
     $("#endTime").persianDatepicker({formatDate: "YYYY/0M/0D"});
 </script>
-<script src="../assets/ckeditor/ckeditor.js"></script>
-<script src="../assets/ckeditor/adapters/jquery.js"></script>
+<script src="../../assets/ckeditor/ckeditor.js"></script>
+<script src="../../assets/ckeditor/adapters/jquery.js"></script>
 <script>
     $(document).ready(function(){
         $('#editor1').ckeditor();

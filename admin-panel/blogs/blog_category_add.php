@@ -1,5 +1,5 @@
 <?php
-require_once('../app/loader.php');
+require_once('../../app/loader.php');
 $validator = new validator();
     if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_REQUEST['_insert'])){
         $name = securityCheck($_REQUEST['categoryName']);
@@ -29,7 +29,7 @@ $validator = new validator();
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <?php
-        require_once('../layout/css.php');
+        require_once('../../layout/css.php');
     ?>
 
     <title>اضافه کردن دسته بندی بلاگ</title>
@@ -39,8 +39,8 @@ $validator = new validator();
 
 <main class="page-content">
 <?php
-        require_once('../layout/header.php');
-        require_once('../layout/asidebar.php');
+        require_once('../../layout/header.php');
+        require_once('../../layout/asidebar.php');
     ?>
     <!--start wrapper-->
     <div class="wrapper container my-5">
@@ -85,7 +85,7 @@ $validator = new validator();
 </main>
 
 <?php
-        require_once('../layout/js.php');
+        require_once('../../layout/js.php');
     ?>
 </body>
 

@@ -1,6 +1,6 @@
 <?php
     $prefix = 'wishlist';
-    require_once('../app/loader.php');
+    require_once('../../app/loader.php');
     sortInTable($prefix, 'wishlists_list', 'page');
     pageLimit('wishlist', 3, false);
     
@@ -23,7 +23,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <?php
-        require_once('../layout/css.php');
+        require_once('../../layout/css.php');
     ?>
 
     <title>لیست علاقه مندی ها </title>
@@ -36,13 +36,13 @@
 <div class="wrapper">
     <!--start top header-->
     <?php
-        require_once('../layout/header.php'); 
+        require_once('../../layout/header.php'); 
     ?>
     <!--end top header-->
 
     <!--start sidebar -->
     <?php
-        require_once('../layout/asidebar.php'); 
+        require_once('../../layout/asidebar.php'); 
     ?>
     <!--end sidebar -->
 
@@ -96,7 +96,7 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <img src="<?= $wishlist['image'] ?>" alt="" width="60px" class="rounded mx-2">
+                                        <img src="../../<?= $wishlist['image'] ?>" alt="" width="60px" class="rounded mx-2">
                                         <span>
                                             <?= $wishlist['name'] ?>
                                         </span>
@@ -131,14 +131,14 @@
 
 
     <?php
-            require_once('../layout/message.php');
+            require_once('../../layout/message.php');
         ?>
 
 </div>
 <!--end wrapper-->
 
 <?php
-        require_once('../layout/js.php');
+        require_once('../../layout/js.php');
 ?>
 </body>
 

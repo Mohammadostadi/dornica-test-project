@@ -1,6 +1,6 @@
 <?php
     $prefix = 'members';
-    require_once('../app/loader.php');
+    require_once('../../app/loader.php');
     sortInTable($prefix, 'members_list', 'page');
     $provinceList = $db->where('status', 1)
     ->orderBy('name', 'ASC')
@@ -34,10 +34,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <?php
-        require_once('../layout/css.php');
+        require_once('../../layout/css.php');
     ?>
 
-    <link type="text/css" rel="stylesheet" href="../assets/datePiker/css/persianDatepicker-default.css" />
+    <link type="text/css" rel="stylesheet" href="../../assets/datePiker/css/persianDatepicker-default.css" />
 
     <title>لیست کاربران</title>
 </head>
@@ -49,20 +49,20 @@
 <div class="wrapper">
     <!--start top header-->
     <?php
-        require_once('../layout/header.php'); 
+        require_once('../../layout/header.php'); 
     ?>
     <!--end top header-->
 
     <!--start sidebar -->
     <?php
-        require_once('../layout/asidebar.php'); 
+        require_once('../../layout/asidebar.php'); 
     ?>
     <!--end sidebar -->
 
     <!--start content-->
     <main class="page-content">
         <?php
-            require_once('../layout/message.php');
+            require_once('../../layout/message.php');
         ?>
         <!--breadcrumb-->
         <div class="page-breadcrumb   d-sm-flex align-items-center mb-3">
@@ -95,7 +95,7 @@
                         <div class="card border shadow-none w-100">
                             <div class="card-body">
                             <div class="card-header">
-                                <div id="<?= (isset($_SESSION['member_filter']['member']) and !empty($_SESSION['member_filter']['member']))?"":"filter-row"?>" >
+                                <div id="<?= (isset($_SESSION['member_filter']['member']) and !empty($_SESSION['member_filter']['member']))?"":"filter-row"?>" class="<?= (isset($_SESSION['member_filter']['member']) and !empty($_SESSION['member_filter']['member']))?"":"d-none"?>">
                                     <form class=" d-flex justify-content-around align-content-start" id="form" action="members_list.php?page=1" method="post" >
                                         <div class="row g-3">
                                     <div class="col-lg-2 col-md-4" > <input class="col form-control" type="text" value="<?= $filter->is_exist('members_fname') ?>" name="members_fname" placeholder="نام" > </div>
@@ -166,7 +166,7 @@
                                 <tr>
                                     <td>
                                         <span>
-                                            <img  class="rounded-circle" src="../<?= $member['image'] ?>" alt="" width="40px">
+                                            <img  class="rounded-circle" src="../../<?= $member['image'] ?>" alt="" width="40px">
                                         </span>
                                     </td>
                                     <td><?= $member['fname'] ?></td>
@@ -222,7 +222,7 @@
     <!--end page main-->
 
     <?php
-        require_once('../layout/footer.php');
+        require_once('../../layout/footer.php');
     ?>
 </div>
 <!--end wrapper-->
@@ -232,7 +232,7 @@
 </script>
 
 <?php
-        require_once('../layout/js.php');
+        require_once('../../layout/js.php');
     ?>
     <script>
         $('#city').change(function () {
@@ -251,15 +251,7 @@
             })
         });
 </script>
-<script>
-    $(document).ready(function() {
-    $("#filter-row").hide();
-    $('#_filter').click(function(){
-                $('#filter-row').toggle(400);
-            });
-    });
-</script>
-<script type="text/javascript" src="../assets/datePiker/js/persianDatepicker.min.js"></script>
+<script type="text/javascript" src="../../assets/datePiker/js/persianDatepicker.min.js"></script>
 <script type="text/javascript">
     $("#date").persianDatepicker({formatDate: "YYYY/0M/0D"});
 </script>

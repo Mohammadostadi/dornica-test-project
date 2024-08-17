@@ -1,5 +1,5 @@
 <?php
-require_once('../app/loader.php');
+require_once('../../app/loader.php');
 
 
 $validator = new validator();
@@ -40,7 +40,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['_insert'])){
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?php 
-        require_once('../layout/css.php');
+        require_once('../../layout/css.php');
     ?>
     <title>افزودن ادمین</title>
 </head>
@@ -49,8 +49,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['_insert'])){
 
 <main class="page-content">
         <?php 
-            require_once('../layout/header.php');
-            require_once('../layout/asidebar.php');
+            require_once('../../layout/header.php');
+            require_once('../../layout/asidebar.php');
         ?>
     <div class="wrapper container my-5">
         <!--start content-->
@@ -124,7 +124,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['_insert'])){
 </main>
 <!--start wrapper-->
         <?php 
-            require_once('../layout/js.php');
+            require_once('../../layout/js.php');
         ?>
 <!--end wrapper-->
 </body>

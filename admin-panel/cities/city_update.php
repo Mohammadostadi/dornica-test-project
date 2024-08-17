@@ -1,5 +1,5 @@
 <?php
-    require_once('../app/loader.php');
+    require_once('../../app/loader.php');
     $id = securityCheck($_REQUEST['id']);
     $city = $db
     ->join('province', 'province.id = cities.province_id', 'LEFT')
@@ -44,7 +44,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <?php
-        require_once('../layout/css.php');
+        require_once('../../layout/css.php');
     ?>
 
     <title>آپدیت کردن شهر</title>
@@ -54,8 +54,8 @@
 
 <main class="page-content">
 <?php
-        require_once('../layout/header.php');
-        require_once('../layout/asidebar.php');
+        require_once('../../layout/header.php');
+        require_once('../../layout/asidebar.php');
     ?>
     <!--start wrapper-->
     <div class="wrapper container my-5">
@@ -122,7 +122,7 @@
 </main>
 
 <?php
-        require_once('../layout/js.php');
+        require_once('../../layout/js.php');
     ?>
 </body>
 

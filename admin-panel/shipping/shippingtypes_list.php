@@ -1,6 +1,6 @@
 <?php
     $prefix = 'shiping_type';
-    require_once('../app/loader.php');
+    require_once('../../app/loader.php');
     sortInTable($prefix, 'shippingtypes_list', 'page');
     $filter = new Filter('shiping_type', 'shipping_type_filter');
     $data = [
@@ -26,7 +26,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <?php
-        require_once('../layout/css.php');
+        require_once('../../layout/css.php');
     ?>
 
     <title>مدل ارسال</title>
@@ -40,20 +40,20 @@
 <div class="wrapper">
     <!--start top header-->
     <?php
-        require_once('../layout/header.php'); 
+        require_once('../../layout/header.php'); 
     ?>
     <!--end top header-->
 
     <!--start sidebar -->
     <?php
-        require_once('../layout/asidebar.php'); 
+        require_once('../../layout/asidebar.php'); 
     ?>
     <!--end sidebar -->
 
     <!--start content-->
     <main class="page-content">
     <?php
-            require_once('../layout/message.php');
+            require_once('../../layout/message.php');
         ?>
         <!--breadcrumb-->
         <div class="page-breadcrumb   d-sm-flex align-items-center mb-3">
@@ -86,7 +86,7 @@
                         <div class="card border shadow-none w-100">
                             <div class="card-body">
                             <div class="card-header">
-                                <div id="<?= (isset($_SESSION['shipping_type_filter']['shipping_type']) and !empty($_SESSION['shipping_type_filter']['shipping_type']))?"":"filter-row"?>" >
+                                <div id="<?= (isset($_SESSION['shipping_type_filter']['shipping_type']) and !empty($_SESSION['shipping_type_filter']['shipping_type']))?"":"filter-row"?>" class="<?= (isset($_SESSION['shipping_type_filter']['shipping_type']) and !empty($_SESSION['shipping_type_filter']['shipping_type']))?"":"d-none"?>">
                                     <form class="" id="form" action="shippingtypes_list.php?page=1" method="post" >
                                         <div class="row g-3">
                                     <div class="col-lg-2 col-md-4" > <input class="col form-control" type="text" value="<?= isset($_SESSION['shipping_type_filter']['name'])?$_SESSION['shipping_type_filter']['name']:"" ?>" name="name" placeholder="عنوان" > </div>
@@ -158,7 +158,7 @@
 
 
     <?php
-            require_once('../layout/footer.php');
+            require_once('../../layout/footer.php');
         ?>
 
 </div>
@@ -168,16 +168,8 @@
     const path = 'shippingtype_delete.php'
 </script>
 <?php
-        require_once('../layout/js.php');
+        require_once('../../layout/js.php');
     ?>
-    <script>
-    $(document).ready(function() {
-    $("#filter-row").hide();
-    $('#_filter').click(function(){
-                $('#filter-row').toggle(400);
-            });
-    });
-</script>
 </body>
 
 

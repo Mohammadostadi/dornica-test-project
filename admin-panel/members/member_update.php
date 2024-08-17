@@ -1,5 +1,5 @@
 <?php
-require_once('../app/loader.php');
+require_once('../../app/loader.php');
 
 $provinceList = $db->where('status', 1)
 ->orderBy('name', 'ASC')
@@ -19,7 +19,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
         $ncode = securityCheck($_REQUEST['ncode']);
         $address = securityCheck($_REQUEST['address']);
         $bdate = securityCheck($_REQUEST['birthday']);
-        $picture = $validator->imageUpdate("../assets/images/members/", $_FILES["fileToUpload"], "fileToUpload", $member['image']);
+        $picture = $validator->imageUpdate("../../assets/images/members/", $_FILES["fileToUpload"], "fileToUpload", $member['image']);
         if(isset($_POST['check'])){
             $checkList = $_POST['check'];
         }
@@ -50,6 +50,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
         }
         
         if ($validator->count_error() == 0) {
+            array_map('unlink', glob("../../assets/images/upload/*.*"));
             if (isset($picture)) {
                 $db->where('id', $id)
                 ->update('members', [
@@ -99,9 +100,9 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
 
 
     <?php
-        require_once('../layout/css.php');
+        require_once('../../layout/css.php');
     ?>
-    <link type="text/css" rel="stylesheet" href="../assets/datePiker/css/persianDatepicker-default.css" />
+    <link type="text/css" rel="stylesheet" href="../../assets/datePiker/css/persianDatepicker-default.css" />
     <title>آپدیت کردن ممبر</title>
 </head>
 
@@ -109,8 +110,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
 
 <main class="page-content">
     <?php
-        require_once('../layout/header.php');
-        require_once('../layout/asidebar.php');
+        require_once('../../layout/header.php');
+        require_once('../../layout/asidebar.php');
     ?>
     <!--start wrapper-->
     <div class="wrapper container my-5">
@@ -248,7 +249,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
 </main>
 
 <?php
-        require_once('../layout/js.php');
+        require_once('../../layout/js.php');
     ?>
 
 <script>
@@ -268,18 +269,18 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
             })
         });
 </script>
-<script type="text/javascript" src="../assets/datePiker/js/persianDatepicker.min.js"></script>
+<script type="text/javascript" src="../../assets/datePiker/js/persianDatepicker.min.js"></script>
 <script type="text/javascript">
     $("#date").persianDatepicker({formatDate: "YYYY/0M/0D"});
 </script>
-<script src="../assets/ckeditor/ckeditor.js"></script>
-<script src="../assets/ckeditor/adapters/jquery.js"></script>
+<script src="../../assets/ckeditor/ckeditor.js"></script>
+<script src="../../assets/ckeditor/adapters/jquery.js"></script>
 <script>
     $(document).ready(function(){
         $('#editor1').ckeditor();
     });
 </script>
-<?php require_once('../layout/update_image.php') ?>
+<?php require_once('../../layout/update_image.php') ?>
 </body>
 
 <!-- Mirrored from codetheme.ir/onedash/demo/rtl/form-layouts.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 31 May 2024 08:56:22 GMT -->

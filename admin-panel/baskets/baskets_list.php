@@ -1,6 +1,6 @@
 <?php
     $prefix = 'cart';
-    require_once('../app/loader.php');
+    require_once('../../app/loader.php');
     sortInTable($prefix, 'baskets_list', 'page');
     $col = ['members.fname', 'members.lname', 'products.name', 'products.price', 'cart.qty', 'cart.setdate'];
     $filter = new Filter('cart', 'basket_filter');
@@ -30,7 +30,7 @@
     
     <?php
 
-        require_once('../layout/css.php');
+        require_once('../../layout/css.php');
 
     ?>
 
@@ -46,13 +46,13 @@
 <div class="wrapper">
     <!--start top header-->
     <?php
-        require_once('../layout/header.php'); 
+        require_once('../../layout/header.php'); 
     ?>
     <!--end top header-->
 
     <!--start sidebar -->
     <?php
-        require_once('../layout/asidebar.php'); 
+        require_once('../../layout/asidebar.php'); 
     ?>
     <!--end sidebar -->
 
@@ -88,7 +88,7 @@
                         <div class="card border shadow-none w-100">
                             <div class="card-body">
                             <div class="card-header">
-                                <div id="<?= (isset($_SESSION['basket_filter']['basket']) and !empty($_SESSION['basket_filter']['basket']))?"":"filter-row"?>" >
+                                <div id="<?= (isset($_SESSION['basket_filter']['basket']) and !empty($_SESSION['basket_filter']['basket']))?"":"filter-row"?>" class="<?= (isset($_SESSION['basket_filter']['basket']) and !empty($_SESSION['basket_filter']['basket']))?"":"d-none"?>">
                                     <form class=" d-flex justify-content-around align-content-start" id="form" action="baskets_list.php?page=1" method="post" >
                                         <div class="row g-2">
                                     <div class="col-lg-2 col-md-4" > <input class="col form-control" type="text" value="<?= isset($_SESSION['basket_filter']['members_fname'])?$_SESSION['basket_filter']['members_fname']:"" ?>" name="members_fname" placeholder="نام" > </div>
@@ -157,7 +157,7 @@
     <!--end page main-->
 
     <?php
-            require_once('../layout/footer.php');
+            require_once('../../layout/footer.php');
         ?>
 
 </div>
@@ -166,17 +166,9 @@
 
 <?php 
 
-    require_once('../layout/js.php');
+    require_once('../../layout/js.php');
 
 ?>
-<script>
-    $(document).ready(function() {
-    $("#filter-row").hide();
-    $('#_filter').click(function(){
-                $('#filter-row').toggle(400);
-            });
-    });
-</script>
 </body>
 
 

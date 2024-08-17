@@ -1,5 +1,5 @@
 <?php
-    require_once('../app/loader.php');
+    require_once('../../app/loader.php');
     $provinceList = $db->where('status', 1)
     ->orderBy('name', 'ASC')
     ->get('province', null, 'name, id');
@@ -34,7 +34,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <?php
-        require_once('../layout/css.php');
+        require_once('../../layout/css.php');
     ?>
 
     <title>اضافه کردن شهر</title>
@@ -45,8 +45,8 @@
 <main class="page-content">
 
 <?php
-        require_once('../layout/header.php');
-        require_once('../layout/asidebar.php');
+        require_once('../../layout/header.php');
+        require_once('../../layout/asidebar.php');
     ?>
     <!--start wrapper-->
     <div class="wrapper container my-5">
@@ -105,7 +105,7 @@
 </main>
 
 <?php
-        require_once('../layout/js.php');
+        require_once('../../layout/js.php');
     ?>
 </body>
 

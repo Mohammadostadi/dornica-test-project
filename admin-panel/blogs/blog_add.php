@@ -1,5 +1,5 @@
 <?php
-    require_once('../app/loader.php');
+    require_once('../../app/loader.php');
     $categoryList = $db->where('status', 1)
     ->orderBy('name', 'ASC')
     ->get('blog_category', null, 'name, id');
@@ -11,7 +11,7 @@
         $writer = securityCheck($_REQUEST['writer']);
         $description = securityCheck($_REQUEST['description']);
         $fullDescription = securityCheck($_REQUEST['fullDescription']);
-        $picture = $validator->imageCheck("../assets/images/blogs/", $_FILES['fileToUpload'], 'fileToUpload');
+        $picture = $validator->imageCheck("../../assets/images/blogs/", $_FILES['fileToUpload'], 'fileToUpload');
         $validator->empty($title, 'title', 'فیلد عنوان شما نباید خالی باشد');
         $validator->empty($writer, 'writer', 'فیلد نویسنده شما نباید خالی باشد');
         if(!isset($_POST['category'])){
@@ -48,7 +48,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <?php
-        require_once('../layout/css.php');
+        require_once('../../layout/css.php');
     ?>
 
     <title>اضافه کردن بلاگ</title>
@@ -58,8 +58,8 @@
 
 <main class="page-content">
 <?php
-        require_once('../layout/header.php');
-        require_once('../layout/asidebar.php');
+        require_once('../../layout/header.php');
+        require_once('../../layout/asidebar.php');
     ?>
     <!--start wrapper-->
     <div class="wrapper container my-5">
@@ -142,10 +142,10 @@
 
 
 <?php
-        require_once('../layout/js.php');
+        require_once('../../layout/js.php');
     ?>
-<script src="../assets/ckeditor/ckeditor.js"></script>
-<script src="../assets/ckeditor/adapters/jquery.js"></script>
+<script src="../../assets/ckeditor/ckeditor.js"></script>
+<script src="../../assets/ckeditor/adapters/jquery.js"></script>
 <script>
     $(document).ready(function(){
         $('#editor1').ckeditor();

@@ -1,6 +1,6 @@
 <?php
     $prefix = 'contacts';
-    require_once('../app/loader.php');
+    require_once('../../app/loader.php');
     sortInTable($prefix, 'contacts_list', 'page');
     $filter = new Filter('contacts', 'contact_filter');
     $data = [
@@ -25,7 +25,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <?php
-        require_once('../layout/css.php');
+        require_once('../../layout/css.php');
     ?>
 
     <title>لیست پیام ها</title>
@@ -38,13 +38,13 @@
 <div class="wrapper">
     <!--start top header-->
     <?php
-        require_once('../layout/header.php'); 
+        require_once('../../layout/header.php'); 
     ?>
     <!--end top header-->
 
     <!--start sidebar -->
     <?php
-        require_once('../layout/asidebar.php'); 
+        require_once('../../layout/asidebar.php'); 
     ?>
     <!--end sidebar -->
 
@@ -82,7 +82,7 @@
                         <div class="card border shadow-none w-100">
                             <div class="card-body">
                             <div class="card-header">
-                                <div id="<?= (isset($_SESSION['contact_filter']['contact']) and !empty($_SESSION['contact_filter']['contact']))?"":"filter-row"?>" >
+                                <div id="<?= (isset($_SESSION['contact_filter']['contact']) and !empty($_SESSION['contact_filter']['contact']))?"":"filter-row"?>" class="<?= (isset($_SESSION['contact_filter']['contact']) and !empty($_SESSION['contact_filter']['contact']))?"":"d-none"?>">
                                     <form class="" id="form" action="contacts_list.php?page=1" method="post" >
                                         <div class="row g-3">
                                     <div class="col-lg-2 col-md-4" > <input class="col form-control" type="text" value="<?= isset($_SESSION['admin_filter']['fname'])?$_SESSION['admin_filter']['fname']:"" ?>" name="title" placeholder="عنوان" > </div>
@@ -162,24 +162,16 @@
 
 
     <?php
-            require_once('../layout/footer.php');
+            require_once('../../layout/footer.php');
         ?>
 
 </div>
 <!--end wrapper-->
 
 <?php
-        require_once('../layout/js.php');
+        require_once('../../layout/js.php');
     ?>
 
-<script>
-    $(document).ready(function() {
-    $("#filter-row").hide();
-    $('#_filter').click(function(){
-                $('#filter-row').toggle(400);
-            });
-    });
-</script>
 
 </body>
 

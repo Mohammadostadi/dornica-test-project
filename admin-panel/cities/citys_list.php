@@ -1,6 +1,6 @@
 <?php
     $prefix = 'cities';
-    require_once('../app/loader.php');
+    require_once('../../app/loader.php');
     $col = ['province.name AS province', 'cities.name AS city', 'cities.id', 'cities.status'];
     sortInTable($prefix, 'citys_list', 'page');
     $filter = new Filter('cities', 'city_filter');
@@ -27,7 +27,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <?php
-        require_once('../layout/css.php');
+        require_once('../../layout/css.php');
     ?>
 
     <title>لیست شهر</title>
@@ -41,13 +41,13 @@
 <div class="wrapper">
     <!--start top header-->
     <?php
-        require_once('../layout/header.php'); 
+        require_once('../../layout/header.php'); 
     ?>
     <!--end top header-->
 
     <!--start sidebar -->
     <?php
-        require_once('../layout/asidebar.php'); 
+        require_once('../../layout/asidebar.php'); 
     ?>
     <!--end sidebar -->
 
@@ -55,7 +55,7 @@
     <main class="page-content">
 
     <?php
-            require_once('../layout/message.php');
+            require_once('../../layout/message.php');
         ?>
         <!--breadcrumb-->
         <div class="page-breadcrumb   d-sm-flex align-items-center mb-3">
@@ -88,7 +88,7 @@
                         <div class="card border shadow-none w-100">
                             <div class="card-body">
                             <div class="card-header">
-                                <div id="<?= (isset($_SESSION['city_filter']['cities']) and !empty($_SESSION['city_filter']['cities']))?"":"filter-row"?>" >
+                                <div id="<?= (isset($_SESSION['city_filter']['cities']) and !empty($_SESSION['city_filter']['cities']))?"":"filter-row"?>" class="<?= (isset($_SESSION['city_filter']['cities']) and !empty($_SESSION['city_filter']['cities']))?"":"d-none"?>">
                                     <form class="" id="form" action="citys_list.php?page=1" method="post" >
                                         <div class="row g-3">
                                     <div class="col-lg-2 col-md-4" > <input class="col form-control" type="text" value="<?= isset($_SESSION['city_filter']['province_name'])?$_SESSION['city_filter']['province_name']:"" ?>" name="province_name" placeholder="استان" > </div>
@@ -164,7 +164,7 @@
 
 
     <?php
-            require_once('../layout/footer.php');
+            require_once('../../layout/footer.php');
         ?>
 </div>
 <!--end wrapper-->
@@ -172,16 +172,8 @@
     const path = 'city_delete.php'
 </script>
 <?php
-        require_once('../layout/js.php');
+        require_once('../../layout/js.php');
     ?>
-<script>
-    $(document).ready(function() {
-    $("#filter-row").hide();
-    $('#_filter').click(function(){
-                $('#filter-row').toggle(400);
-            });
-    });
-</script>
 
 </body>
 

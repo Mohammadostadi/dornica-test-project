@@ -1,6 +1,6 @@
 <?php
 
-require_once('../app/loader.php');
+require_once('../../app/loader.php');
 $validator = new validator();
 
 $categoryList = $db->where('status', 1)
@@ -17,7 +17,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
     $endTime = securityCheck($_REQUEST['endTime']);
     $special = intval(str_replace(',', '', (securityCheck($_REQUEST['special']))));
     $qty = intval(str_replace(',', '', (securityCheck($_REQUEST['qty']))));
-    $picture = $validator->imageCheck("../assets/images/products/", $_FILES["fileToUpload"], 'fileToUpload');
+    $picture = $validator->imageCheck("../../assets/images/products/", $_FILES["fileToUpload"], 'fileToUpload');
     if($special != 0 and !empty($price)){
         $oldPrice = $price;
         $price = $price -  ($price*($special/100));
@@ -81,9 +81,9 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
 
 
     <?php
-        require_once('../layout/css.php');
+        require_once('../../layout/css.php');
     ?>
-    <link type="text/css" rel="stylesheet" href="../assets/datePiker/css/persianDatepicker-default.css" />
+    <link type="text/css" rel="stylesheet" href="../../assets/datePiker/css/persianDatepicker-default.css" />
     <title>اضافه کردن محصول</title>
 </head>
 
@@ -91,8 +91,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
 
 <main class="page-content">
 <?php
-        require_once('../layout/header.php');
-        require_once('../layout/asidebar.php');
+        require_once('../../layout/header.php');
+        require_once('../../layout/asidebar.php');
     ?>
     <!--start wrapper-->
     <div class="wrapper container my-5">
@@ -215,20 +215,20 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
 
 
 <?php
-        require_once('../layout/js.php');
+        require_once('../../layout/js.php');
         separator('#price');
         separator('#qty');
         separator('#special');
     ?>
     
 <!-- <script type="text/javascript" src="js/jquery-1.10.1.min.js"></script> -->
-<script type="text/javascript" src="../assets/datePiker/js/persianDatepicker.min.js"></script>
+<script type="text/javascript" src="../../assets/datePiker/js/persianDatepicker.min.js"></script>
 <script type="text/javascript">
     $("#date").persianDatepicker({formatDate: "YYYY/0M/0D"});
     $("#endTime").persianDatepicker({formatDate: "YYYY/0M/0D"});
 </script>
-<script src="../assets/ckeditor/ckeditor.js"></script>
-<script src="../assets/ckeditor/adapters/jquery.js"></script>
+<script src="../../assets/ckeditor/ckeditor.js"></script>
+<script src="../../assets/ckeditor/adapters/jquery.js"></script>
 <script>
     $(document).ready(function(){
         $('#editor1').ckeditor();

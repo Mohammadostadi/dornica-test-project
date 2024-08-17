@@ -18,24 +18,24 @@
                         </a>
                     </li>
                     <li class="nav-item dropdown dropdown-laungauge   d-sm-flex">
-                        <a class="nav-link dropdown-toggle dropdown-toggle-nocaret" href="javascript:;" data-bs-toggle="dropdown"><img src="../assets/images/county/02.png" width="22" alt="">
+                        <a class="nav-link dropdown-toggle dropdown-toggle-nocaret" href="javascript:;" data-bs-toggle="dropdown"><img src="../../assets/images/county/02.png" width="22" alt="">
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end p-2">
-                            <li><a class="dropdown-item d-flex align-items-center py-2" href="javascript:;"><img src="../assets/images/county/01.png" width="20" alt=""><span class="ms-2">انگلیسی</span></a>
+                            <li><a class="dropdown-item d-flex align-items-center py-2" href="javascript:;"><img src="../../assets/images/county/01.png" width="20" alt=""><span class="ms-2">انگلیسی</span></a>
                             </li>
-                            <li><a class="dropdown-item d-flex align-items-center py-2" href="javascript:;"><img src="../assets/images/county/02.png" width="20" alt=""><span class="ms-2">کاتالان</span></a>
+                            <li><a class="dropdown-item d-flex align-items-center py-2" href="javascript:;"><img src="../../assets/images/county/02.png" width="20" alt=""><span class="ms-2">کاتالان</span></a>
                             </li>
-                            <li><a class="dropdown-item d-flex align-items-center py-2" href="javascript:;"><img src="../assets/images/county/03.png" width="20" alt=""><span class="ms-2">فرانسوی</span></a>
+                            <li><a class="dropdown-item d-flex align-items-center py-2" href="javascript:;"><img src="../../assets/images/county/03.png" width="20" alt=""><span class="ms-2">فرانسوی</span></a>
                             </li>
-                            <li><a class="dropdown-item d-flex align-items-center py-2" href="javascript:;"><img src="../assets/images/county/04.png" width="20" alt=""><span class="ms-2">بلیز</span></a>
+                            <li><a class="dropdown-item d-flex align-items-center py-2" href="javascript:;"><img src="../../assets/images/county/04.png" width="20" alt=""><span class="ms-2">بلیز</span></a>
                             </li>
-                            <li><a class="dropdown-item d-flex align-items-center py-2" href="javascript:;"><img src="../assets/images/county/05.png" width="20" alt=""><span class="ms-2">کلمبیا</span></a>
+                            <li><a class="dropdown-item d-flex align-items-center py-2" href="javascript:;"><img src="../../assets/images/county/05.png" width="20" alt=""><span class="ms-2">کلمبیا</span></a>
                             </li>
-                            <li><a class="dropdown-item d-flex align-items-center py-2" href="javascript:;"><img src="../assets/images/county/06.png" width="20" alt=""><span class="ms-2">اسپانیایی</span></a>
+                            <li><a class="dropdown-item d-flex align-items-center py-2" href="javascript:;"><img src="../../assets/images/county/06.png" width="20" alt=""><span class="ms-2">اسپانیایی</span></a>
                             </li>
-                            <li><a class="dropdown-item d-flex align-items-center py-2" href="javascript:;"><img src="../assets/images/county/07.png" width="20" alt=""><span class="ms-2">گرجی</span></a>
+                            <li><a class="dropdown-item d-flex align-items-center py-2" href="javascript:;"><img src="../../assets/images/county/07.png" width="20" alt=""><span class="ms-2">گرجی</span></a>
                             </li>
-                            <li><a class="dropdown-item d-flex align-items-center py-2" href="javascript:;"><img src="../assets/images/county/08.png" width="20" alt=""><span class="ms-2">هندی</span></a>
+                            <li><a class="dropdown-item d-flex align-items-center py-2" href="javascript:;"><img src="../../assets/images/county/08.png" width="20" alt=""><span class="ms-2">هندی</span></a>
                             </li>
                         </ul>
                     </li>
@@ -161,7 +161,7 @@
                             <div class="header-message-list p-2">
                                 <a class="dropdown-item" href="#">
                                     <div class="d-flex align-items-center">
-                                        <img src="../assets/images/avatars/avatar-1.png" alt="" class="rounded-circle" width="50" height="50">
+                                        <img src="../../assets/images/avatars/avatar-1.png" alt="" class="rounded-circle" width="50" height="50">
                                         <div class="ms-3 flex-grow-1">
                                             <h6 class="mb-0 dropdown-msg-user">آملیو جولی <span class="msg-time float-end text-secondary">1 ساعت</span></h6>
                                             <small class="mb-0 dropdown-msg-text text-secondary d-flex align-items-center">لورم ایپسوم...</small>
@@ -170,7 +170,7 @@
                                 </a>
                                 <a class="dropdown-item" href="#">
                                     <div class="d-flex align-items-center">
-                                        <img src="../assets/images/avatars/avatar-2.png" alt="" class="rounded-circle" width="50" height="50">
+                                        <img src="../../assets/images/avatars/avatar-2.png" alt="" class="rounded-circle" width="50" height="50">
                                         <div class="ms-3 flex-grow-1">
                                             <h6 class="mb-0 dropdown-msg-user">آلته کاباردو <span class="msg-time float-end text-secondary">7 ساعت</span></h6>
                                             <small class="mb-0 dropdown-msg-text text-secondary d-flex align-items-center">لورم ایپسوم...</small>
@@ -179,7 +179,7 @@
                                 </a>
                                 <a class="dropdown-item" href="#">
                                     <div class="d-flex align-items-center">
-                                        <img src="../assets/images/avatars/avatar-3.png" alt="" class="rounded-circle" width="50" height="50">
+                                        <img src="../../assets/images/avatars/avatar-3.png" alt="" class="rounded-circle" width="50" height="50">
                                         <div class="ms-3 flex-grow-1">
                                             <h6 class="mb-0 dropdown-msg-user">کاترین پچون <span class="msg-time float-end text-secondary">2 ساعت</span></h6>
                                             <small class="mb-0 dropdown-msg-text text-secondary d-flex align-items-center">لورم ایپسوم...</small>
@@ -188,7 +188,7 @@
                                 </a>
                                 <a class="dropdown-item" href="#">
                                     <div class="d-flex align-items-center">
-                                        <img src="../assets/images/avatars/avatar-4.png" alt="" class="rounded-circle" width="50" height="50">
+                                        <img src="../../assets/images/avatars/avatar-4.png" alt="" class="rounded-circle" width="50" height="50">
                                         <div class="ms-3 flex-grow-1">
                                             <h6 class="mb-0 dropdown-msg-user">پیتر کوستانزو <span class="msg-time float-end text-secondary">3 ساعت</span></h6>
                                             <small class="mb-0 dropdown-msg-text text-secondary d-flex align-items-center">لورم ایپسوم...</small>
@@ -197,7 +197,7 @@
                                 </a>
                                 <a class="dropdown-item" href="#">
                                     <div class="d-flex align-items-center">
-                                        <img src="../assets/images/avatars/avatar-5.png" alt="" class="rounded-circle" width="50" height="50">
+                                        <img src="../../assets/images/avatars/avatar-5.png" alt="" class="rounded-circle" width="50" height="50">
                                         <div class="ms-3 flex-grow-1">
                                             <h6 class="mb-0 dropdown-msg-user">توماس ویلر <span class="msg-time float-end text-secondary">1 روز</span></h6>
                                             <small class="mb-0 dropdown-msg-text text-secondary d-flex align-items-center">لورم ایپسوم...</small>
@@ -206,7 +206,7 @@
                                 </a>
                                 <a class="dropdown-item" href="#">
                                     <div class="d-flex align-items-center">
-                                        <img src="../assets/images/avatars/avatar-6.png" alt="" class="rounded-circle" width="50" height="50">
+                                        <img src="../../assets/images/avatars/avatar-6.png" alt="" class="rounded-circle" width="50" height="50">
                                         <div class="ms-3 flex-grow-1">
                                             <h6 class="mb-0 dropdown-msg-user">جانی سیتز <span class="msg-time float-end text-secondary">2 ماه</span></h6>
                                             <small class="mb-0 dropdown-msg-text text-secondary d-flex align-items-center">لورم ایپسوم...</small>
@@ -215,7 +215,7 @@
                                 </a>
                                 <a class="dropdown-item" href="#">
                                     <div class="d-flex align-items-center">
-                                        <img src="../assets/images/avatars/avatar-1.png" alt="" class="rounded-circle" width="50" height="50">
+                                        <img src="../../assets/images/avatars/avatar-1.png" alt="" class="rounded-circle" width="50" height="50">
                                         <div class="ms-3 flex-grow-1">
                                             <h6 class="mb-0 dropdown-msg-user">آملیو جولی <span class="msg-time float-end text-secondary">1 ساعت</span></h6>
                                             <small class="mb-0 dropdown-msg-text text-secondary d-flex align-items-center">لورم ایپسوم...</small>
@@ -224,7 +224,7 @@
                                 </a>
                                 <a class="dropdown-item" href="#">
                                     <div class="d-flex align-items-center">
-                                        <img src="../assets/images/avatars/avatar-2.png" alt="" class="rounded-circle" width="50" height="50">
+                                        <img src="../../assets/images/avatars/avatar-2.png" alt="" class="rounded-circle" width="50" height="50">
                                         <div class="ms-3 flex-grow-1">
                                             <h6 class="mb-0 dropdown-msg-user">آلته کاباردو <span class="msg-time float-end text-secondary">7 ساعت</span></h6>
                                             <small class="mb-0 dropdown-msg-text text-secondary d-flex align-items-center">لورم ایپسوم...</small>
@@ -233,7 +233,7 @@
                                 </a>
                                 <a class="dropdown-item" href="#">
                                     <div class="d-flex align-items-center">
-                                        <img src="../assets/images/avatars/avatar-3.png" alt="" class="rounded-circle" width="50" height="50">
+                                        <img src="../../assets/images/avatars/avatar-3.png" alt="" class="rounded-circle" width="50" height="50">
                                         <div class="ms-3 flex-grow-1">
                                             <h6 class="mb-0 dropdown-msg-user">کاترین پچون <span class="msg-time float-end text-secondary">2 ساعت</span></h6>
                                             <small class="mb-0 dropdown-msg-text text-secondary d-flex align-items-center">لورم ایپسوم...</small>
@@ -374,7 +374,7 @@
             <div class="dropdown dropdown-user-setting">
                 <a class="dropdown-toggle dropdown-toggle-nocaret" href="#" data-bs-toggle="dropdown">
                     <div class="user-setting d-flex align-items-center gap-3">
-                        <img src="../assets/images/avatars/avatar-1.png" class="user-img" alt="">
+                        <img src="../../assets/images/avatars/avatar-1.png" class="user-img" alt="">
                         <div class="  d-sm-block">
                             <p class="user-name mb-0">جان دیو</p>
                             <small class="mb-0 dropdown-user-designation">مدیریت منابع انسانی</small>

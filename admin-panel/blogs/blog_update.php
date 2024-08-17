@@ -1,5 +1,5 @@
 <?php
-    require_once('../app/loader.php');
+    require_once('../../app/loader.php');
     $categoryList = $db->where('status', 1)
     ->orderBy('name', 'ASC')
     ->get('blog_category', null, 'name, id');
@@ -17,7 +17,7 @@
         if(isset($_POST['check'])){
             $checkList = $_POST['check'];
         }
-        $picture = $validator->imageUpdate('../assets/images/blogs/', $_FILES["fileToUpload"], 'fileToUpload', $blog['image']);
+        $picture = $validator->imageUpdate('../../assets/images/blogs/', $_FILES["fileToUpload"], 'fileToUpload', $blog['image']);
         $validator->empty($title, 'title', 'فیلد عنوان شما نباید خالی باشد');
         $validator->empty($writer, 'writer', 'فیلد نویسنده شما نباید خالی باشد');
         if(!isset($_POST['category'])){
@@ -28,8 +28,8 @@
         // Check if $uploadOk is set to 0 by an validator
         if ($validator->count_error() == 0) {
             // if everything is ok, try to upload file
+            array_map('unlink', glob("../../assets/images/upload/*.*"));
             if (isset($picture)) {
-                array_map('unlink', glob("../assets/images/upload/*.*"));
                 $db->where('id', $id)
                 ->update('blogs', [
                     'title'=>$title,
@@ -68,7 +68,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <?php
-        require_once('../layout/css.php');
+        require_once('../../layout/css.php');
     ?>
 
     <title>آپدیت کردن بلاگ</title>
@@ -78,8 +78,8 @@
 
 <main class="page-content">
 <?php
-        require_once('../layout/header.php');
-        require_once('../layout/asidebar.php');
+        require_once('../../layout/header.php');
+        require_once('../../layout/asidebar.php');
     ?>
     <!--start wrapper-->
     <div class="wrapper container my-5">
@@ -135,7 +135,7 @@
                                             <label class="form-label">تصویر</label>
                                             <div class="row">
                                             <div class="col-12 text-center bg-light my-3 rounded preview">
-                                                <img src="../<?= $blog['image']?>" class="rounded-circle shadow m-3" id="img" width="100" height="100" alt="">
+                                                <img src="../../<?= $blog['image']?>" class="rounded-circle shadow m-3" id="img" width="100" height="100" alt="">
                                             </div>
                                             <div class="col-12">
                                                 <input type="file" class="form-control" aria-label="file example" id="fileToUpload" name="fileToUpload">
@@ -180,16 +180,16 @@
 
 
 <?php
-        require_once('../layout/js.php');
+        require_once('../../layout/js.php');
     ?>
-    <script src="../assets/ckeditor/ckeditor.js"></script>
-    <script src="../assets/ckeditor/adapters/jquery.js"></script>
+    <script src="../../assets/ckeditor/ckeditor.js"></script>
+    <script src="../../assets/ckeditor/adapters/jquery.js"></script>
     <script>
         $(document).ready(function(){
             $('#full_description').ckeditor();
         });
     </script>
-    <?php require_once('../layout/update_image.php') ?>
+    <?php require_once('../../layout/update_image.php') ?>
 </body>
 
 

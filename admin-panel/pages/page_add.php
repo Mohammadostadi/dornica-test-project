@@ -1,5 +1,5 @@
 <?php
-require_once('../app/loader.php');
+require_once('../../app/loader.php');
 $validator = new validator();
     if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_REQUEST['_insert'])){
         $name = securityCheck($_REQUEST['name']);
@@ -33,7 +33,7 @@ $validator = new validator();
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <?php
-        require_once('../layout/css.php');
+        require_once('../../layout/css.php');
     ?>
 
     <title>اضافه کردن صفحات</title>
@@ -43,8 +43,8 @@ $validator = new validator();
 
 <main class="page-content">
 <?php
-        require_once('../layout/header.php');
-        require_once('../layout/asidebar.php');
+        require_once('../../layout/header.php');
+        require_once('../../layout/asidebar.php');
     ?>
     <!--start wrapper-->
     <div class="wrapper container my-5">
@@ -75,7 +75,7 @@ $validator = new validator();
                                             <label class="form-label">توضیحات</label>
                                             <textarea class="form-control" id="editor1" rows="3" placeholder="توضیحات" name="description"><?= checkExist('description') ?></textarea>
                                         </div>
-                                        <div class="col-12 justify-content-end">
+                                        <div class="col-12 d-flex justify-content-end">
                                             <div class="row">
                                                 <div class="col-6">
                                                     <div class="d-grid">
@@ -101,10 +101,10 @@ $validator = new validator();
 </main>
 
 <?php
-        require_once('../layout/js.php');
+        require_once('../../layout/js.php');
     ?>
-    <script src="../assets/ckeditor/ckeditor.js"></script>
-    <script src="../assets/ckeditor/adapters/jquery.js"></script>
+    <script src="../../assets/ckeditor/ckeditor.js"></script>
+    <script src="../../assets/ckeditor/adapters/jquery.js"></script>
     <script>
         $(document).ready(function(){
             $('#editor1').ckeditor();

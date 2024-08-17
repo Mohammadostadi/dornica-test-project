@@ -1,5 +1,5 @@
 <?php
-    require_once('../app/loader.php');
+    require_once('../../app/loader.php');
     pageLimit('counter', 3, false);
      
     $col = ['members.fname AS member', 'ip', 'user_agent', 'date'];
@@ -20,7 +20,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <?php
-        require_once('../layout/css.php');
+        require_once('../../layout/css.php');
     ?>
 
     <title>آمار و بازدید</title>
@@ -33,13 +33,13 @@
 <div class="wrapper">
     <!--start top header-->
     <?php
-        require_once('../layout/header.php'); 
+        require_once('../../layout/header.php'); 
     ?>
     <!--end top header-->
 
     <!--start sidebar -->
     <?php
-        require_once('../layout/asidebar.php'); 
+        require_once('../../layout/asidebar.php'); 
     ?>
     <!--end sidebar -->
 
@@ -104,12 +104,7 @@
                         </tbody>
                                     </table>
                                 </div>
-                                <nav class="float-end mt-0" aria-label="Page navigation">
-                                    <ul class="pagination">
-                                        <li class="page-item disabled"><a class="page-link" href="#">قبلی</a></li>
                                         <?php pagination($page, $pages); ?>
-                                    </ul>
-                                </nav>
                             </div>
                         </div>
                     </div>
@@ -121,14 +116,14 @@
 
 
     <?php
-            require_once('../layout/footer.php');
+            require_once('../../layout/footer.php');
         ?>
 
 </div>
 <!--end wrapper-->
 
 <?php
-        require_once('../layout/js.php');
+        require_once('../../layout/js.php');
     ?>
 
 </body>

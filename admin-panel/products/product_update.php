@@ -1,6 +1,6 @@
 <?php
 
-require_once('../app/loader.php');
+require_once('../../app/loader.php');
 $validator = new validator();
 
 $id = securityCheck($_REQUEST['id']);
@@ -21,7 +21,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
     $endTime = securityCheck($_REQUEST['endTime']);
     $special = intval(str_replace(',', '', (securityCheck($_REQUEST['special']))));
     $qty = intval(str_replace(',', '', (securityCheck($_REQUEST['qty']))));
-    $picture = $validator->imageUpdate("../assets/images/products/", $_FILES["fileToUpload"], 'fileToUpload', $products['image']);
+    $picture = $validator->imageUpdate("../../assets/images/products/", $_FILES["fileToUpload"], 'fileToUpload', $products['image']);
     if($special != 0 and !empty($price) and $special != $products['special']){
         $oldPrice = $price;
         $price = $price -  ($price*($special/100));
@@ -52,8 +52,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
     }
     
     if ($validator->count_error() == 0) {
+        array_map('unlink', glob("../../assets/images/upload/*.*"));
         if (isset($picture)) {
-            array_map('unlink', glob("../assets/images/upload/*.*"));
             $db->where('id', $id)
             ->update('products', [
                 'name'=>$product,
@@ -103,10 +103,10 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
 
 
     <?php
-        require_once('../layout/css.php');
+        require_once('../../layout/css.php');
     ?>
     
-    <link type="text/css" rel="stylesheet" href="../assets/datePiker/css/persianDatepicker-default.css" />
+    <link type="text/css" rel="stylesheet" href="../../assets/datePiker/css/persianDatepicker-default.css" />
 
     <title>آپدیت کردن محصول</title>
 </head>
@@ -115,8 +115,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
 
 <main class="page-content">
 <?php
-        require_once('../layout/header.php');
-        require_once('../layout/asidebar.php');
+        require_once('../../layout/header.php');
+        require_once('../../layout/asidebar.php');
     ?>
     <!--start wrapper-->
     <div class="wrapper container my-5">
@@ -208,7 +208,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
                                             <label class="form-label">تصویر</label>
                                             <div class="row">
                                             <div class="col-12 text-center bg-light my-3 rounded preview">
-                                                <img src="../<?= $products['image']?>" class="rounded-circle shadow m-3" id="img" width="100" height="100" alt="">
+                                                <img src="../../<?= $products['image']?>" class="rounded-circle shadow m-3" id="img" width="100" height="100" alt="">
                                             </div>
                                             <div class="col-12">
                                                 <input type="file" class="form-control" aria-label="file example" id="fileToUpload" name="fileToUpload">
@@ -252,25 +252,25 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
 
 
 <?php
-        require_once('../layout/js.php');
+        require_once('../../layout/js.php');
         separator('#price');
         separator('#qty');
         separator('#special');;
     ?>
 
-<script type="text/javascript" src="../assets/datePiker/js/persianDatepicker.min.js"></script>
+<script type="text/javascript" src="../../assets/datePiker/js/persianDatepicker.min.js"></script>
 <script type="text/javascript">
     $("#date").persianDatepicker({formatDate: "YYYY/0M/0D"});
     $("#endTime").persianDatepicker({formatDate: "YYYY/0M/0D"});
 </script>
-<script src="../assets/ckeditor/ckeditor.js"></script>
-<script src="../assets/ckeditor/adapters/jquery.js"></script>
+<script src="../../assets/ckeditor/ckeditor.js"></script>
+<script src="../../assets/ckeditor/adapters/jquery.js"></script>
 <script>
     $(document).ready(function(){
         $('#editor1').ckeditor();
     });
 </script>
-<?php require_once('../layout/update_image.php') ?>
+<?php require_once('../../layout/update_image.php') ?>
 </body>
 
 <!-- Mirrored from codetheme.ir/onedash/demo/rtl/form-layouts.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 31 May 2024 08:56:22 GMT -->

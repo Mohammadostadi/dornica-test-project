@@ -1,5 +1,4 @@
 <?php
-// require_once('../Model/DB.php');
 function securityCheck($data)
 {
     return htmlspecialchars(trim($data));
@@ -111,7 +110,7 @@ function pageLimit($tableName, $limit, $soft = true, $condition = null)
     if (isset($_GET['page'])) {
         $page = securityCheck($_GET['page']);
         if (is_numeric($page) != 1 or $page < 0) {
-            redirect('../error/error-404.php');
+            redirect('../../error/error-404.php');
         }
         // if($page > $pages or $page < 0 ){
         //     redirect('../error/error-404.php');

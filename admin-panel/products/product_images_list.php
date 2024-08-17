@@ -1,6 +1,6 @@
 <?php
     $prefix = 'products_image';
-    require_once('../app/loader.php');
+    require_once('../../app/loader.php');
     sortInTable($prefix, 'product_images_list', 'page');
     $col = ['products_image.id' , 'name', 'title', 'products_image.image', 'products_image.status'];
     $filter = new Filter('products_image', 'product_image_filter');
@@ -27,7 +27,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <?php
-        require_once('../layout/css.php');
+        require_once('../../layout/css.php');
     ?>
 
     <title>لیست تصاویر محصول</title>
@@ -41,20 +41,20 @@
 <div class="wrapper">
     <!--start top header-->
     <?php
-        require_once('../layout/header.php'); 
+        require_once('../../layout/header.php'); 
     ?>
     <!--end top header-->
 
     <!--start sidebar -->
     <?php
-        require_once('../layout/asidebar.php'); 
+        require_once('../../layout/asidebar.php'); 
     ?>
     <!--end sidebar -->
 
     <!--start content-->
     <main class="page-content">
     <?php
-            require_once('../layout/message.php');
+            require_once('../../layout/message.php');
         ?>
         <!--breadcrumb-->
         <div class="page-breadcrumb   d-sm-flex align-items-center mb-3">
@@ -87,7 +87,7 @@
                         <div class="card border shadow-none w-100">
                             <div class="card-body">
                             <div class="card-header">
-                                <div id="<?= (isset($_SESSION['product_image_filter']['product_image']) and !empty($_SESSION['product_image_filter']['product_image']))?"":"filter-row"?>" >
+                                <div id="<?= (isset($_SESSION['product_image_filter']['product_image']) and !empty($_SESSION['product_image_filter']['product_image']))?"":"filter-row"?>" class="<?= (isset($_SESSION['product_image_filter']['product_image']) and !empty($_SESSION['product_image_filter']['product_image']))?"":"d-none"?>">
                                     <form class=" d-flex justify-content-around align-content-start" id="form" action="product_images_list.php?page=1" method="post" >
                                         <div class="row g-3">
                                             <div class="col-lg-2 col-md-4" > <input class="col form-control" type="text" value="<?= $filter->is_exist('products_name') ?>" name="products_name" placeholder="نام محصول" > </div>
@@ -132,7 +132,7 @@
                                                 <td><?= $pimage['name'] ?></td>
                                                 <td><?= $pimage['title'] ?></td>
                                                 <td>
-                                                    <img src="../<?= $pimage['image'] ?>" alt="" class="rounded" width="60px">
+                                                    <img src="../../<?= $pimage['image'] ?>" alt="" class="rounded" width="60px">
                                                 </td>
                                                 <td>
                                                     <?= status('active', $pimage['status']); ?>
@@ -162,7 +162,7 @@
 
 
     <?php
-        require_once('../layout/footer.php');
+        require_once('../../layout/footer.php');
     ?>
 
 </div>
@@ -171,17 +171,9 @@
     const path = 'product_image_delete.php'
 </script>
 <?php
-        require_once('../layout/js.php');
+        require_once('../../layout/js.php');
     ?>
 
-<script>
-    $(document).ready(function() {
-    $("#filter-row").hide();
-    $('#_filter').click(function(){
-                $('#filter-row').toggle(400);
-            });
-    });
-</script>
 
 </body>
 

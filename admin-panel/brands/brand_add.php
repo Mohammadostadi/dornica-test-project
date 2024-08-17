@@ -1,12 +1,12 @@
 <?php
 
-require_once('../app/loader.php');
+require_once('../../app/loader.php');
 
 $validator = new validator();
 
 if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
     $title = securityCheck($_REQUEST['name']);
-    $picture = $validator->imageCheck("../assets/images/logo/", $_FILES["fileToUpload"], 'fileToUpload');
+    $picture = $validator->imageCheck("../../assets/images/logo/", $_FILES["fileToUpload"], 'fileToUpload');
     if ($validator->count_error() == 0) {
             $db->insert('brand', [
                 'name'=>$title,
@@ -29,7 +29,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <?php
-        require_once('../layout/css.php');
+        require_once('../../layout/css.php');
     ?>
 
     <title>اضافه کردن برند</title>
@@ -38,8 +38,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
 <body>
     <main class="page-content">
     <?php
-        require_once('../layout/header.php');
-        require_once('../layout/asidebar.php');
+        require_once('../../layout/header.php');
+        require_once('../../layout/asidebar.php');
     ?>
         <div class="wrapper container my-5">
             <!--start content-->
@@ -90,7 +90,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
     </main>
 
     <?php
-        require_once('../layout/js.php');
+        require_once('../../layout/js.php');
     ?>
 </body>
 

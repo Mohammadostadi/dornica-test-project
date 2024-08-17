@@ -1,6 +1,6 @@
 <?php
 
-require_once('../app/loader.php');
+require_once('../../app/loader.php');
 
 $validator = new validator();
 $productList = $db->where('status', 1)
@@ -15,14 +15,14 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
     if(isset($_POST['check'])){
         $checkList = $_POST['check'];
     }
-    $picture = $validator->imageUpdate("../assets/images/products/", $_FILES["fileToUpload"], "fileToUpload", $productImage['image']);
+    $picture = $validator->imageUpdate("../../assets/images/products/", $_FILES["fileToUpload"], "fileToUpload", $productImage['image']);
     $validator->empty($title, 'name', 'فیلد عنوان شما نباید خالی باشد');
     if(!isset($_POST['product'])){
         $validator->set('product', 'فیلد محصول شما نباید خالی باشد');
     }
     if ($validator->count_error() == 0) {
+        array_map('unlink', glob("../../assets/images/upload/*.*"));
         if (isset($picture)) {
-            array_map('unlink', glob("../assets/images/upload/*.*"));
             $db->where('id', $id)
             ->update('products_image', [
                 'title'=>$title,
@@ -54,7 +54,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <?php
-        require_once('../layout/css.php');
+        require_once('../../layout/css.php');
     ?>
     <title>بروزرسانی تصویر محصول</title>
 </head>
@@ -62,8 +62,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
 <body>
 <main class="page-content">
 <?php
-        require_once('../layout/header.php');
-        require_once('../layout/asidebar.php');
+        require_once('../../layout/header.php');
+        require_once('../../layout/asidebar.php');
     ?>
     <div class="wrapper container my-5">
         <!--start content-->
@@ -98,7 +98,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
                                         <label class="form-label">تصویر</label>
                                         <div class="row">
                                             <div class="col-12 text-center bg-light my-3 rounded preview">
-                                                <img src="../<?= $productImage['image']?>" class="rounded-circle shadow m-3" id="img" width="100" height="100" alt="">
+                                                <img src="../../<?= $productImage['image']?>" class="rounded-circle shadow m-3" id="img" width="100" height="100" alt="">
                                             </div>
                                             <div class="col-12">
                                                 <input type="file" class="form-control" aria-label="file example" id="fileToUpload" name="fileToUpload">
@@ -138,9 +138,9 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
 </main>
 
 <?php
-        require_once('../layout/js.php');
+        require_once('../../layout/js.php');
     ?>
-    <?php require_once('../layout/update_image.php') ?>
+    <?php require_once('../../layout/update_image.php') ?>
 </body>
 
 

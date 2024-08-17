@@ -1,24 +1,35 @@
 
 <!-- Bootstrap bundle JS -->
-<script  src="../assets/model/jquery.min.js"></script>
-<script  src="../assets/model/bootstrap.bundle.min.js"></script>
+<script  src="../../assets/model/jquery.min.js"></script>
+<script  src="../../assets/model/bootstrap.bundle.min.js"></script>
 <!-- <script src="../assets/js/bootstrap.bundle.min.js"></script> -->
 <!--plugins-->
 <!-- <script src="../assets/js/jquery.min.js"></script> -->
-<script  src="../assets/model/jquery.eModal.js"></script>
-<script  src="../assets/js/jquery.number.min.js"></script>
-<script  src="../assets/plugins/simplebar/js/simplebar.min.js"></script>
-<script  src="../assets/plugins/metismenu/js/metisMenu.min.js"></script>
-<script  src="../assets/plugins/perfect-scrollbar/js/perfect-scrollbar.js"></script>
-<script  src="../assets/js/pace.min.js"></script>
-<script  src="../assets/plugins/datatable/js/jquery.dataTables.min.js"></script>
-<script  src="../assets/plugins/datatable/js/dataTables.bootstrap5.min.js"></script>
-<script  src="../assets/js/table-datatable.js"></script>
+<script  src="../../assets/model/jquery.eModal.js"></script>
+<script  src="../../assets/js/jquery.number.min.js"></script>
+<script  src="../../assets/plugins/simplebar/js/simplebar.min.js"></script>
+<script  src="../../assets/plugins/metismenu/js/metisMenu.min.js"></script>
+<script  src="../../assets/plugins/perfect-scrollbar/js/perfect-scrollbar.js"></script>
+<script  src="../../assets/js/pace.min.js"></script>
+<script  src="../../assets/plugins/datatable/js/jquery.dataTables.min.js"></script>
+<script  src="../../assets/plugins/datatable/js/dataTables.bootstrap5.min.js"></script>
+<script  src="../../assets/js/table-datatable.js"></script>
 
 <!--app-->
-<script  src="../assets/js/app.js"></script>
+<script  src="../../assets/js/app.js"></script>
 
 
+<script>
+        $(document).ready(function () {
+            $("#filter-row").hide();
+            $('#_filter').click(function () {
+				if($('#filter-row').hasClass('d-none')){
+					$('#filter-row').removeClass('d-none');
+				}
+                $('#filter-row').toggle(400);
+            });
+        });
+</script>
 
 <script>
     $(document).ready(function(){

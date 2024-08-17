@@ -1,6 +1,6 @@
 <?php
 $prefix = 'ads';
-require_once ('../app/loader.php');
+require_once ('../../app/loader.php');
 sortInTable($prefix, 'ads_list', 'page');
 $filter = new Filter('ads', 'ads_filter');
 $data = [
@@ -25,7 +25,7 @@ $res = $db->orderBy($sortField, $sortOrder)
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <?php
-    require_once ('../layout/css.php');
+    require_once ('../../layout/css.php');
     ?>
 
     <title>لیست تبلیغات</title>
@@ -38,13 +38,13 @@ $res = $db->orderBy($sortField, $sortOrder)
     <div class="wrapper">
         <!--start top header-->
         <?php
-        require_once ('../layout/header.php');
+        require_once ('../../layout/header.php');
         ?>
         <!--end top header-->
 
         <!--start sidebar -->
         <?php
-        require_once ('../layout/asidebar.php');
+        require_once ('../../layout/asidebar.php');
         ?>
         <!--end sidebar -->
 
@@ -52,7 +52,7 @@ $res = $db->orderBy($sortField, $sortOrder)
         <main class="page-content">
 
             <?php
-            require_once ('../layout/message.php');
+            require_once ('../../layout/message.php');
             ?>
             <!--breadcrumb-->
             <div class="page-breadcrumb   d-sm-flex align-items-center mb-3">
@@ -85,8 +85,7 @@ $res = $db->orderBy($sortField, $sortOrder)
                             <div class="card border shadow-none w-100">
                                 <div class="card-body">
                                     <div class="card-header">
-                                        <div
-                                            id="<?= (isset($_SESSION['ads_filter']['ads']) and !empty($_SESSION['ads_filter']['ads'])) ? "" : "filter-row" ?>">
+                                        <div id="<?= (isset($_SESSION['ads_filter']['ads']) and !empty($_SESSION['ads_filter']['ads'])) ? "" : "filter-row" ?>" class="<?= (isset($_SESSION['ads_filter']['ads']) and !empty($_SESSION['ads_filter']['ads'])) ? "" : "d-none" ?>">
                                             <form class="" id="form" action="ads_list.php?page=1" method="post">
                                                 <div class="row g-3">
                                                     <div class="col-lg-2 col-md-4"> <input class="col form-control"
@@ -139,7 +138,7 @@ $res = $db->orderBy($sortField, $sortOrder)
                                                         </td>
                                                         <td><?= $ad['title'] ?></td>
                                                         <td class="text-center">
-                                                            <img src="../<?= $ad['image'] ?>" alt="" width="40px"
+                                                            <img src="../../<?= $ad['image'] ?>" alt="" width="40px"
                                                                 class="rounded text-center">
                                                         </td>
                                                         <td><?= $ad['sort'] ?></td>
@@ -177,7 +176,7 @@ $res = $db->orderBy($sortField, $sortOrder)
 
 
         <?php
-        require_once ('../layout/footer.php');
+        require_once ('../../layout/footer.php');
         ?>
     </div>
     <!--end wrapper-->
@@ -187,16 +186,8 @@ $res = $db->orderBy($sortField, $sortOrder)
 
     <?php
 
-    require_once ('../layout/js.php');
+    require_once ('../../layout/js.php');
     ?>
-    <script>
-        $(document).ready(function () {
-            $("#filter-row").hide();
-            $('#_filter').click(function () {
-                $('#filter-row').toggle(400);
-            });
-        });
-    </script>
 </body>
 
 

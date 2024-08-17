@@ -1,6 +1,6 @@
 <?php
 
-require_once('../app/loader.php');
+require_once('../../app/loader.php');
 
 $validator = new validator();
 $id = $_REQUEST['id'];
@@ -14,26 +14,28 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
         $check = $_POST['check'];
     }
     $checkImage = $_FILES['fileToUpload']['name'];
-    $picture = $validator->imageUpdate("../assets/images/logo/", $_FILES["fileToUpload"], 'fileToUpload', $brand['logo']);
+    $picture = $validator->imageUpdate("../../assets/images/logo/", $_FILES["fileToUpload"], 'fileToUpload', $brand['logo']);
     $validator->empty($title, 'name', 'فیلد عنوان نمیتواند خالی باشد');
     if ($validator->count_error() == 0) {
-    if(!empty($checkImage)){
-        array_map('unlink', glob("../assets/images/upload/*.*"));
-        $db->where('id', $id)
-            ->update('brand', [
-            'name'=>$title,
-            'logo'=>$picture,
-            'status'=>isset($check)?1:0
-        ]);
-        redirect('brands_list.php', 2);
+        if ($validator->count_error() == 0) {
+        array_map('unlink', glob("../../assets/images/upload/*.*"));
+        if(!empty($checkImage)){
+            $db->where('id', $id)
+                ->update('brand', [
+                'name'=>$title,
+                'logo'=>$picture,
+                'status'=>isset($check)?1:0
+            ]);
+            redirect('brands_list.php', 2);
+        }
+        
+            $db->where('id', $id)
+                ->update('brand', [
+                'name'=>$title,
+                'status'=>isset($check)?1:0
+            ]);
+            redirect('brands_list.php', 2);
     }
-    
-        $db->where('id', $id)
-            ->update('brand', [
-            'name'=>$title,
-            'status'=>isset($check)?1:0
-        ]);
-        redirect('brands_list.php', 2);
     }
 }
 ?>
@@ -49,7 +51,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <?php
-        require_once('../layout/css.php');
+        require_once('../../layout/css.php');
     ?>
 
     <title>آپدیت کردن برند</title>
@@ -58,8 +60,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
 <body>
 <main class="page-content">
 <?php
-        require_once('../layout/header.php');
-        require_once('../layout/asidebar.php');
+        require_once('../../layout/header.php');
+        require_once('../../layout/asidebar.php');
     ?>
     <div class="wrapper container my-5">
         <!--start content-->
@@ -81,7 +83,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
                                         <label class="form-label">تصویر</label>
                                         <div class="row">
                                             <div class="col-12 text-center bg-light my-3 rounded preview">
-                                                <img src="../<?= $brand['logo']?>" class="rounded-circle shadow m-3" id="img" width="100" height="100" alt="">
+                                                <img src="../../<?= $brand['logo']?>" class="rounded-circle shadow m-3" id="img" width="100" height="100" alt="">
                                             </div>
                                             <div class="col-12">
                                                 <input type="file" class="form-control" aria-label="file example" id="fileToUpload" name="fileToUpload">
@@ -122,9 +124,9 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
     </div>
 </main>
 <?php
-        require_once('../layout/js.php');
+        require_once('../../layout/js.php');
     ?>
-    <?php require_once('../layout/update_image.php') ?>
+    <?php require_once('../../layout/update_image.php') ?>
 </body>
 
 

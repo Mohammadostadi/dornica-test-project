@@ -1,6 +1,6 @@
 <?php
     $prefix = 'comment';
-    require_once('../app/loader.php');
+    require_once('../../app/loader.php');
     sortInTable($prefix, 'comments_list', 'page');
     $col = ['products.name AS product', 'comment.name', 'comment.subject', 'comment.description', 'ip', 'comment.email', 'comment.status', 'rate', 'comment.setdate'];
     
@@ -28,7 +28,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <?php
-        require_once('../layout/css.php');
+        require_once('../../layout/css.php');
     ?>
 
     <title>لیست کامنت ها</title>
@@ -41,13 +41,13 @@
 <div class="wrapper">
     <!--start top header-->
     <?php
-        require_once('../layout/header.php'); 
+        require_once('../../layout/header.php'); 
     ?>
     <!--end top header-->
 
     <!--start sidebar -->
     <?php
-        require_once('../layout/asidebar.php'); 
+        require_once('../../layout/asidebar.php'); 
     ?>
     <!--end sidebar -->
 
@@ -83,7 +83,7 @@
                         <div class="card border shadow-none w-100">
                             <div class="card-body">
                             <div class="card-header">
-                                <div id="<?= (isset($_SESSION['comment_filter']['comment']) and !empty($_SESSION['comment_filter']['comment']))?"":"filter-row"?>" >
+                                <div id="<?= (isset($_SESSION['comment_filter']['comment']) and !empty($_SESSION['comment_filter']['comment']))?"":"filter-row"?>" class="<?= (isset($_SESSION['comment_filter']['comment']) and !empty($_SESSION['comment_filter']['comment']))?"":"d-none"?>">
                                     <form class=" d-flex justify-content-around align-content-start" id="form" action="comments_list.php?page=1" method="post" >
                                         <div class="row g-3">
                                     <div class="col-lg-2 col-md-4" > <input class="col form-control" type="text" value="<?= isset($_SESSION['comment_filter']['products_name'])?$_SESSION['comment_filter']['products_name']:"" ?>" name="products_name" placeholder="محصول" > </div>
@@ -169,23 +169,15 @@
     <!--end page main-->
 
     <?php
-            require_once('../layout/footer.php');
+            require_once('../../layout/footer.php');
         ?>
 
 </div>
 <!--end wrapper-->
 
 <?php
-        require_once('../layout/js.php');
+        require_once('../../layout/js.php');
     ?>
-<script>
-    $(document).ready(function() {
-    $("#filter-row").hide();
-    $('#_filter').click(function(){
-                $('#filter-row').toggle(400);
-            });
-    });
-</script>
 </body>
 
 

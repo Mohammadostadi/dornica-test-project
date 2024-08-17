@@ -1,6 +1,6 @@
 <?php
     $prefix ='faq';
-    require_once('../app/loader.php');
+    require_once('../../app/loader.php');
     sortInTable($prefix, 'faqs_list', 'page');
     $filter = new Filter('faq', 'faq_filter');
     $data = [
@@ -24,7 +24,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <?php
-        require_once('../layout/css.php');
+        require_once('../../layout/css.php');
     ?>
 
     <title>لیست سوال</title>
@@ -38,13 +38,13 @@
 <div class="wrapper">
     <!--start top header-->
     <?php
-        require_once('../layout/header.php'); 
+        require_once('../../layout/header.php'); 
     ?>
     <!--end top header-->
 
     <!--start sidebar -->
     <?php
-        require_once('../layout/asidebar.php'); 
+        require_once('../../layout/asidebar.php'); 
     ?>
     <!--end sidebar -->
 
@@ -52,7 +52,7 @@
     <main class="page-content">
 
     <?php
-            require_once('../layout/message.php');
+            require_once('../../layout/message.php');
         ?>
         <!--breadcrumb-->
         <div class="page-breadcrumb   d-sm-flex align-items-center mb-3">
@@ -85,7 +85,7 @@
                         <div class="card border shadow-none w-100">
                             <div class="card-body">
                             <div class="card-header">
-                                <div id="<?= (isset($_SESSION['faq_filter']['faq']) and !empty($_SESSION['faq_filter']['faq']))?"":"filter-row"?>" >
+                                <div id="<?= (isset($_SESSION['faq_filter']['faq']) and !empty($_SESSION['faq_filter']['faq']))?"":"filter-row"?>" class="<?= (isset($_SESSION['faq_filter']['faq']) and !empty($_SESSION['faq_filter']['faq']))?"":"d-none"?>">
                                     <form class="" id="form" action="faqs_list.php?page=1" method="post" >
                                         <div class="row g-3">
                                     <div class="col-lg-2 col-md-4" > <input class="col form-control" type="text" value="<?= isset($_SESSION['faq_filter']['title'])?$_SESSION['faq_filter']['title']:"" ?>" name="title" placeholder="عنوان" > </div>
@@ -155,7 +155,7 @@
 
 
     <?php
-            require_once('../layout/footer.php');
+            require_once('../../layout/footer.php');
         ?>
 
 </div>
@@ -164,16 +164,8 @@
     const path = 'faq_delete.php'
 </script>
 <?php
-        require_once('../layout/js.php');
+        require_once('../../layout/js.php');
     ?>
-<script>
-    $(document).ready(function() {
-    $("#filter-row").hide();
-    $('#_filter').click(function(){
-                $('#filter-row').toggle(400);
-            });
-    });
-</script>
 
 </body>
 

@@ -1,6 +1,6 @@
 <?php
     $prefix = 'teams';
-    require_once('../app/loader.php');
+    require_once('../../app/loader.php');
     sortInTable($prefix, 'teams_list', 'page');
     $filter = new Filter('teams', 'team_filter');
     $data = [
@@ -28,7 +28,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <?php
-        require_once('../layout/css.php');
+        require_once('../../layout/css.php');
     ?>
     <title>لیست تیم</title>
 
@@ -41,13 +41,13 @@
 <div class="wrapper">
     <!--start top header-->
     <?php
-        require_once('../layout/header.php'); 
+        require_once('../../layout/header.php'); 
     ?>
     <!--end top header-->
 
     <!--start sidebar -->
     <?php
-        require_once('../layout/asidebar.php'); 
+        require_once('../../layout/asidebar.php'); 
     ?>
     <!--end sidebar -->
 
@@ -55,7 +55,7 @@
     <main class="page-content">
 
     <?php
-            require_once('../layout/message.php');
+            require_once('../../layout/message.php');
         ?>
         <!--breadcrumb-->
         <div class="page-breadcrumb   d-sm-flex align-items-center mb-3">
@@ -88,7 +88,7 @@
                         <div class="card border shadow-none w-100">
                             <div class="card-body">
                             <div class="card-header">
-                                <div id="<?= (isset($_SESSION['team_filter']['team']) and !empty($_SESSION['team_filter']['team']))?"":"filter-row"?>" >
+                                <div id="<?= (isset($_SESSION['team_filter']['team']) and !empty($_SESSION['team_filter']['team']))?"":"filter-row"?>" class="<?= (isset($_SESSION['team_filter']['team']) and !empty($_SESSION['team_filter']['team']))?"":"d-none"?>">
                                     <form class=" d-flex justify-content-around align-content-start" id="form" action="teams_list.php?page=1" method="post" >
                                         <div class="row g-3">
                                     <div class="col-lg-2 col-md-4" > <input class="col form-control" type="text" value="<?= isset($_SESSION['team_filter']['first_name'])?$_SESSION['team_filter']['first_name']:"" ?>" name="first_name" placeholder="نام" > </div>
@@ -133,7 +133,7 @@
                                                 <td><?= $team['id'] ?></td>
                                                 <td>
                                                     <div class="product-box">
-                                                        <img src="../<?= $team['image'] ?>" alt="" class="rounded-circle" width="80px">
+                                                        <img src="../../<?= $team['image'] ?>" alt="" class="rounded-circle" width="80px">
                                                     </div>
                                                 </td>
                                                 <td><?= $team['first_name'].' '.$team['last_name']  ?></td>
@@ -169,7 +169,7 @@
 
 
     <?php
-            require_once('../layout/footer.php');
+            require_once('../../layout/footer.php');
         ?>
 </div>
 <!--end wrapper-->
@@ -177,16 +177,8 @@
     const path = 'team_delete.php'
 </script>
 <?php
-        require_once('../layout/js.php');
+        require_once('../../layout/js.php');
     ?>
-<script>
-    $(document).ready(function() {
-    $("#filter-row").hide();
-    $('#_filter').click(function(){
-                $('#filter-row').toggle(400);
-            });
-    });
-</script>
 </body>
 
 

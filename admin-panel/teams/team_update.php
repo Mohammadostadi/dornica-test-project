@@ -1,6 +1,6 @@
 <?php
 
-require_once('../app/loader.php');
+require_once('../../app/loader.php');
 $validator = new validator();
 $id = securityCheck($_REQUEST['id']);
 $team = $db->where('id', $id)
@@ -14,7 +14,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
     $whatsapp = securityCheck($_REQUEST['whatsapp']);
     $telegram = securityCheck($_REQUEST['telegram']);
     $sort = securityCheck($_REQUEST['sort']);
-    $picture = $validator->imageUpdate("../assets/images/team/", $_FILES["fileToUpload"], "fileToUpload", $team['image']);
+    $picture = $validator->imageUpdate("../../assets/images/team/", $_FILES["fileToUpload"], "fileToUpload", $team['image']);
     if(isset($_POST['check'])){
             $checkList = $_POST['check'];
         }
@@ -25,8 +25,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
         $validator->empty($email, 'email', 'فیلد ایمیل شما نباید خالی باشد');
         $validator->existValue('teams', 'email', $email, 'ایمیل شما قبلا وارد شده است', $team['email']);
     if ($validator->count_error() == 0) {
+        array_map('unlink', glob("../../assets/images/upload/*.*"));
         if (isset($picture)) {
-            array_map('unlink', glob("../assets/images/upload/*.*"));
             $db->where('id', $id)
             ->update('teams', [
                 'first_name'=>$fname,
@@ -74,7 +74,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
 
 
     <?php
-        require_once('../layout/css.php');
+        require_once('../../layout/css.php');
     ?>
 
     <title>آپدیت کردن تیم</title>
@@ -84,8 +84,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
 
 <main class="page-content">
 <?php 
-        require_once('../layout/header.php');
-        require_once('../layout/asidebar.php');
+        require_once('../../layout/header.php');
+        require_once('../../layout/asidebar.php');
     ?>
     <!--start wrapper-->
     <div class="wrapper container my-5">
@@ -163,7 +163,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
                                             <label class="form-label">تصویر</label>
                                             <div class="row">
                                             <div class="col-12 text-center bg-light my-3 rounded preview">
-                                                <img src="../<?= $team['image']?>" class="rounded-circle shadow m-3" id="img" width="100" height="100" alt="">
+                                                <img src="../../<?= $team['image']?>" class="rounded-circle shadow m-3" id="img" width="100" height="100" alt="">
                                             </div>
                                             <div class="col-12">
                                                 <input type="file" class="form-control" aria-label="file example" id="fileToUpload" name="fileToUpload">
@@ -206,9 +206,9 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
 </main>
 
 <?php 
-        require_once('../layout/js.php');
+        require_once('../../layout/js.php');
     ?>
-    <?php require_once('../layout/update_image.php') ?>
+    <?php require_once('../../layout/update_image.php') ?>
 </body>
 
 <!-- Mirrored from codetheme.ir/onedash/demo/rtl/form-layouts.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 31 May 2024 08:56:22 GMT -->

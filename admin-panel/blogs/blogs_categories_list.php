@@ -1,6 +1,6 @@
 <?php
     $prefix = 'blog_category';
-    require_once('../app/loader.php');
+    require_once('../../app/loader.php');
     sortInTable($prefix, 'blogs_categories_list', 'page');
     $filter = new Filter('blog_category', 'blog_category_filter');
     $data = [
@@ -25,7 +25,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
     <?php 
-        require_once('../layout/css.php');
+        require_once('../../layout/css.php');
     ?>
 
     <title>لیست دسته بندی بلاگ ها</title>
@@ -39,13 +39,13 @@
 <div class="wrapper">
     <!--start top header-->
     <?php
-        require_once('../layout/header.php'); 
+        require_once('../../layout/header.php'); 
     ?>
     <!--end top header-->
 
     <!--start sidebar -->
     <?php
-        require_once('../layout/asidebar.php'); 
+        require_once('../../layout/asidebar.php'); 
     ?>
     <!--end sidebar -->
 
@@ -53,7 +53,7 @@
     <main class="page-content">
 
     <?php
-            require_once('../layout/message.php');
+            require_once('../../layout/message.php');
         ?>
         <!--breadcrumb-->
         <div class="page-breadcrumb   d-sm-flex align-items-center mb-3">
@@ -86,7 +86,7 @@
                         <div class="card border shadow-none w-100">
                             <div class="card-body">
                             <div class="card-header">
-                                <div id="<?= (isset($_SESSION['blog_category_filter']['blog_category']) and !empty($_SESSION['blog_category_filter']['blog_category']))?"":"filter-row"?>" >
+                                <div id="<?= (isset($_SESSION['blog_category_filter']['blog_category']) and !empty($_SESSION['blog_category_filter']['blog_category']))?"":"filter-row"?>" class="<?= (isset($_SESSION['blog_category_filter']['blog_category']) and !empty($_SESSION['blog_category_filter']['blog_category']))?"":"d-none"?>">
                                     <form class=" " id="form" action="blogs_categories_list.php?page=1" method="post" >
                                         <div class="row g-2">
                                     <div class="col-lg-2 col-md-4" > <input class="col form-control" type="text" value="<?= isset($_SESSION['blog_category_filter']['name'])?$_SESSION['blog_category_filter']['name']:"" ?>" name="name" placeholder="نام" > </div>
@@ -159,7 +159,7 @@
     <!--end page main-->
 
     <?php
-            require_once('../layout/footer.php');
+            require_once('../../layout/footer.php');
         ?>
 
 </div>
@@ -168,7 +168,7 @@
     const path = 'blog_category_delete.php'
 </script>
 <?php 
-    require_once('../layout/js.php');
+    require_once('../../layout/js.php');
 ?>
 <script>
     $(document).ready(function() {

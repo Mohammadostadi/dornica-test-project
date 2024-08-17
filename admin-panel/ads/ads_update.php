@@ -1,6 +1,6 @@
 <?php
 
-require_once ('../app/loader.php');
+require_once ('../../app/loader.php');
 
 $validator = new validator();
 $id = securityCheck($_REQUEST['id']);
@@ -15,13 +15,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])) {
     }
     $validator->empty($title, 'name', 'فیلد عنوان شما نباید خالی باشد');
     $checkImage = $_FILES['fileToUpload']['name'];
-    $picture = $validator->imageUpdate("../assets/images/ads/", $_FILES["fileToUpload"], 'fileToUpload', $ad['image']);
+    $picture = $validator->imageUpdate("../../assets/images/ads/", $_FILES["fileToUpload"], 'fileToUpload', $ad['image']);
     $validator->empty($sort, 'sort', 'فیلد ترتیب شما نباید خالی باشد');
 
     // Check if $uploadOk is set to 0 by an validator
     if ($validator->count_error() == 0) {
+        array_map('unlink', glob("../../assets/images/upload/*.*"));
         if (!empty($checkImage)) {
-            array_map('unlink', glob("../assets/images/upload/*.*"));
             $db->where('id', $id)
                 ->update('ads', [
                     'title' => $title,
@@ -54,7 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <?php
-    require_once ('../layout/css.php');
+    require_once ('../../layout/css.php');
     ?>
     <title>آپدیت تبلیغات</title>
 </head>
@@ -62,8 +62,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])) {
 <body>
     <main class="page-content">
         <?php
-        require_once ('../layout/header.php');
-        require_once ('../layout/asidebar.php');
+        require_once ('../../layout/header.php');
+        require_once ('../../layout/asidebar.php');
         ?>
 
         <div class="wrapper container my-5">
@@ -97,7 +97,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])) {
                                 <label class="form-label">تصویر</label>
                                 <div class="row">
                                     <div class="col-12 text-center bg-light my-3 rounded preview">
-                                        <img src="../<?= $ad['image'] ?>" class="rounded-circle shadow m-3" id="img"
+                                        <img src="../../<?= $ad['image'] ?>" class="rounded-circle shadow m-3" id="img"
                                             width="100" height="100" alt="">
                                     </div>
                                     <div class="col-12">
@@ -142,7 +142,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])) {
         </div>
     </main>
     <?php
-    require_once ('../layout/js.php');
+    require_once ('../../layout/js.php');
     ?>
-    <?php require_once ('../layout/update_image.php') ?>
+    <?php require_once ('../../layout/update_image.php') ?>
 </body>

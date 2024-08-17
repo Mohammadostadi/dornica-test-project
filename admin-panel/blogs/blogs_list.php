@@ -1,6 +1,6 @@
 <?php
     $prefix = 'blogs';
-    require_once('../app/loader.php');
+    require_once('../../app/loader.php');
     sortInTable($prefix, 'blogs_list', 'page');
     $categoryList = $db->where('status', 1)
     ->get('blog_category', null, 'id, name');
@@ -32,7 +32,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <?php 
-        require_once('../layout/css.php');
+        require_once('../../layout/css.php');
     ?>
     <link type="text/css" rel="stylesheet" href="../assets/datePiker/css/persianDatepicker-default.css" />
 
@@ -46,13 +46,13 @@
 <div class="wrapper">
     <!--start top header-->
     <?php
-        require_once('../layout/header.php'); 
+        require_once('../../layout/header.php'); 
     ?>
     <!--end top header-->
 
     <!--start sidebar -->
     <?php
-        require_once('../layout/asidebar.php'); 
+        require_once('../../layout/asidebar.php'); 
     ?>
     <!--end sidebar -->
 
@@ -60,7 +60,7 @@
     <main class="page-content">
 
     <?php
-            require_once('../layout/message.php');
+            require_once('../../layout/message.php');
         ?>
         <!--breadcrumb-->
         <div class="page-breadcrumb   d-sm-flex align-items-center mb-3">
@@ -93,7 +93,7 @@
                         <div class="card border shadow-none w-100">
                             <div class="card-body">
                             <div class="card-header">
-                                <div id="<?= (isset($_SESSION['blog_filter']['blog']) and !empty($_SESSION['blog_filter']['blog']))?"":"filter-row"?>" >
+                                <div id="<?= (isset($_SESSION['blog_filter']['blog']) and !empty($_SESSION['blog_filter']['blog']))?"":"filter-row"?>" class="<?= (isset($_SESSION['blog_filter']['blog']) and !empty($_SESSION['blog_filter']['blog']))?"":"d-none"?>">
                                     <form class=" d-flex justify-content-around align-content-start" id="form" action="blogs_list.php?page=1" method="post" >
                                         <div class="row g-3">
                                             <div class="col-lg-2 col-md-4" > 
@@ -153,7 +153,7 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <img src="../<?= $blog['image'] ?>" alt="" width="80px" class="rounded">
+                                        <img src="../../<?= $blog['image'] ?>" alt="" width="80px" class="rounded">
                                     </td>
                                     <td><?= $blog['name'] ?></td>
                                     <td><?= $blog['title'] ?></td>
@@ -190,7 +190,7 @@
     
 
     <?php
-            require_once('../layout/footer.php');
+            require_once('../../layout/footer.php');
         ?>
 
 </div>
@@ -199,17 +199,9 @@
     const path = 'blog_delete.php'
 </script>
 <?php 
-    require_once('../layout/js.php');
+    require_once('../../layout/js.php');
 ?>
 
-<script>
-    $(document).ready(function() {
-    $("#filter-row").hide();
-    $('#_filter').click(function(){
-                $('#filter-row').toggle(400);
-            });
-    });
-</script>
 <script type="text/javascript" src="../assets/datePiker/js/persianDatepicker.min.js"></script>
 <script type="text/javascript">
     $("#date").persianDatepicker({formatDate: "YYYY/0M/0D"});

@@ -5,7 +5,7 @@
         const files = $('#fileToUpload')[0].files[0];
         fd.append('fileToUpload',files);
         $.ajax({
-            url: '../app/Controller/upload.php',
+            url: '../../app/Controller/upload.php',
             type: 'post',
             data: fd,
             contentType: false,

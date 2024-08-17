@@ -1,6 +1,6 @@
 <?php
     $prefix = 'products';
-    require_once('../app/loader.php');
+    require_once('../../app/loader.php');
     sortInTable($prefix, 'products_list', 'page');
     $categoryList = $db->where('status', 1)
     ->get('category', null, 'id, name');
@@ -40,11 +40,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <?php
-        require_once('../layout/css.php');
+        require_once('../../layout/css.php');
     ?>
-    <link type="text/css" rel="stylesheet" href="../assets/datePiker/css/persianDatepicker-default.css" />
-    <link href="../assets/plugins/select2/css/select2.min.css" rel="stylesheet" />
-    <link href="../assets/plugins/select2/css/select2-bootstrap4.css" rel="stylesheet" />
+    <link type="text/css" rel="stylesheet" href="../../assets/datePiker/css/persianDatepicker-default.css" />
+    <link href="../../assets/plugins/select2/css/select2.min.css" rel="stylesheet" />
+    <link href="../../assets/plugins/select2/css/select2-bootstrap4.css" rel="stylesheet" />
     <title>لیست محصولات</title>
 </head>
 
@@ -55,13 +55,13 @@
 <div class="wrapper">
     <!--start top header-->
     <?php
-        require_once('../layout/header.php'); 
+        require_once('../../layout/header.php'); 
     ?>
     <!--end top header-->
 
     <!--start sidebar -->
     <?php
-        require_once('../layout/asidebar.php'); 
+        require_once('../../layout/asidebar.php'); 
     ?>
     <!--end sidebar -->
 
@@ -69,7 +69,7 @@
     <main class="page-content">
 
     <?php
-            require_once('../layout/message.php');
+            require_once('../../layout/message.php');
         ?>
         <!--breadcrumb-->
         <div class="page-breadcrumb   d-sm-flex align-items-center mb-3">
@@ -101,7 +101,7 @@
                         <div class="card border shadow-none w-100">
                             <div class="card-body">
                             <div class="card-header">
-                                <div id="<?= (isset($_SESSION['product_filter']['product']) and !empty($_SESSION['product_filter']['product']))?"":"filter-row"?>" >
+                                <div id="<?= (isset($_SESSION['product_filter']['product']) and !empty($_SESSION['product_filter']['product']))?"":"filter-row"?>" class="<?= (isset($_SESSION['product_filter']['product']) and !empty($_SESSION['product_filter']['product']))?"":"d-none"?>">
                                     <form class=" d-flex justify-content-around align-content-start" id="form" action="products_list.php?page=1" method="post" >
                                         <div class="row g-3">
                                     <div class="col-lg-2 col-md-4" > <input class="col form-control" type="text" value="<?= $filter->is_exist('name') ?>" name="name" placeholder="نام کتاب" > </div>
@@ -193,7 +193,7 @@
                                     <td class="productlist">
                                         <a class="d-flex align-items-center gap-2" href="#">
                                             <div class="product-box">
-                                                <img src="../<?= $res[$key]['image'] ?>" alt="">
+                                                <img src="../../<?= $res[$key]['image'] ?>" alt="">
                                             </div>
                                             <div>
                                                 <h6 class="mb-0 product-title"><?= $value['name'] ?></h6>
@@ -248,7 +248,7 @@
 
 
     <?php
-            require_once('../layout/footer.php');
+            require_once('../../layout/footer.php');
         ?>
 
 </div>
@@ -257,19 +257,11 @@
     const path = 'product_delete.php'
 </script>
 <?php
-        require_once('../layout/js.php');
+        require_once('../../layout/js.php');
         separator('#price');
     ?>
-    <script src="../assets/plugins/select2/js/select2.min.js"></script>
-    <script src="../assets/js/form-select2.js"></script>
-<script>
-    $(document).ready(function() {
-    $("#filter-row").hide();
-    $('#_filter').click(function(){
-                $('#filter-row').toggle(400);
-            });
-    });
-</script>
+    <script src="../../assets/plugins/select2/js/select2.min.js"></script>
+    <script src="../../assets/js/form-select2.js"></script>
 <script type="text/javascript" src="../assets/datePiker/js/persianDatepicker.min.js"></script>
 <script type="text/javascript">
     $("#date").persianDatepicker({formatDate: "YYYY/0M/0D"});

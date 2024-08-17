@@ -1,6 +1,6 @@
 <?php
     $prefix = 'orders';
-    require_once('../app/loader.php');
+    require_once('../../app/loader.php');
     sortInTable($prefix, 'orders_list', 'page');
     $shippingList = $db->where('status', 1)
     ->get('shiping_type', null, 'id, name');
@@ -37,9 +37,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <?php
-        require_once('../layout/css.php');
+        require_once('../../layout/css.php');
     ?>
-    <link type="text/css" rel="stylesheet" href="../assets/datePiker/css/persianDatepicker-default.css" />
+    <link type="text/css" rel="stylesheet" href="../../assets/datePiker/css/persianDatepicker-default.css" />
     <title>لیست سفارشات</title>
 </head>
 
@@ -50,13 +50,13 @@
 <div class="wrapper">
     <!--start top header-->
     <?php
-        require_once('../layout/header.php'); 
+        require_once('../../layout/header.php'); 
     ?>
     <!--end top header-->
 
     <!--start sidebar -->
     <?php
-        require_once('../layout/asidebar.php'); 
+        require_once('../../layout/asidebar.php'); 
     ?>
     <!--end sidebar -->
 
@@ -94,7 +94,7 @@
                         <div class="card border shadow-none w-100">
                             <div class="card-body">
                             <div class="card-header">
-                                <div id="<?= (isset($_SESSION['order_filter']['order']) and !empty($_SESSION['order_filter']['order']))?"":"filter-row"?>" >
+                                <div id="<?= (isset($_SESSION['order_filter']['order']) and !empty($_SESSION['order_filter']['order']))?"":"filter-row"?>" class="<?= (isset($_SESSION['order_filter']['order']) and !empty($_SESSION['order_filter']['order']))?"":"d-none"?>">
                                     <form class=" d-flex justify-content-around align-content-start" id="form" action="orders_list.php?page=1" method="post" >
                                 <div class="row g-3">
                                     <div class="col-lg-2 col-md-4" > <input class="col form-control" type="text" value="<?= isset($_SESSION['order_filter']['products_name'])?$_SESSION['order_filter']['products_name']:"" ?>" name="products_name" placeholder="نام محصول" > </div>
@@ -219,24 +219,16 @@
 
 
     <?php
-        require_once('../layout/footer.php');
+        require_once('../../layout/footer.php');
     ?>
 
 </div>
 <!--end wrapper-->
 
 <?php
-        require_once('../layout/js.php');
+        require_once('../../layout/js.php');
     ?>
-<script>
-    $(document).ready(function() {
-    $("#filter-row").hide();
-    $('#_filter').click(function(){
-                $('#filter-row').toggle(400);
-            });
-    });
-</script>
-<script type="text/javascript" src="../assets/datePiker/js/persianDatepicker.min.js"></script>
+<script type="text/javascript" src="../../assets/datePiker/js/persianDatepicker.min.js"></script>
 <script type="text/javascript">
     $("#date").persianDatepicker({formatDate: "YYYY/0M/0D"});
 </script>
