@@ -1,4 +1,11 @@
+<?php require_once('../app/Controller/functions.php');
+require_once('../app/Model/DB.php');
+session_start();
+if(!isset($_SESSION['user'])){
+    redirect('../auth/sign-in.php', 7);
+}
 
+?>
 <!doctype html>
 <html lang="en" dir="rtl">
 
@@ -417,14 +424,19 @@
             <div class="dropdown dropdown-user-setting">
                 <a class="dropdown-toggle dropdown-toggle-nocaret" href="#" data-bs-toggle="dropdown">
                     <div class="user-setting d-flex align-items-center gap-3">
-                        <img src="../assets/images/avatars/avatar-1.png" class="user-img" alt="">
+                            <?php
+                                $name = $db->where('username', $_SESSION['user'])->getOne('admin', "CONCAT(first_name, ' ',last_name) AS name");
+                                $role = $db->where('username', $_SESSION['user'])->getValue('admin', "role");
+                                $image = $db->where('username', $_SESSION['user'])->getValue('admin', "image");
+                            ?>
+                        <img src="../../<?= !empty($image)?$image:"assets/images/admin/default.png" ?>" class="user-img" alt="">
                         <div class="  d-sm-block">
-                            <p class="user-name mb-0">جان دیو</p>
-                            <small class="mb-0 dropdown-user-designation">مدیریت منابع انسانی</small>
+                            <p class="user-name mb-0"><?= ($name['name']) ?></p>
+                            <small class="mb-0 dropdown-user-designation"><?= $role ?></small>
                         </div>
                     </div>
                 </a>
-                <ul class="dropdown-menu dropdown-menu-end">
+                <ul class="dropdown-menu dropdown-menu-end" >
                     <li>
                         <a class="dropdown-item" href="pages-user-profile.php">
                             <div class="d-flex align-items-center">
@@ -437,37 +449,13 @@
                         <a class="dropdown-item" href="#">
                             <div class="d-flex align-items-center">
                                 <div class=""><i class="bi bi-gear-fill"></i></div>
-                                <div class="ms-3"><span>تنظیمات</span></div>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="dropdown-item" href="index2.php">
-                            <div class="d-flex align-items-center">
-                                <div class=""><i class="bi bi-speedometer"></i></div>
-                                <div class="ms-3"><span>داشبورد</span></div>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="dropdown-item" href="#">
-                            <div class="d-flex align-items-center">
-                                <div class=""><i class="bi bi-piggy-bank-fill"></i></div>
-                                <div class="ms-3"><span>درآمد</span></div>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="dropdown-item" href="#">
-                            <div class="d-flex align-items-center">
-                                <div class=""><i class="bi bi-cloud-arrow-down-fill"></i></div>
-                                <div class="ms-3"><span>دانلودها</span></div>
+                                <div class="ms-3"><span>تغییر رمز عبور</span></div>
                             </div>
                         </a>
                     </li>
                     <li><hr class="dropdown-divider"></li>
                     <li>
-                        <a class="dropdown-item" href="authentication-signup-with-header-footer.php">
+                        <a class="dropdown-item" href="../auth/logout.php">
                             <div class="d-flex align-items-center">
                                 <div class=""><i class="bi bi-lock-fill"></i></div>
                                 <div class="ms-3"><span>خروج</span></div>
@@ -684,7 +672,7 @@
 
     <!--start content-->
     <main class="page-content">
-
+        <?php require_once('../layout/message.php'); ?>
         <div class="row row-cols-1 row-cols-lg-2 row-cols-xl-2 row-cols-xxl-4">
             <div class="col">
                 <div class="card overflow-hidden radius-10">
@@ -1008,7 +996,7 @@
                                     <td>
                                         <div class="d-flex align-items-center gap-3">
                                             <div class="product-box border">
-                                                <img src="assets/images/products/11.png" alt="">
+                                                <img src="../assets/images/products/11.png" alt="">
                                             </div>
                                             <div class="product-info">
                                                 <h6 class="product-name mb-1">تلفن همراه هوشمند</h6>
@@ -1031,7 +1019,7 @@
                                     <td>
                                         <div class="d-flex align-items-center gap-3">
                                             <div class="product-box border">
-                                                <img src="assets/images/products/07.png" alt="">
+                                                <img src="../assets/images/products/07.png" alt="">
                                             </div>
                                             <div class="product-info">
                                                 <h6 class="product-name mb-1">ساعت ورزشی</h6>
@@ -1054,7 +1042,7 @@
                                     <td>
                                         <div class="d-flex align-items-center gap-3">
                                             <div class="product-box border">
-                                                <img src="assets/images/products/17.png" alt="">
+                                                <img src="../assets/images/products/17.png" alt="">
                                             </div>
                                             <div class="product-info">
                                                 <h6 class="product-name mb-1">کفش پاشنه قرمز زنانه</h6>
@@ -1077,7 +1065,7 @@
                                     <td>
                                         <div class="d-flex align-items-center gap-3">
                                             <div class="product-box border">
-                                                <img src="assets/images/products/04.png" alt="">
+                                                <img src="../assets/images/products/04.png" alt="">
                                             </div>
                                             <div class="product-info">
                                                 <h6 class="product-name mb-1">ژاکت زمستانی زرد</h6>
@@ -1100,7 +1088,7 @@
                                     <td>
                                         <div class="d-flex align-items-center gap-3">
                                             <div class="product-box border">
-                                                <img src="assets/images/products/10.png" alt="">
+                                                <img src="../assets/images/products/10.png" alt="">
                                             </div>
                                             <div class="product-info">
                                                 <h6 class="product-name mb-1">هدفون میکرو نارنجی</h6>
@@ -1123,7 +1111,7 @@
                                     <td>
                                         <div class="d-flex align-items-center gap-3">
                                             <div class="product-box border">
-                                                <img src="assets/images/products/12.png" alt="">
+                                                <img src="../assets/images/products/12.png" alt="">
                                             </div>
                                             <div class="product-info">
                                                 <h6 class="product-name mb-1">لپ تاپ پرو سامسونگ</h6>
@@ -1298,7 +1286,13 @@
 <script>
     new PerfectScrollbar(".best-product")
 </script>
-
+<script>
+    $(document).ready(function() {
+        $("#alert").fadeTo(2000, 500).slideUp(500, function(){
+        $("#alert").slideUp(500);
+});
+    });
+</script>
 
 </body>
 

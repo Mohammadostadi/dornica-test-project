@@ -83,11 +83,27 @@ function showMessage($value)
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     <?php } elseif ($value == 3) { ?>
-        <div class="alert alert-warning alert-dismissible fade show" role="alert">
-            <strong>فیلد مورد نظر قابل حذف نیست</strong>
+        <div class="alert alert-success alert-dismissible fade show" role="alert" id="alert">
+            <strong>شما با موفقیت وارد شدید</strong>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
-    <?php } ?>
+    <?php } elseif ($value == 5) { ?>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert" id="alert">
+            <strong>نام کاربری یا رمز عبور اشتباه است</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    <?php } elseif ($value == 6) { ?>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert" id="alert">
+            <strong>شما اجازه دسترسی به پنل ندارید</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    <?php } elseif ($value == 7) { ?>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert" id="alert">
+            <strong>اجازه دسترسی ندارید لطفا وارد شوید!</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    <?php } ?>    
+    
 <?php } ?>
 
 <?php

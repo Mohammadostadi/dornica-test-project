@@ -15,7 +15,6 @@ pageLimit('admin', 3, false, $_SESSION['admin_filter']['admin']);
 $filter->loopQuery($db, $_SESSION['admin_filter']['admin']);
 $res = $db->orderBy($sortField, $sortOrder)
     ->paginate('admin', $page);
-    // var_dump($db->getLastQuery());die
 ?>
 
 <!doctype html>

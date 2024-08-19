@@ -114,3 +114,18 @@ function usernamejs(input){
 }
 
 </script>
+
+
+<script>
+	$(document).ready(function(){
+		$('.dropdown-toggle').click(function(){
+			if(!$('.dropdown-toggle').hasClass('show')){
+				$('.dropdown-toggle').addClass('show');
+				$('.myShow-menu').addClass('show');
+			}else{
+				$('.dropdown-toggle').removeClass('show');
+				$('.myShow-menu').removeClass('show');
+			}
+		})
+	})
+</script>

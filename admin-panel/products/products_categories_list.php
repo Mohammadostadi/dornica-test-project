@@ -146,7 +146,7 @@
                                                     <?= status('active', $pcategory['status']) ?>
                                                 </td>
                                                 <td>
-                                                <div class="d-flex align-items-center gap-3 fs-6">
+                                                <div>
                                                     <a href="product_category_update.php?id=<?= $pcategory['id'] ?>" class="text-warning" data-bs-toggle="tooltip" data-bs-placement="bottom" title="ویرایش اطلاعات" data-bs-original-title="ویرایش اطلاعات" aria-label="Edit"><i class="bi bi-pencil-fill"></i></a>
                                                     <?php
                                                         $res = $db->where('category_id', $pcategory['id'])

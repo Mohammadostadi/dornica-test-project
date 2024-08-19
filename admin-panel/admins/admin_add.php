@@ -20,7 +20,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['_insert'])){
             'first_name'=>$fname,
             'last_name'=>$lname,
             'username'=>$username,
-            'password'=>$password,
+            'password'=>password_hash($password, PASSWORD_DEFAULT),
             'role'=>$role,
             'status'=>1
         ]);

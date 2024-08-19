@@ -374,14 +374,19 @@
             <div class="dropdown dropdown-user-setting">
                 <a class="dropdown-toggle dropdown-toggle-nocaret" href="#" data-bs-toggle="dropdown">
                     <div class="user-setting d-flex align-items-center gap-3">
-                        <img src="../../assets/images/avatars/avatar-1.png" class="user-img" alt="">
+                            <?php
+                                $image = $db->where('username', $_SESSION['user'])->getValue('admin', "image");
+                                $name = $db->where('username', $_SESSION['user'])->getOne('admin', "CONCAT(first_name, ' ',last_name) AS name");
+                                $role = $db->where('username', $_SESSION['user'])->getValue('admin', "role");
+                            ?>
+                        <img src="../../<?= !empty($image)?$image:"assets/images/admin/default.png" ?>" class="user-img" alt="">
                         <div class="  d-sm-block">
-                            <p class="user-name mb-0">جان دیو</p>
-                            <small class="mb-0 dropdown-user-designation">مدیریت منابع انسانی</small>
+                            <p class="user-name mb-0"><?= $name['name'] ?></p>
+                            <small class="mb-0 dropdown-user-designation"><?= $role ?></small>
                         </div>
                     </div>
                 </a>
-                <ul class="dropdown-menu dropdown-menu-end">
+                <ul class="dropdown-menu dropdown-menu-end myShow-menu" data-bs-popper="static">
                     <li>
                         <a class="dropdown-item" href="pages-user-profile.php">
                             <div class="d-flex align-items-center">
@@ -398,33 +403,9 @@
                             </div>
                         </a>
                     </li>
-                    <li>
-                        <a class="dropdown-item" href="index2.php">
-                            <div class="d-flex align-items-center">
-                                <div class=""><i class="bi bi-speedometer"></i></div>
-                                <div class="ms-3"><span>داشبورد</span></div>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="dropdown-item" href="#">
-                            <div class="d-flex align-items-center">
-                                <div class=""><i class="bi bi-piggy-bank-fill"></i></div>
-                                <div class="ms-3"><span>درآمد</span></div>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="dropdown-item" href="#">
-                            <div class="d-flex align-items-center">
-                                <div class=""><i class="bi bi-cloud-arrow-down-fill"></i></div>
-                                <div class="ms-3"><span>دانلودها</span></div>
-                            </div>
-                        </a>
-                    </li>
                     <li><hr class="dropdown-divider"></li>
                     <li>
-                        <a class="dropdown-item" href="authentication-signup-with-header-footer.php">
+                        <a class="dropdown-item" href="../../auth/logout.php">
                             <div class="d-flex align-items-center">
                                 <div class=""><i class="bi bi-lock-fill"></i></div>
                                 <div class="ms-3"><span>خروج</span></div>
