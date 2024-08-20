@@ -10,7 +10,23 @@ if(isset($_POST['back']) and $_SERVER['REQUEST_METHOD'] == 'POST'){
     redirect('sign-in.php');
 }
 if(isset($_POST['reset']) and $_SERVER['REQUEST_METHOD'] == 'POST'){
+    $newPassword = securityCheck($_POST['newPass']);
+    $confirmPassword = securityCheck($_POST['confirmPassword']);
 
+    $validator->empty($newPassword, 'newPass', 'فیلد رمز عبور جدید شما نباید خالی باشد');
+    $validator->empty($confirmPassword, 'confirmPassword', 'فیلد تایید رمز عبور شما نباید خالی باشد');
+
+    if ($newPassword != $confirmPassword) {
+        $validator->set('confirmPassword', 'فیلد تایید پسورد با پسورد جدید مطابقت ندارد');
+    }
+    if ($validator->count_error() == 0) {
+        $hash = password_hash($newPassword, PASSWORD_DEFAULT);
+        $db->where('id', $_SESSION['password'])
+            ->update('admin', [
+                'password' => $hash
+            ]);
+        redirect('sign-in.php', 8);
+    }
 }
 ?>
 
@@ -66,11 +82,14 @@ if(isset($_POST['reset']) and $_SERVER['REQUEST_METHOD'] == 'POST'){
                                                         class="position-absolute top-50 translate-middle-y search-icon px-3">
                                                         <i class="bi bi-lock-fill"></i>
                                                     </div>
-                                                    <input name="password_reset" type="email"
+                                                    <input name="newPass" type="password"
                                                         class="form-control radius-30 ps-5" id="inputNewPassword"
                                                         placeholder="رمز عبور جدید را وارد کنید" required />
                                                         <div class="invalid-feedback">
                                                             فیلد پسورد خالی باشد
+                                                        </div>
+                                                        <span
+                                                                class="text-danger"><?= $validator->show('newPass') ?></span>
                                                         </div>
                                                 </div>
                                             </div>
@@ -82,11 +101,14 @@ if(isset($_POST['reset']) and $_SERVER['REQUEST_METHOD'] == 'POST'){
                                                         class="position-absolute top-50 translate-middle-y search-icon px-3">
                                                         <i class="bi bi-lock-fill"></i>
                                                     </div>
-                                                    <input type="password" name="password_confirm"
+                                                    <input type="password" name="confirmPassword"
                                                         class="form-control radius-30 ps-5" id="inputConfirmPassword"
                                                         placeholder="رمز عبور را تایید کنید" required />
                                                         <div class="invalid-feedback">
                                                             فیلد تکرار پسورد خالی باشد
+                                                        </div>
+                                                        <span
+                                                                class="text-danger"><?= $validator->show('confirmPassword') ?></span>
                                                         </div>
                                                 </div>
                                             </div>

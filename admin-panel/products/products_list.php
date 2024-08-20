@@ -16,9 +16,12 @@
         'date'=>'date',
         'price'=>'price',
     ];
+    $cond = isset($_GET['category'])?"products.category_id = ".securityCheck($_GET['category']):"";
     $filter->filterCheck($db, $data, 'product', 'products_list.php');
     $col = ['products.id', 'products.name', 'price', 'products.status', 'image', 'date', 'qty', 'category.name AS category', 'brand.name AS brand'];
+    isset($_GET['category'])?$db->where($cond):'';
     pageLimit('products', 3, false, $_SESSION['product_filter']['product']);
+    isset($_GET['category'])?$db->where($cond):'';
     $filter->loopQuery($db, $_SESSION['product_filter']['product']);
     $res = $db->join('category', 'category.id = products.category_id', 'LEFT')
     ->join('brand', 'brand.id = products.brand_id', 'LEFT')
@@ -236,6 +239,11 @@
                         </tbody>
                                     </table>
                                 </div>
+                                <?php if(isset($_GET['category'])) { ?>
+                                    <nav class="float-start mt-0" aria-label="Page navigation">
+                                        <a class="btn btn-primary" onclick="location.href='<?= isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : 'products_categories_list.php' ?>'">بازگشت</a>
+                                    </nav>
+                                <?php } ?>
                                         <?php pagination($page, $pages) ?>
                             </div>
                         </div>

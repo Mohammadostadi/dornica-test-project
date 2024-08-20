@@ -1,13 +1,15 @@
 <?php
 $prefix = 'admin';
 require_once ('../../app/loader.php');
+$role = $db->where('username', $_SESSION['user'])
+->getValue('admin', 'role');
 $filter = new Filter('admin', 'admin_filter');
 sortInTable($prefix, 'admins_list', 'page');
 $data = [
     'first_name' => 'like',
     'last_name' => 'like',
     'username' => 'like',
-    'role' => 'like',
+    'role' => '=',
     'status' => '=',
 ];
 $filter->filterCheck($db, $data, 'admin', 'admins_list.php');
@@ -132,6 +134,7 @@ $res = $db->orderBy($sortField, $sortOrder)
                                             <thead class="text-center">
                                                 <tr>
                                                     <th>#</th>
+                                                    <th>پروفایل</th>
                                                     <th>
                                                         <a href="<?= sort_link('first_name') ?>" class="sort-table <?= sortActive('first_name') ?>"></a>
                                                         نام
@@ -163,20 +166,24 @@ $res = $db->orderBy($sortField, $sortOrder)
                                                                 <input class="form-check-input" type="checkbox">
                                                             </div>
                                                         </td>
+                                                        <td>
+                                                            <div class="product-box">
+                                                                <img src="../../<?= !empty($admin['image'])?$admin['image']:"assets/images/admin/default.png" ?>" alt="" width="80px" class="rounded">
+                                                            </div>
+                                                        </td>
                                                         <td><?= $admin['first_name'] ?></td>
                                                         <td><?= $admin['last_name'] ?></td>
                                                         <td><?= $admin['username'] ?></td>
-                                                        <td><?= $admin['role'] ?></td>
+                                                        <td><?= admin_role($admin['role']) ?></td>
                                                         <td>
                                                             <?= status('active', $admin['status']); ?>
                                                         </td>
                                                         <td>
                                                             <div
                                                                 class="d-flex align-items-center justify-content-center gap-3 fs-6">
-                                                                <a href="admin_update.php?id=<?= $admin['id'] ?>"
-                                                                    class="text-warning" data-bs-toggle="tooltip"
-                                                                    data-bs-placement="bottom" title="ویرایش اطلاعات"
-                                                                    data-bs-original-title="ویرایش اطلاعات"
+                                                                <a <?= ($role == 0 or ($role == 2 and $admin['role'] == 1))?"href=admin_update.php?id=".$admin['id']:"" ?>
+                                                                    class="btn border-0 disabled <?=($role == 0 or ($role == 2 and $admin['role'] == 1))?"text-warning":"text-secondary" ?>" data-bs-toggle="tooltip"
+                                                                    data-bs-placement="bottom" title="<?=($role == 0 or ($role == 2 and $admin['role'] == 1))?"ویرایش اطلاعات":"عدم اجازه دسترسی"?>"
                                                                     aria-label="Edit"><i class="bi bi-pencil-fill"></i></a>
 
                                                                 <button class="open-confirm btn border-0 text-danger"

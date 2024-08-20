@@ -3,7 +3,6 @@ require_once('../../app/loader.php');
 
 
     $id = securityCheck($_GET['id']);
-    var_dump($id);
     $admin = $db->where('id', $id)
     ->getOne('admin');
 
@@ -21,15 +20,24 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['_insert'])){
     $validator->empty('username',  $username,'فیلد نام کاربری شما نباید خالی باشد');
     $validator->empty('role',  $role, 'فیلد  نقش  شما نباید خالی باشد');
     $validator->existValue('admin', 'username', $username, 'فیلد نام کاربری تکراری میباشد', $admin['username']);
+    $picture = $validator->imageUpdate("../../assets/images/ads/", $_FILES["fileToUpload"], 'fileToUpload', $admin['image']);
 
     if($validator->count_error() == 0){
+        array_map('unlink', glob("../../assets/images/upload/*.*"));
+        if(!empty($picture)){
+            $db->where('id', $id)
+            ->update('admin',[
+                'first_name'=>$fname,
+                'last_name'=>$lname,
+                'username'=>$username,
+                'image'=>$picture
+            ]);
+        }
         $db->where('id', $id)
         ->update('admin',[
             'first_name'=>$fname,
             'last_name'=>$lname,
             'username'=>$username,
-            'role'=>$role,
-            'status'=>isset($check)?1:0
         ]);
         redirect('admins_list.php', 2);
     }
@@ -66,7 +74,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['_insert'])){
                             <div class="border p-3 rounded">
                                 <h6 class="mb-0 text-uppercase">آپدیت کردن ادمین</h6>
                                 <hr/>
-                                <form class="row g-3 needs-validation" action="" method="post" novalidate>
+                                <form class="row g-3 needs-validation" action="" method="post" novalidate enctype="multipart/form-data">
                                     <div class="col-6">
                                         <label class="form-label">نام </label>
                                         <input type="text" class="form-control" name="fname" value="<?= checkUpdate('fname', $admin['first_name']) ?>" required>
@@ -91,14 +99,34 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['_insert'])){
                                             فیلد نام کاربری نباید خالی باشد
                                         </div>
                                     </div>
+                                    <?php if($admin['role'] != 0){ ?>   
                                     <div class="col-6">
                                         <label class="form-label">نقش</label>
-                                        <input type="text" class="form-control" name="role" value="<?= checkUpdate('role', $admin['role']) ?>" required>
+                                        <select name="role" class="form-select" id="role" required>
+                                            <option value="" selected>نقش</option>
+                                            <option <?=  ($admin['role'] == 1)?"SELECTED":"" ?> value="1">ادمین</option>
+                                            <option <?= ($admin['role'] == 2)?"SELECTED":"" ?> value="2">سوپر ادمین</option>
+                                        </select>
                                         <span class="text-danger"><?= $validator->show('role') ?></span>
                                         <div class="invalid-feedback">
                                             فیلد نقش نباید خالی باشد
                                         </div>
                                     </div>
+                                    <?php }  ?>
+                                    <div class="col-12">
+                                            <label class="form-label">تصویر</label>
+                                            <div class="row">
+                                                <div class="col-12 text-center bg-light my-3 rounded preview">
+                                                    <img src="../../<?= !empty($admin['image'])?$admin['image']:"assets/images/admin/default.png" ?>" class="rounded-circle shadow m-3" id="img"
+                                                        width="100" height="100" alt="">
+                                                </div>
+                                                <div class="col-12">
+                                                    <input type="file" class="form-control" aria-label="file example"
+                                                        id="fileToUpload" name="fileToUpload">
+                                                </div>
+                                            </div>
+                                            <span class="text-danger"><?= $validator->show('fileToUpload') ?></span>
+                                        </div>
                                     <div class="col-8">
                                         <div class="d-flex">
                                             <label class="form-check-label mx-1" for="flexSwitchCheckChecked">غیرفعال</label>
@@ -132,6 +160,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['_insert'])){
 <!--start wrapper-->
 <?php 
     require_once('../../layout/js.php');
+    require_once('../../layout/update_image.php');
 ?>
 <!--end wrapper-->
 </body>

@@ -38,7 +38,7 @@ class validator extends errorMessage{
         }else{
             return $this->set($name, 'فایل تصویر نمیتواند خالی باشد');
         }
-        $new_dir = substr($target_dir, 3);
+        $new_dir = substr($target_dir, 6);
         return $new_dir.securityCheck( basename( $data["name"]));
     }
 
@@ -47,10 +47,10 @@ class validator extends errorMessage{
     $target_file = $target_dir . basename($data["name"]);
     $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
     if($data['name'] != ''){
-        $new_dir = substr($target_dir, 3);
+        $new_dir = substr($target_dir, 6);
         $picture = $new_dir.securityCheck( basename( $data["name"]));
         if($value != $picture and !empty($picture)){
-            unlink('../../'.$value);
+            // unlink('../../'.$value);
             $this->imageValidate($dir, $data, $name);
         }
         return $new_dir.securityCheck( basename( $data["name"]));
@@ -75,7 +75,7 @@ class validator extends errorMessage{
             }
         
             // Check file size
-            if ($_FILES["fileToUpload"]["size"] > 500000) {
+            if ($data["size"] > 500000) {
             return $this->set($name, 'سایز فایل مورد نظر بیش از حد میباشد');
             // $uploadOk = 0;
             }

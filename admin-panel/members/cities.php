@@ -1,5 +1,6 @@
 <?php
 require_once('../app/loader.php');
+
 if(isset($_POST['id']) && is_numeric($_POST['id'])){
     $id = (int) $_POST['id'];
     $cities = $db->where('province_id', $id)

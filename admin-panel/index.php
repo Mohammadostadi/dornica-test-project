@@ -432,13 +432,13 @@ if(!isset($_SESSION['user'])){
                         <img src="../../<?= !empty($image)?$image:"assets/images/admin/default.png" ?>" class="user-img" alt="">
                         <div class="  d-sm-block">
                             <p class="user-name mb-0"><?= ($name['name']) ?></p>
-                            <small class="mb-0 dropdown-user-designation"><?= $role ?></small>
+                            <small class="mb-0 dropdown-user-designation"><?= admin_role($role) ?></small>
                         </div>
                     </div>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end" >
                     <li>
-                        <a class="dropdown-item" href="pages-user-profile.php">
+                        <a class="dropdown-item" href="admins/profile_edit.php">
                             <div class="d-flex align-items-center">
                                 <div class=""><i class="bi bi-person-fill"></i></div>
                                 <div class="ms-3"><span>مشخصات</span></div>
@@ -446,7 +446,7 @@ if(!isset($_SESSION['user'])){
                         </a>
                     </li>
                     <li>
-                        <a class="dropdown-item" href="#">
+                        <a class="dropdown-item" href="admins/profile_reset_password.php">
                             <div class="d-flex align-items-center">
                                 <div class=""><i class="bi bi-gear-fill"></i></div>
                                 <div class="ms-3"><span>تغییر رمز عبور</span></div>

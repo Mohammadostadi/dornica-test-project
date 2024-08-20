@@ -147,6 +147,7 @@
                                                 </td>
                                                 <td>
                                                 <div>
+                                                <a href="products_list.php?category=<?= $pcategory['id'] ?>" class="btn border-0 text-primary" data-bs-toggle="tooltip" data-bs-placement="bottom" title="نمایش لیست محصولات" aria-label="Views"><i class="bi bi-eye-fill"></i></a>
                                                     <a href="product_category_update.php?id=<?= $pcategory['id'] ?>" class="text-warning" data-bs-toggle="tooltip" data-bs-placement="bottom" title="ویرایش اطلاعات" data-bs-original-title="ویرایش اطلاعات" aria-label="Edit"><i class="bi bi-pencil-fill"></i></a>
                                                     <?php
                                                         $res = $db->where('category_id', $pcategory['id'])

@@ -9,6 +9,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['_insert'])){
     $username = securityCheck($_REQUEST['username']);
     $role = securityCheck($_REQUEST['role']);
     $password = securityCheck($_REQUEST['password']);
+    $picture = $validator->imageCheck("../../assets/images/ads/", $_FILES["fileToUpload"], 'fileToUpload');
     $validator->empty($fname, 'fname', 'فیلد نام شما نباید خالی باشد');
     $validator->empty($lname, 'lname', 'فیلد نام خانوادگی شما نباید خالی باشد');
     $validator->empty($username, 'username', 'فیلد نام کاربری شما نباید خالی باشد');
@@ -20,6 +21,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['_insert'])){
             'first_name'=>$fname,
             'last_name'=>$lname,
             'username'=>$username,
+            'image'=>$picture,
             'password'=>password_hash($password, PASSWORD_DEFAULT),
             'role'=>$role,
             'status'=>1
@@ -59,7 +61,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['_insert'])){
                             <div class="border p-3 rounded">
                                 <h6 class="mb-0 text-uppercase">اضافه کردن ادمین</h6>
                                 <hr/>
-                                <form class="row g-3 needs-validation" action="" method="post" novalidate>
+                                <form class="row g-3 needs-validation" action="" method="post" novalidate enctype="multipart/form-data"a>
                                     <div class="col-6">
                                         <label class="form-label">نام </label>
                                         <input type="text" class="form-control" name="fname" value="<?= checkExist('fname') ?>" required>
@@ -70,7 +72,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['_insert'])){
                                     </div>
                                     <div class="col-6">
                                         <label class="form-label">نام خانوادگی</label>
-                                        <input type="text" class="form-control" name="lname"value="<?= checkExist('lname') ?>"required>
+                                        <input type="text" class="form-control" name="lname" value="<?= checkExist('lname') ?>"required>
                                         <span class="text-danger"><?= $validator->show('lname') ?></span>
                                         <div class="invalid-feedback">
                                             فیلد نام خانوادگی نباید خالی باشد
@@ -84,12 +86,24 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['_insert'])){
                                             فیلد نام کاربری نباید خالی باشد
                                         </div>
                                     </div>
+                                        <div class="col-6">
+                                            <select name="role" class="form-select" id="role" required>
+                                                <option value="" selected>نقش</option>
+                                                <option <?= (isset($_POST['role']) and $_POST['role']==1)?"SELECTED":"" ?> value="1">ادمین</option>
+                                                <option <?= (isset($_POST['role']) and $_POST['role']==2)?"SELECTED":"" ?> value="2">سوپر ادمین</option>
+                                            </select>
+                                            <span class="text-danger"><?= $validator->show('role') ?></span>
+                                            <div class="invalid-feedback">
+                                                فیلد نقش را انتخاب کنید
+                                            </div>
+                                        </div>
                                     <div class="col-6">
-                                        <label class="form-label">نقش</label>
-                                        <input type="text" class="form-control" name="role" value="<?= checkExist('role') ?>"required>
-                                        <span class="text-danger"><?= $validator->show('role') ?></span>
+                                        <label class="form-label">تصویر</label>
+                                        <input type="file" class="form-control" aria-label="file example" name="fileToUpload"
+                                            required>
+                                        <span class="text-danger"><?= $validator->show('fileToUpload') ?></span>
                                         <div class="invalid-feedback">
-                                            فیلد نقش نباید خالی باشد
+                                            فیلد تصویر نباید خالی باشد
                                         </div>
                                     </div>
                                     <div class="col-12">

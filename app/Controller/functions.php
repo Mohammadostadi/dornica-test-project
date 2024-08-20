@@ -102,7 +102,12 @@ function showMessage($value)
             <strong>اجازه دسترسی ندارید لطفا وارد شوید!</strong>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
-    <?php } ?>    
+    <?php } elseif ($value == 8) { ?>
+        <div class="alert alert-success alert-dismissible fade show" role="alert" id="alert">
+            <strong>رمز عبور شما با موفقیت تغییر کرد</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    <?php }  ?>   
     
 <?php } ?>
 
@@ -249,5 +254,22 @@ function sortActive($data){
 function sort_link($field) {
     
     return isset($_GET['page']) ? "?page=" . $_GET['page'] . "&sort=$field" : '?sort='.$field;
+
+}
+
+function admin_role($value)
+{
+    switch ($value) {
+        case 0:
+            echo "مدیر";
+            break;
+        case 1:
+            echo "ادمین";
+            break;
+        case 2:
+            echo "سوپر ادمین";
+            break;
+
+    }
 
 }
