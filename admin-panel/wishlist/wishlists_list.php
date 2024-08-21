@@ -87,7 +87,7 @@
 
                         </tr>
                         </thead>
-                        <tbody class="align-middle text-center">
+                        <tbody class="text-center">
                         <?php foreach($res as $key => $wishlist) { ?>
                                 <tr>
                                     <td>
@@ -108,7 +108,7 @@
                                     </td>
                                     <td dir="ltr" ><?= showDate($wishlist['setdate']) ?></td>
                                     <td>
-                                        <div class="d-flex align-items-center gap-3 fs-6">
+                                        <div>
                                             <a href="javascript:;" class="text-primary" data-bs-toggle="tooltip" data-bs-placement="bottom" title="ویرایش اطلاعات" data-bs-original-title="وضعیت جزئیات" aria-label="Views"><i class="bi bi-eye-fill"></i></a>
                                         </div>
                                     </td>

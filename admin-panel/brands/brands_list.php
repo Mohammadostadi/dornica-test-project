@@ -105,8 +105,8 @@
                                 </div>
                             </div>
                                 <div class="table-responsive">
-                                    <table class="table align-middle">
-                                        <thead class="table-light">
+                                    <table class="table">
+                                        <thead class="table-light text-center">
                                         <tr>
                                             <th>#</th>
                                             <th>
@@ -119,7 +119,7 @@
                                             <th>اقدامات</th>
                                         </tr>
                                         </thead>
-                                        <tbody>
+                                        <tbody class="text-center">
                                         <?php foreach($res as $brand) { ?>
                                             <tr>
                                                 <td>
@@ -133,7 +133,7 @@
                                                     <?= status('active', $brand['status']); ?>
                                                 </td>
                                                 <td>
-                                                    <div class="d-flex align-items-center gap-3 fs-6">
+                                                    <div>
                                                         <a href="brand_update.php?id=<?= $brand['id'] ?>" class="text-warning" data-bs-toggle="tooltip" data-bs-placement="bottom" title="ویرایش اطلاعات" aria-label="Edit"><i class="bi bi-pencil-fill"></i></a>
                                                         <?php
                                                             $res = $db->where('brand_id', $brand['id'])

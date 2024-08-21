@@ -132,7 +132,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
                                         <select id="category" name="category"   class="form-control" required>
                                             <?php
                                             foreach($categoryList as $category){ ?>
-                                                            <option <?= $products['category_id'] == $category['id']?"SELECTED":"" ?> value="<?= $category['id'] ?>"><?= $category['name'] ?></option>
+                                                            <option <?= ((isset($_POST['category']) and $_POST['category'] == $category['id']) OR $products['category_id'] == $category['id']) ?"SELECTED":"" ?> value="<?= $category['id'] ?>"><?= $category['name'] ?></option>
                                                             <?php } ?>
                                                         </select>
                                                         <span class="text-danger"><?= $validator->show('category') ?></span>

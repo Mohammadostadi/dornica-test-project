@@ -112,13 +112,7 @@
                                         </div>
                                         <div class="col-lg-3 col-md-4">
                                             <select id="city" name="members_city_id"  class="form-select" >
-                                                <option value="" selected>شهر را انتخاب کنید</option>
-                                                <?php $cities = $db->where('province_id', $_SESSION['member_filter']['members_province_id'])->get('cities', null,'name, id') ?>
-                                                <?php if(isset($_SESSION['member_filter']['members_province_id'])){ ?>
-                                                    <?php foreach($cities as $city){ ?>
-                                                        <option <?= (isset($_SESSION['member_filter']['members_city_id']) and $_SESSION['member_filter']['members_city_id'] == $city['id'])?"SELECTED":"" ?> value="<?= $city['id'] ?>"><?= $city['name'] ?></option>
-                                                    <?php } ?>
-                                                <?php } ?>
+                                                <option value="" selected>ابتدا استان را انتخاب کنید</option>
                                             </select>
                                         </div>
                                     <div class="col-lg-2 col-md-4" > <select class="form-select text-secondary" name="members_status" id="status">
@@ -136,7 +130,7 @@
                             </div>
                                 <div class="table-responsive">
                                     <table class="table">
-                                    <thead class="text-center">
+                        <thead class="text-center">
                         <tr>
                             <th>تصویر</th>
                             <th>
@@ -147,6 +141,7 @@
                                 نام خانوادگی</th>
                             <th>ایمیل</th>
                             <th>موبایل</th>
+                            <th>
                             <a href="<?= sort_link('province') ?>" class="sort-table <?= sortActive('province') ?>"></a>
                                 استان</th>
                             <th>
@@ -182,7 +177,7 @@
                                         <?= status('active', $member['status']); ?>
                                     </td>
                                     <td>
-                                        <div class="d-flex align-items-center gap-3 fs-6">
+                                        <div>
                                             <a href="javascript:;" class="text-primary" data-bs-toggle="tooltip" data-bs-placement="bottom" title="" data-bs-original-title="وضعیت جزئیات" aria-label="Views"><i class="bi bi-eye-fill"></i></a>
                                             <a href="member_update.php?id=<?= $member['id'] ?>" class="text-warning" data-bs-toggle="tooltip" data-bs-placement="bottom" title="ویرایش اطلاعات" data-bs-original-title="ویرایش اطلاعات" aria-label="Edit"><i class="bi bi-pencil-fill"></i></a>
                                             <?php
@@ -235,21 +230,32 @@
         require_once('../../layout/js.php');
     ?>
     <script>
-        $('#city').change(function () {
-                var city = $(this).find('option:selected').text();
-            })
-            
-            $('#state').change(function () {
-            var id = $(this).find('option:selected').val();
+        $('#state').change(function () {
+            const id = $(this).val();
+            cities(id);
+        });
+        const current_province = $('#state').find('option:selected').val();
+        const current_city = "<?= isset($_SESSION['member_filter']['members_city_id'])?$_SESSION['member_filter']['members_city_id']:"" ?>";
+        if(current_city != '' && current_province != ''){
+            cities(current_province, current_city);
+        }
+        if(current_city == '' && current_province != ''){
+            cities(current_province);
+        }
+
+
+        function cities(province, city = null){
             $.ajax({
-                method:'post',
                 url:'cities.php',
-                data:{id:id},
+                type:'POST',
+                data:{
+                    province_id:province,
+                    city_id:city,
+                },
                 success:function(msg) {
                     $('#city').html(msg);
                 }
-            })
-        });
+        })}
 </script>
 <script type="text/javascript" src="../../assets/datePiker/js/persianDatepicker.min.js"></script>
 <script type="text/javascript">

@@ -123,10 +123,10 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
                                     <div class="col-6">
                                         <label for="state" class="form-label">استان</label>
                                         <select id="state" name="state"   class="form-control" required>
-                                            <option value="0" selected disabled>استان را انتخاب کنید</option>
+                                            <option value="" selected disabled >استان را انتخاب کنید</option>
                                             <?php
                                             foreach($provinceList as $province){ ?>
-                                                            <option value="<?= $province['id'] ?>"><?= $province['name'] ?></option>
+                                                            <option <?= (isset($_POST['state']) and $_POST['state'] == $province['id']) ?> value="<?= $province['id'] ?>"><?= $province['name'] ?></option>
                                                 <?php } ?>
                                             </select>
                                             <span class="text-danger"><?= $validator->is_exist('state')? $validator->show('state'):'' ?></span>
@@ -137,7 +137,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
                                         <div class="col-6">
                                             <label for="city" class="form-label">شهر</label>
                                             <select id="city" name="city"  class="form-control" required>
-                                                <option value="0" selected disabled>شهر را انتخاب کنید</option>
+                                                <option value="0" selected disabled>ابتدا استان را انتخاب کنید</option>
                                             </select>
                                             <span class="text-danger"><?= $validator->is_exist('city')? $validator->show('city'):'' ?></span>
                                             <div class="invalid-feedback">
@@ -188,7 +188,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
                                     </div>
                                         <div class="col-12">
                                             <label class="form-label">آدرس</label>
-                                            <textarea class="form-control" id="editor1" rows="3"  name="address"><?=checkExist('address')?><?= checkExist('address') ?></textarea>
+                                            <textarea class="form-control" rows="3"  name="address"><?=checkExist('address')?><?= checkExist('address') ?></textarea>
                                         </div>
                                         <div class="col-12">
                                             <label class="form-label">تصویر</label>
@@ -233,34 +233,39 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
     ?>
 
 <script>
-        $('#city').change(function () {
-                var city = $(this).find('option:selected').text();
-            })
-            
-            $('#state').change(function () {
-            var id = $(this).find('option:selected').val();
+        $('#state').change(function () {
+            const id = $(this).val();
+            cities(id);
+        });
+        const current_province = $('#state').find('option:selected').val();
+        console.log(current_province);
+        const current_city = "<?= isset($_POST['city'])?$_POST['city']:""?>";
+        if(current_city != '' && current_province != ''){
+            cities(current_province, current_city);
+        }
+        if(current_city == '' && current_province != ''){
+            cities(current_province);
+        }
+
+
+        function cities(province, city = null){
             $.ajax({
-                method:'post',
                 url:'cities.php',
-                data:{id:id},
+                type:'POST',
+                data:{
+                    province_id:province,
+                    city_id:city
+                },
                 success:function(msg) {
                     $('#city').html(msg);
                 }
-            })
-        });
+        })}
 </script>
 
 <script type="text/javascript" src="../../assets/datePiker/js/persianDatepicker.min.js"></script>
 <script type="text/javascript">
     $("#date").persianDatepicker({formatDate: "YYYY/0M/0D"});
     $("#endTime").persianDatepicker({formatDate: "YYYY/0M/0D"});
-</script>
-<script src="../../assets/ckeditor/ckeditor.js"></script>
-<script src="../../assets/ckeditor/adapters/jquery.js"></script>
-<script>
-    $(document).ready(function(){
-        $('#editor1').ckeditor();
-    });
 </script>
 
 </body>

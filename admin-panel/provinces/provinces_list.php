@@ -99,7 +99,7 @@
                                 </div>
                             </div>
                                 <div class="table-responsive">
-                                    <table class="table align-middle">
+                                    <table class="table">
                                         <thead class="table-light">
                                         <tr>
                                             <th>#</th>
@@ -112,7 +112,7 @@
                                             <th>اقدامات</th>
                                         </tr>
                                         </thead>
-                                        <tbody>
+                                        <tbody class="text-center">
                                         <?php foreach($res as $key => $province) { ?>
                                             <tr>
                                                 <td>
@@ -123,7 +123,7 @@
                                                     <?= status('active', $province['status']); ?>
                                                 </td>
                                                 <td>
-                                                    <div class="d-flex align-items-center gap-3 fs-6">
+                                                    <div>
                                                         <a href="province_update.php?id=<?= $province['id'] ?>" class="text-warning" data-bs-toggle="tooltip" data-bs-placement="bottom" title="ویرایش اطلاعات" data-bs-original-title="ویرایش اطلاعات" aria-label="Edit"><i class="bi bi-pencil-fill"></i></a>
                                                         <?php
                                                             $res = $db->where('province_id', $province['id'])

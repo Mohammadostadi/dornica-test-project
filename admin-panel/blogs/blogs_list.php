@@ -121,7 +121,7 @@
                                 </div>
                             </div>
                                 <div class="table-responsive">
-                                    <table class="table align-middle">
+                                    <table class="table">
                                     <thead class="text-center">
                         <tr>
                             <th>#</th>
@@ -165,7 +165,7 @@
                                         <?= status('active', $blog['status']); ?>
                                     </td>
                                     <td>
-                                            <div class="d-flex align-items-center gap-3 fs-6">
+                                            <div>
                                                 <a href="javascript:;" class="btn text-primary" data-bs-toggle="tooltip" data-bs-placement="bottom" title="" data-bs-original-title="وضعیت جزئیات" aria-label="Views"><i class="bi bi-eye-fill"></i></a>
                                                 <a href="blog_update.php?id=<?= $blog['id'] ?>" class="btn text-warning" data-bs-toggle="tooltip" data-bs-placement="bottom" title="ویرایش اطلاعات" data-bs-original-title="ویرایش اطلاعات" aria-label="Edit"><i class="bi bi-pencil-fill"></i></a>
                                                 <button class="open-confirm btn border-0 text-danger" value="<?= $blog['id'] ?>" data-bs-toggle="tooltip" data-bs-placement="bottom" title="حذف" data-bs-original-title="حذف" aria-label="Delete"><i class="bi bi-trash-fill"></i></button>

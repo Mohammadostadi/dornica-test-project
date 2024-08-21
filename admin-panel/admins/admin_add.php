@@ -9,7 +9,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['_insert'])){
     $username = securityCheck($_REQUEST['username']);
     $role = securityCheck($_REQUEST['role']);
     $password = securityCheck($_REQUEST['password']);
-    $picture = $validator->imageCheck("../../assets/images/ads/", $_FILES["fileToUpload"], 'fileToUpload');
     $validator->empty($fname, 'fname', 'فیلد نام شما نباید خالی باشد');
     $validator->empty($lname, 'lname', 'فیلد نام خانوادگی شما نباید خالی باشد');
     $validator->empty($username, 'username', 'فیلد نام کاربری شما نباید خالی باشد');
@@ -21,7 +20,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['_insert'])){
             'first_name'=>$fname,
             'last_name'=>$lname,
             'username'=>$username,
-            'image'=>$picture,
             'password'=>password_hash($password, PASSWORD_DEFAULT),
             'role'=>$role,
             'status'=>1
@@ -87,6 +85,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['_insert'])){
                                         </div>
                                     </div>
                                         <div class="col-6">
+                                        <label class="form-label">نقش</label>
                                             <select name="role" class="form-select" id="role" required>
                                                 <option value="" selected>نقش</option>
                                                 <option <?= (isset($_POST['role']) and $_POST['role']==1)?"SELECTED":"" ?> value="1">ادمین</option>
@@ -97,15 +96,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['_insert'])){
                                                 فیلد نقش را انتخاب کنید
                                             </div>
                                         </div>
-                                    <div class="col-6">
-                                        <label class="form-label">تصویر</label>
-                                        <input type="file" class="form-control" aria-label="file example" name="fileToUpload"
-                                            required>
-                                        <span class="text-danger"><?= $validator->show('fileToUpload') ?></span>
-                                        <div class="invalid-feedback">
-                                            فیلد تصویر نباید خالی باشد
-                                        </div>
-                                    </div>
                                     <div class="col-12">
                                         <label class="form-label">کلمه عبور</label>
                                         <input type="password" class="form-control" name="password" value="<?= checkExist('password') ?>" oninput='passwordjs(this)' required>

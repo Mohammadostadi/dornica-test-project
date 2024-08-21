@@ -179,8 +179,7 @@ $res = $db->orderBy($sortField, $sortOrder)
                                                             <?= status('active', $admin['status']); ?>
                                                         </td>
                                                         <td>
-                                                            <div
-                                                                class="d-flex align-items-center justify-content-center gap-3 fs-6">
+                                                            <div>
                                                                 <a <?= ($role == 0 or ($role == 2 and $admin['role'] == 1))?"href=admin_update.php?id=".$admin['id']:"" ?>
                                                                     class="btn border-0 disabled <?=($role == 0 or ($role == 2 and $admin['role'] == 1))?"text-warning":"text-secondary" ?>" data-bs-toggle="tooltip"
                                                                     data-bs-placement="bottom" title="<?=($role == 0 or ($role == 2 and $admin['role'] == 1))?"ویرایش اطلاعات":"عدم اجازه دسترسی"?>"

@@ -113,7 +113,7 @@ $res = $db->orderBy($sortField, $sortOrder)
                                         </div>
                                     </div>
                                     <div class="table-responsive">
-                                        <table class="table align-middle">
+                                        <table class="table">
                                             <thead class="text-center">
                                                 <tr>
                                                     <th>#</th>
@@ -146,7 +146,7 @@ $res = $db->orderBy($sortField, $sortOrder)
                                                             <?= status('active', $ad['status']); ?>
                                                         </td>
                                                         <td>
-                                                            <div class="d-flex align-items-center gap-3 fs-6">
+                                                            <div>
                                                                 <a href="ads_update.php?id=<?= $ad['id'] ?>"
                                                                     class="text-warning" data-bs-toggle="tooltip"
                                                                     data-bs-placement="bottom" title="ویرایش اطلاعات"

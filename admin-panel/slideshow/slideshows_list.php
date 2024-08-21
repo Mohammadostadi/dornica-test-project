@@ -107,8 +107,8 @@
                                 </div>
                             </div>
                                 <div class="table-responsive">
-                                    <table class="table align-middle">
-                                        <thead class="table-light">
+                                    <table class="table">
+                                        <thead class="table-light text-center">
                                         <tr>
                                             <th>#</th>
                                             <th>
@@ -124,7 +124,7 @@
                                         </tr>
                                         </thead>
                                         
-                        <tbody>
+                        <tbody class="text-center">
                             <?php  foreach($res as $value){ ?>
                                 <tr>
                                     <td>

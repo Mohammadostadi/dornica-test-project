@@ -106,8 +106,8 @@
                                 </div>
                             </div>
                                 <div class="table-responsive">
-                                    <table class="table align-middle">
-                                        <thead class="table-light">
+                                    <table class="table">
+                                        <thead class="table-light text-center">
                                         <tr>
                                             <th>#</th>
                                             <th>تصویر</th>
@@ -127,7 +127,7 @@
                                             <th>اقدامات</th>
                                         </tr>
                                         </thead>
-                                        <tbody>
+                                        <tbody class="text-center">
                                         <?php foreach($res as $team) { ?>
                                             <tr>
                                                 <td><?= $team['id'] ?></td>
@@ -146,7 +146,7 @@
                                                     <?= status('active', $team['status']) ?>
                                                 </td>
                                                 <td>
-                                                    <div class="d-flex align-items-center gap-3 fs-6">
+                                                    <div>
                                                         <a href="team_update.php?id=<?= $team['id'] ?>" class="text-warning" data-bs-toggle="tooltip" data-bs-placement="bottom" title="ویرایش اطلاعات" data-bs-original-title="ویرایش اطلاعات" aria-label="Edit"><i class="bi bi-pencil-fill"></i></a>
                                                         <button class="open-confirm border-0 btn text-danger" value="<?= $team['id'] ?>" data-bs-toggle="tooltip" data-bs-placement="bottom" title="حذف" data-bs-original-title="حذف" aria-label="Delete"><i class="bi bi-trash-fill"></i></button>
                                                     </div>

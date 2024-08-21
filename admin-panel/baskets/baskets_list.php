@@ -102,7 +102,7 @@
                                 </div>
                             </div>
                                 <div class="table-responsive">
-                                    <table class="table align-middle">
+                                    <table class="table">
                                     <thead class="text-center">
                         <tr>
                             <th>#</th>
@@ -137,7 +137,7 @@
                                     <td><?= number_format($basket['qty'] * $basket['price']) ?></td>
                                     <td dir="ltr" ><?= showDate($basket['setdate']) ?></td>
                                     <td>
-                                        <div class="d-flex align-items-center gap-3 fs-6">
+                                        <div>
                                             <a href="javascript:;" class="text-primary" data-bs-toggle="tooltip" data-bs-placement="bottom" title="ویرایش اطلاعات" data-bs-original-title="وضعیت جزئیات" aria-label="Views"><i class="bi bi-eye-fill"></i></a>
                                         </div>
                                     </td>

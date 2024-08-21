@@ -71,8 +71,8 @@
                         <div class="card border shadow-none w-100">
                             <div class="card-body">
                                 <div class="table-responsive">
-                                    <table class="table align-middle">
-                                    <thead>
+                                    <table class="table">
+                                    <thead class="text-center">
                         <tr>
                             <th>#</th>
                             <th>نام مشتری</th>
@@ -82,7 +82,7 @@
 
                         </tr>
                         </thead>
-                        <tbody>
+                        <tbody class="text-center">
                         <?php foreach($res as $counter) { ?>
                                 <tr>
                                     <td>
@@ -94,7 +94,7 @@
                                     <td><?= $counter['user_agent'] ?></td>
                                     <td dir="ltr" class="text-start"><?= showDate($counter['date']) ?></td>
                                     <td>
-                                        <div class="d-flex align-items-center gap-3 fs-6">
+                                        <div>
                                             <a href="javascript:;" class="text-primary" data-bs-toggle="tooltip" data-bs-placement="bottom" title="ویرایش اطلاعات" data-bs-original-title="وضعیت جزئیات" aria-label="Views"><i class="bi bi-eye-fill"></i></a>
                                         </div>
                                     </td>

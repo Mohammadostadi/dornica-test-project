@@ -152,12 +152,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
                                         <div class="col-6">
                                                 <label for="city" class="form-label">شهر</label>
                                                 <select id="city" name="city"  class="form-control">
-                                                <?php $cities = $db->where('province_id', $member['province_id'])->get('cities', null,'name, id') ?>
-                                                <?php foreach($cities as $city){ ?>
-                                                    <option <?= $member['city_id'] == $city['id']?"SELECTED":"" ?> value="<?= $city['id'] ?>"><?= $city['name'] ?></option>
-                                                <?php } ?>
-                                                
-                                            </select>
+                                                    
+                                                </select>
                                             <span class="text-danger"><?= $validator->is_exist('city')? $validator->show('city'):'' ?></span>
                                         </div>
                                     <div class="col-6">
@@ -200,7 +196,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
                                     </div>
                                         <div class="col-12">
                                             <label class="form-label">آدرس</label>
-                                            <textarea class="form-control" id="editor1" rows="3"  name="address"><?=checkUpdate('address', $member['address'])?></textarea>
+                                            <textarea class="form-control" rows="3"  name="address"><?=checkUpdate('address', $member['address'])?></textarea>
                                         </div>
                                         <div class="col-12">
                                         <label class="form-label">تصویر</label>
@@ -253,32 +249,38 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
     ?>
 
 <script>
-        $('#city').change(function () {
-                const city = $(this).find('option:selected').text();
-            })
-            
-            $('#state').change(function () {
-            const id = $(this).find('option:selected').val();
+        $('#state').change(function () {
+            const id = $(this).val();
+            cities(id);
+        });
+        const current_province = $('#state').find('option:selected').val();
+        console.log(current_province);
+        const current_city = "<?= isset($_POST['city'])?$_POST['city']:""?>";
+        if(current_city != '' && current_province != ''){
+            cities(current_province, current_city);
+        }
+        if(current_city == '' && current_province != ''){
+            cities(current_province);
+        }
+
+
+        function cities(province, city = null){
             $.ajax({
-                method:'post',
                 url:'cities.php',
-                data:{id:id},
+                type:'POST',
+                data:{
+                    province_id:province,
+                    city_id:city,
+                    member:<?= $member['city_id'] ?>
+                },
                 success:function(msg) {
                     $('#city').html(msg);
                 }
-            })
-        });
+        })}
 </script>
 <script type="text/javascript" src="../../assets/datePiker/js/persianDatepicker.min.js"></script>
 <script type="text/javascript">
     $("#date").persianDatepicker({formatDate: "YYYY/0M/0D"});
-</script>
-<script src="../../assets/ckeditor/ckeditor.js"></script>
-<script src="../../assets/ckeditor/adapters/jquery.js"></script>
-<script>
-    $(document).ready(function(){
-        $('#editor1').ckeditor();
-    });
 </script>
 <?php require_once('../../layout/update_image.php') ?>
 </body>

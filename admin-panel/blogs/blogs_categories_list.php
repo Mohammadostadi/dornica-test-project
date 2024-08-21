@@ -104,8 +104,8 @@
                                 </div>
                             </div>  
                                 <div class="table-responsive">
-                                    <table class="table align-middle">
-                                        <thead class="table-light">
+                                    <table class="table">
+                                        <thead class="table-light text-center">
                                         <tr>
                                             <th>#</th>
                                             <th>
@@ -120,7 +120,7 @@
                                             <th>اقدامات</th>
                                         </tr>
                                         </thead>
-                                        <tbody>
+                                        <tbody class="text-center">
                                         <?php foreach($res as $key => $bcategory) { ?>
                                             <tr>
                                                 <td>
@@ -132,8 +132,8 @@
                                                     <?= status('active', $bcategory['status']); ?>
                                                 </td>
                                                 <td>
-                                                    <div class="d-flex align-items-center gap-3 fs-6">
-                                                                                                        <a href="javascript:;" class="btn text-primary" data-bs-toggle="tooltip" data-bs-placement="bottom" title="" data-bs-original-title="وضعیت جزئیات" aria-label="Views"><i class="bi bi-eye-fill"></i></a>
+                                                    <div>
+                                                        <a href="javascript:;" class="btn text-primary" data-bs-toggle="tooltip" data-bs-placement="bottom" title="" data-bs-original-title="وضعیت جزئیات" aria-label="Views"><i class="bi bi-eye-fill"></i></a>
                                                         <a href="blog_category_update.php?id=<?= $bcategory['id'] ?>" class="text-warning" data-bs-toggle="tooltip" data-bs-placement="bottom" title="ویرایش اطلاعات" data-bs-original-title="ویرایش اطلاعات" aria-label="Edit"><i class="bi bi-pencil-fill"></i></a>
                                                         <?php 
                                                             $res = $db->where('category_id', $bcategory['id'])

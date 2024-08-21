@@ -20,24 +20,14 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['_insert'])){
     $validator->empty('username',  $username,'فیلد نام کاربری شما نباید خالی باشد');
     $validator->empty('role',  $role, 'فیلد  نقش  شما نباید خالی باشد');
     $validator->existValue('admin', 'username', $username, 'فیلد نام کاربری تکراری میباشد', $admin['username']);
-    $picture = $validator->imageUpdate("../../assets/images/ads/", $_FILES["fileToUpload"], 'fileToUpload', $admin['image']);
 
     if($validator->count_error() == 0){
-        array_map('unlink', glob("../../assets/images/upload/*.*"));
-        if(!empty($picture)){
-            $db->where('id', $id)
-            ->update('admin',[
-                'first_name'=>$fname,
-                'last_name'=>$lname,
-                'username'=>$username,
-                'image'=>$picture
-            ]);
-        }
         $db->where('id', $id)
         ->update('admin',[
             'first_name'=>$fname,
             'last_name'=>$lname,
             'username'=>$username,
+            'status'=>isset($check)?1:0,
         ]);
         redirect('admins_list.php', 2);
     }
@@ -113,20 +103,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['_insert'])){
                                         </div>
                                     </div>
                                     <?php }  ?>
-                                    <div class="col-12">
-                                            <label class="form-label">تصویر</label>
-                                            <div class="row">
-                                                <div class="col-12 text-center bg-light my-3 rounded preview">
-                                                    <img src="../../<?= !empty($admin['image'])?$admin['image']:"assets/images/admin/default.png" ?>" class="rounded-circle shadow m-3" id="img"
-                                                        width="100" height="100" alt="">
-                                                </div>
-                                                <div class="col-12">
-                                                    <input type="file" class="form-control" aria-label="file example"
-                                                        id="fileToUpload" name="fileToUpload">
-                                                </div>
-                                            </div>
-                                            <span class="text-danger"><?= $validator->show('fileToUpload') ?></span>
-                                        </div>
                                     <div class="col-8">
                                         <div class="d-flex">
                                             <label class="form-check-label mx-1" for="flexSwitchCheckChecked">غیرفعال</label>
