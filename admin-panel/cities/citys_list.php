@@ -1,8 +1,13 @@
 <?php
 $prefix = 'cities';
 require_once('../../app/loader.php');
-$col = ['province.name AS province', 'cities.name AS city', 'cities.id', 'cities.status'];
 sortInTable($prefix, 'citys_list', 'page');
+if(!isset($_SESSION['province'])){
+    $_SESSION['province'] = '';
+}
+if(isset($_GET['province'])){
+    $_SESSION['province'] = 'cities.province_id = '.securityCheck($_GET['province']);
+}
 $filter = new Filter('cities', 'city_filter');
 $data = [
     'province.name' => 'like',
@@ -10,10 +15,10 @@ $data = [
     'cities.status' => '=',
 ];
 $query = [
-    'SELECT COUNT(*) AS total FROM cities LEFT JOIN province on province.id = cities.province_id WHERE',
-    'SELECT province.name AS province, cities.name AS city, cities.id, cities.status FROM cities LEFT JOIN province on province.id = cities.province_id'
+    'SELECT COUNT(*) AS total FROM cities LEFT JOIN province on province.id = cities.province_id WHERE '.(!empty($_SESSION['province'])?$_SESSION['province']:""),
+    'SELECT province.name AS province, cities.name AS city, cities.id, cities.province_id, cities.status FROM cities LEFT JOIN province on province.id = cities.province_id '.(!empty($_SESSION['province'])?' WHERE '.$_SESSION['province']:"")
 ];
-$res = $filter->filterCheck($db, $data, 'cities', 'citys_list.php', $query, 3, $sortField, $sortOrder);
+$res = $filter->filterCheck($db, $data, 'cities', 'citys_list.php', $query, 3, $sortField, $sortOrder, 'province');
 ?>
 
 <!doctype html>
@@ -72,6 +77,9 @@ $res = $filter->filterCheck($db, $data, 'cities', 'citys_list.php', $query, 3, $
                 </div>
                 <div class="ms-auto">
                     <div class="btn-group">
+                    <?php if(isset($_SESSION['province']) and !empty($_SESSION['province'])) { ?>
+                                        <a class="btn btn-outline-secondary" href="../provinces/provinces_list.php?province=1">برگشت به لیست استان ها</a>
+                                <?php } ?>
                         <?= has_access('city_add.php') ?"<a class='btn btn-outline-secondary' href='city_add.php'> اضافه کردن داده جدید</a>":"" ?>
                         <button class="btn btn-outline-secondary" id="_filter">فیلتر</button>
                     </div>

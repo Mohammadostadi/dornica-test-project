@@ -74,7 +74,7 @@
             </div>
             <div class="ms-auto">
                 <div class="btn-group">
-                    <a class="btn btn-outline-secondary" href="slideshow_add.php"> اضافه کردن داده جدید</a>
+                    <?= has_access('slideshow_add.php') ?"<a class='btn btn-outline-secondary' href='slideshow_add.php'> اضافه کردن داده جدید</a>":"" ?>
                     <button class="btn btn-outline-secondary" id="_filter">فیلتر</button>
                 </div>
             </div>
@@ -120,7 +120,7 @@
                                             <th>
                                             <a href="<?= sort_link('status') ?>" class="sort-table <?= sortActive('status') ?>"></a>
                                                 وضعیت</th>
-                                            <th>اقدامات</th>
+                                            <?= (has_access('slideshow_delete.php') or has_access('slideshow_update.php')) ?"<th>اقدامات</th>":"" ?>
                                         </tr>
                                         </thead>
                                         
@@ -146,12 +146,19 @@
                                     <td>
                                         <?= status('active', $value['status']); ?>
                                     </td>
+                                    <?php if(has_access('slideshow_delete.php') or has_access('slideshow_update.php')){ ?>
                                     <td>
                                         <div class="d-flex align-items-center gap-3 fs-6">
+                                            <?php if(has_access('slideshow_update.php')){ ?>
                                             <a href="slideshow_update.php?id=<?= $value['id'] ?>" class="text-warning" data-bs-toggle="tooltip" data-bs-placement="bottom" title="ویرایش اطلاعات" data-bs-original-title="ویرایش اطلاعات" aria-label="Edit"><i class="bi bi-pencil-fill"></i></a>
+                                            <?php
+                                            }
+                                            if(has_access('slideshow_delete.php')){ ?>
                                             <button class="open-confirm border-0 btn text-danger" value="<?= $value['id'] ?>" data-bs-toggle="tooltip" data-bs-placement="bottom" title="حذف" data-bs-original-title="حذف" aria-label="Delete"><i class="bi bi-trash-fill"></i></button>
+                                            <?php } ?>
                                         </div>
                                     </td>
+                                    <?php } ?>
                                 </tr>           
                             <?php } ?>
                         </tbody>

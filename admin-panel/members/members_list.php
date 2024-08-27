@@ -91,7 +91,7 @@
             </div>
             <div class="ms-auto">
                 <div class="btn-group">
-                    <a class="btn btn-outline-secondary" href="member_add.php"> اضافه کردن داده جدید</a>
+                    <?= has_access('member_add.php')?"<a class='btn btn-outline-secondary' href='member_add.php'> اضافه کردن داده جدید</a>":"" ?>
                     <button class="btn btn-outline-secondary" id="_filter">فیلتر</button>
                 </div>
             </div>
@@ -191,7 +191,24 @@
                                     </td>
                                     <td>
                                         <div>
-                                            <?php
+                                            
+                                            <a id="dropdownMenu2"
+                                            data-toggle="dropdown" aria-haspopup="true"
+                                            aria-expanded="false"
+                                            >
+                                                <i class="lni lni-more"></i>
+                                            </a>    
+                                            <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                                                <li>
+                                                    <a href="javascript:;" class="btn border-0 text-primary dropdown-item" data-bs-toggle="tooltip" data-bs-placement="top" title="وضعیت جزئیات" aria-label="Views"><i class="bi bi-eye-fill"></i> نمایش جزئیات</a>
+                                                </li>
+                                                <?php if(has_access('member_update.php')){ ?>
+                                                <li>
+                                                    <a href="member_update.php?id=<?= $member['id'] ?>" class="btn border-0 text-warning dropdown-item" data-bs-toggle="tooltip" data-bs-placement="bottom" title="ویرایش اطلاعات" data-bs-original-title="ویرایش اطلاعات" aria-label="Edit"><i class="bi bi-pencil-fill"></i> ویرایش اطلاعات</a>
+                                                </li>
+                                                <?php
+                                                }
+                                                if(has_access('member_delete.php')){
                                                 $payment = $db->where('member_id', $member['id'])
                                                 ->getValue('payments', 'COUNT(*)');
                                                 $wishlist = $db->where('member_id', $member['id'])
@@ -208,20 +225,9 @@
                                                     $result = false;
                                                 }
                                             ?>
-                                            <a id="dropdownMenu2"
-                                            data-toggle="dropdown" aria-haspopup="true"
-                                            aria-expanded="false"
-                                            >
-                                                <i class="lni lni-more"></i>
-                                            </a>    
-                                            <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
                                                 <li>
-                                                    <a href="javascript:;" class="btn border-0 text-primary dropdown-item" data-bs-toggle="tooltip" data-bs-placement="top" title="وضعیت جزئیات" aria-label="Views"><i class="bi bi-eye-fill"></i> نمایش جزئیات</a>
-                                                </li>
-                                                <li>
-                                                    <a href="member_update.php?id=<?= $member['id'] ?>" class="btn border-0 text-warning dropdown-item" data-bs-toggle="tooltip" data-bs-placement="bottom" title="ویرایش اطلاعات" data-bs-original-title="ویرایش اطلاعات" aria-label="Edit"><i class="bi bi-pencil-fill"></i> ویرایش اطلاعات</a>
-                                                </li>
-                                                <li><button class="<?= $result?'disabled text-secondary':'open-confirm text-danger'?>  btn border-0 dropdown-item" value="<?= $member['id'] ?>" data-bs-toggle="tooltip" data-bs-placement="bottom" title="<?= $result?'قابل حذف نیست':'حذف' ?>" data-bs-original-title="حذف" aria-label="Delete"><i class="bi bi-trash-fill"></i> حذف فیلد</button></li>
+                                            <button class="<?= $result?'disabled text-secondary':'open-confirm text-danger'?>  btn border-0 dropdown-item" value="<?= $member['id'] ?>" data-bs-toggle="tooltip" data-bs-placement="bottom" title="<?= $result?'قابل حذف نیست':'حذف' ?>" data-bs-original-title="حذف" aria-label="Delete"><i class="bi bi-trash-fill"></i> حذف فیلد</button></li>
+                                            <?php } ?>
                                                 <li><a class="dropdown-item" href="../payment/payments.php?member=<?= $member['id'] ?>">لیست پرداختی</a>
                                                 </li>
                                                 <li><a class="dropdown-item" href="../orders/orders_list.php?member=<?= $member['id'] ?>">لیست سفارشات</a>

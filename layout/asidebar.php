@@ -19,7 +19,7 @@
                 </a>
                 
             </li>
-            <?php if($_SESSION['user_role'] == 0 or $_SESSION['user_role'] == 2){ ?>
+            <?php if(has_access('admin_list.php')){ ?>
             <li>
                 <a href="javascript:;" class="has-arrow">
                     <div class="parent-icon"><i class="bi bi-grid-fill"></i>
@@ -32,8 +32,10 @@
                     
                 </ul>
             </li>
-            <?php } ?>
-            <!-- <li class="menu-label">عناصر رابط کاربری</li> -->
+            <?php } 
+            
+            if(has_access('members_list.php') or has_access('wishlists_list.php')){
+            ?>            
             <li>
                 <a href="javascript:;" class="has-arrow">
                     <div class="parent-icon"><i class="bi bi-droplet-fill"></i>
@@ -41,12 +43,21 @@
                     <div class="menu-title">مشتریان</div>
                 </a>
                 <ul>
+                    <?php if(has_access('members_list.php')){ ?>
                     <li> <a href="../members/members_list.php"><i class="bi bi-circle"></i>لیست مشتریان</a>
                     </li>
+                    <?php } 
+                    
+                    if(has_access('wishlists_list.php')){
+                    ?>
                     <li> <a href="../wishlist/wishlists_list.php"><i class="bi bi-circle"></i>لیست علاقه مندی ها</a>
                     </li>
+                    <?php } ?>
                 </ul>
             </li>
+            <?php } 
+            if(has_access('products_categories_list.php') or has_access('product_images_list.php') or has_access('products_list.php')){
+            ?>
             <li>
                 <a href="javascript:;" class="has-arrow">
                     <div class="parent-icon"><i class="bi bi-basket2-fill"></i>
@@ -54,14 +65,25 @@
                     <div class="menu-title">محصولات</div>
                 </a>
                 <ul>
+                    <?php if(has_access('products_categories_list.php')){ ?>
                     <li> <a href="../products/products_categories_list.php"><i class="bi bi-circle"></i>لیست دسته بندی محصولات</a>
                     </li>
+                    <?php } 
+                    if(has_access('product_images_list.php')){
+                    ?>
                     <li> <a href="../products/product_images_list.php"><i class="bi bi-circle"></i>لیست تصاویر محصولات</a>
                     </li>
+                    <?php } 
+                    if(has_access('products_list.php')){
+                    ?>
                     <li> <a href="../products/products_list.php"><i class="bi bi-circle"></i>لیست محصولات</a>
                     </li>
+                    <?php } ?>
                 </ul>
             </li>
+            <?php } 
+            if(has_access('brands_list.php')){
+            ?>
             <li>
                 <a class="has-arrow" href="javascript:;">
                     <div class="parent-icon"><i class="bi bi-cloud-arrow-down-fill"></i>
@@ -73,6 +95,9 @@
                     </li>
                 </ul>
             </li>
+            <?php }
+            if(has_access('blogs_categories_list.php') or has_access('blogs_list.php')){
+            ?>
             <li>
                 <a class="has-arrow" href="javascript:;">
                     <div class="parent-icon"><i class="bi bi-award-fill"></i>
@@ -80,13 +105,21 @@
                     <div class="menu-title">بلاگ ها</div>
                 </a>
                 <ul>
+                    <?php if(has_access('blogs_categories_list.php')){ ?>
                     <li> <a href="../blogs/blogs_categories_list.php"><i class="bi bi-circle"></i>لیست دسته بندی بلاگ</a>
+                    <?php } 
+                    if(has_access('blogs_list.php')){
+                    ?>
                     <li> <a href="../blogs/blogs_list.php"><i class="bi bi-circle"></i>لیست بلاگ</a>
                     </li>
+                    <?php } ?>
                     </li>
                     
                 </ul>
             </li>
+            <?php } 
+            if(has_access('orders_list.php') or has_access('baskets_list.php')){
+            ?>
             <li>
                 <a class="has-arrow" href="javascript:;">
                     <div class="parent-icon"><i class="bi bi-cloud-arrow-down-fill"></i>
@@ -94,13 +127,20 @@
                     <div class="menu-title">سفارشات و سبدخرید</div>
                 </a>
                 <ul>
+                    <?php if(has_access('orders_list.php')){ ?>
                     <li> <a href="../orders/orders_list.php"><i class="bi bi-circle"></i>لیست سفارشات</a>
                     </li>
+                    <?php }
+                    if(has_access('baskets_list.php')){
+                    ?>
                     <li> <a href="../baskets/baskets_list.php"><i class="bi bi-circle"></i>لیست سبدخرید</a>
                     </li>
+                    <?php } ?>
                 </ul>
             </li>
-            
+            <?php } 
+            if(has_access('ads_list.php')){
+            ?>
             <li>
                 <a class="has-arrow" href="javascript:;">
                     <div class="parent-icon"><i class="bi bi-cloud-arrow-down-fill"></i>
@@ -112,6 +152,9 @@
                     </li>
                 </ul>
             </li>
+            <?php }
+            if(has_access('provinces_list.php') or has_access('citys_list.php')){
+            ?>
             <li>
                 <a class="has-arrow" href="javascript:;">
                     <div class="parent-icon"><i class="bi bi-cloud-arrow-down-fill"></i>
@@ -119,12 +162,22 @@
                     <div class="menu-title">شهر و استان</div>
                 </a>
                 <ul>
+                    <?php if(has_access('provinces_list.php')){ ?>
                     <li> <a href="../provinces/provinces_list.php"><i class="bi bi-circle"></i>لیست استان ها</a>
                     </li>
+                    <?php }
+                    if(has_access('citys_list.php')){
+                    ?>
                     <li> <a href="../cities/citys_list.php"><i class="bi bi-circle"></i>لیست شهرها</a>
                     </li>
+                    <?php }
+                    
+                    ?>
                 </ul>
             </li>
+            <?php } 
+            if(has_access('contacts_list.php') or has_access('comments_list.php')){
+            ?>
             <li>
                 <a class="has-arrow" href="javascript:;">
                     <div class="parent-icon"><i class="bi bi-cloud-arrow-down-fill"></i>
@@ -132,12 +185,20 @@
                     <div class="menu-title">نظرات و پیام ها</div>
                 </a>
                 <ul>
+                    <?php if(has_access('contacts_list.php')){ ?>
                     <li> <a href="../contacts/contacts_list.php"><i class="bi bi-circle"></i>لیست پیام ها</a>
                     </li>
+                    <?php }
+                    if(has_access('comments_list.php')){
+                    ?>
                     <li> <a href="../comments/comments_list.php"><i class="bi bi-circle"></i>لیست نظرات</a>
                     </li>
+                    <?php } ?>
                 </ul>
             </li>
+            <?php } 
+            if(has_access('faqs_list.php')){
+            ?>
             <li>
                 <a class="has-arrow" href="javascript:;">
                     <div class="parent-icon"><i class="bi bi-cloud-arrow-down-fill"></i>
@@ -149,6 +210,9 @@
                     </li>
                 </ul>
             </li>
+            <?php }
+            if(has_access('pages_list.php') or has_access('teams_list.php') or has_access('slideshows_list.php') or has_access('counters_list.php')){
+            ?>
             <li>
                 <a class="has-arrow" href="javascript:;">
                     <div class="parent-icon"><i class="bi bi-cloud-arrow-down-fill"></i>
@@ -156,12 +220,30 @@
                     <div class="menu-title">مدیریت صفحه</div>
                 </a>
                 <ul>
+                    <?php if(has_access('pages_list.php')){ ?>
                     <li> <a href="../pages/pages_list.php"><i class="bi bi-circle"></i>لیست صفحات</a>
                     </li>
+                    <?php }
+                    if(has_access('teams_list.php')){
+                    ?>
                     <li> <a href="../teams/teams_list.php"><i class="bi bi-circle"></i>لیست تیم ما</a>
                     </li>
+                    <?php }
+                    if(has_access('slideshows_list.php')){
+                    ?>
+                    <li> <a href="../slideshow/slideshows_list.php"><i class="bi bi-circle"></i>لیست اسلایدشو</a>
+                    </li>
+                    <?php }
+                    if(has_access('counters_list.php')){
+                    ?>
+                    <li> <a href="../counters/counters_list.php"><i class="bi bi-circle"></i>لیست آمار بازدید</a>
+                    </li>
+                    <?php } ?>
                 </ul>
             </li>
+            <?php } 
+            if(has_access('shippingtypes_list.php') or has_access('payments_list.php') or has_access('payments.php')){
+            ?>
             <li>
                 <a class="has-arrow" href="javascript:;">
                     <div class="parent-icon"><i class="bi bi-cloud-arrow-down-fill"></i>
@@ -169,17 +251,25 @@
                     <div class="menu-title">روش های ارسال و پرداخت</div>
                 </a>
                 <ul>
+                    <?php if(has_access('shippingtypes_list.php')){ ?>
                     <li> <a href="../shipping/shippingtypes_list.php"><i class="bi bi-circle"></i>لیست روش ارسال</a>
                     </li>
+                    <?php }
+                    if(has_access('payments_type.php')){
+                    ?>
                     <li> <a href="../payment/payments_type.php"><i class="bi bi-circle"></i>لیست روش پرداخت</a>
                     </li>
+                    <?php }
+                    if(has_access('payments.php')){
+                    ?>
                     <li> <a href="../payment/payments.php"><i class="bi bi-circle"></i>لیست پرداخت ها</a>
                     </li>
+                    <?php } ?>
                 </ul>
             </li>
-
-
-
+            <?php } 
+            if(has_access('settings_update.php')){
+            ?>
             <li>
                 <a class="has-arrow" href="javascript:;">
                     <div class="parent-icon"><i class="bi bi-cloud-arrow-down-fill"></i>
@@ -187,17 +277,12 @@
                     <div class="menu-title">تنظیمات</div>
                 </a>
                 <ul>
-                <?php if($_SESSION['user_role'] == 0 or $_SESSION['user_role'] == 2){ ?>
                     <li> <a href="../settings/setting_update.php?id=1"><i class="bi bi-circle"></i>تنظیمات صفحه</a>
-                    </li>
-                    <?php } ?>
-                    <li> <a href="../slideshow/slideshows_list.php"><i class="bi bi-circle"></i>لیست اسلایدشو</a>
-                    </li>
-                    <li> <a href="../counters/counters_list.php"><i class="bi bi-circle"></i>لیست آمار بازدید</a>
                     </li>
                 </ul>
             </li>
-
+            
+            <?php } ?>
         </ul>
         <!--end navigation-->
     </aside>

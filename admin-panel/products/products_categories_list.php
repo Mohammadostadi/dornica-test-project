@@ -76,7 +76,7 @@
             </div>
             <div class="ms-auto">
                 <div class="btn-group">
-                    <a class="btn btn-outline-secondary" href="product_category_add.php"> اضافه کردن داده جدید</a>
+                    <?= has_access('product_category_add.php') ?"<a class='btn btn-outline-secondary' href='product_category_add.php'> اضافه کردن داده جدید</a>":"" ?>
                     <button class="btn btn-outline-secondary" id="_filter">فیلتر</button>
                 </div>
             </div>
@@ -151,8 +151,11 @@
                                                 <td>
                                                 <div>
                                                 <a href="products_list.php?category=<?= $pcategory['id'] ?>" class="btn border-0 text-primary" data-bs-toggle="tooltip" data-bs-placement="bottom" title="نمایش لیست محصولات" aria-label="Views"><i class="lni lni-list"></i></a>
+                                                <?php if(has_access('product_category_update.php')){ ?>
                                                     <a href="product_category_update.php?id=<?= $pcategory['id'] ?>" class="text-warning" data-bs-toggle="tooltip" data-bs-placement="bottom" title="ویرایش اطلاعات" data-bs-original-title="ویرایش اطلاعات" aria-label="Edit"><i class="bi bi-pencil-fill"></i></a>
                                                     <?php
+                                                        }
+                                                        if(has_access('product_category_delete.php')){
                                                         $res = $db->where('category_id', $pcategory['id'])
                                                         ->getValue('products', 'COUNT(*)');
                                                         $parent = $db->where('parent_id', $pcategory['id'])
@@ -164,6 +167,7 @@
                                                         }
                                                     ?>
                                                     <button class="<?=$result?'disabled text-secondary':'open-confirm text-danger'?>  btn border-0" value="<?= $pcategory['id'] ?>" data-bs-toggle="tooltip" data-bs-placement="bottom" title="<?= $result?'قابل حذف نیست':' حذف ' ?>" data-bs-original-title="حذف" aria-label="Delete"><i class="bi bi-trash-fill"></i></button>
+                                                    <?php } ?>
                                                 </div>
                                                 </td>
                                             </tr>

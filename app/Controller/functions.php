@@ -462,22 +462,17 @@ function has_access($current_loc='')  {
             'profile_edit.php', 'profile_reset_password.php',
             'ads_list.php',
             'baskets_list.php',
-            'blogs_categories_list.php', 'blogs_list.php',
+            'blogs_list.php',
             'brands_list.php',
             'citys_list.php',
             'comments_list.php',
             'contacts_list.php',
             'counters_list.php',
-            'faqs_list.php',
             'members_list.php',
             'orders_list.php',
-            'pages_list.php',
-            'payment_type.php', 'payments.php',
+            'payments.php',
             'products_list.php', 'products_categories_list.php', 'product_images_list.php',
             'provinces_list.php',
-            'shippingtypes_list.php',
-            'slideshows_list.php',
-            'wishlists_list.php'
         ]
         ];
         if (isset($permission[$_SESSION['user_role']]) and (in_array($current_loc, $permission[$_SESSION['user_role']]))) {
