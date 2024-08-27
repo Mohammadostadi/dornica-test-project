@@ -12,7 +12,7 @@ class Filter{
             unset($_SESSION[$this->prefix][$data]);
         }
     }
-    function filterCheck($db, $data, $condition, $loc,$join = [], $limit = 1, $sortField = 'id', $sortOrder = 'ASC'){
+    function filterCheck($db, $data, $condition, $loc,$join = [], $limit = 1, $sortField = 'id', $sortOrder = 'ASC',$con=''){
         if(!isset($_SESSION[$this->prefix])){
             $_SESSION[$this->prefix][$condition] = [];
         }
@@ -52,7 +52,7 @@ class Filter{
     }   
 
     if(!empty($join)){
-        return $this->joinCondition($db,$join, $condition, $limit, $sortField, $sortOrder);
+        return $this->joinCondition($db,$join, $condition, $limit, $sortField, $sortOrder,$con);
         }
 }
 
@@ -65,19 +65,23 @@ class Filter{
 
     function loopQuery($db, $data){
         $condition = [];
-        if(isset($data) and is_countable($data)){
+        if (isset($data) and !empty($data)) {
             $condition = $data;
         }
-        if(!empty($condition)){
-            foreach($condition as $cond){
-                if(!empty($cond)){
-                    $db->where($cond);
+        if (!empty($condition)) {
+            if (gettype($condition) == 'array') {
+                foreach ($condition as $conn) {
+                    if (!empty($conn)) {
+                        $db->where($conn);
+                    }
                 }
+            } else {
+                $db->where($condition);
             }
         }
     }
 
-    private function joinCondition($db,$query,$cond,$limit, $sortField, $sortOrder)  {
+    private function joinCondition($db,$query,$cond,$limit, $sortField, $sortOrder,$con='')  {
         global $pages;
         global $page;
         $condition = [];
@@ -95,10 +99,11 @@ class Filter{
             $limitation = ($page - 1)*$limit;
             $pages = ceil($total[0]['total'] / $db->pageLimit);
         
-            return $db->rawQuery($query[1].' WHERE '.$condition." ORDER BY $sortField $sortOrder LIMIT $limitation, $limit");
+            return $db->rawQuery($query[1]. ((isset($_SESSION[$con]) and !empty($_SESSION[$con])) ? " AND " : " WHERE ") .$condition." ORDER BY $sortField $sortOrder LIMIT $limitation, $limit");
 
             }else{
-            pageLimit( $this->table_name, $limit, false);
+                $con = ((isset($_SESSION[$con]) and !empty($_SESSION[$con])) ? $_SESSION[$con] : null);
+            pageLimit( $this->table_name, $limit, false, $con);
             $limitation = ($page - 1)*$limit;   
             return $db->rawQuery($query[1]." ORDER BY $sortField $sortOrder LIMIT $limitation, $limit");                    
         }

@@ -95,7 +95,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['_insert'])){
                                         <select name="role" class="form-select" id="role" required>
                                             <option value="" selected>نقش</option>
                                             <option <?=  ($admin['role'] == 1)?"SELECTED":"" ?> value="1">ادمین</option>
-                                            <option <?= ($admin['role'] == 2)?"SELECTED":"" ?> value="2">سوپر ادمین</option>
+                                            <?= $_SESSION['user_role'] == 0? "<option ".(($admin['role'] == 2)?"SELECTED":"")."value='2'>سوپر ادمین</option>":"" ?>
+                                            <option <?= ($admin['role'] == 3)?"SELECTED":"" ?> value="3">اپراتور</option>
                                         </select>
                                         <span class="text-danger"><?= $validator->show('role') ?></span>
                                         <div class="invalid-feedback">

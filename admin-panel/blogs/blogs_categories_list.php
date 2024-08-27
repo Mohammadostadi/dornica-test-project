@@ -69,7 +69,7 @@
             </div>
             <div class="ms-auto">
                 <div class="btn-group">
-                    <a class="btn btn-outline-secondary" href="blog_category_add.php"> اضافه کردن داده جدید</a>
+                    <?= has_access('blog_category_add.php')?"<a class='btn btn-outline-secondary' href='blog_category_add.php'> اضافه کردن داده جدید</a>":"" ?>
                     <button class="btn btn-outline-secondary" id="_filter">فیلتر</button>
                 </div>
             </div>
@@ -117,7 +117,7 @@
                                             <th>
                                             <a href="<?= sort_link('status') ?>" class="sort-table <?= sortActive('status') ?>"></a>
                                                 وضعیت</th>
-                                            <th>اقدامات</th>
+                                            <?= (has_access('blog_category_delete.php') or has_access('blog_category_update.php'))? "<th>اقدامات</th>":"" ?>
                                         </tr>
                                         </thead>
                                         <tbody class="text-center">
@@ -131,17 +131,23 @@
                                                 <td>
                                                     <?= status('active', $bcategory['status']); ?>
                                                 </td>
+                                                <?php if(has_access('blog_category_delete.php') or has_access('blog_category_update.php')){ ?>
                                                 <td>
                                                     <div>
                                                         <a href="javascript:;" class="btn text-primary" data-bs-toggle="tooltip" data-bs-placement="bottom" title="" data-bs-original-title="وضعیت جزئیات" aria-label="Views"><i class="bi bi-eye-fill"></i></a>
+                                                        <?php if(has_access('blog_category_update.php')){ ?>
                                                         <a href="blog_category_update.php?id=<?= $bcategory['id'] ?>" class="text-warning" data-bs-toggle="tooltip" data-bs-placement="bottom" title="ویرایش اطلاعات" data-bs-original-title="ویرایش اطلاعات" aria-label="Edit"><i class="bi bi-pencil-fill"></i></a>
+                                                        <?php } ?>
+                                                        <?php if(has_access('blog_category_delete.php')){ ?>
                                                         <?php 
                                                             $res = $db->where('category_id', $bcategory['id'])
                                                             ->getValue('blogs', 'COUNT(*)');
                                                         ?>
                                                         <button class="<?= !empty($res)?"disabled text-secondary":'open-confirm text-danger' ?> btn border-0" value="<?= $bcategory['id'] ?>" data-bs-toggle="tooltip" data-bs-placement="bottom" title="<?= !empty($res)?'قابل حذف نیست':"حذف" ?>" data-bs-original-title="حذف" aria-label="Delete"><i class="bi bi-trash-fill"></i></button>
+                                                        <?php } ?>
                                                     </div>
                                                 </td>
+                                                <?php } ?>
                                             </tr>
                                             
                                             <?php } ?>

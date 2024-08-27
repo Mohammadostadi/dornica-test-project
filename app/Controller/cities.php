@@ -1,6 +1,4 @@
 <?php
-require_once('../../app/loader.php');
-
 
 if(isset($_POST['province_id']) && is_numeric($_POST['province_id'])){
     $province_id = (int) $_POST['province_id'];
@@ -20,6 +18,6 @@ if(isset($_POST['province_id']) && is_numeric($_POST['province_id'])){
     <?php }else{ ?>
         <option value="">داده ایی برای نمایش وجود ندارد</option>
     <?php }
-}else{
-    header('location:member_add.php');
+exit();
 }
+?>

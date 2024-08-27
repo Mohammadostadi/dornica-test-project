@@ -425,9 +425,9 @@ if(!isset($_SESSION['user'])){
                 <a class="dropdown-toggle dropdown-toggle-nocaret" href="#" data-bs-toggle="dropdown">
                     <div class="user-setting d-flex align-items-center gap-3">
                             <?php
-                                $name = $db->where('username', $_SESSION['user'])->getOne('admin', "CONCAT(first_name, ' ',last_name) AS name");
-                                $role = $db->where('username', $_SESSION['user'])->getValue('admin', "role");
-                                $image = $db->where('username', $_SESSION['user'])->getValue('admin', "image");
+                                $name = $db->where('id', $_SESSION['user'])->getOne('admin', "CONCAT(first_name, ' ',last_name) AS name");
+                                $role = $db->where('id', $_SESSION['user'])->getValue('admin', "role");
+                                $image = $db->where('id', $_SESSION['user'])->getValue('admin', "image");
                             ?>
                         <img src="../../<?= !empty($image)?$image:"assets/images/admin/default.png" ?>" class="user-img" alt="">
                         <div class="  d-sm-block">
@@ -490,6 +490,7 @@ if(!isset($_SESSION['user'])){
                 </a>
                 
             </li>
+            <?php if($_SESSION['user_role'] == 0 or $_SESSION['user_role'] == 2){ ?>
             <li>
                 <a href="javascript:;" class="has-arrow">
                     <div class="parent-icon"><i class="bi bi-grid-fill"></i>
@@ -502,6 +503,7 @@ if(!isset($_SESSION['user'])){
                     
                 </ul>
             </li>
+            <?php } ?>
             <!-- <li class="menu-label">عناصر رابط کاربری</li> -->
             <li>
                 <a href="javascript:;" class="has-arrow">
@@ -656,8 +658,10 @@ if(!isset($_SESSION['user'])){
                     <div class="menu-title">تنظیمات</div>
                 </a>
                 <ul>
+                <?php if($_SESSION['user_role'] == 0 or $_SESSION['user_role'] == 2){ ?>
                     <li> <a href="settings/setting_update.php?id=1"><i class="bi bi-circle"></i>تنظیمات صفحه</a>
                     </li>
+                <?php } ?>
                     <li> <a href="slideshow/slideshows_list.php"><i class="bi bi-circle"></i>لیست اسلایدشو</a>
                     </li>
                     <li> <a href="counters/counters_list.php"><i class="bi bi-circle"></i>لیست آمار بازدید</a>

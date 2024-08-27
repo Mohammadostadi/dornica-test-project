@@ -14,3 +14,6 @@ require_once('Helper/filter.php');
 if(!isset($_SESSION['user'])){
     redirect('../../auth/sign-in.php', 7);
 }
+if(!has_access()){
+    header('Location:../../error/error-403.php');
+}

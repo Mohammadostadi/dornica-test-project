@@ -3,14 +3,14 @@ session_start();
 require_once('../app/Model/DB.php');
 require_once('../app/Controller/functions.php');
 ?>
-<!doctype html>
+
+<!DOCTYPE html>
 <html lang="en" dir="rtl">
-
-
-<!-- Mirrored from codetheme.ir/onedash/demo/rtl/pages-errors-404-error.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 31 May 2024 08:56:30 GMT -->
-
 <head>
-<link rel="icon" href="../assets/images/favicon-32x32.png" type="image/png" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="icon" href="../assets/images/favicon-32x32.png" type="image/png" />
     <!--plugins-->
     <link href="../assets/plugins/simplebar/css/simplebar.css" rel="stylesheet" />
     <link href="../assets/plugins/perfect-scrollbar/css/perfect-scrollbar.css" rel="stylesheet" />
@@ -32,16 +32,14 @@ require_once('../app/Controller/functions.php');
     <link href="../assets/css/light-theme.css" rel="stylesheet" />
     <link href="../assets/css/semi-dark.css" rel="stylesheet" />
     <link href="../assets/css/header-colors.css" rel="stylesheet" />
-
-    <title>صفحه ارور-404</title>
+    <title>Document</title>
 </head>
-
 <body>
+<div class="wrapper">
 
-
-    <!--start wrapper-->
-    <div class="wrapper">
-    <header class="top-header">
+<!--start content-->
+<main class="page-content">
+<header class="top-header">
         <nav class="navbar navbar-expand gap-3">
             <div class="mobile-toggle-icon fs-3 d-flex d-lg-none">
                 <i class="bi bi-list"></i>
@@ -459,7 +457,7 @@ require_once('../app/Controller/functions.php');
             </div>
         </nav>
     </header>
-    <aside class="sidebar-wrapper" data-simplebar="true">
+<aside class="sidebar-wrapper" data-simplebar="true">
         <div class="sidebar-header">
             <div>
                 <img src="../assets/images/logo-icon.png" class="logo-icon" alt="logo icon">
@@ -658,60 +656,52 @@ require_once('../app/Controller/functions.php');
         </ul>
         <!--end navigation-->
     </aside>
-        <!--start content-->
-        <main class="page-content">
-            <!--breadcrumb-->
-            <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+        <!--breadcrumb-->
+        <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
                 <div class="breadcrumb-title pe-3">صفحات</div>
                 <div class="ps-3">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb mb-0 p-0">
                             <li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a>
                             </li>
-                            <li class="breadcrumb-item active" aria-current="page">خطای 404</li>
+                            <li class="breadcrumb-item active" aria-current="page">خطای 403</li>
                         </ol>
                     </nav>
                 </div>
             </div>
-            <!--end breadcrumb-->
+        <!--end breadcrumb-->
 
-            <div class="error-404 d-flex align-items-center justify-content-center">
-                <div class="container">
-                    <div class="card py-5">
-                        <div class="row g-0">
-                            <div class="col col-xl-5 text-center">
-                                <div class="card-body p-4">
-                                    <h1 class="display-1"><span class="text-danger">4</span><span
-                                            class="text-primary">0</span><span class="text-success">4</span></h1>
-                                    <h2 class="font-weight-bold display-4">گمشده در فضا</h2>
-                                    <p>تو به لبه ی هستی رسیده ای.
-                                        <br>صفحه مورد نظر شما یافت نشد.
-                                        <br>نگران نباشید و به صفحه قبل برگردید.
-                                    </p>
-                                    <div class="mt-5"> <a href="../admin-panel/index.php"
-                                            class="btn btn-primary btn-lg px-md-5 radius-30">صفحه اصلی</a>
-                                        <?php $prev_url = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '../admin-panel/index.php' ?>
-                                        <a href="javascript:;" onclick="location.href='<?= $prev_url ?>'"
-                                            class="btn btn-outline-dark btn-lg ms-3 px-md-5 radius-30">بازگشت</a>
-                                    </div>
+        <div class="error-404 d-flex align-items-center justify-content-center">
+            <div class="container">
+                <div class="card py-5">
+                    <div class="row g-0">
+                        <div class="col-xl-5">
+                            <div class="card-body p-4">
+                                <h1 class="display-1"><span class="text-warning">4</span><span class="text-danger">0</span><span class="text-primary">3</span></h1>
+                                <h2 class="font-weight-bold display-4">با عرض پوزش، خطای غیرمنتظره</h2>
+                                <p>انگار گم شدی!
+                                    <br>شاید شما به اینترنت متصل نیستید!</p>
+                                <div class="mt-5">	<a href="../admin-panel/index.php" class="btn btn-lg btn-primary px-md-5 radius-30">صفحه اصلی</a>
+                                    <a href="javascript:;" class="btn btn-lg btn-outline-dark ms-3 px-md-5 radius-30">بازگشت</a>
                                 </div>
                             </div>
-                            <div class="col-xl-7">
-                                <img src="../assets/images/error/404-error.png" class="img-fluid" alt="">
-                            </div>
                         </div>
-                        <!--end row-->
+                        <div class="col-xl-7">
+                            <img src="../assets/images/error/403-error.png" class="img-fluid" alt="">
+                        </div>
                     </div>
+                    <!--end row-->
                 </div>
             </div>
-        </main>
-        <!--end page main-->
+        </div>
+    </main>
+    <!--end page main-->
 
-    </div>
-    <!--end wrapper-->
+</div>
 
 
-    <!-- Bootstrap bundle JS -->
+
+<!-- Bootstrap bundle JS -->
 <script src="../assets/js/bootstrap.bundle.min.js"></script>
 <!--plugins-->
 <script src="../assets/js/jquery.min.js"></script>
@@ -723,8 +713,4 @@ require_once('../app/Controller/functions.php');
 <script src="../assets/js/app.js"></script>
 
 </body>
-
-
-<!-- Mirrored from codetheme.ir/onedash/demo/rtl/pages-errors-404-error.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 31 May 2024 08:56:30 GMT -->
-
 </html>

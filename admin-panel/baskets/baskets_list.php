@@ -2,7 +2,12 @@
     $prefix = 'cart';
     require_once('../../app/loader.php');
     sortInTable($prefix, 'baskets_list', 'page');
-    $col = ['members.fname', 'members.lname', 'products.name', 'products.price', 'cart.qty', 'cart.setdate'];
+    if(!isset($_SESSION['basket_member'])){
+        $_SESSION['basket_member'] = '';
+    }
+    if(isset($_GET['member'])){
+        $_SESSION['basket_member'] = 'cart.member_id = '. securityCheck($_GET['member']);
+    }
     $filter = new Filter('cart', 'basket_filter');
     $data =[
         'members.fname'=>'like',
@@ -11,11 +16,10 @@
         'products.price'=>'=',
     ];
     $query = [
-        'SELECT COUNT(*) AS total FROM cart LEFT JOIN members on members.id = cart.member_id LEFT JOIN products on products.id = cart.product_id WHERE',
-        'SELECT members.fname, members.lname, products.name, products.price, cart.qty, cart.setdate, (cart.qty*products.price) as total FROM cart LEFT JOIN members on members.id = cart.member_id LEFT JOIN products on products.id = cart.product_id'
+        'SELECT COUNT(*) AS total FROM cart LEFT JOIN members on members.id = cart.member_id LEFT JOIN products on products.id = cart.product_id WHERE '.(!empty($_SESSION['basket_member'])?$_SESSION['basket_member']:""),
+        'SELECT members.fname, members.lname, products.name, products.price, cart.qty, cart.setdate, (cart.qty*products.price) as total FROM cart LEFT JOIN members on members.id = cart.member_id LEFT JOIN products on products.id = cart.product_id '.(!empty($_SESSION['basket_member'])?' WHERE '.$_SESSION['basket_member']:"")
     ];
-    $res = $filter->filterCheck($db, $data, 'basket', 'baskets_list.php', $query, 3, $sortField, $sortOrder);
-    // var_dump($db->getLastQuery());die;
+    $res = $filter->filterCheck($db, $data, 'basket', 'baskets_list.php', $query, 3, $sortField, $sortOrder, 'basket_member');
 ?>
 
 <!doctype html>
@@ -72,6 +76,10 @@
             </div>
             <div class="ms-auto">
                 <div class="btn-group">
+                    
+                <?php if(isset($_SESSION['basket_member']) and !empty($_SESSION['basket_member'])) { ?>
+                                        <a class="btn btn-outline-secondary" href="../members/members_list.php?basket=1">برگشت به لیست کاربران</a>
+                                <?php } ?>
                 <button class="btn btn-outline-secondary" id="_filter">فیلتر</button>
                 </div>
             </div>

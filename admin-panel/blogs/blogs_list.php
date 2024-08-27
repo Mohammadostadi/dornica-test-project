@@ -76,7 +76,7 @@
             </div>
             <div class="ms-auto">
                 <div class="btn-group">
-                    <a class="btn btn-outline-secondary" href="blog_add.php"> اضافه کردن داده جدید</a>
+                    <?= has_access('blog_add.php')?"<a class='btn btn-outline-secondary' href='blog_add.php'> اضافه کردن داده جدید</a>":"" ?>
                     <button class="btn btn-outline-secondary" id="_filter">فیلتر</button>
                 </div>
             </div>
@@ -167,8 +167,13 @@
                                     <td>
                                             <div>
                                                 <a href="javascript:;" class="btn text-primary" data-bs-toggle="tooltip" data-bs-placement="bottom" title="" data-bs-original-title="وضعیت جزئیات" aria-label="Views"><i class="bi bi-eye-fill"></i></a>
+                                                <?php if(has_access('blog_update.php')){ ?>
                                                 <a href="blog_update.php?id=<?= $blog['id'] ?>" class="btn text-warning" data-bs-toggle="tooltip" data-bs-placement="bottom" title="ویرایش اطلاعات" data-bs-original-title="ویرایش اطلاعات" aria-label="Edit"><i class="bi bi-pencil-fill"></i></a>
+                                                <?php } 
+                                                    if(has_access('blog_delete.php')){
+                                                ?>
                                                 <button class="open-confirm btn border-0 text-danger" value="<?= $blog['id'] ?>" data-bs-toggle="tooltip" data-bs-placement="bottom" title="حذف" data-bs-original-title="حذف" aria-label="Delete"><i class="bi bi-trash-fill"></i></button>
+                                                <?php } ?>
                                             </div>
                                     </td>
                                 </tr>

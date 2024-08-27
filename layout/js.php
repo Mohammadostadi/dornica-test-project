@@ -118,12 +118,12 @@ function usernamejs(input){
 
 <script>
 	$(document).ready(function(){
-		$('.dropdown-toggle').click(function(){
-			if(!$('.dropdown-toggle').hasClass('show')){
-				$('.dropdown-toggle').addClass('show');
+		$('#headerDropdown').click(function(){
+			if(!$('#headerDropdown').hasClass('show')){
+				$('#headerDropdown').addClass('show');
 				$('.myShow-menu').addClass('show');
 			}else{
-				$('.dropdown-toggle').removeClass('show');
+				$('#headerDropdown').removeClass('show');
 				$('.myShow-menu').removeClass('show');
 			}
 		})

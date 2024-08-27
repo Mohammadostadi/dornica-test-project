@@ -1,6 +1,19 @@
 <?php
     $prefix = 'members';
     require_once('../../app/loader.php');
+    require_once('../../app/Controller/cities.php');
+    if(isset($_GET['payment'])){
+        unset($_SESSION['payment_member']);
+    }
+    if(isset($_GET['order'])){
+        unset($_SESSION['order_member']);
+    }
+    if(isset($_GET['comment'])){
+        unset($_SESSION['comment_member']);
+    }
+    if(isset($_GET['basket'])){
+        unset($_SESSION['basket_member']);
+    }
     sortInTable($prefix, 'members_list', 'page');
     $provinceList = $db->where('status', 1)
     ->orderBy('name', 'ASC')
@@ -178,8 +191,6 @@
                                     </td>
                                     <td>
                                         <div>
-                                            <a href="javascript:;" class="text-primary" data-bs-toggle="tooltip" data-bs-placement="bottom" title="" data-bs-original-title="وضعیت جزئیات" aria-label="Views"><i class="bi bi-eye-fill"></i></a>
-                                            <a href="member_update.php?id=<?= $member['id'] ?>" class="text-warning" data-bs-toggle="tooltip" data-bs-placement="bottom" title="ویرایش اطلاعات" data-bs-original-title="ویرایش اطلاعات" aria-label="Edit"><i class="bi bi-pencil-fill"></i></a>
                                             <?php
                                                 $payment = $db->where('member_id', $member['id'])
                                                 ->getValue('payments', 'COUNT(*)');
@@ -197,7 +208,35 @@
                                                     $result = false;
                                                 }
                                             ?>
-                                            <button class="<?= $result?'disabled text-secondary':'open-confirm text-danger'?>  btn border-0" value="<?= $member['id'] ?>" data-bs-toggle="tooltip" data-bs-placement="bottom" title="<?= $result?'قابل حذف نیست':'حذف' ?>" data-bs-original-title="حذف" aria-label="Delete"><i class="bi bi-trash-fill"></i></button>
+                                            <a id="dropdownMenu2"
+                                            data-toggle="dropdown" aria-haspopup="true"
+                                            aria-expanded="false"
+                                            >
+                                                <i class="lni lni-more"></i>
+                                            </a>    
+                                            <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                                                <li>
+                                                    <a href="javascript:;" class="btn border-0 text-primary dropdown-item" data-bs-toggle="tooltip" data-bs-placement="top" title="وضعیت جزئیات" aria-label="Views"><i class="bi bi-eye-fill"></i> نمایش جزئیات</a>
+                                                </li>
+                                                <li>
+                                                    <a href="member_update.php?id=<?= $member['id'] ?>" class="btn border-0 text-warning dropdown-item" data-bs-toggle="tooltip" data-bs-placement="bottom" title="ویرایش اطلاعات" data-bs-original-title="ویرایش اطلاعات" aria-label="Edit"><i class="bi bi-pencil-fill"></i> ویرایش اطلاعات</a>
+                                                </li>
+                                                <li><button class="<?= $result?'disabled text-secondary':'open-confirm text-danger'?>  btn border-0 dropdown-item" value="<?= $member['id'] ?>" data-bs-toggle="tooltip" data-bs-placement="bottom" title="<?= $result?'قابل حذف نیست':'حذف' ?>" data-bs-original-title="حذف" aria-label="Delete"><i class="bi bi-trash-fill"></i> حذف فیلد</button></li>
+                                                <li><a class="dropdown-item" href="../payment/payments.php?member=<?= $member['id'] ?>">لیست پرداختی</a>
+                                                </li>
+                                                <li><a class="dropdown-item" href="../orders/orders_list.php?member=<?= $member['id'] ?>">لیست سفارشات</a>
+                                                </li>
+                                                <li><a class="dropdown-item" href="../baskets/baskets_list.php?member=<?= $member['id'] ?>">
+                                                    <i class="lni lni-cart"></i>
+                                                    لیست سبد خرید
+                                                </a>
+                                                </li>
+                                                <li><a class="dropdown-item" href="../comments/comments_list.php?member=<?= $member['id'] ?>">
+                                                    <i class="lni lni-comments"></i>
+                                                    لیست کامنت ها
+                                                </a>
+                                                </li>
+                                            </ul>
                                         </div>
                                     </td>
                                 </tr>
@@ -246,7 +285,7 @@
 
         function cities(province, city = null){
             $.ajax({
-                url:'cities.php',
+                url:'members_list.php',
                 type:'POST',
                 data:{
                     province_id:province,
@@ -260,6 +299,15 @@
 <script type="text/javascript" src="../../assets/datePiker/js/persianDatepicker.min.js"></script>
 <script type="text/javascript">
     $("#date").persianDatepicker({formatDate: "YYYY/0M/0D"});
+</script>
+<script>
+    $('#dropdownMemberShow').click(function(){
+        if($('#memberDropdownMenu').hasClass('show')){
+            $('#memberDropdownMenu').removeClass('show')
+        }else{
+            $('#memberDropdownMenu').addClass('show')
+        }
+    });
 </script>
 </body>
 

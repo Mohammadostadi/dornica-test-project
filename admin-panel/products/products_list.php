@@ -16,12 +16,19 @@
         'date'=>'date',
         'price'=>'price',
     ];
-    $cond = isset($_GET['category'])?"products.category_id = ".securityCheck($_GET['category']):"";
+    if(!isset($_SESSION['category']) or empty($_SESSION['category'])){
+        $_SESSION['category'] = isset($_GET['category'])?"products.category_id = ".securityCheck($_GET['category']):"";
+    }
+    if(!isset($_SESSION['brand']) or empty($_SESSION['brand'])){
+        $_SESSION['brand'] = isset($_GET['brand'])?"products.brand_id = ".securityCheck($_GET['brand']):"";
+    }
     $filter->filterCheck($db, $data, 'product', 'products_list.php');
     $col = ['products.id', 'products.name', 'price', 'products.status', 'image', 'date', 'qty', 'category.name AS category', 'brand.name AS brand'];
-    isset($_GET['category'])?$db->where($cond):'';
+    (isset($_SESSION['category']) and !empty($_SESSION['category']))?$db->where($_SESSION['category']):'';
+    (isset($_SESSION['brand']) and !empty($_SESSION['brand']))?$db->where($_SESSION['brand']):'';
     pageLimit('products', 3, false, $_SESSION['product_filter']['product']);
-    isset($_GET['category'])?$db->where($cond):'';
+    (isset($_SESSION['category']) and !empty($_SESSION['category']))?$db->where($_SESSION['category']):'';
+    (isset($_SESSION['brand']) and !empty($_SESSION['brand']))?$db->where($_SESSION['brand']):'';
     $filter->loopQuery($db, $_SESSION['product_filter']['product']);
     $res = $db->join('category', 'category.id = products.category_id', 'LEFT')
     ->join('brand', 'brand.id = products.brand_id', 'LEFT')
@@ -88,6 +95,12 @@
             </div>
             <div class="ms-auto">
                 <div class="btn-group">
+                <?php if(isset($_SESSION['category']) and !empty($_SESSION['category'])) { ?>
+                                        <a class="btn btn-outline-secondary" href="products_categories_list.php?back=1">برگشت به دسته بندی</a>
+                                <?php } ?>
+                <?php if(isset($_SESSION['brand']) and !empty($_SESSION['brand'])) { ?>
+                                        <a class="btn btn-outline-secondary" href="../brands/brands_list.php?back=1">برگشت به لیست برند</a>
+                                <?php } ?>
                     <a class="btn btn-outline-secondary" href="product_add.php"> اضافه کردن داده جدید</a>
                     <button class="btn btn-outline-secondary" id="_filter">فیلتر</button>
                 </div>
@@ -239,11 +252,6 @@
                         </tbody>
                                     </table>
                                 </div>
-                                <?php if(isset($_GET['category'])) { ?>
-                                    <nav class="float-start mt-0" aria-label="Page navigation">
-                                        <a class="btn btn-primary" onclick="location.href='<?= isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : 'products_categories_list.php' ?>'">بازگشت</a>
-                                    </nav>
-                                <?php } ?>
                                         <?php pagination($page, $pages) ?>
                             </div>
                         </div>

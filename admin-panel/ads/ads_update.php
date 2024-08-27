@@ -1,6 +1,7 @@
 <?php
 
 require_once ('../../app/loader.php');
+accessRedirect('ads_list.php');
 
 $validator = new validator();
 $id = securityCheck($_REQUEST['id']);

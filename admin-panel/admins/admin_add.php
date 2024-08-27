@@ -2,6 +2,7 @@
 require_once('../../app/loader.php');
 
 
+
 $validator = new validator();
 if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['_insert'])){
     $fname = securityCheck($_REQUEST['fname']);
@@ -90,6 +91,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['_insert'])){
                                                 <option value="" selected>نقش</option>
                                                 <option <?= (isset($_POST['role']) and $_POST['role']==1)?"SELECTED":"" ?> value="1">ادمین</option>
                                                 <option <?= (isset($_POST['role']) and $_POST['role']==2)?"SELECTED":"" ?> value="2">سوپر ادمین</option>
+                                                <option <?= (isset($_POST['role']) and $_POST['role']==3)?"SELECTED":"" ?> value="3">اپراتور</option>
                                             </select>
                                             <span class="text-danger"><?= $validator->show('role') ?></span>
                                             <div class="invalid-feedback">

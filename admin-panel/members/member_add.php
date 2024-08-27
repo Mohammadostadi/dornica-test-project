@@ -1,6 +1,7 @@
 <?php
 
 require_once('../../app/loader.php');
+require_once('../../app/Controller/cities.php');
 
 $provinceList = $db->where('status', 1)
 ->orderBy('name', 'ASC')
@@ -250,7 +251,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
 
         function cities(province, city = null){
             $.ajax({
-                url:'cities.php',
+                url:'member_add.php',
                 type:'POST',
                 data:{
                     province_id:province,

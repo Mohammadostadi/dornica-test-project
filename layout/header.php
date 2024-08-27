@@ -372,12 +372,12 @@
                 </ul>
             </div>
             <div class="dropdown dropdown-user-setting">
-                <a class="dropdown-toggle dropdown-toggle-nocaret" href="#" data-bs-toggle="dropdown">
+                <a class="dropdown-toggle dropdown-toggle-nocaret" id="headerDropdown" href="#" data-bs-toggle="dropdown">
                     <div class="user-setting d-flex align-items-center gap-3">
                             <?php
-                                $image = $db->where('username', $_SESSION['user'])->getValue('admin', "image");
-                                $name = $db->where('username', $_SESSION['user'])->getOne('admin', "CONCAT(first_name, ' ',last_name) AS name");
-                                $role = $db->where('username', $_SESSION['user'])->getValue('admin', "role");
+                                $image = $db->where('id', $_SESSION['user'])->getValue('admin', "image");
+                                $name = $db->where('id', $_SESSION['user'])->getOne('admin', "CONCAT(first_name, ' ',last_name) AS name");
+                                $role = $db->where('id', $_SESSION['user'])->getValue('admin', "role");
                             ?>
                         <img src="../../<?= !empty($image)?$image:"assets/images/admin/default.png" ?>" class="user-img" alt="">
                         <div class="  d-sm-block">

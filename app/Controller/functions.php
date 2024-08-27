@@ -107,8 +107,12 @@ function showMessage($value)
             <strong>رمز عبور شما با موفقیت تغییر کرد</strong>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
-    <?php }  ?>   
-    
+    <?php } elseif ($value == 9) { ?>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert" id="alert">
+            <strong>اجازه دسترسی برای استفاده را ندارید</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    <?php } ?>
 <?php } ?>
 
 <?php
@@ -139,10 +143,15 @@ function pageLimit($tableName, $limit, $soft = true, $condition = null)
     }
     $db->pageLimit = $limit;
     if (!empty($condition)) {
-        // $page = 1;
-        foreach ($condition as $cond) {
-            if (!empty($cond)) {
-                $db->where($cond);
+        if (!empty($condition)) {
+            if (gettype($condition) == 'array') {
+                foreach ($condition as $conn) {
+                    if (!empty($conn)) {
+                        $db->where($conn);
+                    }
+                }
+            } else {
+                $db->where($condition);
             }
         }
     }
@@ -231,7 +240,8 @@ function changeDate($setdate, $type = true)
 
 }
 
-function sortInTable($prefix, $loc, $get){
+function sortInTable($prefix, $loc, $get)
+{
     global $sortField;
     global $sortOrder;
     if (isset($_GET['sort'])) {
@@ -242,18 +252,20 @@ function sortInTable($prefix, $loc, $get){
         }
         $_SESSION[$prefix . '_sort_field'] = $new_sort;
         $_SESSION[$prefix . '_sort_order'] = $sortOrder;
-        $page = isset($_GET[$get])?"?$get=".$_GET[$get]:'';
-        header('Location:'.$loc.'.php'.$page);
+        $page = isset($_GET[$get]) ? "?$get=" . $_GET[$get] : '';
+        header('Location:' . $loc . '.php' . $page);
     }
 }
-function sortActive($data){
+function sortActive($data)
+{
     global $prefix;
-    return (isset($_SESSION[$prefix.'_sort_field']) and $_SESSION[$prefix.'_sort_field'] == $data)?"active":"";
+    return (isset($_SESSION[$prefix . '_sort_field']) and $_SESSION[$prefix . '_sort_field'] == $data) ? "active" : "";
 }
 
-function sort_link($field) {
-    
-    return isset($_GET['page']) ? "?page=" . $_GET['page'] . "&sort=$field" : '?sort='.$field;
+function sort_link($field)
+{
+
+    return isset($_GET['page']) ? "?page=" . $_GET['page'] . "&sort=$field" : '?sort=' . $field;
 
 }
 
@@ -269,7 +281,207 @@ function admin_role($value)
         case 2:
             echo "سوپر ادمین";
             break;
+        case 3:
+            echo "اپراتور";
+            break;
 
     }
 
+}
+
+
+function access($type, $after = '', $name = '')
+{
+    $urls = $_SERVER['PHP_SELF'];
+    $urls = explode('/', $urls);
+    $res = true;
+    foreach($urls as $url){
+        if ((!empty($url)) and ($url == 'admins_list.php')) {
+            $res = false;
+        }
+    }
+
+    if ($type == 'btn_listed') {
+        if (($_SESSION['user_role']) != 3) {
+            ?>
+            <a class="btn btn-outline-secondary" href="<?= $after ?>.php">اضافه کردن داده جدید</a>
+            <?php
+        }
+    }   
+    if ($type == 'actions') {
+        if($_SESSION['user_role'] != 3){
+            ?>
+        <td>
+            <?php
+    if ((!$res)) {
+                if ((($_SESSION['user_role']) == 0) or (($_SESSION['user_role']) == 2 and ($name['role'] != 0 and $name['role'] != 2))) {
+                    ?>
+                    <a href="admins_edit.php? id=<?= ($name['id']) ?>" name="_update" class="text-warning" data-bs-toggle="tooltip"
+                        data-bs-placement="bottom" title="" data-bs-original-title="ویرایش اطلاعات" aria-label="Edit"><i
+                            class="bi bi-pencil-fill"></i></a>
+                    <?php
+                }
+                if (($_SESSION['user_role']) == 0) {
+                    ?>
+                    <button class="open-confirm btn text-danger  p-0 " value="<?= $name['id'] ?>" data-bs-toggle="tooltip"
+                        data-bs-placement="bottom" title="حذف" data-bs-original-title="حذف" aria-label="Delete"
+                        style="cursor: pointer;"><i class="bi bi-trash-fill"></i></button>
+
+                    <?php
+                }
+
+            } elseif ((($_SESSION['user_role']) == 0) or (($_SESSION['user_role']) == 1) or (($_SESSION['user_role']) == 2)) {
+                global $result;
+                ?>
+                <a href="javascript:;" class="text-primary" data-bs-toggle="tooltip" data-bs-placement="bottom" title="نمایش جزئیات"
+                    data-bs-original-title="نمایش جزئیات" aria-label="Views"><i class="bi bi-eye-fill"></i></a>
+                <a href="<?= $after ?>.php? id=<?= ($name['id']) ?>" class="text-warning" data-bs-toggle="tooltip"
+                    data-bs-placement="bottom" title="" data-bs-original-title="ویرایش اطلاعات" aria-label="Edit"><i
+                        class="bi bi-pencil-fill"></i></a>
+                <?php if ((($_SESSION['user_role']) != 1)) {  ?>
+                    
+                    <button
+                        class="<?= (isset($result) and (empty($result) or $result)) ? 'disabled text-secondary' : ' open-confirm text-danger' ?>  btn border-0 p-0"
+                        value="<?= $name['id'] ?>" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                        title="<?= (isset($result) and (empty($result) or $result)) ? ' قابل حذف نیست' : 'حذف'; ?>" data-bs-original-title="حذف"
+                        aria-label="Delete" style="cursor: pointer;"><i class="bi bi-trash-fill"></i></button>
+                    <?php
+                }
+            }
+            ?>
+        </td>
+        <?php
+        }
+    }
+
+}
+
+function accessRedirect($loc)
+{
+
+    $urls = $_SERVER['PHP_SELF'];
+    $urls = explode('/', $urls);
+    $res = true;
+    foreach($urls as $url){
+        if ((!empty($url)) and ($url == 'admins_list.php')) {
+            $res = false;
+        }
+    }
+    if (!$res) {
+
+
+        if (isset($_SESSION["user_role"]) and ($_SESSION["user_role"] == 1 or $_SESSION["user_role"] == 3)) {
+
+            redirect($loc, 9);
+
+        }
+    } elseif (isset($_SESSION["user_role"]) and ($_SESSION["user_role"] == 3)) {
+        redirect($loc, 9);
+    }
+
+}
+
+
+function has_access($current_loc='')  {
+    if (empty($current_loc)) {
+        $current_loc= $_SERVER['PHP_SELF'];
+        $current_loc = explode('/', $current_loc);
+        $current_loc=$current_loc[3];
+    }
+    $permission=[
+        0=>[
+            'admins_list.php','admin_add.php','admin_update.php','admin_delete.php','admins_list.php','profile_edit.php', 'profile_reset_password.php',
+            'ads_list.php', 'ads_add.php', 'ads_update.php', 'ads_delete.php',
+            'baskets_list.php',
+            'blog_add.php', 'blog_category_add.php', 'blog_category_delete.php', 'blog_category_update.php', 'blog_delete.php', 'blog_update.php', 'blogs_categories_list.php', 'blogs_list.php',
+            'brand_add.php', 'brand_delete.php', 'brand_update.php', 'brands_list.php',
+            'city_add.php', 'city_delete.php', 'city_update.php', 'citys_list.php',
+            'comments_list.php',
+            'contacts_list.php',
+            'counters_list.php',
+            'faq_add.php', 'faq_delete.php', 'faq_update.php', 'faqs_list.php',
+            'member_add.php', 'member_delete.php', 'member_update.php', 'members_list.php',
+            'orders_list.php',
+            'page_add.php', 'page_delete.php', 'page_update.php', 'pages_list.php',
+            'payment_type_add.php', 'payment_type_delete.php', 'payment_type_update.php', 'payment_type.php', 'payments.php',
+            'product_add.php', 'product_delete.php', 'product_update.php', 'products_list.php', 'product_category_add.php', 'product_category_delete', 'product_category_delete.php', 'products_categories_list.php', 'product_image_add', 'product_image_delete', 'product_image_update', 'product_images_list.php',
+            'province_add.php', 'province_delete.php', 'province_update', 'provinces_list.php',
+            'setting_update.php',
+            'shippingtype_add.php', 'shippingtypr_delete.php', 'shippingtype_update.php', 'shippingtypes_list.php',
+            'slideshow_add.php', 'slideshow_delete.php', 'slideshow_update.php', 'slideshows_list.php',
+            'team_add.php', 'team_delete.php', 'team_update.php', 'teams_list.php',
+            'wishlists_list.php'
+
+        ],
+        1=>[
+            'profile_edit.php', 'profile_reset_password.php',
+            'ads_list.php', 'ads_add.php', 'ads_update.php',
+            'baskets_list.php',
+            'blog_add.php', 'blog_category_add.php', 'blog_category_update.php', 'blog_delete.php', 'blog_update.php', 'blogs_categories_list.php', 'blogs_list.php',
+            'brand_add.php', 'brand_update.php', 'brands_list.php',
+            'city_add.php', 'city_update.php', 'citys_list.php',
+            'comments_list.php',
+            'contacts_list.php',
+            'counters_list.php',
+            'faq_add.php', 'faq_update.php', 'faqs_list.php',
+            'member_add.php', 'member_update.php', 'members_list.php',
+            'orders_list.php',
+            'page_add.php', 'page_update.php', 'pages_list.php',
+            'payment_type_add.php', 'payment_type_update.php', 'payment_type.php', 'payments.php',
+            'product_add.php', 'product_update.php', 'products_list.php', 'product_category_add.php', 'product_category_delete.php', 'product_image_add', 'product_image_delete', 'products_categories_list.php', 'product_image_update', 'product_images_list.php',
+            'province_add.php', 'province_update', 'provinces_list.php',
+            'shippingtype_add.php', 'shippingtype_update.php', 'shippingtypes_list.php',
+            'slideshow_add.php', 'slideshow_update.php', 'slideshows_list.php',
+            'team_add.php', 'team_update.php', 'teams_list.php',
+            'wishlists_list.php'
+        ],
+        2=>[
+            'admins_list.php','admin_update.php','admins_list.php','profile_edit.php', 'profile_reset_password.php',
+            'ads_list.php', 'ads_add.php', 'ads_update.php', 'ads_delete.php',
+            'baskets_list.php',
+            'blog_add.php', 'blog_category_add.php', 'blog_category_delete.php', 'blog_category_update.php', 'blog_delete.php', 'blog_update.php', 'blogs_categories_list.php', 'blogs_list.php',
+            'brand_add.php', 'brand_delete.php', 'brand_update.php', 'brands_list.php',
+            'city_add.php', 'city_delete.php', 'city_update.php', 'citys_list.php',
+            'comments_list.php',
+            'contacts_list.php',
+            'counters_list.php',
+            'faq_add.php', 'faq_delete.php', 'faq_update.php', 'faqs_list.php',
+            'member_add.php', 'member_delete.php', 'member_update.php', 'members_list.php',
+            'orders_list.php',
+            'page_add.php', 'page_delete.php', 'page_update.php', 'pages_list.php',
+            'payment_type_add.php', 'payment_type_delete.php', 'payment_type_update.php', 'payment_type.php', 'payments.php',
+            'product_add.php', 'product_delete.php', 'product_update.php', 'products_list.php', 'product_category_add.php', 'product_category_delete', 'product_category_delete.php', 'products_categories_list.php', 'product_image_add', 'product_image_delete', 'product_image_update', 'product_images_list.php',
+            'province_add.php', 'province_delete.php', 'province_update', 'provinces_list.php',
+            'setting_update.php',
+            'shippingtype_add.php', 'shippingtypr_delete.php', 'shippingtype_update.php', 'shippingtypes_list.php',
+            'slideshow_add.php', 'slideshow_delete.php', 'slideshow_update.php', 'slideshows_list.php',
+            'team_add.php', 'team_delete.php', 'team_update.php', 'teams_list.php',
+            'wishlists_list.php'
+        ],
+        3=>[
+            'profile_edit.php', 'profile_reset_password.php',
+            'ads_list.php',
+            'baskets_list.php',
+            'blogs_categories_list.php', 'blogs_list.php',
+            'brands_list.php',
+            'citys_list.php',
+            'comments_list.php',
+            'contacts_list.php',
+            'counters_list.php',
+            'faqs_list.php',
+            'members_list.php',
+            'orders_list.php',
+            'pages_list.php',
+            'payment_type.php', 'payments.php',
+            'products_list.php', 'products_categories_list.php', 'product_images_list.php',
+            'provinces_list.php',
+            'shippingtypes_list.php',
+            'slideshows_list.php',
+            'wishlists_list.php'
+        ]
+        ];
+        if (isset($permission[$_SESSION['user_role']]) and (in_array($current_loc, $permission[$_SESSION['user_role']]))) {
+            return true;
+        }
+        return false;
 }

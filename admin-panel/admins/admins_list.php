@@ -1,8 +1,7 @@
 <?php
 $prefix = 'admin';
 require_once ('../../app/loader.php');
-$role = $db->where('username', $_SESSION['user'])
-->getValue('admin', 'role');
+$role = $_SESSION['user_role'];
 $filter = new Filter('admin', 'admin_filter');
 sortInTable($prefix, 'admins_list', 'page');
 $data = [
@@ -75,7 +74,9 @@ $res = $db->orderBy($sortField, $sortOrder)
                 </div>
                 <div class="ms-auto">
                     <div class="btn-group">
-                        <a class="btn btn-outline-secondary" href="admin_add.php">اضافه کردن داده جدید</a>
+                        <?php if(has_access('admin_add.php')){ ?> 
+                            <a class="btn btn-outline-secondary" href="admin_add.php">اضافه کردن داده جدید</a>
+                        <?php } ?>
                         <button class="btn btn-outline-secondary" id="_filter">فیلتر</button>
                     </div>
                 </div>
@@ -180,17 +181,20 @@ $res = $db->orderBy($sortField, $sortOrder)
                                                         </td>
                                                         <td>
                                                             <div>
-                                                                <a <?= ($role == 0 or ($role == 2 and $admin['role'] == 1))?"href=admin_update.php?id=".$admin['id']:"" ?>
-                                                                    class="btn border-0 disabled <?=($role == 0 or ($role == 2 and $admin['role'] == 1))?"text-warning":"text-secondary" ?>" data-bs-toggle="tooltip"
-                                                                    data-bs-placement="bottom" title="<?=($role == 0 or ($role == 2 and $admin['role'] == 1))?"ویرایش اطلاعات":"عدم اجازه دسترسی"?>"
+                                                                <?php if(has_access('admin_update.php')){ ?>
+                                                                <a <?= ($role == 0 or ($role == 2 and ($admin['role'] == 1 or $admin['role'] == 3)))?"href=admin_update.php?id=".$admin['id']:"" ?>
+                                                                    class="btn border-0 disabled <?=($role == 0 or ($role == 2 and ($admin['role'] == 1 or $admin['role'] == 3)))?"text-warning":"text-secondary" ?>" data-bs-toggle="tooltip"
+                                                                    data-bs-placement="bottom" title="<?=($role == 0 or ($role == 2 and ($admin['role'] == 1 or $admin['role'] == 3)))?"ویرایش اطلاعات":"عدم اجازه دسترسی"?>"
                                                                     aria-label="Edit"><i class="bi bi-pencil-fill"></i></a>
-
+                                                                <?php } ?>
+                                                                <?php if(has_access('admin_delete.php')){ ?>
                                                                 <button class="open-confirm btn border-0 text-danger"
                                                                     value="<?= $admin['id'] ?>" data-bs-toggle="tooltip"
                                                                     data-bs-placement="bottom" title="حذف"
                                                                     data-bs-original-title="حذف" aria-label="Delete"
                                                                     style="cursor: pointer;"><i
                                                                         class="bi bi-trash-fill"></i></button>
+                                                                <?php } ?>
                                                             </div>
                                                         </td>
                                                     </tr>

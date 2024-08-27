@@ -19,6 +19,7 @@
                 </a>
                 
             </li>
+            <?php if($_SESSION['user_role'] == 0 or $_SESSION['user_role'] == 2){ ?>
             <li>
                 <a href="javascript:;" class="has-arrow">
                     <div class="parent-icon"><i class="bi bi-grid-fill"></i>
@@ -31,6 +32,7 @@
                     
                 </ul>
             </li>
+            <?php } ?>
             <!-- <li class="menu-label">عناصر رابط کاربری</li> -->
             <li>
                 <a href="javascript:;" class="has-arrow">
@@ -185,8 +187,10 @@
                     <div class="menu-title">تنظیمات</div>
                 </a>
                 <ul>
+                <?php if($_SESSION['user_role'] == 0 or $_SESSION['user_role'] == 2){ ?>
                     <li> <a href="../settings/setting_update.php?id=1"><i class="bi bi-circle"></i>تنظیمات صفحه</a>
                     </li>
+                    <?php } ?>
                     <li> <a href="../slideshow/slideshows_list.php"><i class="bi bi-circle"></i>لیست اسلایدشو</a>
                     </li>
                     <li> <a href="../counters/counters_list.php"><i class="bi bi-circle"></i>لیست آمار بازدید</a>

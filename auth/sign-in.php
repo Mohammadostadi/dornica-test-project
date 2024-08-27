@@ -11,9 +11,10 @@ if(isset($_POST['sign_in']) and $_SERVER['REQUEST_METHOD'] == 'POST'){
     $validator->empty($password, 'password', 'فیلد رمز عبور شما خالی باشد');
     if($validator->count_error() == 0){
         $res = $db->where('username', $username)
-        ->getOne('admin', 'username, password, status');
+        ->getOne('admin', 'id, password, status, role');
         if(!is_null($res) and password_verify($password, $res['password'])){
-            $_SESSION['user'] = $res['username'];
+            $_SESSION['user'] = $res['id'];
+            $_SESSION['user_role'] = $res['role'];
             $res['status']== 0?redirect('sign-in.php', 6):redirect('../admin-panel/index.php', 3);
         }else{
             redirect('sign-in.php', 5);

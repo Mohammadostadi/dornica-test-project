@@ -68,7 +68,7 @@ $res = $db->orderBy($sortField, $sortOrder)
                 </div>
                 <div class="ms-auto">
                     <div class="btn-group">
-                        <a class="btn btn-outline-secondary" href="ads_add.php"> اضافه کردن داده جدید</a>
+                        <?= has_access('ads_add.php')?"<a class='btn btn-outline-secondary' href='ads_add.php'> اضافه کردن داده جدید</a>":"" ?>
                         <button class="btn btn-outline-secondary" id="_filter">فیلتر</button>
                     </div>
                 </div>
@@ -127,7 +127,8 @@ $res = $db->orderBy($sortField, $sortOrder)
                                                         وضعیت
                                                         
                                                     </th>
-                                                    <th class="text-start">اقدامات</th>
+                                                    
+                                                    <?= (has_access('ads_update.php') or has_access('ads_delete.php'))?"<th class='text-start'>اقدامات</th>":"" ?>
 
                                                 </tr>
                                             <tbody class="text-center">
@@ -145,20 +146,26 @@ $res = $db->orderBy($sortField, $sortOrder)
                                                         <td class="text-center">
                                                             <?= status('active', $ad['status']); ?>
                                                         </td>
+                                                        <?php if(has_access('ads_update.php') or has_access('ads_delete.php')){ ?>
                                                         <td>
                                                             <div>
+                                                                <?php if(has_access('ads_update.php')){ ?>
                                                                 <a href="ads_update.php?id=<?= $ad['id'] ?>"
                                                                     class="text-warning" data-bs-toggle="tooltip"
                                                                     data-bs-placement="bottom" title="ویرایش اطلاعات"
                                                                     data-bs-original-title="ویرایش اطلاعات"
                                                                     aria-label="Edit"><i class="bi bi-pencil-fill"></i></a>
+                                                                    <?php } ?>
+                                                                    <?php if(has_access('ads_delete.php')){ ?>
                                                                 <button class="open-confirm btn border-0 text-danger"
                                                                     value="<?= $ad['id'] ?>" data-bs-toggle="tooltip"
                                                                     data-bs-placement="bottom" title="حذف"
                                                                     data-bs-original-title="حذف" aria-label="Delete"><i
                                                                         class="bi bi-trash-fill"></i></button>
+                                                                        <?php } ?>
                                                             </div>
                                                         </td>
+                                                        <?php } ?>
                                                     </tr>
                                                 <?php } ?>
                                             </tbody>

@@ -2,8 +2,12 @@
     $prefix = 'comment';
     require_once('../../app/loader.php');
     sortInTable($prefix, 'comments_list', 'page');
-    $col = ['products.name AS product', 'comment.name', 'comment.subject', 'comment.description', 'ip', 'comment.email', 'comment.status', 'rate', 'comment.setdate'];
-    
+    if(!isset($_SESSION['comment_member'])){
+        $_SESSION['comment_member'] = '';
+    }    
+    if(isset($_GET['member'])){
+        $_SESSION['comment_member'] = 'comment.member_id = '.securityCheck($_GET['member']);
+    }
     $filter = new Filter('comment', 'comment_filter');
     $data = [
         'products.name'=>'like',
@@ -11,10 +15,10 @@
         'comment.status'=>'=',
     ];
     $query = [
-        'SELECT  COUNT(*) AS total FROM comment LEFT JOIN products on products.id = comment.product_id WHERE',
-        'SELECT SQL_CALC_FOUND_ROWS products.name AS product, comment.name, comment.subject, comment.description, ip, comment.email, comment.status, rate, comment.setdate FROM comment LEFT JOIN members on members.id = comment.member_id LEFT JOIN products on products.id = comment.product_id'
+        'SELECT  COUNT(*) AS total FROM comment LEFT JOIN products on products.id = comment.product_id WHERE '.(!empty($_SESSION['comment_member'])?$_SESSION['comment_member']:""),
+        'SELECT SQL_CALC_FOUND_ROWS products.name AS product, comment.name, comment.subject, comment.description, ip, comment.email, comment.status, rate, comment.setdate FROM comment LEFT JOIN members on members.id = comment.member_id LEFT JOIN products on products.id = comment.product_id '.(!empty($_SESSION['comment_member'])?' WHERE '.$_SESSION['comment_member']:"")
     ];
-    $res = $filter->filterCheck($db, $data, 'comment', 'comments_list.php', $query, 3, $sortField, $sortOrder);
+    $res = $filter->filterCheck($db, $data, 'comment', 'comments_list.php', $query, 3, $sortField, $sortOrder, 'comment_member');
 ?>
 
 <!doctype html>
@@ -68,6 +72,9 @@
             </div>
             <div class="ms-auto">
             <div class="btn-group">
+                <?php if(isset($_SESSION['comment_member']) and !empty($_SESSION['comment_member'])) { ?>
+                                        <a class="btn btn-outline-secondary" href="../members/members_list.php?comment=1">برگشت به لیست کاربران</a>
+                                <?php } ?>
                 <button class="btn btn-outline-secondary" id="_filter">فیلتر</button>
             </div>
             </div>

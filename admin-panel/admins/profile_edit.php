@@ -2,7 +2,8 @@
 
 require_once("../../app/loader.php");
 
-$profile = $db->where('username', $_SESSION['user'])->getOne('admin');
+
+$profile = $db->where('id', $_SESSION['user'])->getOne('admin');
 
 $validator = new validator();
 if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['apply'])){
@@ -19,7 +20,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['apply'])){
     if($validator->count_error() == 0){
         array_map('unlink', glob("../../assets/images/upload/*.*"));
         if(!empty($picture)){
-            $db->where('username', $_SESSION['user'])
+            $db->where('id', $_SESSION['user'])
             ->update('admin',[
                 'first_name'=>$fname,
                 'last_name'=>$lname,
@@ -27,13 +28,12 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['apply'])){
                 'image'=>$picture
             ]);
         }
-        $db->where('username', $_SESSION['user'])
+        $db->where('id', $_SESSION['user'])
         ->update('admin',[
             'first_name'=>$fname,
             'last_name'=>$lname,
             'username'=>$username,
         ]);
-        $_SESSION['user'] = $username;
         redirect('profile_edit.php', 2);
     }
 }

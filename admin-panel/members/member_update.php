@@ -1,5 +1,6 @@
 <?php
 require_once('../../app/loader.php');
+require_once('../../app/Controller/cities.php');
 
 $provinceList = $db->where('status', 1)
 ->orderBy('name', 'ASC')
@@ -255,23 +256,23 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
         });
         const current_province = $('#state').find('option:selected').val();
         console.log(current_province);
-        const current_city = "<?= isset($_POST['city'])?$_POST['city']:""?>";
+        const current_city = "<?= isset($_POST['city'])?$_POST['city']:$member['city_id']?>";
         if(current_city != '' && current_province != ''){
             cities(current_province, current_city);
         }
-        if(current_city == '' && current_province != ''){
+        
+        if(current_city == '' && current_province != '')
             cities(current_province);
-        }
+        
 
 
         function cities(province, city = null){
             $.ajax({
-                url:'cities.php',
+                url:'member_update.php',
                 type:'POST',
                 data:{
                     province_id:province,
-                    city_id:city,
-                    member:<?= $member['city_id'] ?>
+                    city_id:city
                 },
                 success:function(msg) {
                     $('#city').html(msg);
