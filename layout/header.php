@@ -399,7 +399,7 @@
                         <a class="dropdown-item" href="../admins/profile_reset_password.php">
                             <div class="d-flex align-items-center">
                                 <div class=""><i class="bi bi-gear-fill"></i></div>
-                                <div class="ms-3"><span>تنظیمات</span></div>
+                                <div class="ms-3"><span>تغییر رمز عبور</span></div>
                             </div>
                         </a>
                     </li>

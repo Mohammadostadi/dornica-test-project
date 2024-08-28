@@ -4,19 +4,14 @@ $validator = new validator();
 if (isset($_POST['changePassword']) and $_SERVER['REQUEST_METHOD'] == 'POST') {
     $password = $db->where('username', $_SESSION['user'])
         ->getValue('admin', 'password');
-    $oldPassword = securityCheck($_POST['prevPass']);
     $newPassword = securityCheck($_POST['newPass']);
     $confirmPassword = securityCheck($_POST['confirmPassword']);
 
-    $validator->empty($oldPassword, 'prevPass', 'فیلد رمز عبور قدیم شما نباید خالی باشد');
     $validator->empty($newPassword, 'newPass', 'فیلد رمز عبور جدید شما نباید خالی باشد');
     $validator->empty($confirmPassword, 'confirmPassword', 'فیلد تایید رمز عبور شما نباید خالی باشد');
 
     if ($newPassword != $confirmPassword) {
         $validator->set('confirmPassword', 'فیلد تایید پسورد با پسورد جدید مطابقت ندارد');
-    }
-    if (!empty($oldPassword) and !password_verify($oldPassword, $password)) {
-        $validator->set('prevPass', 'پسورد قدیمی شما درست نمیباشد');
     }
     if ($validator->count_error() == 0) {
         $hash = password_hash($newPassword, PASSWORD_DEFAULT);
@@ -74,26 +69,6 @@ if (isset($_POST['changePassword']) and $_SERVER['REQUEST_METHOD'] == 'POST') {
                                         id="form">
                                         <div class="row g-3 ">
                                             <div class="row g-3  ">
-                                                <div class="row d-flex justify-content-center mt-4">
-                                                    <div class="row-12 col-lg-6 ">
-                                                        <label for="prevpass" class="form-label">رمز عبور قدیم</label>
-                                                        <div class="ms-auto position-relative">
-                                                            <div
-                                                                class="position-absolute top-50 translate-middle-y search-icon px-3">
-                                                                <i class="bi bi-lock-fill"></i>
-                                                            </div>
-                                                            <input type="password" class="form-control radius-30 ps-5"
-                                                                id="prevPass" name="prevPass"
-                                                                value="<?= checkExist('prevPass') ?>"
-                                                                placeholder="رمز عبور قدیم را وارد کنید" required>
-                                                            <div class="invalid-feedback">
-                                                                فیلد رمز عبور قدیم خالی باشد
-                                                            </div>
-                                                            <span
-                                                                class="text-danger"><?= $validator->show('prevPass') ?></span>
-                                                        </div>
-                                                    </div>
-                                                </div>
                                                 <div class="row d-flex justify-content-center mt-4 ">
                                                     <div class="col-12 col-lg-6">
                                                         <label for="newpass" class="form-label">رمز عبور جدید</label>

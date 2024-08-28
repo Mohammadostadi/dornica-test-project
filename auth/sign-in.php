@@ -7,8 +7,14 @@ $validator = new validator();
 if(isset($_POST['sign_in']) and $_SERVER['REQUEST_METHOD'] == 'POST'){
     $username = securityCheck($_POST['username']);
     $password = securityCheck($_POST['password']);
+    $captcha = securityCheck($_POST['captcha']);
     $validator->empty($username, 'username', 'فیلد نام کاربری شما خالی باشد');
     $validator->empty($password, 'password', 'فیلد رمز عبور شما خالی باشد');
+    $validator->empty($captcha, 'captcha', 'کد را وارد کنید');
+    if($_SESSION['captcha_text'] != $captcha){
+        $validator->set('captcha', 'متن تصویر امنیتی به درستی وارد نشده است');
+        session_destroy();
+    }
     if($validator->count_error() == 0){
         $res = $db->where('username', $username)
         ->getOne('admin', 'id, password, status, role');
@@ -84,7 +90,7 @@ if(isset($_POST['sign_in']) and $_SERVER['REQUEST_METHOD'] == 'POST'){
                                             <label for="inputEmailAddress" class="form-label">نام کاربری</label>
                                             <div class="ms-auto position-relative">
                                                 <div class="position-absolute top-50 translate-middle-y search-icon px-3"><i class="bi bi-person-fill"></i></div>
-                                                <input type="username" name="username" class="form-control radius-30 ps-5" id="inputEmailAddress" placeholder="نام کاربری" required>
+                                                <input type="username" name="username" class="form-control radius-30 ps-5" id="inputEmailAddress" value="<?= $validator->show('username') ?>" placeholder="نام کاربری" required>
                                                 <span class="text-danger"><?= $validator->show('username') ?></span>
                                                 <div class="invalid-feedback">
                                                     فیلد نام کاربری خالی باشد
@@ -100,6 +106,27 @@ if(isset($_POST['sign_in']) and $_SERVER['REQUEST_METHOD'] == 'POST'){
                                                 <div class="invalid-feedback">
                                                     فیلد رمز عبور خالی باشد
                                                 </div>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="col-12 mt-0">
+                                            
+                                        <!-- <label for="inputChoosePassword" class="form-label">رمز عبور را وارد کنید</label> -->
+                                            <div class="  row">
+                                                <!-- <div class="position-absolute top-50 translate-middle-y search-icon px-3"><i class="bi bi-lock-fill"></i></div> -->
+                                                <div class="col-5 d-flex justify-content-center align-items-center">
+
+                                                    <i class="mx-2 lni lni-reload refresh-captcha"></i>
+                                                    <img src="captcha.php" alt="CAPTCHA" class="captcha-image">
+                                                </div>
+                                                <div class="col-7">
+
+                                                    <input type="text" name="captcha" class="form-control radius-30"  placeholder="کد را وارد کنید" required>
+                                                    <div class="invalid-feedback">
+                                                        کد را وارد کنید
+                                                    </div>
+                                                </div>
+                                                <span class="text-danger"><?= $validator->show('captcha') ?></span>
                                             </div>
                                         </div>
                                         <div class="col-6">
@@ -156,6 +183,13 @@ if(isset($_POST['sign_in']) and $_SERVER['REQUEST_METHOD'] == 'POST'){
 		}, false)
 	})
 })()
+</script>
+
+<script>
+    const refreshButton = document.querySelector(".refresh-captcha");
+    refreshButton.onclick = function() {
+    document.querySelector(".captcha-image").src = 'captcha.php?' + Date.now();
+    }
 </script>
 </body>
 

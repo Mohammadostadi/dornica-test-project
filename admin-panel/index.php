@@ -490,7 +490,7 @@ if(!isset($_SESSION['user'])){
                 </a>
                 
             </li>
-            <?php if(has_access('admin_list.php')){ ?>
+            <?php if(has_access('admins_list.php')){ ?>
             <li>
                 <a href="javascript:;" class="has-arrow">
                     <div class="parent-icon"><i class="bi bi-grid-fill"></i>

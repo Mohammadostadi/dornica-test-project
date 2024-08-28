@@ -389,30 +389,7 @@ function has_access($current_loc='')  {
         $current_loc=$current_loc[3];
     }
     $permission=[
-        0=>[
-            'admins_list.php','admin_add.php','admin_update.php','admin_delete.php','admins_list.php','profile_edit.php', 'profile_reset_password.php',
-            'ads_list.php', 'ads_add.php', 'ads_update.php', 'ads_delete.php',
-            'baskets_list.php',
-            'blog_add.php', 'blog_category_add.php', 'blog_category_delete.php', 'blog_category_update.php', 'blog_delete.php', 'blog_update.php', 'blogs_categories_list.php', 'blogs_list.php',
-            'brand_add.php', 'brand_delete.php', 'brand_update.php', 'brands_list.php',
-            'city_add.php', 'city_delete.php', 'city_update.php', 'citys_list.php',
-            'comments_list.php',
-            'contacts_list.php',
-            'counters_list.php',
-            'faq_add.php', 'faq_delete.php', 'faq_update.php', 'faqs_list.php',
-            'member_add.php', 'member_delete.php', 'member_update.php', 'members_list.php',
-            'orders_list.php',
-            'page_add.php', 'page_delete.php', 'page_update.php', 'pages_list.php',
-            'payment_type_add.php', 'payment_type_delete.php', 'payment_type_update.php', 'payment_type.php', 'payments.php',
-            'product_add.php', 'product_delete.php', 'product_update.php', 'products_list.php', 'product_category_add.php', 'product_category_delete', 'product_category_delete.php', 'products_categories_list.php', 'product_image_add', 'product_image_delete', 'product_image_update', 'product_images_list.php',
-            'province_add.php', 'province_delete.php', 'province_update', 'provinces_list.php',
-            'setting_update.php',
-            'shippingtype_add.php', 'shippingtypr_delete.php', 'shippingtype_update.php', 'shippingtypes_list.php',
-            'slideshow_add.php', 'slideshow_delete.php', 'slideshow_update.php', 'slideshows_list.php',
-            'team_add.php', 'team_delete.php', 'team_update.php', 'teams_list.php',
-            'wishlists_list.php'
-
-        ],
+        
         1=>[
             'profile_edit.php', 'profile_reset_password.php',
             'ads_list.php', 'ads_add.php', 'ads_update.php',
@@ -436,7 +413,7 @@ function has_access($current_loc='')  {
             'wishlists_list.php'
         ],
         2=>[
-            'admins_list.php','admin_update.php','admins_list.php','profile_edit.php', 'profile_reset_password.php',
+            'admins_list.php','admin_update.php','admins_list.php', 'admin_delete.php','profile_edit.php', 'profile_reset_password.php',
             'ads_list.php', 'ads_add.php', 'ads_update.php', 'ads_delete.php',
             'baskets_list.php',
             'blog_add.php', 'blog_category_add.php', 'blog_category_delete.php', 'blog_category_update.php', 'blog_delete.php', 'blog_update.php', 'blogs_categories_list.php', 'blogs_list.php',
@@ -451,7 +428,7 @@ function has_access($current_loc='')  {
             'page_add.php', 'page_delete.php', 'page_update.php', 'pages_list.php',
             'payment_type_add.php', 'payment_type_delete.php', 'payment_type_update.php', 'payment_type.php', 'payments.php',
             'product_add.php', 'product_delete.php', 'product_update.php', 'products_list.php', 'product_category_add.php', 'product_category_delete', 'product_category_delete.php', 'products_categories_list.php', 'product_image_add', 'product_image_delete', 'product_image_update', 'product_images_list.php',
-            'province_add.php', 'province_delete.php', 'province_update', 'provinces_list.php',
+            'province_add.php', 'province_delete.php', 'province_update.php', 'provinces_list.php',
             'setting_update.php',
             'shippingtype_add.php', 'shippingtypr_delete.php', 'shippingtype_update.php', 'shippingtypes_list.php',
             'slideshow_add.php', 'slideshow_delete.php', 'slideshow_update.php', 'slideshows_list.php',
@@ -475,7 +452,7 @@ function has_access($current_loc='')  {
             'provinces_list.php',
         ]
         ];
-        if (isset($permission[$_SESSION['user_role']]) and (in_array($current_loc, $permission[$_SESSION['user_role']]))) {
+        if ((isset($permission[$_SESSION['user_role']]) and (in_array($current_loc, $permission[$_SESSION['user_role']]))) or $_SESSION['user_role'] == 0) {
             return true;
         }
         return false;

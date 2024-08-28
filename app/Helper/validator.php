@@ -50,7 +50,8 @@ class validator extends errorMessage{
         $new_dir = substr($target_dir, 6);
         $picture = $new_dir.securityCheck( basename( $data["name"]));
         if($value != $picture and !empty($picture)){
-            // unlink('../../'.$value);
+            if(file_exists('../../'.$value))
+                unlink('../../'.$value);
             $this->imageValidate($dir, $data, $name);
         }
         return $new_dir.securityCheck( basename( $data["name"]));
