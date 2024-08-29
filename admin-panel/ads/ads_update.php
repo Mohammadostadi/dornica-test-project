@@ -1,6 +1,6 @@
 <?php
 
-require_once ('../../app/loader.php');
+require_once('../../app/loader.php');
 accessRedirect('ads_list.php');
 
 $validator = new validator();
@@ -55,19 +55,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <?php
-    require_once ('../../layout/css.php');
+    require_once('../../layout/css.php');
     ?>
     <title>آپدیت تبلیغات</title>
 </head>
 
 <body>
+    <div class="wrapper container my-5">
     <main class="page-content">
         <?php
-        require_once ('../../layout/header.php');
-        require_once ('../../layout/asidebar.php');
+        require_once('../../layout/header.php');
+        require_once('../../layout/asidebar.php');
         ?>
 
-        <div class="wrapper container my-5">
             <!--start content-->
             <div class="card">
                 <div class="card-body">
@@ -76,7 +76,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])) {
                         <hr />
                         <form class="row g-3 needs-validation" action="" method="post" enctype="multipart/form-data"
                             novalidate>
-                            <div class="col-6">
+                            <div class="col-lg-6">
                                 <label class="form-label">عنوان </label>
                                 <input type="text" class="form-control" name="name"
                                     value="<?= checkUpdate('name', $ad['title']) ?>" required>
@@ -85,7 +85,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])) {
                                     فیلد عنوان نباید خالی باشد
                                 </div>
                             </div>
-                            <div class="col-6">
+                            <div class="col-lg-6">
                                 <label class="form-label">ترتیب</label>
                                 <input type="text" class="form-control text-end" name="sort"
                                     value="<?= checkUpdate('sort', $ad['sort']) ?>" oninput='number(this)' required>
@@ -108,7 +108,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])) {
                                 </div>
                                 <span class="text-danger"><?= $validator->show('fileToUpload') ?></span>
                             </div>
-                            <div class="col-8">
+                            <div class="col-lg-8">
                                 <div class="d-flex">
                                     <label class="form-check-label mx-1" for="flexSwitchCheckChecked">غیرفعال</label>
                                     <div class="form-check form-switch">
@@ -118,7 +118,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])) {
                                     <label class="form-check-label mx-1" for="flexSwitchCheckChecked">فعال</label>
                                 </div>
                             </div>
-                            <div class="col-4">
+                            <div class="col-lg-4">
                                 <div class="row">
                                     <div class="col-6">
                                         <div class="d-grid">
@@ -140,10 +140,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])) {
             <!--end page main-->
 
 
-        </div>
     </main>
+        </div>
     <?php
-    require_once ('../../layout/js.php');
+    require_once('../../layout/js.php');
     ?>
-    <?php require_once ('../../layout/update_image.php') ?>
+    <?php require_once('../../layout/update_image.php') ?>
 </body>

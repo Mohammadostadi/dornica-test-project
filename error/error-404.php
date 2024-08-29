@@ -584,7 +584,7 @@ require_once('../app/Controller/functions.php');
             <!--navigation-->
             <ul class="metismenu" id="menu">
                 <li>
-                    <a href="index.php" class="">
+                    <a href="../index.php" class="">
                         <div class="parent-icon"><i class="bi bi-house-fill"></i>
                         </div>
                         <div class="menu-title">داشبورد</div>

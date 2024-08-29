@@ -21,7 +21,7 @@ if(isset($_POST['sign_in']) and $_SERVER['REQUEST_METHOD'] == 'POST'){
         if(!is_null($res) and password_verify($password, $res['password'])){
             $_SESSION['user'] = $res['id'];
             $_SESSION['user_role'] = $res['role'];
-            $res['status']== 0?redirect('sign-in.php', 6):redirect('../admin-panel/index.php', 3);
+            $res['status']== 0?redirect('sign-in.php', 6):redirect('../index.php', 3);
         }else{
             redirect('sign-in.php', 5);
         }

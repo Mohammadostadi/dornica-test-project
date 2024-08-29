@@ -64,7 +64,7 @@ if (isset($_POST['changePassword']) and $_SERVER['REQUEST_METHOD'] == 'POST') {
                     <div class="col-12 col-lg-4 d-flex w-100 ">
                         <div class="card border shadow-none w-100">
                             <div class="card-body w-100 ">
-                                <div class="card-body  p-4 p-sm-5  ">
+                                <div class="card-body">
                                     <form class="form-body needs-validation" novalidate action="" method="post"
                                         id="form">
                                         <div class="row g-3 ">
@@ -135,7 +135,8 @@ if (isset($_POST['changePassword']) and $_SERVER['REQUEST_METHOD'] == 'POST') {
             </div>
             <?php require_once("../../layout/footer.php"); ?>
         </main>
-        <?php require_once("../../layout/js.php"); ?>
+    </div>
+    <?php require_once("../../layout/js.php"); ?>
 
         <script>
             (() => {

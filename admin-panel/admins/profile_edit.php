@@ -6,34 +6,34 @@ require_once("../../app/loader.php");
 $profile = $db->where('id', $_SESSION['user'])->getOne('admin');
 
 $validator = new validator();
-if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['apply'])){
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['apply'])) {
     // var_dump($_FILES['file']);die;
     $fname = securityCheck($_REQUEST['fname']);
     $lname = securityCheck($_REQUEST['lname']);
     $username = securityCheck($_REQUEST['username']);
-    $validator->empty('fname',  $fname,'فیلد نام شما نباید خالی باشد');
-    $validator->empty('lname',  $lname,'فیلد نام خانوادگی شما نباید خالی باشد');
-    $validator->empty('username',  $username,'فیلد نام کاربری شما نباید خالی باشد');
+    $validator->empty('fname', $fname, 'فیلد نام شما نباید خالی باشد');
+    $validator->empty('lname', $lname, 'فیلد نام خانوادگی شما نباید خالی باشد');
+    $validator->empty('username', $username, 'فیلد نام کاربری شما نباید خالی باشد');
     $validator->existValue('admin', 'username', $username, 'فیلد نام کاربری تکراری میباشد', $profile['username']);
     $picture = $validator->imageUpdate("../../assets/images/ads/", $_FILES["file"], 'file', $profile['image']);
 
-    if($validator->count_error() == 0){
+    if ($validator->count_error() == 0) {
         array_map('unlink', glob("../../assets/images/upload/*.*"));
-        if(!empty($picture)){
+        if (!empty($picture)) {
             $db->where('id', $_SESSION['user'])
-            ->update('admin',[
-                'first_name'=>$fname,
-                'last_name'=>$lname,
-                'username'=>$username,
-                'image'=>$picture
-            ]);
+                ->update('admin', [
+                    'first_name' => $fname,
+                    'last_name' => $lname,
+                    'username' => $username,
+                    'image' => $picture
+                ]);
         }
         $db->where('id', $_SESSION['user'])
-        ->update('admin',[
-            'first_name'=>$fname,
-            'last_name'=>$lname,
-            'username'=>$username,
-        ]);
+            ->update('admin', [
+                'first_name' => $fname,
+                'last_name' => $lname,
+                'username' => $username,
+            ]);
         redirect('profile_edit.php', 2);
     }
 }
@@ -119,8 +119,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['apply'])){
         <!--start content-->
         <main class="page-content">
             <!--breadcrumb-->
-        <?php require_once('../../layout/message.php') ?>
-            
+            <?php require_once('../../layout/message.php') ?>
+
             <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
                 <div class="breadcrumb-title pe-3">صفحات</div>
                 <div class="ps-3">
@@ -159,12 +159,15 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['apply'])){
                                                         <span class="glyphicon glyphicon-camera"></span>
                                                         <span>Change Image</span>
                                                     </label>
-                                                    <input type="file" name="file" id="file" onchange="loadFile(event)" />
-                                                    <img id="img" src="../../<?= !empty($profile['image'])?$profile['image']:"assets/images/admin/default.png" ?>"
+                                                    <input type="file" name="file" id="file"
+                                                        onchange="loadFile(event)" />
+                                                    <img id="img"
+                                                        src="../../<?= !empty($profile['image']) ? $profile['image'] : "assets/images/admin/default.png" ?>"
                                                         width="200" />
                                                 </div>
                                                 <div class="text-center mt-4">
-                                                    <h4 class="mb-1"><?= $profile['first_name'] . ' ' . $profile['last_name'] ?>
+                                                    <h4 class="mb-1">
+                                                        <?= $profile['first_name'] . ' ' . $profile['last_name'] ?>
                                                     </h4>
                                                     <h6 class="text-secondary"><?= admin_role($profile['role']) ?></h6>
                                                 </div>
@@ -193,7 +196,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['apply'])){
                                             </ul>
                                         </div>
 
-                                        <div class="col-6">
+                                        <div class="col-lg-6">
                                             <label class="form-label">نام</label>
                                             <input name="fname" type="text" class="form-control" required
                                                 value="<?= checkUpdate('fname', $profile['first_name']) ?>">
@@ -203,7 +206,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['apply'])){
                                             <span class="text-danger"><?= $validator->show('fname') ?></span>
                                         </div>
 
-                                        <div class="col-6">
+                                        <div class="col-lg-6">
                                             <label class="form-label">نام خانوادگی</label>
                                             <input name="lname" type="text" class="form-control" required
                                                 value="<?= checkUpdate('lname', $profile['last_name']) ?>">
@@ -212,7 +215,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['apply'])){
                                             </div>
                                             <span class="text-danger"><?= $validator->show('lname') ?></span>
                                         </div>
-                                        <div class="col-6">
+                                        <div class="col-lg-6">
                                             <label class="form-label">نام کاربری</label>
                                             <input name="username" type="text" class="form-control"
                                                 oninput="usernamejs(this)" required
@@ -242,29 +245,29 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['apply'])){
 
         <?php require_once("../../layout/js.php"); ?>
         <script>
-        $(document).ready(function(){
-    $("#file").change(function(){
-        const fd = new FormData();
-        const files = $('#file')[0].files[0];
-        fd.append('file',files);
-        $.ajax({
-            url: '../../app/Controller/profile_upload.php',
-            type: 'post',
-            data: fd,
-            contentType: false,
-            processData: false,
-            success: function(response){
-                if(response != 0){
-                    $("#img").attr("src",response); 
-                    $(".preview img").show(); // Display image element
-                }else{
-                    alert('file not uploaded');
-                }
-            },
-        });
-    });
-});
-    </script>
+            $(document).ready(function () {
+                $("#file").change(function () {
+                    const fd = new FormData();
+                    const files = $('#file')[0].files[0];
+                    fd.append('file', files);
+                    $.ajax({
+                        url: '../../app/Controller/profile_upload.php',
+                        type: 'post',
+                        data: fd,
+                        contentType: false,
+                        processData: false,
+                        success: function (response) {
+                            if (response != 0) {
+                                $("#img").attr("src", response);
+                                $(".preview img").show(); // Display image element
+                            } else {
+                                alert('file not uploaded');
+                            }
+                        },
+                    });
+                });
+            });
+        </script>
         <script>
 
             $("#alert").fadeTo(3000, 500).slideUp(500, function () {

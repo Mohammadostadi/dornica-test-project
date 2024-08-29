@@ -1,6 +1,6 @@
 <?php
 
-require_once ('../../app/loader.php');
+require_once('../../app/loader.php');
 
 $validator = new validator();
 if ($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])) {
@@ -31,19 +31,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <?php
-    require_once ('../../layout/css.php');
+    require_once('../../layout/css.php');
     ?>
     <title>افزودن تبلیغات</title>
 </head>
 
 <body>
+    <div class="wrapper container my-5">
     <main class="page-content">
         <?php
-        require_once ('../../layout/header.php');
-        require_once ('../../layout/asidebar.php');
+        require_once('../../layout/header.php');
+        require_once('../../layout/asidebar.php');
         ?>
 
-        <div class="wrapper container my-5">
             <!--start content-->
             <div class="card">
                 <div class="card-body">
@@ -52,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])) {
                         <hr />
                         <form class="row g-3 needs-validation" novalidate action="" method="post"
                             enctype="multipart/form-data">
-                            <div class="col-6">
+                            <div class="col-lg-6">
                                 <label class="form-label">عنوان </label>
                                 <input type="text" class="form-control" name="name" value="<?= checkExist('name') ?>"
                                     required>
@@ -61,7 +61,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])) {
                                     فیلد عنوان نباید خالی باشد
                                 </div>
                             </div>
-                            <div class="col-6">
+                            <div class="col-lg-6">
                                 <label class="form-label">تصویر</label>
                                 <input type="file" class="form-control" aria-label="file example" name="fileToUpload"
                                     required>
@@ -91,9 +91,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])) {
             <!--end page main-->
 
 
-        </div>
-    </main>
+        </main>
+    </div>
     <?php
-    require_once ('../../layout/js.php');
+    require_once('../../layout/js.php');
     ?>
 </body>

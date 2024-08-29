@@ -87,6 +87,7 @@ $categories = $db->where('id', $id)
                                                 <option value="0">(اختیاری)</option>
                                                 <?php 
                                                     foreach($list as $parent){ ?>
+                                                    <?php if($categories['id'] == $parent['id'] ){continue;} ?>
                                                         <option <?= $categories['parent_id'] == $parent['id']?"SELECTED":"" ?> value="<?= $parent['id'] ?>"><?= $parent['name'] ?></option>
                                                     <?php } ?>
                                             </select>
