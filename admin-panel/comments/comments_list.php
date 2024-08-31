@@ -8,6 +8,12 @@
     if(isset($_GET['member'])){
         $_SESSION['comment_member'] = 'comment.member_id = '.securityCheck($_GET['member']);
     }
+    if(isset($_GET['id']) and isset($_GET['option'])){
+        $db->where('id', securityCheck($_GET['id']))
+        ->update('comment', [
+            'status'=>securityCheck($_GET['option'])
+        ]);
+    }
     $filter = new Filter('comment', 'comment_filter');
     $data = [
         'products.name'=>'like',
@@ -16,9 +22,9 @@
     ];
     $query = [
         'SELECT  COUNT(*) AS total FROM comment LEFT JOIN products on products.id = comment.product_id WHERE '.(!empty($_SESSION['comment_member'])?$_SESSION['comment_member']:""),
-        'SELECT SQL_CALC_FOUND_ROWS products.name AS product, comment.name, comment.subject, comment.description, ip, comment.email, comment.status, rate, comment.setdate FROM comment LEFT JOIN members on members.id = comment.member_id LEFT JOIN products on products.id = comment.product_id '.(!empty($_SESSION['comment_member'])?' WHERE '.$_SESSION['comment_member']:"")
+        'SELECT SQL_CALC_FOUND_ROWS comment.id, products.name AS product, comment.name, comment.subject, comment.description, ip, comment.email, comment.status, rate, comment.setdate FROM comment LEFT JOIN members on members.id = comment.member_id LEFT JOIN products on products.id = comment.product_id '.(!empty($_SESSION['comment_member'])?' WHERE '.$_SESSION['comment_member']:"")
     ];
-    $res = $filter->filterCheck($db, $data, 'comment', 'comments_list.php', $query, 3, $sortField, $sortOrder, 'comment_member');
+    $res = $filter->filterCheck($db, $data, 'comment', 'comments_list.php', $query, 1, $sortField, $sortOrder, 'comment_member');
 ?>
 
 <!doctype html>
@@ -153,7 +159,12 @@
                                     <td dir="ltr">
                                         <?= showDate($comment['setdate']) ?>
                                     </td>
-                                    <td><?php status('read', $comment['status']); ?></td>
+                                    <td>
+                                        <?php status('read', $comment['status']); ?>
+                                        <button class="btn border-0 p-0 change_status" value="<?= $comment['id']."/".$comment['status'] ?>">
+                                            <i class="lni lni-chevron-down"></i>
+                                        </button>
+                                    </td>
                                     <td>
                                         <div>
                                             <a href="javascript:;" class="text-primary" data-bs-toggle="tooltip" data-bs-placement="bottom" title="ویرایش اطلاعات" data-bs-original-title="وضعیت جزئیات" aria-label="Views"><i class="bi bi-eye-fill"></i></a>
@@ -185,6 +196,49 @@
 <?php
         require_once('../../layout/js.php');
     ?>
+
+<script>
+        $(document).ready(function () {
+
+            function confirmDemo() {
+                const value = $(this).val().split('/')
+                const edit_id = value[0],  status = value[1];
+                console.log(edit_id);
+                const path = 'comments_list.php';
+                const params = {
+                    title: 'ویرایش کردن',
+                    message: `
+                    <select class="form-select" id="yourSelectBox">
+                            <option value="1" ${(status == 1) ? 'SELECTED' : ""} >خوانده شده</option>
+                            <option value="0" ${(status == 0) ? 'SELECTED' : ""} >جهت بررسی</option>
+                            <option value="2" ${(status == 2) ? 'SELECTED' : ""} >خوانده نشده</option>
+                    </select>`
+                ,
+                    confirm: {
+                        label: 'تایید',
+                        style: [
+                            'btn-success',
+                            'btn-danger'
+                        ]
+                    },
+                    onHide: hiddenModal
+                };
+
+                return $.eModal
+                    .label('تایید', 'لغو')
+                    .confirm(params)
+                    .then(function () {
+                        const selectedOption = $('#yourSelectBox').val();
+                        console.log('Selected option:', selectedOption);
+                        window.location.href = `${path}?<?=isset($_GET['page'])?"page=".$_GET['page']."&":"" ?>id=${edit_id}&option=${selectedOption}`;
+                    });
+                function hiddenModal(e) {
+                    console.info('Confirm modal is close.');
+                }
+            }
+            $('.change_status').on('click', confirmDemo);
+        });
+    </script>
 </body>
 
 

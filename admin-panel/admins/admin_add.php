@@ -1,26 +1,36 @@
 <?php
 require_once('../../app/loader.php');
+require_once('../../app/Controller/gender.php');
 
 
-
+// var_dump($_POST['militaryService']);die;
 $validator = new validator();
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['_insert'])) {
     $fname = securityCheck($_REQUEST['fname']);
     $lname = securityCheck($_REQUEST['lname']);
     $username = securityCheck($_REQUEST['username']);
     $role = securityCheck($_REQUEST['role']);
+    $gender = securityCheck($_REQUEST['gender']);
     $password = securityCheck($_REQUEST['password']);
     $validator->empty($fname, 'fname', 'فیلد نام شما نباید خالی باشد');
     $validator->empty($lname, 'lname', 'فیلد نام خانوادگی شما نباید خالی باشد');
     $validator->empty($username, 'username', 'فیلد نام کاربری شما نباید خالی باشد');
     $validator->empty($role, 'role', 'فیلد نام کاربری شما نباید خالی باشد');
     $validator->empty($password, 'password', 'فیلد پسورد شما نباید خالی باشد');
+    if ($gender == '') {
+        $validator->set('gender', 'فیلد جنسیت شما نباید خالی باشد');
+    }
+    if ($gender == 0 and !isset($_POST['militaryService'])) {
+        $validator->set('militaryService', 'فیلد خدمت سربازی شما اجباری میباشد');
+    }
     $validator->existValue('admin', 'username', $username, 'فیلد نام کاربری تکراری میباشد');
     if ($validator->count_error() == 0) {
         $db->insert('admin', [
             'first_name' => $fname,
             'last_name' => $lname,
             'username' => $username,
+            'gender' => $gender,
+            'militaryService' => ($gender == 0) ? securityCheck($_POST['militaryService']) : null,
             'password' => password_hash($password, PASSWORD_DEFAULT),
             'role' => $role,
             'status' => 1
@@ -94,11 +104,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['_insert'])) {
                                 <label class="form-label">نقش</label>
                                 <select name="role" class="form-select" id="role" required>
                                     <option value="" selected>نقش</option>
-                                    <option <?= (isset($_POST['role']) and $_POST['role'] == 1) ? "SELECTED" : "" ?> value="1">
+                                    <option <?= (isset($_POST['role']) and $_POST['role'] == 1) ? "SELECTED" : "" ?>
+                                        value="1">
                                         ادمین</option>
-                                    <option <?= (isset($_POST['role']) and $_POST['role'] == 2) ? "SELECTED" : "" ?> value="2">
+                                    <option <?= (isset($_POST['role']) and $_POST['role'] == 2) ? "SELECTED" : "" ?>
+                                        value="2">
                                         سوپر ادمین</option>
-                                    <option <?= (isset($_POST['role']) and $_POST['role'] == 3) ? "SELECTED" : "" ?> value="3">
+                                    <option <?= (isset($_POST['role']) and $_POST['role'] == 3) ? "SELECTED" : "" ?>
+                                        value="3">
                                         اپراتور</option>
                                 </select>
                                 <span class="text-danger"><?= $validator->show('role') ?></span>
@@ -106,7 +119,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['_insert'])) {
                                     فیلد نقش را انتخاب کنید
                                 </div>
                             </div>
-                            <div class="col-12">
+                            <div class="col-lg-6">
                                 <label class="form-label">کلمه عبور</label>
                                 <input type="password" class="form-control" name="password"
                                     value="<?= checkExist('password') ?>" oninput='passwordjs(this)' required>
@@ -115,14 +128,30 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['_insert'])) {
                                     فیلد پسورد نباید خالی باشد
                                 </div>
                             </div>
-                            <div class="col-12 d-flex justify-content-end">
+                            <div class="col-lg-6">
+                                <label class="form-label">جنسیت</label>
+                                <select name="gender" id="gender" class="form-select" required>
+                                    <option value="">جنسیت</option>
+                                    <option <?= (isset($_POST['gender']) and $_POST['gender'] == 0) ? "SELECTED" : "" ?>
+                                        value="0">مرد</option>
+                                    <option <?= (isset($_POST['gender']) and $_POST['gender'] == 1) ? "SELECTED" : "" ?>
+                                        value="1">زن</option>
+                                </select>
+                                <span class="text-danger"><?= $validator->show('gender') ?></span>
+                                <div class="invalid-feedback">
+                                    فیلد جنسیت نباید خالی باشد
+                                </div>
+                            </div>
+                            <div class="col-lg-6" id="militaryService">
+                            </div>
+                            <div class="col-lg-6 d-flex justify-content-end">
                                 <div class="row">
                                     <div class="col-6">
                                         <div class="d-grid">
                                             <a class="btn btn-danger" href="admins_list.php">برگشت</a>
                                         </div>
                                     </div>
-                                    <div class="col-2">
+                                    <div class="col-6">
                                         <div class="d-grid">
                                             <button type="submit" class="btn btn-primary" name="_insert">ثبت</button>
                                         </div>
@@ -144,7 +173,41 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['_insert'])) {
     <!--end wrapper-->
 </body>
 
+<script>
+    $('#gender').change(function () {
+        const id = $(this).val();
+        if (id == 0 && id != '') {
+            changeGender(id);
+        } else {
+            $('#militaryService').html(' ');
+        }
+    });
+    const current_gender = $('#gender').find('option:selected').val();
+    const current_service = "<?= isset($_POST['militaryService']) ? $_POST['militaryService'] : "" ?>";
+    if (current_gender == 0) {
+        if (current_service != '' && current_gender != '') {
+            changeGender(current_gender, current_service);
+        }
+        if (current_service == '' && current_gender != '') {
+            changeGender(current_gender);
+        }
+    }
 
+
+    function changeGender(gender, militaryService = null) {
+        $.ajax({
+            url: 'admin_add.php',
+            type: 'POST',
+            data: {
+                genderForm: gender,
+                militaryService: militaryService
+            },
+            success: function (msg) {
+                $('#militaryService').html(msg);
+            }
+        })
+    }
+</script>
 <!-- Mirrored from codetheme.ir/onedash/demo/rtl/form-layouts.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 31 May 2024 08:56:22 GMT -->
 
 </html>

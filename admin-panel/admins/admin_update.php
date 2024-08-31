@@ -1,5 +1,6 @@
 <?php
 require_once('../../app/loader.php');
+require_once('../../app/Controller/gender.php');
 
 
 $id = securityCheck($_GET['id']);
@@ -11,6 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['_insert'])) {
     $fname = securityCheck($_REQUEST['fname']);
     $lname = securityCheck($_REQUEST['lname']);
     $username = securityCheck($_REQUEST['username']);
+    $gender = securityCheck($_REQUEST['gender']);
     $role = securityCheck($_REQUEST['role']);
     if (isset($_POST['check'])) {
         $check = $_POST['check'];
@@ -19,7 +21,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['_insert'])) {
     $validator->empty('lname', $lname, 'فیلد نام خانوادگی شما نباید خالی باشد');
     $validator->empty('username', $username, 'فیلد نام کاربری شما نباید خالی باشد');
     $validator->empty('role', $role, 'فیلد  نقش  شما نباید خالی باشد');
+    $validator->empty('gender', $gender, 'فیلد  جنسیت  شما نباید خالی باشد');
     $validator->existValue('admin', 'username', $username, 'فیلد نام کاربری تکراری میباشد', $admin['username']);
+    if($gender == 0 and !isset($_POST['militaryService'])){
+        $validator->set('militaryService', 'فیلد خدمت سربازی شما اجباری میباشد');
+    }
 
     if ($validator->count_error() == 0) {
         $db->where('id', $id)
@@ -27,6 +33,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['_insert'])) {
                 'first_name' => $fname,
                 'last_name' => $lname,
                 'username' => $username,
+                'gender' => $gender,
+                'militaryService' => ($gender == 0)?securityCheck($_POST['militaryService']):null,
                 'status' => isset($check) ? 1 : 0,
             ]);
         redirect('admins_list.php', 2);
@@ -110,6 +118,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['_insert'])) {
                                     </div>
                                 </div>
                             <?php } ?>
+                            <div class="col-lg-6">
+                                <label class="form-label">جنسیت</label>
+                                <select name="gender" id="gender" class="form-select" required>
+                                    <option value="">جنسیت</option>
+                                    <option <?= ((isset($_POST['gender']) and $_POST['gender'] == 0) or ($admin['gender'] == 0))?"SELECTED":"" ?> value="0">مرد</option>
+                                    <option <?= ((isset($_POST['gender']) and $_POST['gender'] == 1) or ($admin['gender'] == 1))?"SELECTED":"" ?> value="1">زن</option>
+                                </select>
+                                <span class="text-danger"><?= $validator->show('gender') ?></span>
+                                <div class="invalid-feedback">
+                                    فیلد جنسیت نباید خالی باشد
+                                </div>
+                            </div>
+                            <div class="col-lg-6" id="militaryService">
+                            </div>
                             <div class="col-lg-8">
                                 <div class="d-flex">
                                     <label class="form-check-label mx-1" for="flexSwitchCheckChecked">غیرفعال</label>
@@ -147,6 +169,40 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['_insert'])) {
     require_once('../../layout/js.php');
     require_once('../../layout/update_image.php');
     ?>
+    <script>
+    $('#gender').change(function () {
+            const id = $(this).val();
+            if(id == 0 && id != ''){
+                changeGender(id);
+            }else{
+                $('#militaryService').html(' ');
+            }
+        });
+        const current_gender = $('#gender').find('option:selected').val();
+        const current_service = "<?= isset($_POST['militaryService'])?$_POST['militaryService']:$admin['militaryService']?>";
+        if(current_gender == 0){
+            if(current_service != '' && current_gender != ''){
+                changeGender(current_gender, current_service);
+            }
+            if(current_service == '' && current_gender != ''){
+                changeGender(current_gender);
+            }
+        }
+
+
+        function changeGender(gender, militaryService = null){
+            $.ajax({
+                url:'admin_update.php',
+                type:'POST',
+                data:{
+                    genderForm: gender,
+                    militaryService: militaryService
+                },
+                success:function(msg) {
+                    $('#militaryService').html(msg);
+                }
+        })}
+</script>
     <!--end wrapper-->
 </body>
 

@@ -10,6 +10,7 @@ $data = [
     'username' => 'like',
     'role' => '=',
     'status' => '=',
+    'gender' => '=',
 ];
 $filter->filterCheck($db, $data, 'admin', 'admins_list.php');
 pageLimit('admin', 3, false, $_SESSION['admin_filter']['admin']);
@@ -107,15 +108,30 @@ $res = $db->orderBy($sortField, $sortOrder)
                                                     <div class="col-lg-2 col-md-4"> <input class="col form-control"
                                                             type="text" value="<?= $filter->is_exist('username') ?>"
                                                             name="username" placeholder="نام کاربری"> </div>
-                                                    <div class="col-lg-2 col-md-4"> <input class="col form-control"
-                                                            type="text" value="<?= $filter->is_exist('role') ?>"
-                                                            name="role" placeholder="نقش"> </div>
+                                                    <div class="col-lg-2 col-md-4"> 
+                                                        <select
+                                                            class="form-select text-secondary" name="role"
+                                                            id="role">
+                                                            <option value="" class="text-secondary">نقش</option>
+                                                            <option <?= (isset($_SESSION['admin_filter']['role']) and $_SESSION['admin_filter']['role'] == 0) ? 'selected' : '' ?> value="0">مدیر</option>
+                                                            <option <?= (isset($_SESSION['admin_filter']['role']) and $_SESSION['admin_filter']['role'] == 2) ? 'selected' : '' ?> value="2">سوپر ادمین</option>
+                                                            <option <?= (isset($_SESSION['admin_filter']['role']) and $_SESSION['admin_filter']['role'] == 1) ? 'selected' : '' ?> value="1">ادمین</option>
+                                                            <option <?= (isset($_SESSION['admin_filter']['role']) and $_SESSION['admin_filter']['role'] == 3) ? 'selected' : '' ?> value="3">اپراتور</option>
+                                                        </select>
+                                                    </div>
                                                     <div class="col-lg-2 col-md-4"> <select
                                                             class="form-select text-secondary" name="status"
                                                             id="status">
                                                             <option value="" class="text-secondary">وضعیت</option>
                                                             <option <?= (isset($_SESSION['admin_filter']['status']) and $_SESSION['admin_filter']['status'] == 1) ? 'selected' : '' ?> value="1">فعال</option>
                                                             <option <?= (isset($_SESSION['admin_filter']['status']) and $_SESSION['admin_filter']['status'] == 0) ? 'selected' : '' ?> value="0">غیر فعال</option>
+                                                        </select> </div>
+                                                    <div class="col-lg-2 col-md-4"> <select
+                                                            class="form-select text-secondary" name="gender"
+                                                            id="gender">
+                                                            <option value="" class="text-secondary">جنسیت</option>
+                                                            <option <?= (isset($_SESSION['admin_filter']['gender']) and $_SESSION['admin_filter']['gender'] == 1) ? 'selected' : '' ?> value="1">زن</option>
+                                                            <option <?= (isset($_SESSION['admin_filter']['gender']) and $_SESSION['admin_filter']['gender'] == 0) ? 'selected' : '' ?> value="0">مرد</option>
                                                         </select> </div>
                                                     <div class="col-lg-2 col-md-4 text-center button-filter"> <button
                                                             type="submit" name="filtered" id="apply_filter"
@@ -149,6 +165,10 @@ $res = $db->orderBy($sortField, $sortOrder)
                                                         نام کاربری
                                                     </th>
                                                     <th>
+                                                        <a href="<?= sort_link('gender') ?>" class="sort-table <?= sortActive('gender') ?>"></a>
+                                                        جنسیت 
+                                                    </th>
+                                                    <th>
                                                         <a href="<?= sort_link('role') ?>" class="sort-table <?= sortActive('role') ?>"></a>
                                                         نقش مدیر
                                                     </th>
@@ -175,6 +195,7 @@ $res = $db->orderBy($sortField, $sortOrder)
                                                         <td><?= $admin['first_name'] ?></td>
                                                         <td><?= $admin['last_name'] ?></td>
                                                         <td><?= $admin['username'] ?></td>
+                                                        <td><?= $admin['gender'] == 0 ? "مرد":"زن" ?></td>
                                                         <td><?= admin_role($admin['role']) ?></td>
                                                         <td>
                                                             <?= status('active', $admin['status']); ?>

@@ -32,13 +32,13 @@ function status($type, $value)
     } elseif ($type == 'read') {
         switch ($value) {
             case 0: ?>
-                <span class="badge rounded-pill bg-danger">جهت بررسی</span>
+                <span class="badge rounded-pill bg-warning">جهت بررسی</span>
                 <?php break;
             case 1: ?>
                 <span class="badge rounded-pill bg-success">خوانده شده</span>
                 <?php break;
             case 2: ?>
-                <span class="badge rounded-pill bg-warning">خوانده نشده</span>
+                <span class="badge rounded-pill bg-danger">خوانده نشده</span>
                 <?php break;
         }
     }
@@ -164,7 +164,7 @@ function pagination($page, $pages)
 
     if ($pages == 0) { ?>
         <div class="d-flex justify-content-center align-items-center">
-            <p class="text-center bg-secondary text-light py-2 opacity-75 rounded w-75">داده ای یافت نشد</p>
+            <p class="text-center py-2 opacity-75 rounded w-75">داده ای یافت نشد</p>
         </div>
     <?php } else { ?>
         <nav class="float-end mt-0" aria-label="Page navigation">
@@ -428,7 +428,7 @@ function has_access($current_loc='')  {
             'page_add.php', 'page_delete.php', 'page_update.php', 'pages_list.php',
             'payment_type_add.php', 'payment_type_delete.php', 'payment_type_update.php', 'payment_type.php', 'payments.php',
             'product_add.php', 'product_delete.php', 'product_update.php', 'products_list.php', 'product_category_add.php', 'product_category_delete', 'product_category_delete.php', 'products_categories_list.php', 'product_image_add', 'product_image_delete', 'product_image_update', 'product_images_list.php',
-            'province_add.php', 'province_delete.php', 'province_update.php', 'provinces_list.php',
+            'province_add.php', 'province_delete.php', 'province_update.phppa', 'provinces_list.php',
             'setting_update.php',
             'shippingtype_add.php', 'shippingtypr_delete.php', 'shippingtype_update.php', 'shippingtypes_list.php',
             'slideshow_add.php', 'slideshow_delete.php', 'slideshow_update.php', 'slideshows_list.php',
