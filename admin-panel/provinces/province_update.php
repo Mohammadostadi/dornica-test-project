@@ -55,7 +55,7 @@
                                 <h6 class="mb-0 text-uppercase">آپدیت کردن استان</h6>
                                 <hr/>
                                 <form class="row g-3 needs-validation" novalidate action="" method="post">
-                                    <div class="col-12">
+                                    <div class="col-lg-8">
                                         <label class="form-label">عنوان </label>
                                         <input type="text" class="form-control" name="title" value="<?= checkUpdate('title', $province['name']) ?>" required>
                                         <span class="text-danger"><?= $validator->show('title') ?></span>
@@ -63,7 +63,7 @@
                                             فیلد عنوان نباید خالی باشد
                                         </div>
                                     </div>
-                                    <div class="col-8">
+                                    <div class="col-lg-8">
                                         <div class="d-flex">
                                             <label class="form-check-label mx-1" for="flexSwitchCheckChecked">غیرفعال</label>
                                             <div class="form-check form-switch">
@@ -72,7 +72,7 @@
                                             <label class="form-check-label mx-1" for="flexSwitchCheckChecked">فعال</label>
                                         </div>
                                     </div>
-                                    <div class="col-4">
+                                    <div class="col-lg-4">
                                             <div class="row">
                                                 <div class="col-6">
                                                     <div class="d-grid">

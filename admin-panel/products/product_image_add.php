@@ -58,7 +58,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
                                 <h6 class="mb-0 text-uppercase">اضافه کردن تصویر محصول</h6>
                                 <hr/>
                                 <form class="row g-3 needs-validation" novalidate action="" method="post" enctype="multipart/form-data">
-                                    <div class="col-6">
+                                    <div class="col-lg-6">
                                     <label for="product" class="form-label">محصولات</label>
                                     <select id="product" name="product"   class="form-control" required>
                                         <option value="0" selected disabled>محصول را انتخاب کنید</option>
@@ -72,7 +72,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
                                             فیلد دسته بندی نباید خالی باشد
                                         </div>
                                     </div>
-                                    <div class="col-6">
+                                    <div class="col-lg-6">
                                         <label class="form-label">عنوان</label>
                                         <input type="text" class="form-control" name="name" value="<?= checkExist('name') ?>" required>
                                         <span class="text-danger"><?= $validator->show('name') ?></span>
@@ -95,7 +95,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
                                                     <a href="product_images_list.php" class="btn btn-danger">برگشت</a>
                                                 </div>
                                             </div>
-                                            <div class="col-2">
+                                            <div class="col-6">
                                                 <div class="d-grid">
                                                     <button type="submit" class="btn btn-primary" name="_insert">ثبت</button>
                                                 </div>

@@ -96,7 +96,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
                                 <h6 class="mb-0 text-uppercase">آپدیت کردن تیم</h6>
                                 <hr/>
                                 <form class="row g-3 needs-validation" novalidate action="" method="post" enctype="multipart/form-data">
-                                    <div class="col-6">
+                                    <div class="col-lg-6">
                                         <label class="form-label">نام</label>
                                         <input type="text" class="form-control" name="fname" value="<?= checkUpdate('fname', $team['first_name']) ?>" required>
                                         <span class="text-danger"><?= $validator->show('fname') ?></span>
@@ -104,7 +104,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
                                             فیلد نام نباید خالی باشد
                                         </div>
                                     </div>
-                                    <div class="col-6">
+                                    <div class="col-lg-6">
                                         <label class="form-label">نام خانوادگی</label>
                                         <input type="text" class="form-control" name="lname" value="<?= checkUpdate('lname', $team['last_name'] ) ?>" required>
                                         <span class="text-danger"><?= $validator->show('lname') ?></span>
@@ -112,7 +112,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
                                             فیلد نام خانوادگی نباید خالی باشد
                                         </div>
                                     </div>
-                                        <div class="col-6">
+                                        <div class="col-lg-6">
                                             <div>
                                                 <label class="form-label">سمت</label>
                                                 <input type="text" name="title" class="form-control datepicker"  value="<?= checkUpdate('title', $team['title']) ?>" required/>
@@ -122,7 +122,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
                                         </div>
                                             </div>
                                         </div>
-                                    <div class="col-6">
+                                    <div class="col-lg-6">
                                         <label class="form-label">ایمیل</label>
                                         <input type="text" class="form-control" name="email" value="<?= checkUpdate('email', $team['email']) ?>" required>
                                         <span class="text-danger"><?= $validator->show('email') ?></span>
@@ -130,7 +130,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
                                             فیلد ایمیل نباید خالی باشد
                                         </div>
                                     </div>
-                                    <div class="col-6">
+                                    <div class="col-lg-6">
                                         <label class="form-label">ترتیب</label>
                                         <input type="number" class="form-control" name="sort" value="<?= checkUpdate('sort', $team['sort']) ?>" required>
                                         <span class="text-danger"><?= $validator->show('sort') ?></span>
@@ -138,21 +138,21 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
                                             فیلد ترتیب نباید خالی باشد
                                         </div>
                                     </div>
-                                        <div class="col-6">
+                                        <div class="col-lg-6">
                                             <div>
                                                 <label class="form-label">تلگرام</label>
                                                 <input type="text" name="telegram" class="form-control datepicker"  value="<?= checkUpdate('telegram', $team['telegram']) ?>"/>
                                                 <span class="text-danger"><?= $validator->show('telegram') ?></span>
                                             </div>
                                         </div>
-                                        <div class="col-6">
+                                        <div class="col-lg-6">
                                             <div>
                                                 <label class="form-label">واتساپ</label>
                                                 <input type="text" name="whatsapp" class="form-control datepicker"  value="<?= checkUpdate('whatsapp', $team['whatsapp']) ?>"/>
                                                 <span class="text-danger"><?= $validator->show('whatsapp') ?></span>
                                             </div>
                                         </div>
-                                        <div class="col-6">
+                                        <div class="col-lg-6">
                                             <div>
                                                 <label class="form-label">اینستاگرام</label>
                                                 <input type="text" name="instagram" class="form-control datepicker"  value="<?= checkUpdate('instagram', $team['instagram']) ?>"/>
@@ -171,7 +171,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
                                         </div>
                                             <span class="text-danger"><?= $validator->show('fileToUpload') ?></span>
                                         </div>
-                                        <div class="col-8">
+                                        <div class="col-lg-8">
                                         <div class="d-flex">
                                             <label class="form-check-label mx-1" for="flexSwitchCheckChecked">غیرفعال</label>
                                             <div class="form-check form-switch">
@@ -180,7 +180,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
                                             <label class="form-check-label mx-1" for="flexSwitchCheckChecked">فعال</label>
                                         </div>
                                     </div>
-                                    <div class="col-4">
+                                    <div class="col-lg-4">
                                         <div class="row">
                                             <div class="col-6 text-end">
                                                 <div class="d-grid">

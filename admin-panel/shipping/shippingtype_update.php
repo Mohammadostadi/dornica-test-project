@@ -58,7 +58,7 @@
                                 <h6 class="mb-0 text-uppercase"> آپدیت مدل پرداخت</h6>
                                 <hr/>
                                 <form class="row g-3 needs-validation" novalidate action="" method="post">
-                                    <div class="col-6">
+                                    <div class="col-lg-6">
                                         <label class="form-label">عنوان </label>
                                         <input type="text" class="form-control" name="title" value="<?= checkExist('title') == ''?$shipping['name']:$title ?>" required>
                                         <span class="text-danger"><?= $validator->show('title') ?></span>
@@ -66,7 +66,7 @@
                                             فیلد عنوان نباید خالی باشد
                                         </div>
                                     </div>
-                                    <div class="col-6">
+                                    <div class="col-lg-6">
                                         <label class="form-label">ترتیب </label>
                                         <input type="number" class="form-control" name="sort" value="<?= checkExist('sort') == ''?$shipping['sort']:$sort ?>" oninput="number(this)" required>
                                         <span class="text-danger"><?= $validator->show('sort') ?></span>
@@ -74,7 +74,7 @@
                                             فیلد ترتیب نباید خالی باشد
                                         </div>
                                     </div>
-                                    <div class="col-8">
+                                    <div class="col-lg-8">
                                         <div class="d-flex">
                                             <label class="form-check-label mx-1" for="flexSwitchCheckChecked">غیرفعال</label>
                                             <div class="form-check form-switch">
@@ -83,7 +83,7 @@
                                             <label class="form-check-label mx-1" for="flexSwitchCheckChecked">فعال</label>
                                         </div>
                                     </div>
-                                    <div class="col-4">
+                                    <div class="col-lg-4">
                                             <div class="row">
                                                 <div class="col-6">
                                                     <div class="d-grid">

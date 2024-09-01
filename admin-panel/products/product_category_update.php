@@ -64,7 +64,7 @@ $categories = $db->where('id', $id)
                                 <h6 class="mb-0 text-uppercase">آپدیت کردن دسته بندی محصول</h6>
                                 <hr/>
                                 <form class="row g-3 needs-validation" novalidate action="" method="post">
-                                <div class="col-6">
+                                <div class="col--lg-6">
                                             <label class="form-label">نام</label>
                                             <input type="text" class="form-control" name="categoryName" value="<?= checkUpdate('categoryName', $categories['name']) ?>" required>
                                             <span class="text-danger"><?= $validator->show('name') ?></span>
@@ -72,7 +72,7 @@ $categories = $db->where('id', $id)
                                             فیلد نام نباید خالی باشد
                                         </div>
                                 </div>
-                                <div class="col-6">
+                                <div class="col-lg-6">
                                             <label class="form-label">ترتیب</label>
                                             <input type="text" class="form-control text-end" name="sort" value="<?= checkUpdate('sort', $categories['sort']) ?>" oninput="number(this)" required>
                                             <span class="text-danger"><?= $validator->show('sort') ?></span>
@@ -81,7 +81,7 @@ $categories = $db->where('id', $id)
                                         </div>
                                 </div>
                                         
-                                        <div class="col-12">
+                                        <div class="col-lg-6">
                                             <label class="form-label">دسته بندی والد </label>
                                             <select name="parent" class="form-control">
                                                 <option value="0">(اختیاری)</option>
@@ -93,7 +93,7 @@ $categories = $db->where('id', $id)
                                             </select>
                                             <span class="text-danger"><?= $validator->show('province') ?></span>
                                         </div>
-                                        <div class="col-8">
+                                        <div class="col-lg-8">
                                         <div class="d-flex">
                                             <label class="form-check-label mx-1" for="flexSwitchCheckChecked">غیرفعال</label>
                                             <div class="form-check form-switch">
@@ -102,7 +102,7 @@ $categories = $db->where('id', $id)
                                             <label class="form-check-label mx-1" for="flexSwitchCheckChecked">فعال</label>
                                         </div>
                                     </div>
-                                        <div class="col-4">
+                                        <div class="col-lg-4">
                                             <div class="row">
                                                 <div class="col-6">
                                                     <div class="d-grid">

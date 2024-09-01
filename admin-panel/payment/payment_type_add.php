@@ -52,7 +52,7 @@
                                 <h6 class="mb-0 text-uppercase">اضافه کردن مدل پرداخت</h6>
                                 <hr/>
                                 <form class="row g-3 needs-validation" novalidate action="" method="post">
-                                    <div class="col-8">
+                                    <div class="col-lg-8">
                                         <label class="form-label">عنوان </label>
                                         <input type="text" class="form-control" name="title" value="<?= checkExist('title') ?>" required>
                                         <span class="text-danger"><?= $validator->show('title') ?></span>

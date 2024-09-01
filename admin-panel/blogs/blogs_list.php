@@ -168,7 +168,7 @@
                                             <div>
                                                 <a href="javascript:;" class="btn text-primary" data-bs-toggle="tooltip" data-bs-placement="bottom" title="" data-bs-original-title="وضعیت جزئیات" aria-label="Views"><i class="bi bi-eye-fill"></i></a>
                                                 <?php if(has_access('blog_update.php')){ ?>
-                                                <a href="blog_update.php?id=<?= $blog['id'] ?>" class="btn text-warning" data-bs-toggle="tooltip" data-bs-placement="bottom" title="ویرایش اطلاعات" data-bs-original-title="ویرایش اطلاعات" aria-label="Edit"><i class="bi bi-pencil-fill"></i></a>
+                                                <a href="blog_update.php?id=<?= $blog['id'] ?>" class="btn text-warning border-0" data-bs-toggle="tooltip" data-bs-placement="bottom" title="ویرایش اطلاعات" data-bs-original-title="ویرایش اطلاعات" aria-label="Edit"><i class="bi bi-pencil-fill"></i></a>
                                                 <?php } 
                                                     if(has_access('blog_delete.php')){
                                                 ?>

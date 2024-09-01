@@ -69,7 +69,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
                                 <h6 class="mb-0 text-uppercase">آپدیت کردن اسلاید شو</h6>
                                 <hr/>
                                 <form class="row g-3 needs-validation" novalidate action="" method="post" enctype="multipart/form-data">
-                                    <div class="col-6">
+                                    <div class="col-lg-6">
                                         <label class="form-label">عنوان </label>
                                         <input type="text" class="form-control" name="name" value="<?= checkUpdate('name', $slideshow['title']) ?>" required>
                                         <span class="text-danger"><?= $validator->show('name') ?></span>
@@ -77,7 +77,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
                                             فیلد عنوان نباید خالی باشد
                                         </div>
                                     </div>
-                                    <div class="col-6">
+                                    <div class="col-lg-6">
                                         <label class="form-label">ترتیب </label>
                                         <input type="number" class="form-control" name="sort" value="<?= checkUpdate('sort', $slideshow['sort']) ?>" oninput="number(this)" required>
                                         <span class="text-danger"><?= $validator->show('sort') ?></span>
@@ -97,7 +97,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
                                         </div>
                                         <span class="text-danger"><?= $validator->show('fileToUpload') ?></span>
                                     </div>
-                                    <div class="col-8">
+                                    <div class="col-lg-8">
                                         <div class="d-flex">
                                             <label class="form-check-label mx-1" for="flexSwitchCheckChecked">غیرفعال</label>
                                             <div class="form-check form-switch">
@@ -106,7 +106,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
                                             <label class="form-check-label mx-1" for="flexSwitchCheckChecked">فعال</label>
                                         </div>
                                     </div>
-                                    <div class="col-4">
+                                    <div class="col-lg-4">
                                         <div class="row">
                                             <div class="col-6">
                                                 <div class="d-grid">

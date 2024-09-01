@@ -55,14 +55,14 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
                     'phone'=>$phone,
                     'address'=>$address,
                     'birthday'=>$bdate,
-                    'password'=>$password,
+                    'password'=>password_hash($password, PASSWORD_DEFAULT),
                     'image'=>$picture,
                     'national_code'=>$ncode,
                     'postal_code'=>$postalCode,
                     'city_id'=>$_REQUEST['city'],
                     'province_id'=>$_REQUEST['state'],
                     'setdate'=>$date,
-                    'status'=>isset($checkList)?1:0,
+                    'status'=>1,
                 ]);
                 redirect('members_list.php', 4);
             }
@@ -105,7 +105,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
                                 <h6 class="mb-0 text-uppercase">اضافه کردن ممبر</h6>
                                 <hr/>
                                 <form class="row g-3 needs-validation" novalidate action="" method="post" enctype="multipart/form-data">
-                                    <div class="col-6">
+                                    <div class="col-lg-6">
                                         <label class="form-label">نام </label>
                                         <input type="text" class="form-control" name="fname" value="<?= checkExist('fname') ?>" required>
                                         <span class="text-danger"><?= $validator->is_exist('fname')? $validator->show('fname'):'' ?></span>
@@ -113,7 +113,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
                                             فیلد نام نباید خالی باشد
                                         </div>
                                     </div>
-                                    <div class="col-6">
+                                    <div class="col-lg-6">
                                         <label class="form-label">نام خانوادگی</label>
                                         <input type="text" class="form-control" name="lname" value="<?= checkExist('lname') ?>" required>
                                         <span class="text-danger"><?= $validator->is_exist('lname')? $validator->show('lname'):'' ?></span>
@@ -121,7 +121,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
                                             فیلد نام خانوادگی نباید خالی باشد
                                         </div>
                                     </div>
-                                    <div class="col-6">
+                                    <div class="col-lg-6">
                                         <label for="state" class="form-label">استان</label>
                                         <select id="state" name="state"   class="form-control" required>
                                             <option value="" selected disabled >استان را انتخاب کنید</option>
@@ -135,7 +135,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
                                             فیلد استان نباید خالی باشد
                                         </div>
                                         </div>
-                                        <div class="col-6">
+                                        <div class="col-lg-6">
                                             <label for="city" class="form-label">شهر</label>
                                             <select id="city" name="city"  class="form-control" required>
                                                 <option value="0" selected disabled>ابتدا استان را انتخاب کنید</option>
@@ -145,7 +145,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
                                             فیلد شهر نباید خالی باشد
                                         </div>
                                         </div>
-                                        <div class="col-6">
+                                        <div class="col-lg-6">
                                         <label class="form-label">کدملی</label>
                                         <input type="text" class="form-control text-end" name="ncode" value="<?= checkExist('ncode') ?>" required>
                                         <span class="text-danger"><?= $validator->is_exist('ncode')? $validator->show('ncode'):'' ?></span>
@@ -153,7 +153,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
                                             فیلد کدملی نباید خالی باشد
                                         </div>
                                     </div>
-                                    <div class="col-6">
+                                    <div class="col-lg-6">
                                         <label class="form-label">ایمیل</label>
                                         <input type="text" class="form-control" name="email" value="<?= checkExist('email') ?>" required>
                                         <span class="text-danger"><?= $validator->is_exist('email')? $validator->show('email'):'' ?></span>
@@ -161,7 +161,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
                                             فیلد ایمیل نباید خالی باشد
                                         </div>
                                     </div>
-                                    <div class="col-6">
+                                    <div class="col-lg-6">
                                         <label class="form-label">َشماره</label>
                                         <input type="text" class="form-control text-end" name="phone" value="<?= checkExist('phone') ?>" required>
                                         <span class="text-danger"><?= $validator->is_exist('phone')? $validator->show('phone'):'' ?></span>
@@ -169,7 +169,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
                                             فیلد شماره نباید خالی باشد
                                         </div>
                                     </div>
-                                    <div class="col-6">
+                                    <div class="col-lg-6">
                                         <div>
                                             <label class="form-label">تاریخ تولد</label>
                                             <input id="date" name="birthday" class="form-control datepicker text-end" value="<?= checkExist('birthday') ?>" required/>
@@ -179,12 +179,20 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
                                         </div>
                                         </div>
                                     </div>
-                                    <div class="col-6">
+                                    <div class="col-lg-6">
                                         <label class="form-label">کدپستی</label>
                                         <input type="text" class="form-control text-end" name="postalCode" value="<?= checkExist('postalCode') ?>" required>
                                         <span class="text-danger"><?= $validator->is_exist('postalCode')? $validator->show('postalCode'):'' ?></span>
                                         <div class="invalid-feedback">
                                             فیلد کدپستی نباید خالی باشد
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <label class="form-label">کلمه عبور</label>
+                                        <input type="password" class="form-control" name="password" value="<?= checkExist('password') ?>" required>
+                                        <span class="text-danger"><?= $validator->is_exist('password')? $validator->show('password'):'' ?></span>
+                                        <div class="invalid-feedback">
+                                            فیلد پسورد نباید خالی باشد
                                         </div>
                                     </div>
                                         <div class="col-12">
@@ -196,14 +204,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
                                             <input type="file" class="form-control" aria-label="file example" name="fileToUpload">
                                             <span class="text-danger"><?= $validator->is_exist('fileToUpload')? $validator->show('fileToUpload'):'' ?></span>
                                         </div>
-                                    <div class="col-12">
-                                        <label class="form-label">کلمه عبور</label>
-                                        <input type="password" class="form-control" name="password" value="<?= checkExist('password') ?>" required>
-                                        <span class="text-danger"><?= $validator->is_exist('password')? $validator->show('password'):'' ?></span>
-                                        <div class="invalid-feedback">
-                                            فیلد پسورد نباید خالی باشد
-                                        </div>
-                                    </div>
                                     <div class="col-12 d-flex justify-content-end">
                                         <div class="row">
                                             <div class="col-6">

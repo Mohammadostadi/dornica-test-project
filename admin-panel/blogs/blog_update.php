@@ -90,9 +90,9 @@
                                 <h6 class="mb-0 text-uppercase">آپدیت کردن بلاگ</h6>
                                 <hr/>
                                 <form class="row g-3 needs-validation" novalidate action="" method="post" enctype="multipart/form-data" >
-                                        <div class="col-6">
+                                        <div class="col-lg-6">
                                             <label class="form-label">دسته بندی </label>
-                                            <select name="category"  class="form-control" required>
+                                            <select name="category"  class="form-select" required>
                                                 <?php 
                                                     foreach($categoryList as $category){ ?>
                                                                     <option 
@@ -105,7 +105,7 @@
                                             فیلد دسته بندی نباید خالی باشد
                                         </div>
                                         </div>
-                                        <div class="col-6">
+                                        <div class="col-lg-6">
                                             <label class="form-label">عنوان</label>
                                             <input type="text" class="form-control" name="title" value="<?= checkUpdate('title', $blog['title']) ?>" required>
                                             <span class="text-danger"><?= $validator->show('title') ?></span>
@@ -113,7 +113,7 @@
                                             فیلد عنوان نباید خالی باشد
                                         </div>
                                         </div>
-                                        <div class="col-6">
+                                        <div class="col-lg-6">
                                             <label class="form-label">نویسنده</label>
                                             <input type="text" class="form-control" name="writer" value="<?= checkUpdate('writer', $blog['writer']) ?>" required>
                                             <span class="text-danger"><?= $validator->show('writer') ?></span>
@@ -123,12 +123,12 @@
                                         </div>
                                         <div class="col-12">
                                             <label class="form-label">توضیحات</label>
-                                            <input type="text" class="form-control" name="description" value="<?= checkUpdate('description', $blog['description']) ?>">
+                                            <textarea class="form-control" id="description" rows="3" placeholder="توضیحات" name="description"><?= checkUpdate('description', $blog['description']) ?></textarea>
                                             <span class="text-danger"><?= $validator->show('description') ?></span>
                                         </div>
                                         <div class="col-12">
-                                            <label class="form-label">توضیحات کامل</label>
                                             <textarea class="form-control" id="full_description" rows="3" placeholder="توضیحات" name="fullDescription"><?= checkUpdate('fullDescription', $blog['full_description']) ?></textarea>
+                                            <label class="form-label">توضیحات کامل</label>
                                         </div>
                                         
                                         <div class="col-12">
@@ -144,7 +144,7 @@
                                             <span class="text-danger"><?= $validator->show('fileToUpload') ?></span>
                                         </div>
                                         
-                                        <div class="col-8">
+                                        <div class="col-lg-8">
                                         <div class="d-flex">
                                             <label class="form-check-label mx-1" for="flexSwitchCheckChecked">غیرفعال</label>
                                             <div class="form-check form-switch">
@@ -153,7 +153,7 @@
                                             <label class="form-check-label mx-1" for="flexSwitchCheckChecked">فعال</label>
                                         </div>
                                     </div>
-                                        <div class="col-4">
+                                        <div class="col-lg-4">
                                             <div class="row">
                                                 <div class="col-6">
                                                     <div class="d-grid">
@@ -187,6 +187,7 @@
     <script>
         $(document).ready(function(){
             $('#full_description').ckeditor();
+            $('#description').ckeditor();
         });
     </script>
     <?php require_once('../../layout/update_image.php') ?>

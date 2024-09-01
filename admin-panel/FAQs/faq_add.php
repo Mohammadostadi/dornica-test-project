@@ -53,7 +53,7 @@
                                 <h6 class="mb-0 text-uppercase">اضافه کردن سوال</h6>
                                 <hr/>
                                 <form class="row g-3 needs-validation" novalidate action="" method="post">
-                                    <div class="col-12">
+                                    <div class="col-lg-6">
                                         <label class="form-label">عنوان</label>
                                         <input type="text" class="form-control" name="title" value="<?=  checkExist('title') ?>" required>
                                         <span class="text-danger"><?= $validator->show('title') ?></span>
@@ -65,14 +65,14 @@
                                         <label class="form-label">متن</label>
                                         <textarea class="form-control" id="editor1" rows="3" placeholder="توضیحات" name="description"><?= checkExist('description') ?></textarea>
                                     </div>
-                                    <div class="col-12 d-flex justify-content-center">
+                                    <div class="col-12 d-flex justify-content-end">
                                         <div class="row">
                                             <div class="col-6">
                                                 <div class="d-grid">
                                                     <a href="faqs_list.php" class="btn btn-danger">برگشت</a>
                                                 </div>
                                             </div>
-                                            <div class="col-2">
+                                            <div class="col-6">
                                                 <div class="d-grid">
                                                     <button type="submit" class="btn btn-primary" name="_insert">ثبت</button>
                                                 </div>

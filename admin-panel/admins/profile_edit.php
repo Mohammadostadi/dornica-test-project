@@ -225,6 +225,32 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['apply'])) {
                                             </div>
                                             <span class="text-danger"><?= $validator->show('username') ?></span>
                                         </div>
+                                        <div class="col-lg-6">
+                                <label class="form-label">جنسیت</label>
+                                <select name="gender" id="gender" class="form-select" required>
+                                    <option value="">جنسیت</option>
+                                    <option <?= ((isset($_POST['gender']) and $_POST['gender'] == 0) or ($profile['gender'] == 0))?"SELECTED":"" ?> value="0">مرد</option>
+                                    <option <?= ((isset($_POST['gender']) and $_POST['gender'] == 1) or ($profile['gender'] == 1))?"SELECTED":"" ?> value="1">زن</option>
+                                </select>
+                                <span class="text-danger"><?= $validator->show('gender') ?></span>
+                                <div class="invalid-feedback">
+                                    فیلد جنسیت نباید خالی باشد
+                                </div>
+                            </div>
+                            <div class="col-lg-6 d-none" id="militaryService">
+                                <label class="form-label">نظام وظیفه</label>
+
+                                <select name="militaryService" class="form-select" required>
+                                    <option value="">نظام وظیفه</option>
+                                    <option <?= ((isset($_POST['militaryService']) and $_POST['militaryService'] == 0) OR ($profile['military_service'] == 0))?"SELECTED":"" ?> value="0">سربازی</option>
+                                    <option <?= ((isset($_POST['militaryService']) and $_POST['militaryService'] == 1) OR ($profile['military_service'] == 1))?"SELECTED":"" ?> value="1">معافیت</option>
+                                    <option <?= ((isset($_POST['militaryService']) and $_POST['militaryService'] == 2) OR ($profile['military_service'] == 2))?"SELECTED":"" ?> value="2">در حال انجام وظیفه</option>
+                                    <option <?= ((isset($_POST['militaryService']) and $_POST['militaryService'] == 3) OR ($profile['military_service'] == 3))?"SELECTED":"" ?> value="3">پایان خدمت</option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    فیلد سربازی نباید خالی باشد
+                                </div>
+                            </div>
                                         <div class="text-start">
                                             <button type="submit" name="apply" class="btn btn-primary px-4">ذخیره
                                                 تغییرات</button>
@@ -294,6 +320,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['apply'])) {
 
 
         </script>
+        <script>
+        const gender = $('#gender').find('option:selected').val();
+        if(gender == 0)
+            $('#militaryService').removeClass('d-none');
+            
+        $('#gender').click(function () {
+            const id = $(this).val();
+            if (id == 0 && id != '') {
+                $('#militaryService').removeClass('d-none');
+            }
+            else if(!$('#militaryService').hasClass('d-none')){
+                $('#militaryService').addClass('d-none');
+            }
+        })
+
+    </script>
 
         <!--توابع jquery-->
         <script>

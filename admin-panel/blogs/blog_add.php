@@ -70,9 +70,9 @@
                                 <h6 class="mb-0 text-uppercase">اضافه کردن بلاگ</h6>
                                 <hr/>
                                 <form class="row g-3 needs-validation" novalidate action="" method="post" enctype="multipart/form-data" >
-                                        <div class="col-6">
+                                        <div class="col-lg-6">
                                             <label class="form-label">دسته بندی </label>
-                                            <select name="category"  class="form-control"  required>
+                                            <select name="category"  class="form-select"  required>
                                                 <option value="null" selected disabled>یک دسته بندی را انتخاب کنید</option>
                                                 <?php 
                                                     foreach($categoryList as $category){ ?>
@@ -84,7 +84,7 @@
                                             فیلد دسته بندی نباید خالی باشد
                                         </div>
                                         </div>
-                                        <div class="col-6">
+                                        <div class="col-lg-6">
                                             <label class="form-label">عنوان</label>
                                             <input type="text" class="form-control" name="title" value="<?= checkExist('title') ?>" required>
                                             <span class="text-danger"><?= $validator->show('title') ?></span>
@@ -92,7 +92,7 @@
                                                 فیلد عنوان نباید خالی باشد
                                             </div>
                                         </div>
-                                        <div class="col-6">
+                                        <div class="col-lg-6">
                                             <label class="form-label">نویسنده</label>
                                             <input type="text" class="form-control" name="writer" value="<?= checkExist('writer') ?>" required>
                                             <span class="text-danger"><?= $validator->show('writer') ?></span>
@@ -100,7 +100,7 @@
                                             فیلد تویسنده نباید خالی باشد
                                         </div>
                                         </div>
-                                        <div class="col-6">
+                                        <div class="col-lg-6">
                                             <label class="form-label">تصویر</label>
                                             <input type="file" class="form-control" aria-label="file example" name="fileToUpload" required>
                                             <span class="text-danger"><?= $validator->show('fileToUpload') ?></span><div class="invalid-feedback">

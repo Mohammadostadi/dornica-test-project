@@ -63,7 +63,7 @@ $validator = new validator();
                                 <h6 class="mb-0 text-uppercase">آپدیت کردن صفحه</h6>
                                 <hr/>
                                 <form class="row g-3 needs-validation" novalidate action="" method="post">
-                                <div class="col-6">
+                                <div class="col-lg-6">
                                             <label class="form-label">نام</label>
                                             <input type="text" class="form-control" name="name" value="<?= checkUpdate('name', $page['title']) ?>" required>
                                             <span class="text-danger"><?= $validator->show('name') ?></span>
@@ -71,7 +71,7 @@ $validator = new validator();
                                             فیلد نام نباید خالی باشد
                                         </div>
                                         </div>
-                                        <div class="col-6">
+                                        <div class="col-lg-6">
                                                     <label class="form-label">کد</label>
                                                     <input type="number" class="form-control text-end" name="code" value="<?= checkUpdate('code', $page['code']) ?>" oninput="number(this)" required>
                                                     <span class="text-danger"><?= $validator->show('code') ?></span>
@@ -83,7 +83,7 @@ $validator = new validator();
                                             <label class="form-label">توضیحات</label>
                                             <textarea class="form-control" id="editor1" rows="3" placeholder="توضیحات" name="description"><?= checkUpdate('description', $page['description']) ?></textarea>
                                         </div>
-                                        <div class="col-8">
+                                        <div class="col-lg-8">
                                         <div class="d-flex">
                                             <label class="form-check-label mx-1" for="flexSwitchCheckChecked">غیرفعال</label>
                                             <div class="form-check form-switch">
@@ -92,7 +92,7 @@ $validator = new validator();
                                             <label class="form-check-label mx-1" for="flexSwitchCheckChecked">فعال</label>
                                         </div>
                                     </div>
-                                        <div class="col-4">
+                                        <div class="col-lg-4">
                                             <div class="row">
                                                 <div class="col-6">
                                                     <div class="d-grid">

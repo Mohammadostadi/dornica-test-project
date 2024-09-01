@@ -61,7 +61,7 @@ $category = $db->where('id', $id)
                                 <h6 class="mb-0 text-uppercase">آپدیت کردن دسته بندی بلاگ</h6>
                                 <hr/>
                                 <form class="row g-3 needs-validation" novalidate action="" method="post">
-                                <div class="col-12">
+                                <div class="col-lg-6">
                                             <label class="form-label">نام</label>
                                             <input type="text" class="form-control" name="categoryName" value="<?= checkUpdate('name', $category['name']) ?>"required>
                                             <span class="text-danger"><?= $validator->show('name') ?></span>
@@ -69,7 +69,7 @@ $category = $db->where('id', $id)
                                             فیلد نام نباید خالی باشد
                                         </div>
                                         </div>
-                                <div class="col-12">
+                                <div class="col-lg-6">
                                             <label class="form-label">ترتیب</label>
                                             <input type="number" class="form-control" name="sort" value="<?= checkUpdate('sort', $category['sort']) ?>" oninput="number(this)" required>
                                             <span class="text-danger"><?= $validator->show('sort') ?></span>
@@ -77,7 +77,7 @@ $category = $db->where('id', $id)
                                             فیلد ترتیب نباید خالی باشد
                                         </div>
                                         </div>
-                                        <div class="col-8">
+                                        <div class="col-lg-8">
                                         <div class="d-flex">
                                             <label class="form-check-label mx-1" for="flexSwitchCheckChecked">غیرفعال</label>
                                             <div class="form-check form-switch">
@@ -86,7 +86,7 @@ $category = $db->where('id', $id)
                                             <label class="form-check-label mx-1" for="flexSwitchCheckChecked">فعال</label>
                                         </div>
                                     </div>
-                                        <div class="col-4">
+                                        <div class="col-lg-4">
                                             <div class="row">
                                                 <div class="col-6">
                                                     <div class="d-grid">

@@ -148,7 +148,7 @@
                                     </td>
                                     <?php if(has_access('slideshow_delete.php') or has_access('slideshow_update.php')){ ?>
                                     <td>
-                                        <div class="d-flex align-items-center gap-3 fs-6">
+                                        <div>
                                             <?php if(has_access('slideshow_update.php')){ ?>
                                             <a href="slideshow_update.php?id=<?= $value['id'] ?>" class="text-warning" data-bs-toggle="tooltip" data-bs-placement="bottom" title="ویرایش اطلاعات" data-bs-original-title="ویرایش اطلاعات" aria-label="Edit"><i class="bi bi-pencil-fill"></i></a>
                                             <?php

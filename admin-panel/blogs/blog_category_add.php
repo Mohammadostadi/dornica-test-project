@@ -51,7 +51,7 @@ $validator = new validator();
                                 <h6 class="mb-0 text-uppercase">اضافه کردن دسته بندی بلاگ</h6>
                                 <hr/>
                                 <form class="row g-3 needs-validation" novalidate action="" method="post">
-                                <div class="col-12">
+                                <div class="col-lg-6">
                                             <label class="form-label">نام</label>
                                             <input type="text" class="form-control" name="categoryName" value="<?= checkExist('name') ?>" required>
                                             <span class="text-danger"><?= $validator->show('name') ?></span>
@@ -66,7 +66,7 @@ $validator = new validator();
                                                         <a href="blogs_categories_list.php" class="btn btn-danger">برگشت</a>
                                                     </div>
                                                 </div>
-                                                <div class="col-2">
+                                                <div class="col-6">
                                                     <div class="d-grid">
                                                         <button type="submit" class="btn btn-primary" name="_insert">ثبت</button>
                                                     </div>

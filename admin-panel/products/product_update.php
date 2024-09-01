@@ -127,7 +127,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
                                 <h6 class="mb-0 text-uppercase">آپدبت کردن محصول</h6>
                                 <hr/>
                                 <form class="row g-3 needs-validation" novalidate action="" method="post" enctype="multipart/form-data">
-                                    <div class="col-6">
+                                    <div class="col-lg-6">
                                         <label for="category" class="form-label">دسته بندی</label>
                                         <select id="category" name="category"   class="form-control" required>
                                             <?php
@@ -140,7 +140,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
                                             فیلد دسته بندی نباید خالی باشد
                                         </div>
                                     </div>
-                                        <div class="col-6">
+                                        <div class="col-lg-6">
                                                         <label for="brand" class="form-label">برند</label>
                                                         <select name="brand" class="form-control" required>
                                             <?php foreach($brandList as $brand){ ?>
@@ -154,7 +154,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
                                             فیلد برند نباید خالی باشد
                                         </div>
                                         </div>
-                                    <div class="col-6">
+                                    <div class="col-lg-6">
                                         <label class="form-label">نام محصول</label>
                                         <input type="text" class="form-control" name="product" value="<?= checkUpdate('product', $products['name']) ?>" required>
                                         <span class="text-danger"><?= $validator->show('product') ?></span>
@@ -162,7 +162,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
                                             فیلد نام نباید خالی باشد
                                         </div>
                                     </div>
-                                    <div class="col-6">
+                                    <div class="col-lg-6">
                                         <label class="form-label">قیمت</label>
                                         <input class="form-control text-end" name="price" id="price" value="<?= checkUpdate('price', $products['price']) ?>" oninput="number(this)" required>
                                         <span class="text-danger"><?= $validator->show('price') ?></span>
@@ -170,7 +170,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
                                             فیلد قیمت نباید خالی باشد
                                         </div>
                                     </div>
-                                    <div class="col-6">
+                                    <div class="col-lg-6">
                                         <label class="form-label">تعداد محصول</label>
                                         <input type="text" class="form-control text-end" name="qty" id="qty" value="<?= checkUpdate('qty', $products['qty'])?>" oninput="number(this)" required>
                                         <span class="text-danger"><?= $validator->show('qty') ?></span>
@@ -179,7 +179,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
                                         </div>
                                     </div>
                                     
-                                        <div class="col-6">
+                                        <div class="col-lg-6">
                                             <div>
                                                 <label class="form-label">تاریخ تولید</label>
                                                 <input name="date" class="form-control datepicker text-end"  id="date" value="<?= checkUpdate('date', changeDate($products['date'], false)) ?>" required/>
@@ -189,12 +189,12 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
                                         </div>
                                         </div>
                                     </div>
-                                    <div class="col-6">
+                                    <div class="col-lg-6">
                                         <label class="form-label">تخفیف</label>
                                         <input type="text" class="form-control text-end" name="special" id="special" value="<?= checkUpdate('special', $products['special']) ?>">
                                         <span class="text-danger"><?= $validator->show('special') ?></span>
                                     </div>
-                                    <div class="col-6">
+                                    <div class="col-lg-6">
                                         <label class="form-label">تاریخ اتمام تخفیف</label>
                                         <input class="form-control text-end" name="endTime" id="endTime" value="<?= checkUpdate('endTime', $products['end_time']) ?>">
                                         <span class="text-danger"><?= $validator->show('endTime') ?></span>
@@ -216,7 +216,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
                                         </div>
                                             <span class="text-danger"><?= $validator->show('fileToUpload') ?></span>
                                         </div>
-                                        <div class="col-8">
+                                        <div class="col-lg-8">
                                         <div class="d-flex">
                                             <label class="form-check-label mx-1" for="flexSwitchCheckChecked">غیرفعال</label>
                                             <div class="form-check form-switch">
@@ -225,7 +225,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
                                             <label class="form-check-label mx-1" for="flexSwitchCheckChecked">فعال</label>
                                         </div>
                                     </div>
-                                    <div class="col-4">
+                                    <div class="col-lg-4">
                                         <div class="row">
                                             <div class="col-6">
                                                 <div class="d-grid">

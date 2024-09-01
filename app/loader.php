@@ -3,7 +3,7 @@ session_start();
 $pages;$page = 1;
 if(isset($prefix)){
     $sortField = isset($_SESSION[$prefix."_sort_field"])?$_SESSION[$prefix."_sort_field"]:"$prefix.id";
-    $sortOrder = isset($_SESSION[$prefix."_sort_order"])?$_SESSION[$prefix."_sort_order"]:"ASC";
+    $sortOrder = isset($_SESSION[$prefix."_sort_order"])?$_SESSION[$prefix."_sort_order"]:"DESC";
 }
 require_once('Model/DB.php');
 require_once('Controller/functions.php');

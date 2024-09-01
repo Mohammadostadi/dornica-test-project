@@ -49,7 +49,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
                                     <h6 class="mb-0 text-uppercase">اضافه کردن برند</h6>
                                     <hr/>
                                     <form class="row g-3 needs-validation" novalidate action="" method="post" enctype="multipart/form-data">
-                                        <div class="col-6">
+                                        <div class="col-lg-6">
                                             <label class="form-label">عنوان </label>
                                             <input type="text" class="form-control" name="name" value="<?= checkExist('name') ?>" required>
                                             <span class="text-danger"><?= $validator->show('name') ?></span>
@@ -57,7 +57,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
                                             فیلد عنوان نباید خالی باشد
                                         </div>
                                         </div>
-                                        <div class="col-6">
+                                        <div class="col-lg-6">
                                             <label class="form-label">تصویر</label>
                                             <input type="file" class="form-control" aria-label="file example"  name="fileToUpload" required>
                                             <span class="text-danger"><?= $validator->show('fileToUpload') ?></span>

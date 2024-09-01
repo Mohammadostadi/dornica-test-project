@@ -123,7 +123,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
                                 <h6 class="mb-0 text-uppercase">آپدیت کردن ممبر</h6>
                                 <hr/>
                                 <form class="row g-3 needs-validation" novalidate action="" method="post" enctype="multipart/form-data">
-                                    <div class="col-6">
+                                    <div class="col-lg-6">
                                         <label class="form-label">نام </label>
                                         <input type="text" class="form-control" name="fname" value="<?= checkUpdate('fname', $member['fname']) ?>"required>
                                         <span class="text-danger"><?= $validator->is_exist('fname')? $validator->show('fname'):'' ?></span>
@@ -131,7 +131,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
                                             فیلد نام نباید خالی باشد
                                         </div>
                                     </div>
-                                    <div class="col-6">
+                                    <div class="col-lg-6">
                                         <label class="form-label">نام خانوادگی</label>
                                         <input type="text" class="form-control" name="lname" value="<?= checkUpdate('lname', $member['lname']) ?>"required>
                                         <span class="text-danger"><?= $validator->is_exist('lname')? $validator->show('lname'):'' ?></span>
@@ -139,7 +139,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
                                             فیلد نام خانوادگی نباید خالی باشد
                                         </div>
                                     </div>
-                                    <div class="col-6">
+                                    <div class="col-lg-6">
                                         <label for="state" class="form-label">استان</label>
                                         <select id="state" name="state"   class="form-control">
                                             <!-- <option value="0" selected disabled>استان را انتخاب کنید</option> -->
@@ -150,14 +150,14 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
                                                         </select>
                                                         <span class="text-danger"><?= $validator->is_exist('state')? $validator->show('state'):'' ?></span>
                                                     </div>
-                                        <div class="col-6">
+                                        <div class="col-lg-6">
                                                 <label for="city" class="form-label">شهر</label>
                                                 <select id="city" name="city"  class="form-control">
                                                     
                                                 </select>
                                             <span class="text-danger"><?= $validator->is_exist('city')? $validator->show('city'):'' ?></span>
                                         </div>
-                                    <div class="col-6">
+                                    <div class="col-lg-6">
                                         <label class="form-label">کدملی</label>
                                         <input type="text" class="form-control" name="ncode" value="<?= checkUpdate('ncode', $member['national_code']) ?>"required>
                                         <span class="text-danger"><?= $validator->is_exist('ncode')? $validator->show('ncode'):'' ?></span>
@@ -165,7 +165,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
                                             فیلد کدملی نباید خالی باشد
                                         </div>
                                     </div>
-                                    <div class="col-6">
+                                    <div class="col-lg-6">
                                         <label class="form-label">ایمیل</label>
                                         <input type="text" class="form-control" name="email" value="<?= checkUpdate('email', $member['email']) ?>"required>
                                         <span class="text-danger"><?= $validator->is_exist('email')? $validator->show('email'):'' ?></span>
@@ -173,7 +173,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
                                             فیلد ایمیل نباید خالی باشد
                                         </div>
                                     </div>
-                                    <div class="col-6">
+                                    <div class="col-lg-6">
                                         <label class="form-label">َشماره</label>
                                         <input type="text" class="form-control" name="phone" value="<?= checkUpdate('phone', $member['phone']) ?>"required>
                                         <span class="text-danger"><?= $validator->is_exist('phone')? $validator->show('phone'):'' ?></span>
@@ -181,7 +181,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
                                             فیلد شماره نباید خالی باشد
                                         </div>
                                     </div>
-                                    <div class="col-6">
+                                    <div class="col-lg-6">
                                         <div>
                                             <label class="form-label">تاریخ تولد</label>
                                             <input id="date" name="birthday" class="form-control datepicker" value="<?= checkUpdate('birthday', changeDate($member['birthday'], false)) ?>" required/>
@@ -190,7 +190,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-6">
+                                    <div class="col-lg-6">
                                         <label class="form-label">کدپستی</label>
                                         <input type="text" class="form-control" name="postalCode" value="<?= checkUpdate('postalCode', $member['postal_code']) ?>">
                                         <span class="text-danger"><?= $validator->is_exist('postalCode')? $validator->show('postalCode'):'' ?></span>
@@ -203,7 +203,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
                                         <label class="form-label">تصویر</label>
                                         <div class="row">
                                             <div class="col-12 text-center bg-light my-3 rounded preview">
-                                                <img src="../<?= $member['image']?>" class="rounded-circle shadow m-3" id="img" width="100" height="100" alt="">
+                                                <img src="../../<?= $member['image']?>" class="rounded-circle shadow m-3" id="img" width="100" height="100" alt="">
                                             </div>
                                             <div class="col-12">
                                                 <input type="file" class="form-control" aria-label="file example" id="fileToUpload" name="fileToUpload">
@@ -211,7 +211,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
                                         </div>
                                         <span class="text-danger"><?= $validator->show('fileToUpload') ?></span>
                                     </div>
-                                    <div class="col-8">
+                                    <div class="col-lg-8">
                                         <div class="d-flex">
                                             <label class="form-check-label mx-1" for="flexSwitchCheckChecked">غیرفعال</label>
                                             <div class="form-check form-switch">
@@ -220,7 +220,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
                                             <label class="form-check-label mx-1" for="flexSwitchCheckChecked">فعال</label>
                                         </div>
                                     </div>
-                                    <div class="col-4">
+                                    <div class="col-lg-4">
                                         <div class="row">
                                             <div class="col-6">
                                                 <div class="d-grid">

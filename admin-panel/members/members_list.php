@@ -180,7 +180,7 @@
                                     <td>
                                         <div>
                                             
-                                            <a id="dropdownMenu2"
+                                            <a id="dropdownMenu2" class='pe-auto'
                                             data-toggle="dropdown" aria-haspopup="true"
                                             aria-expanded="false"
                                             >
@@ -216,9 +216,13 @@
                                                 <li>
                                             <button class="<?= $result?'disabled text-secondary':'open-confirm text-danger'?>  btn border-0 dropdown-item" value="<?= $member['id'] ?>" data-bs-toggle="tooltip" data-bs-placement="bottom" title="<?= $result?'قابل حذف نیست':'حذف' ?>" data-bs-original-title="حذف" aria-label="Delete"><i class="bi bi-trash-fill"></i> حذف فیلد</button></li>
                                             <?php } ?>
-                                                <li><a class="dropdown-item" href="../payment/payments.php?member=<?= $member['id'] ?>">لیست پرداختی</a>
+                                                <li><a class="dropdown-item" href="../payment/payments.php?member=<?= $member['id'] ?>">
+                                                    <i class="fadeIn animated bx bx-money"></i>
+                                                    لیست پرداختی</a>
                                                 </li>
-                                                <li><a class="dropdown-item" href="../orders/orders_list.php?member=<?= $member['id'] ?>">لیست سفارشات</a>
+                                                <li><a class="dropdown-item" href="../orders/orders_list.php?member=<?= $member['id'] ?>">
+                                                    <i class="fadeIn animated bx bx-shopping-bag"></i>
+                                                    لیست سفارشات</a>
                                                 </li>
                                                 <li><a class="dropdown-item" href="../baskets/baskets_list.php?member=<?= $member['id'] ?>">
                                                     <i class="lni lni-cart"></i>

@@ -57,9 +57,9 @@
                                 <h6 class="mb-0 text-uppercase">اضافه کردن شهر</h6>
                                 <hr/>
                                 <form class="row g-3 needs-validation"novalidate  action="" method="post">
-                                    <div class="col-6">
+                                    <div class="col-lg-6">
                                         <label class="form-label">استان </label>
-                                        <select name="province" id=""  class="form-control" required>
+                                        <select name="province" id=""  class="form-select" required>
                                             <option value="null">...</option>
                                             <?php 
                                                 foreach($provinceList as $province){ ?>
@@ -71,7 +71,7 @@
                                             فیلد استان نباید خالی باشد
                                         </div>
                                     </div>
-                                    <div class="col-6">
+                                    <div class="col-lg-6">
                                         <label class="form-label">عنوان </label>
                                         <input type="text" class="form-control" name="title" value="<?= checkExist('title') ?>" required>
                                         <span class="text-danger"><?= $validator->show('title') ?></span>
@@ -86,7 +86,7 @@
                                                     <a href="citys_list.php" class="btn btn-danger">برگشت</a>
                                                 </div>
                                             </div>
-                                            <div class="col-2">
+                                            <div class="col-6">
                                                 <div class="d-grid">
                                                     <button type="submit" class="btn btn-primary" name="_insert">ثبت</button>
                                                 </div>
