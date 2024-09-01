@@ -908,10 +908,11 @@ require_once('../app/Controller/functions.php');
                                     <p>انگار گم شدی!
                                         <br>شاید شما به اینترنت متصل نیستید!
                                     </p>
-                                    <div class="mt-5"> <a href="../admin-panel/index.php"
-                                            class="btn btn-lg btn-primary px-md-5 radius-30">صفحه اصلی</a>
+                                    <div class="d-flex gap-4"> 
+                                        <a href="../index.php"
+                                            class="btn btn-primary radius-30">صفحه اصلی</a>
                                         <a href="javascript:;"
-                                            class="btn btn-lg btn-outline-dark ms-3 px-md-5 radius-30">بازگشت</a>
+                                            class="btn btn-outline-dark radius-30">بازگشت</a>
                                     </div>
                                 </div>
                             </div>
