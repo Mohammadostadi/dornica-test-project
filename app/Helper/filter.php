@@ -99,10 +99,10 @@ class Filter{
             $limitation = ($page - 1)*$limit;
             $pages = ceil($total[0]['total'] / $db->pageLimit);
         
-            return $db->rawQuery($query[1]. ((isset($_SESSION[$con]) and !empty($_SESSION[$con])) ? " AND " : " WHERE ") .$condition." ORDER BY $sortField $sortOrder LIMIT $limitation, $limit");
+            return $db->rawQuery($query[1]. ((isset($con) and !empty($con)) ? " AND " : " WHERE ") .$condition." ORDER BY $sortField $sortOrder LIMIT $limitation, $limit");
 
             }else{
-                $con = ((isset($_SESSION[$con]) and !empty($_SESSION[$con])) ? $_SESSION[$con] : null);
+                $con = ((isset($con) and !empty($con)) ? $con : null);
             pageLimit( $this->table_name, $limit, false, $con);
             $limitation = ($page - 1)*$limit;   
             return $db->rawQuery($query[1]." ORDER BY $sortField $sortOrder LIMIT $limitation, $limit");                    

@@ -16,19 +16,17 @@ $data = [
     'date' => 'date',
     'price' => 'price',
 ];
-if (!isset($_SESSION['category']) or empty($_SESSION['category'])) {
-    $_SESSION['category'] = isset($_GET['category']) ? "products.category_id = " . securityCheck($_GET['category']) : "";
+if (isset($_GET['category'])) {
+    $product_category = "products.category_id = " . securityCheck($_GET['category']);
 }
-if (!isset($_SESSION['brand']) or empty($_SESSION['brand'])) {
-    $_SESSION['brand'] = isset($_GET['brand']) ? "products.brand_id = " . securityCheck($_GET['brand']) : "";
-}
+$product_brand = isset($_GET['brand']) ? "products.brand_id = " . securityCheck($_GET['brand']) : "";
 $filter->filterCheck($db, $data, 'product', 'products_list.php');
 $col = ['products.id', 'products.name', 'price', 'products.status', 'image', 'date', 'qty', 'category.name AS category', 'brand.name AS brand'];
-(isset($_SESSION['category']) and !empty($_SESSION['category'])) ? $db->where($_SESSION['category']) : '';
-(isset($_SESSION['brand']) and !empty($_SESSION['brand'])) ? $db->where($_SESSION['brand']) : '';
+(isset($product_category) and !empty($product_category)) ? $db->where($product_category) : '';
+(isset($product_brand) and !empty($product_brand)) ? $db->where($product_brand) : '';
 pageLimit('products', 3, false, $_SESSION['product_filter']['product']);
-(isset($_SESSION['category']) and !empty($_SESSION['category'])) ? $db->where($_SESSION['category']) : '';
-(isset($_SESSION['brand']) and !empty($_SESSION['brand'])) ? $db->where($_SESSION['brand']) : '';
+(isset($product_category) and !empty($product_category)) ? $db->where($product_category) : '';
+(isset($product_brand) and !empty($product_brand)) ? $db->where($product_brand) : '';
 $filter->loopQuery($db, $_SESSION['product_filter']['product']);
 $res = $db->join('category', 'category.id = products.category_id', 'LEFT')
     ->join('brand', 'brand.id = products.brand_id', 'LEFT')
@@ -98,12 +96,12 @@ $res = $db->join('category', 'category.id = products.category_id', 'LEFT')
                 </div>
                 <div class="ms-auto">
                     <div class="btn-group">
-                        <?php if (isset($_SESSION['category']) and !empty($_SESSION['category'])) { ?>
-                            <a class="btn btn-outline-secondary" href="products_categories_list.php?back=1">برگشت به دسته
+                        <?php if (isset($product_category) and !empty($product_category)) { ?>
+                            <a class="btn btn-outline-secondary" href="products_categories_list.php">برگشت به دسته
                                 بندی</a>
                         <?php } ?>
-                        <?php if (isset($_SESSION['brand']) and !empty($_SESSION['brand'])) { ?>
-                            <a class="btn btn-outline-secondary" href="../brands/brands_list.php?back=1">برگشت به لیست
+                        <?php if (isset($product_brand) and !empty($product_brand)) { ?>
+                            <a class="btn btn-outline-secondary" href="../brands/brands_list.php">برگشت به لیست
                                 برند</a>
                         <?php } ?>
                         <?= has_access('product_add.php') ?"<a class='btn btn-outline-secondary' href='product_add.php'> اضافه کردن داده جدید</a>":"" ?>

@@ -214,6 +214,10 @@ $res = $db->orderBy($sortField, $sortOrder)
                                                                     data-bs-placement="bottom" title="<?= (($_SESSION['user_role'] == 0) or ($_SESSION['user_role'] == 2 and ($admin['role'] != 0 and $admin['role'] != $_SESSION['user_role'])))?"حذف":"عدم دسترسی" ?>" aria-label="Delete"
                                                                     style="cursor: pointer;"><i
                                                                         class="bi bi-trash-fill"></i></button>
+                                                                <?php } 
+                                                                if($_SESSION['user_role'] == 0) { ?>
+                                                                <a href="profile_reset_password.php?manager=<?= $admin['id'] ?>" data-bs-toggle="tooltip"
+                                                                data-bs-placement="bottom" title="بازنشانی رمز عبور"><i class="fadeIn animated bx bx-reset"></i></a>
                                                                 <?php } ?>
                                                             </div>
                                                         </td>

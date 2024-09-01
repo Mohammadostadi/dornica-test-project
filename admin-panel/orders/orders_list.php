@@ -8,11 +8,11 @@
     ->get('payment_type', null, 'id, name');
     $membersList = $db->where('status', 1)
     ->get('members', null, 'id, fname, lname, national_code');
-    if(!isset($_SESSION['order_member'])){
-        $_SESSION['order_member'] = '';
-    }
+    // if(!isset($_SESSION['order_member'])){
+    //     $_SESSION['order_member'] = '';
+    // }
     if(isset($_GET['member'])){
-        $_SESSION['order_member'] = 'orders.member_id = '. securityCheck($_GET['member']);
+        $member_order = 'orders.member_id = '. securityCheck($_GET['member']);
     }
     $filter = new Filter('orders', 'order_filter');
     $data = [
@@ -25,10 +25,10 @@
         'orders.paymentTypeId'=>'=',
     ];
     $query = [
-        'SELECT COUNT(*) AS total FROM orders LEFT JOIN members on members.id = orders.member_id LEFT JOIN products on products.id = orders.product_id LEFT JOIN payment_type on payment_type.id = orders.paymentTypeId LEFT JOIN shiping_type on shiping_type.id = orders.shippingTypeId WHERE '.(!empty($_SESSION['order_member'])?$_SESSION['order_member']:""),
-        'SELECT members.fname, members.lname, products.name, orders.qty, payment_type.name AS payment, ordersCode, orders.status, orders.setdate, orders.price, shiping_type.name AS shipping, (orders.qty*orders.price) AS total FROM orders LEFT JOIN members on members.id = orders.member_id LEFT JOIN products on products.id = orders.product_id LEFT JOIN payment_type on payment_type.id = orders.paymentTypeId LEFT JOIN shiping_type on shiping_type.id = orders.shippingTypeId '.(!empty($_SESSION['order_member'])?' WHERE '.$_SESSION['order_member']:"")
+        'SELECT COUNT(*) AS total FROM orders LEFT JOIN members on members.id = orders.member_id LEFT JOIN products on products.id = orders.product_id LEFT JOIN payment_type on payment_type.id = orders.paymentTypeId LEFT JOIN shiping_type on shiping_type.id = orders.shippingTypeId WHERE '.(!empty($member_order)?$member_order:""),
+        'SELECT members.fname, members.lname, products.name, orders.qty, payment_type.name AS payment, ordersCode, orders.status, orders.setdate, orders.price, shiping_type.name AS shipping, (orders.qty*orders.price) AS total FROM orders LEFT JOIN members on members.id = orders.member_id LEFT JOIN products on products.id = orders.product_id LEFT JOIN payment_type on payment_type.id = orders.paymentTypeId LEFT JOIN shiping_type on shiping_type.id = orders.shippingTypeId '.(!empty($member_order)?' WHERE '.$member_order:"")
     ];
-    $res = $filter->filterCheck($db, $data, 'order', 'orders_list.php', $query, 3, $sortField, $sortOrder, 'order_member');
+    $res = $filter->filterCheck($db, $data, 'order', 'orders_list.php', $query, 3, $sortField, $sortOrder, isset($member_order)?$member_order:'');
 ?>
 
 <!doctype html>
@@ -81,8 +81,8 @@
             </div>
             <div class="ms-auto">
                 <div class="btn-group">
-                <?php if(isset($_SESSION['order_member']) and !empty($_SESSION['order_member'])) { ?>
-                                        <a class="btn btn-outline-secondary" href="../members/members_list.php?order=1">برگشت به لیست کاربران</a>
+                <?php if(isset($member_order) and !empty($member_order)) { ?>
+                                        <a class="btn btn-outline-secondary" href="../members/members_list.php">برگشت به لیست کاربران</a>
                                 <?php } ?>
                     <button class="btn btn-outline-secondary" id="_filter">فیلتر</button>
                 </div>

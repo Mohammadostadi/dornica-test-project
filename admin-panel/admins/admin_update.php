@@ -1,6 +1,6 @@
 <?php
 require_once('../../app/loader.php');
-require_once('../../app/Controller/gender.php');
+// require_once('../../app/Controller/gender.php');
 
 
 $id = securityCheck($_GET['id']);
@@ -130,7 +130,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['_insert'])) {
                                     فیلد جنسیت نباید خالی باشد
                                 </div>
                             </div>
-                            <div class="col-lg-6" id="militaryService">
+                            <div class="col-lg-6 d-none" id="militaryService">
+                                <label class="form-label">نظام وظیفه</label>
+
+                                <select name="militaryService" class="form-select" required>
+                                    <option value="">نظام وظیفه</option>
+                                    <option <?= ((isset($_POST['militaryService']) and $_POST['militaryService'] == 0) OR ($admin['military_service'] == 0))?"SELECTED":"" ?> value="0">سربازی</option>
+                                    <option <?= ((isset($_POST['militaryService']) and $_POST['militaryService'] == 1) OR ($admin['military_service'] == 1))?"SELECTED":"" ?> value="1">معافیت</option>
+                                    <option <?= ((isset($_POST['militaryService']) and $_POST['militaryService'] == 2) OR ($admin['military_service'] == 2))?"SELECTED":"" ?> value="2">در حال انجام وظیفه</option>
+                                    <option <?= ((isset($_POST['militaryService']) and $_POST['militaryService'] == 3) OR ($admin['military_service'] == 3))?"SELECTED":"" ?> value="3">پایان خدمت</option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    فیلد سربازی نباید خالی باشد
+                                </div>
                             </div>
                             <div class="col-lg-8">
                                 <div class="d-flex">
@@ -170,6 +182,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['_insert'])) {
     require_once('../../layout/update_image.php');
     ?>
     <script>
+        const gender = $('#gender').find('option:selected').val();
+        if(gender == 0)
+            $('#militaryService').removeClass('d-none');
+            
+        $('#gender').click(function () {
+            const id = $(this).val();
+            if (id == 0 && id != '') {
+                $('#militaryService').removeClass('d-none');
+            }
+            else if(!$('#militaryService').hasClass('d-none')){
+                $('#militaryService').addClass('d-none');
+            }
+        })
+
+    </script>
+    <!-- <script>
     $('#gender').change(function () {
             const id = $(this).val();
             if(id == 0 && id != ''){
@@ -202,7 +230,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['_insert'])) {
                     $('#militaryService').html(msg);
                 }
         })}
-</script>
+</script> -->
     <!--end wrapper-->
 </body>
 

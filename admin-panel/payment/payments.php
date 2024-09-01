@@ -4,11 +4,11 @@
     sortInTable($prefix, 'payments', 'page');
     $paymentList = $db->where('status', 1)
     ->get('payment_type', null, 'id, name');
-    if(!isset($_SESSION['payment_member'])){
-        $_SESSION['payment_member'] = '';
-    }
+    // if(!isset($_SESSION['payment_member'])){
+    //     $_SESSION['payment_member'] = '';
+    // }
     if(isset($_GET['member'])){
-        $_SESSION['payment_member'] = 'payments.member_id = '.securityCheck($_GET['member']);
+        $member_payment = 'payments.member_id = '.securityCheck($_GET['member']);
     }
     $filter = new Filter('payments', 'payments_filter');
     $data = [
@@ -19,10 +19,10 @@
         'payments.payment_type_id'=>'=',
     ];
     $query = [
-        'SELECT COUNT(*) AS total FROM payments LEFT JOIN members on members.id = payments.member_id LEFT JOIN orders on orders.id = payments.orders_code LEFT JOIN payment_type on payment_type.id = payments.payment_type_id WHERE '.(!empty($_SESSION['payment_member'])?$_SESSION['payment_member']:""),
-        'SELECT payments.member_id, members.fname, members.lname, orders.ordersCode, payments.amount, payment_type.name AS payment, payments.status, payments.paydate, payments.paycode FROM payments LEFT JOIN members on members.id = payments.member_id LEFT JOIN orders on orders.ordersCode = payments.orders_code LEFT JOIN payment_type on payment_type.id = payments.payment_type_id '.(!empty($_SESSION['payment_member'])?' WHERE '.$_SESSION['payment_member']:"")
+        'SELECT COUNT(*) AS total FROM payments LEFT JOIN members on members.id = payments.member_id LEFT JOIN orders on orders.id = payments.orders_code LEFT JOIN payment_type on payment_type.id = payments.payment_type_id WHERE '.(!empty($member_payment)?$member_payment:""),
+        'SELECT payments.member_id, members.fname, members.lname, orders.ordersCode, payments.amount, payment_type.name AS payment, payments.status, payments.paydate, payments.paycode FROM payments LEFT JOIN members on members.id = payments.member_id LEFT JOIN orders on orders.ordersCode = payments.orders_code LEFT JOIN payment_type on payment_type.id = payments.payment_type_id '.(!empty($member_payment)?' WHERE '.$member_payment:"")
     ];
-    $res = $filter->filterCheck($db, $data, 'payments', 'payments.php', $query, 3, $sortField, $sortOrder, 'payment_member');
+    $res = $filter->filterCheck($db, $data, 'payments', 'payments.php', $query, 3, $sortField, $sortOrder, isset($member_payment)?$member_payment:'');
 ?>
 
 <!doctype html>
@@ -75,8 +75,8 @@
             </div>
             <div class="ms-auto">
                 <div class="btn-group">
-                <?php if(isset($_SESSION['payment_member']) and !empty($_SESSION['payment_member'])) { ?>
-                                        <a class="btn btn-outline-secondary" href="../members/members_list.php?payment=1">برگشت به لیست کاربران</a>
+                <?php if(isset($member_payment) and !empty($member_payment)) { ?>
+                                        <a class="btn btn-outline-secondary" href="../members/members_list.php">برگشت به لیست کاربران</a>
                                 <?php } ?>
                     <button class="btn btn-outline-secondary" id="_filter">فیلتر</button>
                 </div>

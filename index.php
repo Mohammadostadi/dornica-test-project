@@ -72,39 +72,39 @@ if (!isset($_SESSION['user'])) {
                         </li>
                         <li class="nav-item dropdown dropdown-laungauge   d-sm-flex">
                             <a class="nav-link dropdown-toggle dropdown-toggle-nocaret" href="javascript:;"
-                                data-bs-toggle="dropdown"><img src="../assets/images/county/02.png" width="22" alt="">
+                                data-bs-toggle="dropdown"><img src="assets/images/county/02.png" width="22" alt="">
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end p-2">
                                 <li><a class="dropdown-item d-flex align-items-center py-2" href="javascript:;"><img
-                                            src="../assets/images/county/01.png" width="20" alt=""><span
+                                            src="assets/images/county/01.png" width="20" alt=""><span
                                             class="ms-2">انگلیسی</span></a>
                                 </li>
                                 <li><a class="dropdown-item d-flex align-items-center py-2" href="javascript:;"><img
-                                            src="../assets/images/county/02.png" width="20" alt=""><span
+                                            src="assets/images/county/02.png" width="20" alt=""><span
                                             class="ms-2">کاتالان</span></a>
                                 </li>
                                 <li><a class="dropdown-item d-flex align-items-center py-2" href="javascript:;"><img
-                                            src="../assets/images/county/03.png" width="20" alt=""><span
+                                            src="assets/images/county/03.png" width="20" alt=""><span
                                             class="ms-2">فرانسوی</span></a>
                                 </li>
                                 <li><a class="dropdown-item d-flex align-items-center py-2" href="javascript:;"><img
-                                            src="../assets/images/county/04.png" width="20" alt=""><span
+                                            src="assets/images/county/04.png" width="20" alt=""><span
                                             class="ms-2">بلیز</span></a>
                                 </li>
                                 <li><a class="dropdown-item d-flex align-items-center py-2" href="javascript:;"><img
-                                            src="../assets/images/county/05.png" width="20" alt=""><span
+                                            src="assets/images/county/05.png" width="20" alt=""><span
                                             class="ms-2">کلمبیا</span></a>
                                 </li>
                                 <li><a class="dropdown-item d-flex align-items-center py-2" href="javascript:;"><img
-                                            src="../assets/images/county/06.png" width="20" alt=""><span
+                                            src="assets/images/county/06.png" width="20" alt=""><span
                                             class="ms-2">اسپانیایی</span></a>
                                 </li>
                                 <li><a class="dropdown-item d-flex align-items-center py-2" href="javascript:;"><img
-                                            src="../assets/images/county/07.png" width="20" alt=""><span
+                                            src="assets/images/county/07.png" width="20" alt=""><span
                                             class="ms-2">گرجی</span></a>
                                 </li>
                                 <li><a class="dropdown-item d-flex align-items-center py-2" href="javascript:;"><img
-                                            src="../assets/images/county/08.png" width="20" alt=""><span
+                                            src="assets/images/county/08.png" width="20" alt=""><span
                                             class="ms-2">هندی</span></a>
                                 </li>
                             </ul>
@@ -233,7 +233,7 @@ if (!isset($_SESSION['user'])) {
                                 <div class="header-message-list p-2">
                                     <a class="dropdown-item" href="#">
                                         <div class="d-flex align-items-center">
-                                            <img src="../assets/images/avatars/avatar-1.png" alt=""
+                                            <img src="assets/images/avatars/avatar-1.png" alt=""
                                                 class="rounded-circle" width="50" height="50">
                                             <div class="ms-3 flex-grow-1">
                                                 <h6 class="mb-0 dropdown-msg-user">آملیو جولی <span
@@ -246,7 +246,7 @@ if (!isset($_SESSION['user'])) {
                                     </a>
                                     <a class="dropdown-item" href="#">
                                         <div class="d-flex align-items-center">
-                                            <img src="../assets/images/avatars/avatar-2.png" alt=""
+                                            <img src="assets/images/avatars/avatar-2.png" alt=""
                                                 class="rounded-circle" width="50" height="50">
                                             <div class="ms-3 flex-grow-1">
                                                 <h6 class="mb-0 dropdown-msg-user">آلته کاباردو <span
@@ -259,7 +259,7 @@ if (!isset($_SESSION['user'])) {
                                     </a>
                                     <a class="dropdown-item" href="#">
                                         <div class="d-flex align-items-center">
-                                            <img src="../assets/images/avatars/avatar-3.png" alt=""
+                                            <img src="assets/images/avatars/avatar-3.png" alt=""
                                                 class="rounded-circle" width="50" height="50">
                                             <div class="ms-3 flex-grow-1">
                                                 <h6 class="mb-0 dropdown-msg-user">کاترین پچون <span
@@ -272,7 +272,7 @@ if (!isset($_SESSION['user'])) {
                                     </a>
                                     <a class="dropdown-item" href="#">
                                         <div class="d-flex align-items-center">
-                                            <img src="../assets/images/avatars/avatar-4.png" alt=""
+                                            <img src="assets/images/avatars/avatar-4.png" alt=""
                                                 class="rounded-circle" width="50" height="50">
                                             <div class="ms-3 flex-grow-1">
                                                 <h6 class="mb-0 dropdown-msg-user">پیتر کوستانزو <span
@@ -285,7 +285,7 @@ if (!isset($_SESSION['user'])) {
                                     </a>
                                     <a class="dropdown-item" href="#">
                                         <div class="d-flex align-items-center">
-                                            <img src="../assets/images/avatars/avatar-5.png" alt=""
+                                            <img src="assets/images/avatars/avatar-5.png" alt=""
                                                 class="rounded-circle" width="50" height="50">
                                             <div class="ms-3 flex-grow-1">
                                                 <h6 class="mb-0 dropdown-msg-user">توماس ویلر <span
@@ -298,7 +298,7 @@ if (!isset($_SESSION['user'])) {
                                     </a>
                                     <a class="dropdown-item" href="#">
                                         <div class="d-flex align-items-center">
-                                            <img src="../assets/images/avatars/avatar-6.png" alt=""
+                                            <img src="assets/images/avatars/avatar-6.png" alt=""
                                                 class="rounded-circle" width="50" height="50">
                                             <div class="ms-3 flex-grow-1">
                                                 <h6 class="mb-0 dropdown-msg-user">جانی سیتز <span
@@ -311,7 +311,7 @@ if (!isset($_SESSION['user'])) {
                                     </a>
                                     <a class="dropdown-item" href="#">
                                         <div class="d-flex align-items-center">
-                                            <img src="../assets/images/avatars/avatar-1.png" alt=""
+                                            <img src="assets/images/avatars/avatar-1.png" alt=""
                                                 class="rounded-circle" width="50" height="50">
                                             <div class="ms-3 flex-grow-1">
                                                 <h6 class="mb-0 dropdown-msg-user">آملیو جولی <span
@@ -324,7 +324,7 @@ if (!isset($_SESSION['user'])) {
                                     </a>
                                     <a class="dropdown-item" href="#">
                                         <div class="d-flex align-items-center">
-                                            <img src="../assets/images/avatars/avatar-2.png" alt=""
+                                            <img src="assets/images/avatars/avatar-2.png" alt=""
                                                 class="rounded-circle" width="50" height="50">
                                             <div class="ms-3 flex-grow-1">
                                                 <h6 class="mb-0 dropdown-msg-user">آلته کاباردو <span
@@ -337,7 +337,7 @@ if (!isset($_SESSION['user'])) {
                                     </a>
                                     <a class="dropdown-item" href="#">
                                         <div class="d-flex align-items-center">
-                                            <img src="../assets/images/avatars/avatar-3.png" alt=""
+                                            <img src="assets/images/avatars/avatar-3.png" alt=""
                                                 class="rounded-circle" width="50" height="50">
                                             <div class="ms-3 flex-grow-1">
                                                 <h6 class="mb-0 dropdown-msg-user">کاترین پچون <span
@@ -536,7 +536,7 @@ if (!isset($_SESSION['user'])) {
                             $role = $db->where('id', $_SESSION['user'])->getValue('admin', "role");
                             $image = $db->where('id', $_SESSION['user'])->getValue('admin', "image");
                             ?>
-                            <img src="../../<?= !empty($image) ? $image : "assets/images/admin/default.png" ?>"
+                            <img src="<?= !empty($image) ? $image : "assets/images/admin/default.png" ?>"
                                 class="user-img" alt="">
                             <div class="  d-sm-block">
                                 <p class="user-name mb-0"><?= ($name['name']) ?></p>
@@ -546,7 +546,7 @@ if (!isset($_SESSION['user'])) {
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end">
                         <li>
-                            <a class="dropdown-item" href="admins/profile_edit.php">
+                            <a class="dropdown-item" href="admin-panel/admins/profile_edit.php">
                                 <div class="d-flex align-items-center">
                                     <div class=""><i class="bi bi-person-fill"></i></div>
                                     <div class="ms-3"><span>مشخصات</span></div>
@@ -554,7 +554,7 @@ if (!isset($_SESSION['user'])) {
                             </a>
                         </li>
                         <li>
-                            <a class="dropdown-item" href="admins/profile_reset_password.php">
+                            <a class="dropdown-item" href="admin-panel/admins/profile_reset_password.php">
                                 <div class="d-flex align-items-center">
                                     <div class=""><i class="bi bi-gear-fill"></i></div>
                                     <div class="ms-3"><span>تغییر رمز عبور</span></div>
@@ -582,7 +582,7 @@ if (!isset($_SESSION['user'])) {
         <aside class="sidebar-wrapper" data-simplebar="true">
             <div class="sidebar-header">
                 <div>
-                    <img src="../assets/images/logo-icon.png" class="logo-icon" alt="logo icon">
+                    <img src="assets/images/logo-icon.png" class="logo-icon" alt="logo icon">
                 </div>
                 <div>
                     <h4 class="logo-text">وان دش</h4>

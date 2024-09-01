@@ -2,8 +2,8 @@
 require_once('../../app/loader.php');
 $validator = new validator();
 if (isset($_POST['changePassword']) and $_SERVER['REQUEST_METHOD'] == 'POST') {
-    $password = $db->where('username', $_SESSION['user'])
-        ->getValue('admin', 'password');
+    if($_GET['manager'])
+        $managerChanges = securityCheck($_GET['manager']);
     $newPassword = securityCheck($_POST['newPass']);
     $confirmPassword = securityCheck($_POST['confirmPassword']);
 
@@ -15,11 +15,11 @@ if (isset($_POST['changePassword']) and $_SERVER['REQUEST_METHOD'] == 'POST') {
     }
     if ($validator->count_error() == 0) {
         $hash = password_hash($newPassword, PASSWORD_DEFAULT);
-        $db->where('username', $_SESSION['user'])
+        $db->where('id', isset($managerChanges)?$managerChanges:($_SESSION['user']))
             ->update('admin', [
                 'password' => $hash
             ]);
-        redirect('profile_edit.php', 8);
+        redirect(isset($managerChanges)?'admins_list.php':'profile_edit.php', 8);
     }
 }
 ?>

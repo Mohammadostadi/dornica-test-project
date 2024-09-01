@@ -161,7 +161,11 @@ function pageLimit($tableName, $limit, $soft = true, $condition = null)
 }
 function pagination($page, $pages)
 {
-
+    if($page > 0){
+        $queryPrams = $_GET;
+        unset($queryPrams['page']);
+        $queryString = http_build_query($queryPrams); 
+    }
     if ($pages == 0) { ?>
         <div class="d-flex justify-content-center align-items-center">
             <p class="text-center py-2 opacity-75 rounded w-75">داده ای یافت نشد</p>
@@ -170,16 +174,16 @@ function pagination($page, $pages)
         <nav class="float-end mt-0" aria-label="Page navigation">
             <ul class="pagination">
                 <?php if ($page > 1) { ?>
-                    <li class="page-item"><a class="page-link" href="<?= '?page=1' ?>">اول</a></li>
-                    <li class="page-item"><a class="page-link" href="<?= $page > 1 ? '?page=' . ($page - 1) : '' ?>">قبلی</a></li>
+                    <li class="page-item"><a class="page-link" href="<?= '?page=1'.($queryString ? '&'. $queryString:"" ) ?>">اول</a></li>
+                    <li class="page-item"><a class="page-link" href="<?= $page > 1 ? '?page=' . ($page - 1).($queryString ? '&'. $queryString:"" ) : '' ?>">قبلی</a></li>
                 <?php } ?>
 
                 <li class="page-item active" disabled><a class="page-link">صفحه <?= $page ?> از <?= $pages ?></a></li>
 
                 <?php if ($page < $pages) { ?>
                     <li class="page-item"><a class="page-link" <?= ($page >= $pages) ? 'disabled' : '' ?>
-                            href="<?= $page < $pages ? '?page=' . ($page + 1) : '' ?>">بعد</a></li>
-                    <li class="page-item"><a class="page-link" href="<?= '?page=' . $pages ?>">آخر</a></li>
+                            href="<?= $page < $pages ? '?page=' . ($page + 1).($queryString ? '&'. $queryString:"" ) : '' ?>">بعد</a></li>
+                    <li class="page-item"><a class="page-link" href="<?= '?page=' . $pages.($queryString ? '&'. $queryString:"" ) ?>">آخر</a></li>
                 <?php } ?>
             </ul>
         </nav>
@@ -199,7 +203,6 @@ function applyFilters($db, $filters)
         $newFilters = [];
 
         foreach ($filters as $field => $type) {
-            var_dump($_POST[$field]);
             if (isset($_POST[$field]) && $_POST[$field] != '') {
                 if ($type === 'like') {
                     $newFilters[] = "$field LIKE '%" . $_POST[$field] . "%'";
@@ -384,9 +387,8 @@ function accessRedirect($loc)
 
 function has_access($current_loc='')  {
     if (empty($current_loc)) {
-        $current_loc= $_SERVER['PHP_SELF'];
-        $current_loc = explode('/', $current_loc);
-        $current_loc=$current_loc[3];
+        $current_loc = $_SERVER['PHP_SELF'];
+        $current_loc = basename($current_loc);
     }
     $permission=[
         

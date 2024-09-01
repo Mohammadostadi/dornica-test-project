@@ -2,18 +2,6 @@
     $prefix = 'members';
     require_once('../../app/loader.php');
     require_once('../../app/Controller/cities.php');
-    if(isset($_GET['payment'])){
-        unset($_SESSION['payment_member']);
-    }
-    if(isset($_GET['order'])){
-        unset($_SESSION['order_member']);
-    }
-    if(isset($_GET['comment'])){
-        unset($_SESSION['comment_member']);
-    }
-    if(isset($_GET['basket'])){
-        unset($_SESSION['basket_member']);
-    }
     sortInTable($prefix, 'members_list', 'page');
     $provinceList = $db->where('status', 1)
     ->orderBy('name', 'ASC')

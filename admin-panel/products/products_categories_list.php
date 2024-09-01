@@ -1,9 +1,6 @@
 <?php
     $prefix = 'cat2';
     require_once('../../app/loader.php');
-    if(isset($_GET['back'])){
-        unset($_SESSION['category']);
-    }
     sortInTable($prefix, 'products_categories_list', 'page');
     $parents = $db->where('parent_id', 0)->get('category', null, 'id, name');
     $filter = new Filter('cat2', 'category_filter');
