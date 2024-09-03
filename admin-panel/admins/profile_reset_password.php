@@ -1,11 +1,12 @@
 <?php
 require_once('../../app/loader.php');
 $validator = new validator();
-if($_GET['manager'])
+if(isset($_GET['manager'])){
     $res = $db->where('id', securityCheck($_GET['manager']))
     ->getValue('admin', 'COUNT(*)');
     if($res == 0 or !is_numeric($_GET['manager']))
             redirect('../../error/error-403.php');
+}
 if (isset($_POST['changePassword']) and $_SERVER['REQUEST_METHOD'] == 'POST') {
         $managerChanges = securityCheck($_GET['manager']);
     $newPassword = securityCheck($_POST['newPass']);

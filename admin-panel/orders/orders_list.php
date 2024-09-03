@@ -26,9 +26,10 @@
     ];
     $query = [
         'SELECT COUNT(*) AS total FROM orders LEFT JOIN members on members.id = orders.member_id LEFT JOIN products on products.id = orders.product_id LEFT JOIN payment_type on payment_type.id = orders.paymentTypeId LEFT JOIN shiping_type on shiping_type.id = orders.shippingTypeId WHERE '.(!empty($member_order)?$member_order:""),
-        'SELECT members.fname, members.lname, products.name, orders.qty, payment_type.name AS payment, ordersCode, orders.status, orders.setdate, orders.price, shiping_type.name AS shipping, (orders.qty*orders.price) AS total FROM orders LEFT JOIN members on members.id = orders.member_id LEFT JOIN products on products.id = orders.product_id LEFT JOIN payment_type on payment_type.id = orders.paymentTypeId LEFT JOIN shiping_type on shiping_type.id = orders.shippingTypeId '.(!empty($member_order)?' WHERE '.$member_order:"")
+        'SELECT orders.member_id, members.fname, members.lname, products.name, orders.qty, payment_type.name AS payment, ordersCode, orders.status, orders.setdate, orders.price, shiping_type.name AS shipping, (orders.qty*orders.price) AS total FROM orders LEFT JOIN members on members.id = orders.member_id LEFT JOIN products on products.id = orders.product_id LEFT JOIN payment_type on payment_type.id = orders.paymentTypeId LEFT JOIN shiping_type on shiping_type.id = orders.shippingTypeId '.(!empty($member_order)?' WHERE '.$member_order:"")
     ];
     $res = $filter->filterCheck($db, $data, 'order', 'orders_list.php', $query, 3, $sortField, $sortOrder, isset($member_order)?$member_order:'');
+    // var_dump($_SESSION['order_filter']);die;
 ?>
 
 <!doctype html>
@@ -114,7 +115,7 @@
                                         <option <?= (isset($_SESSION['order_filter']['orders_status']) and $_SESSION['order_filter']['orders_status'] == 1) ? 'selected' : '' ?> value="1">خوانده شده</option>
                                         <option <?= (isset($_SESSION['order_filter']['orders_status']) and $_SESSION['order_filter']['orders_status'] == 2) ? 'selected' : '' ?> value="2">خوانده نشده</option>
                                     </select> </div>
-                                    <div class="col-lg-2 col-md-4" > <select class="form-select text-secondary" name="orders_shippingTypeId" id="orders_shippingTypeId">
+                                    <div class="col-lg-2 col-md-4" > <select class="form-select text-secondary" name="orders_member_id" id="orders_member_id">
                                         <option value="" class="text-secondary" >لیست کاربران</option>
                                         <?php foreach($membersList as $member){ ?>
                                             <option <?= (isset($_SESSION['order_filter']['orders_member_id']) and $_SESSION['order_filter']['orders_member_id'] == $member['id'])?"SELECTED":"" ?> value="<?= $member['id'] ?>"><?= $member['fname'].' '.$member['lname']." - ".$member['national_code'] ?></option>

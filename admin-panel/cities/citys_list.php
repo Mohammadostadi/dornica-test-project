@@ -18,7 +18,7 @@ $query = [
     'SELECT COUNT(*) AS total FROM cities LEFT JOIN province on province.id = cities.province_id WHERE '.(!empty($province_city)?$province_city:""),
     'SELECT province.name AS province, cities.name AS city, cities.id, cities.province_id, cities.status FROM cities LEFT JOIN province on province.id = cities.province_id '.(!empty($province_city)?' WHERE '.$province_city:"")
 ];
-$res = $filter->filterCheck($db, $data, 'cities', 'citys_list.php', $query, 3, $sortField, $sortOrder, isset($province_city)?$province_city:"");
+$res = $filter->filterCheck($db, $data, 'cities', 'citys_list.php', $query, 1, $sortField, $sortOrder, isset($province_city)?$province_city:"");
 ?>
 
 <!doctype html>

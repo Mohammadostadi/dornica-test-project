@@ -147,7 +147,7 @@ $res = $db->orderBy($sortField, $sortOrder)
                                         </div>
                                     </div>
                                     <div class="table-responsive">
-                                        <table class="table align-middle">
+                                        <table class="table align-middle" id="exampl">
                                             <thead class="text-center">
                                                 <tr>
                                                     <th>#</th>

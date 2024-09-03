@@ -18,8 +18,6 @@ if(!has_access()){
     header('Location:../../error/error-403.php');
 }
 if(isset($_GET['id'])){
-    $res = $db->where('id', securityCheck($_GET['id']))
-    ->getValue('admin', 'COUNT(*)');
-    if($res == 0 or !is_numeric($_GET['id']))
+    if(!is_numeric($_GET['id']))
             redirect('../../error/error-403.php');
 }
