@@ -49,7 +49,7 @@ class validator extends errorMessage{
     if($data['name'] != ''){
         $new_dir = substr($target_dir, 6);
         $picture = $new_dir.securityCheck( basename( $data["name"]));
-        if($value != $picture and !empty($picture)){
+        if(!empty($picture)){
             if(file_exists('../../'.$value))
                 unlink('../../'.$value);
             $this->imageValidate($dir, $data, $name);
@@ -71,7 +71,8 @@ class validator extends errorMessage{
         
             // Check if file already exists
             if (file_exists($target_file)) {
-                $target_file = $target_file.rand();
+                // var_dump($target_dir.rand().basename($target_file));die;
+                $target_file = $target_dir.rand().basename($target_file);
                 // $uploadOk = 0;
             }
         

@@ -8,7 +8,7 @@
         'status'=>'=',
     ];
     $filter->filterCheck($db, $data, 'contact', 'contacts_list.php');
-    pageLimit('contacts', 3, false, $_SESSION['contact_filter']['contact']);
+    pageLimit('contacts', 10, false, $_SESSION['contact_filter']['contact']);
     $filter->loopQuery($db, $_SESSION['contact_filter']['contact']);
     $res = $db->orderBy($sortField, $sortOrder)
     ->paginate('contacts', $page);

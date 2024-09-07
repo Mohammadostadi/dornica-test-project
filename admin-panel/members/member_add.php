@@ -12,10 +12,11 @@ $validator = new validator();
 if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
         $fname = securityCheck($_REQUEST['fname']);
         $lname = securityCheck($_REQUEST['lname']);
+        $gender = securityCheck($_REQUEST['gender']);
         $email = securityCheck($_REQUEST['email']);
         $phone = securityCheck($_REQUEST['phone']);
         $postalCode = securityCheck($_REQUEST['postalCode']);
-        $ncode = securityCheck($_REQUEST['ncode']);
+        $ncode = securityCheck($_REQUEST['national_code']);
         $address = securityCheck($_REQUEST['address']);
         $bdate = securityCheck($_REQUEST['birthday']);
         $password = securityCheck($_REQUEST['password']);
@@ -27,7 +28,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
         $validator->empty($lname, 'lname', 'فیلد نام خانوادگی شما نباید خالی باشد');
         $validator->empty($email, 'email', 'فیلد ایمیل شما نباید خالی باشد');
         $validator->empty($password, 'password', 'فیلد رمز عبور شما نباید خالی باشد');
-        $validator->empty($ncode, 'ncode', 'فیلد کد ملی شما نباید خالی باشد');
+        $validator->empty($ncode, 'national_code', 'فیلد کد ملی شما نباید خالی باشد');
         $validator->empty($phone, 'phone', 'فیلد شماره تلفن شما نباید خالی باشد');
         if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
             $validator->set('email', 'فرمت ایمیل صحیح نمیباشد');  
@@ -37,6 +38,9 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
         }
         if(!isset($_POST['state'])){
             $validator->set('state', 'فیلد استان شما نباید خالی باشد');
+        }
+        if ($gender == '') {
+            $validator->set('gender', 'فیلد جنسیت شما نباید خالی باشد');
         }
         if(!isset($_POST['city'])){
             $validator->set('city', 'فیلد شهر شما نباید خالی باشد');
@@ -51,6 +55,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
                 $db->insert('members', [
                     'fname'=>$fname,
                     'lname'=>$lname,
+                    'gender'=>$gender,
                     'email'=>$email,
                     'phone'=>$phone,
                     'address'=>$address,
@@ -122,12 +127,23 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
+                                            <label class="form-label">جنسیت</label>
+                                            <select class="form-select" name="gender" id="gender" required>
+                                                <option value="">جنسیت مورد نظر را انتخاب کنید</option>
+                                                <option <?= (isset($_POST['gender']) and $_POST['gender'] == 0)?"SELECTED":"" ?> value="0">مرد</option>
+                                                <option <?= (isset($_POST['gender']) and $_POST['gender'] == 1)?"SELECTED":"" ?> value="1">زن</option>
+                                            </select>
+                                            <div class="invalid-feedback">
+                                            فیلد جنسیت نباید خالی باشد
+                                        </div>
+                                        </div>
+                                    <div class="col-lg-6">
                                         <label for="state" class="form-label">استان</label>
                                         <select id="state" name="state"   class="form-control" required>
                                             <option value="" selected disabled >استان را انتخاب کنید</option>
                                             <?php
                                             foreach($provinceList as $province){ ?>
-                                                            <option <?= (isset($_POST['state']) and $_POST['state'] == $province['id']) ?> value="<?= $province['id'] ?>"><?= $province['name'] ?></option>
+                                                            <option <?= (isset($_POST['state']) and $_POST['state'] == $province['id'])?"SELECTED":"" ?> value="<?= $province['id'] ?>"><?= $province['name'] ?></option>
                                                 <?php } ?>
                                             </select>
                                             <span class="text-danger"><?= $validator->is_exist('state')? $validator->show('state'):'' ?></span>
@@ -147,8 +163,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
                                         </div>
                                         <div class="col-lg-6">
                                         <label class="form-label">کدملی</label>
-                                        <input type="text" class="form-control text-end" name="ncode" value="<?= checkExist('ncode') ?>" required>
-                                        <span class="text-danger"><?= $validator->is_exist('ncode')? $validator->show('ncode'):'' ?></span>
+                                        <input type="text" class="form-control text-end" name="national_code" value="<?= checkExist('ncode') ?>" required>
+                                        <span class="text-danger"><?= $validator->is_exist('national_code')? $validator->show('national_code'):'' ?></span>
                                         <div class="invalid-feedback">
                                             فیلد کدملی نباید خالی باشد
                                         </div>
@@ -236,10 +252,10 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
 <script>
         $('#state').change(function () {
             const id = $(this).val();
+            console.log(id);
             cities(id);
         });
-        const current_province = $('#state').find('option:selected').val();
-        console.log(current_province);
+        const current_province = "<?= isset($_POST['state'])?$_POST['state']:""?>";
         const current_city = "<?= isset($_POST['city'])?$_POST['city']:""?>";
         if(current_city != '' && current_province != ''){
             cities(current_province, current_city);

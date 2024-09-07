@@ -8,7 +8,7 @@ $data = [
     'status' => '=',
 ];
 $filter->filterCheck($db, $data, 'faq', 'faqs_list.php');
-pageLimit('faq', 3, false, $_SESSION['faq_filter']['faq']);
+pageLimit('faq', 10, false, $_SESSION['faq_filter']['faq']);
 $filter->loopQuery($db, $_SESSION['faq_filter']['faq']);
 $res = $db->orderBy($sortField, $sortOrder)
     ->paginate('faq', $page);

@@ -13,7 +13,7 @@ $data = [
     'gender' => '=',
 ];
 $filter->filterCheck($db, $data, 'admin', 'admins_list.php');
-pageLimit('admin', 3, false, $_SESSION['admin_filter']['admin']);
+pageLimit('admin', 5, false, $_SESSION['admin_filter']['admin']);
 $filter->loopQuery($db, $_SESSION['admin_filter']['admin']);
 $res = $db->orderBy($sortField, $sortOrder)
     ->paginate('admin', $page);
@@ -147,7 +147,7 @@ $res = $db->orderBy($sortField, $sortOrder)
                                         </div>
                                     </div>
                                     <div class="table-responsive">
-                                        <table class="table align-middle" id="exampl">
+                                        <table class="table" id="example2">
                                             <thead class="text-center">
                                                 <tr>
                                                     <th>#</th>
@@ -189,7 +189,7 @@ $res = $db->orderBy($sortField, $sortOrder)
                                                         </td>
                                                         <td>
                                                             <div class="product-box">
-                                                                <img src="../../<?= !empty($admin['image'])?$admin['image']:"assets/images/admin/default.png" ?>" alt="" width="80px" class="rounded">
+                                                                <img src="../../<?= (file_exists("../../".$admin['image']) and !empty($admin['image']))?$admin['image']:"assets/images/admin/default.png" ?>" alt="" width="80px" class="rounded">
                                                             </div>
                                                         </td>
                                                         <td><?= $admin['first_name'] ?></td>
@@ -209,9 +209,9 @@ $res = $db->orderBy($sortField, $sortOrder)
                                                                     aria-label="Edit"><i class="bi bi-pencil-fill"></i></a>
                                                                 <?php } ?>
                                                                 <?php if(has_access('admin_delete.php')){ ?>
-                                                                <button class="<?= (($_SESSION['user_role'] == 0) or ($_SESSION['user_role'] == 2 and ($admin['role'] != 0 and $admin['role'] != $_SESSION['user_role'])))?"open-confirm text-danger":"disabled text-secondary" ?> btn border-0 "
+                                                                <button class="<?= (($_SESSION['user_role'] == 0  and $_SESSION['user_role'] != $admin['role']) or ($_SESSION['user_role'] == 2 and ($admin['role'] != 0 and $admin['role'] != $_SESSION['user_role'])))?"open-confirm text-danger":"disabled text-secondary" ?> btn border-0 "
                                                                     value="<?= $admin['id'] ?>" data-bs-toggle="tooltip"
-                                                                    data-bs-placement="bottom" title="<?= (($_SESSION['user_role'] == 0) or ($_SESSION['user_role'] == 2 and ($admin['role'] != 0 and $admin['role'] != $_SESSION['user_role'])))?"حذف":"عدم دسترسی" ?>" aria-label="Delete"
+                                                                    data-bs-placement="bottom" title="<?= (($_SESSION['user_role'] == 0 and $_SESSION['user_role'] != $admin['role']) or ($_SESSION['user_role'] == 2 and ($admin['role'] != 0 and $admin['role'] != $_SESSION['user_role'])))?"حذف":"عدم دسترسی" ?>" aria-label="Delete"
                                                                     style="cursor: pointer;"><i
                                                                         class="bi bi-trash-fill"></i></button>
                                                                 <?php } 

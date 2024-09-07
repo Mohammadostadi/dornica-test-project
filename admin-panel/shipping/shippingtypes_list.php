@@ -8,7 +8,7 @@ $data = [
     'status' => '=',
 ];
 $filter->filterCheck($db, $data, 'shipping_type', 'shippingtypes_list.php');
-pageLimit('shiping_type', 3, false, $_SESSION['shipping_type_filter']['shipping_type']);
+pageLimit('shiping_type', 10, false, $_SESSION['shipping_type_filter']['shipping_type']);
 $filter->loopQuery($db, $_SESSION['shipping_type_filter']['shipping_type']);
 $res = $db
     ->orderBy($sortField, $sortOrder)

@@ -14,8 +14,19 @@ $(function() {
             "bInfo": false, //Dont display info e.g. "Showing 1 to 4 of 4 entries"
             "paging": false,//Dont want paging                
             "bPaginate": false,//Dont want paging      
-            buttons: [ 'copy', 'excel', 'pdf', 'print']
-        });
+            
+            buttons: [ 
+                {
+                    extend: 'print',
+                    customize: function (win) {
+                        $(win.document.body)
+                        .css('direction', 'rtl')
+                    }
+                },
+            'copy', 'excel'
+            
+        ]
+    });
 
         table.buttons().container()
             .appendTo( '#example2_wrapper .col-md-6:eq(0)' );

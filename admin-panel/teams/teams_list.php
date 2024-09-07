@@ -10,7 +10,7 @@ $data = [
     'status' => '=',
 ];
 $filter->filterCheck($db, $data, 'team', 'teams_list.php');
-pageLimit('teams', 3, false, $_SESSION['team_filter']['team']);
+pageLimit('teams', 10, false, $_SESSION['team_filter']['team']);
 $filter->loopQuery($db, $_SESSION['team_filter']['team']);
 $res = $db->orderBy($sortField, $sortOrder)
     ->paginate('teams', $page);

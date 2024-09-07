@@ -2,7 +2,7 @@
     $prefix = 'wishlist';
     require_once('../../app/loader.php');
     sortInTable($prefix, 'wishlists_list', 'page');
-    pageLimit('wishlist', 3, false);
+    pageLimit('wishlist', 10, false);
     
     $col = ['members.fname', 'members.lname', 'products.name', 'wishlist.setdate', 'products.image'];
     $res = $db->join('members', 'wishlist.member_id = members.id', ' LEFT')

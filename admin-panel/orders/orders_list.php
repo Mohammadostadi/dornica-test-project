@@ -28,7 +28,7 @@
         'SELECT COUNT(*) AS total FROM orders LEFT JOIN members on members.id = orders.member_id LEFT JOIN products on products.id = orders.product_id LEFT JOIN payment_type on payment_type.id = orders.paymentTypeId LEFT JOIN shiping_type on shiping_type.id = orders.shippingTypeId WHERE '.(!empty($member_order)?$member_order:""),
         'SELECT orders.member_id, members.fname, members.lname, products.name, orders.qty, payment_type.name AS payment, ordersCode, orders.status, orders.setdate, orders.price, shiping_type.name AS shipping, (orders.qty*orders.price) AS total FROM orders LEFT JOIN members on members.id = orders.member_id LEFT JOIN products on products.id = orders.product_id LEFT JOIN payment_type on payment_type.id = orders.paymentTypeId LEFT JOIN shiping_type on shiping_type.id = orders.shippingTypeId '.(!empty($member_order)?' WHERE '.$member_order:"")
     ];
-    $res = $filter->filterCheck($db, $data, 'order', 'orders_list.php', $query, 3, $sortField, $sortOrder, isset($member_order)?$member_order:'');
+    $res = $filter->filterCheck($db, $data, 'order', 'orders_list.php', $query, 10, $sortField, $sortOrder, isset($member_order)?$member_order:'');
     // var_dump($_SESSION['order_filter']);die;
 ?>
 

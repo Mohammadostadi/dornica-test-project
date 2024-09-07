@@ -530,7 +530,7 @@ require_once('../app/Controller/functions.php');
                             $name = $db->where('id', $_SESSION['user'])->getOne('admin', "CONCAT(first_name, ' ',last_name) AS name");
                             $role = $db->where('id', $_SESSION['user'])->getValue('admin', "role");
                             ?>
-                            <img src="../<?= !empty($image) ? $image : "assets/images/admin/default.png" ?>"
+                            <img src="../<?= (file_exists($image) and !empty($image)) ? $image : "assets/images/admin/default.png" ?>"
                                 class="user-img" alt="">
                             <div class="  d-sm-block">
                                 <p class="user-name mb-0"><?= $name['name'] ?></p>
@@ -787,6 +787,20 @@ require_once('../app/Controller/functions.php');
                     </a>
                     <ul>
                         <li> <a href="../admin-panel/FAQs/faqs_list.php"><i class="bi bi-circle"></i>لیست سوالات</a>
+                        </li>
+                    </ul>
+                </li>
+                <?php }
+                if (has_access('report_members_list.php')) {
+                    ?>
+                <li>
+                    <a class="has-arrow" href="javascript:;">
+                        <div class="parent-icon"><i class="bi bi-cloud-arrow-down-fill"></i>
+                        </div>
+                        <div class="menu-title">گزارشات</div>
+                    </a>
+                    <ul>
+                        <li> <a href="../admin-panel/reports/report_members_filter.php"><i class="bi bi-circle"></i>گزارش مشتریان</a>
                         </li>
                     </ul>
                 </li>

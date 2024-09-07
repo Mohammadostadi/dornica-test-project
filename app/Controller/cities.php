@@ -16,7 +16,7 @@ if(isset($_POST['province_id']) && is_numeric($_POST['province_id'])){
             <?php } 
             ?>
     <?php }else{ ?>
-        <option value="">داده ایی برای نمایش وجود ندارد</option>
+        <option value = "">داده ایی برای نمایش وجود ندارد</option>
     <?php }
 exit();
 }

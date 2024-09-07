@@ -8,7 +8,7 @@ $data = [
     'status' => '=',
 ];
 $filter->filterCheck($db, $data, 'ads', 'ads_list.php');
-pageLimit('ads', 3, false);
+pageLimit('ads', 10, false);
 $filter->loopQuery($db, $_SESSION['ads_filter']['ads']);
 $res = $db->orderBy($sortField, $sortOrder)
     ->paginate('ads', $page);

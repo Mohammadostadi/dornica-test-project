@@ -11,7 +11,7 @@
         'status'=>'=',
     ];
     $filter->filterCheck($db, $data, 'slideshow', 'slideshows_list.php');
-    pageLimit('slideshows', 3, false, $_SESSION['slideshow_filter']['slideshow']);
+    pageLimit('slideshows', 10, false, $_SESSION['slideshow_filter']['slideshow']);
     $filter->loopQuery($db, $_SESSION['slideshow_filter']['slideshow']);
     $res = $db ->orderBy($sortField, $sortOrder)
     -> paginate('slideshows', $page);

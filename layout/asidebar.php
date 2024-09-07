@@ -211,6 +211,20 @@
                 </ul>
             </li>
             <?php }
+                if(has_access('report_members_list.php')){
+            ?>
+            <li>
+                <a class="has-arrow" href="javascript:;">
+                    <div class="parent-icon"><i class="bi bi-cloud-arrow-down-fill"></i>
+                    </div>
+                    <div class="menu-title">گزارشات</div>
+                </a>
+                <ul>
+                    <li> <a href="../reports/report_members_filter.php"><i class="bi bi-circle"></i>گزارش مشتریان</a>
+                    </li>
+                </ul>
+            </li>
+            <?php }
             if(has_access('pages_list.php') or has_access('teams_list.php') or has_access('slideshows_list.php') or has_access('counters_list.php')){
             ?>
             <li>

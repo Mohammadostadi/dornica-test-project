@@ -233,8 +233,8 @@ if (!isset($_SESSION['user'])) {
                                 <div class="header-message-list p-2">
                                     <a class="dropdown-item" href="#">
                                         <div class="d-flex align-items-center">
-                                            <img src="assets/images/avatars/avatar-1.png" alt=""
-                                                class="rounded-circle" width="50" height="50">
+                                            <img src="assets/images/avatars/avatar-1.png" alt="" class="rounded-circle"
+                                                width="50" height="50">
                                             <div class="ms-3 flex-grow-1">
                                                 <h6 class="mb-0 dropdown-msg-user">آملیو جولی <span
                                                         class="msg-time float-end text-secondary">1 ساعت</span></h6>
@@ -246,8 +246,8 @@ if (!isset($_SESSION['user'])) {
                                     </a>
                                     <a class="dropdown-item" href="#">
                                         <div class="d-flex align-items-center">
-                                            <img src="assets/images/avatars/avatar-2.png" alt=""
-                                                class="rounded-circle" width="50" height="50">
+                                            <img src="assets/images/avatars/avatar-2.png" alt="" class="rounded-circle"
+                                                width="50" height="50">
                                             <div class="ms-3 flex-grow-1">
                                                 <h6 class="mb-0 dropdown-msg-user">آلته کاباردو <span
                                                         class="msg-time float-end text-secondary">7 ساعت</span></h6>
@@ -259,8 +259,8 @@ if (!isset($_SESSION['user'])) {
                                     </a>
                                     <a class="dropdown-item" href="#">
                                         <div class="d-flex align-items-center">
-                                            <img src="assets/images/avatars/avatar-3.png" alt=""
-                                                class="rounded-circle" width="50" height="50">
+                                            <img src="assets/images/avatars/avatar-3.png" alt="" class="rounded-circle"
+                                                width="50" height="50">
                                             <div class="ms-3 flex-grow-1">
                                                 <h6 class="mb-0 dropdown-msg-user">کاترین پچون <span
                                                         class="msg-time float-end text-secondary">2 ساعت</span></h6>
@@ -272,8 +272,8 @@ if (!isset($_SESSION['user'])) {
                                     </a>
                                     <a class="dropdown-item" href="#">
                                         <div class="d-flex align-items-center">
-                                            <img src="assets/images/avatars/avatar-4.png" alt=""
-                                                class="rounded-circle" width="50" height="50">
+                                            <img src="assets/images/avatars/avatar-4.png" alt="" class="rounded-circle"
+                                                width="50" height="50">
                                             <div class="ms-3 flex-grow-1">
                                                 <h6 class="mb-0 dropdown-msg-user">پیتر کوستانزو <span
                                                         class="msg-time float-end text-secondary">3 ساعت</span></h6>
@@ -285,8 +285,8 @@ if (!isset($_SESSION['user'])) {
                                     </a>
                                     <a class="dropdown-item" href="#">
                                         <div class="d-flex align-items-center">
-                                            <img src="assets/images/avatars/avatar-5.png" alt=""
-                                                class="rounded-circle" width="50" height="50">
+                                            <img src="assets/images/avatars/avatar-5.png" alt="" class="rounded-circle"
+                                                width="50" height="50">
                                             <div class="ms-3 flex-grow-1">
                                                 <h6 class="mb-0 dropdown-msg-user">توماس ویلر <span
                                                         class="msg-time float-end text-secondary">1 روز</span></h6>
@@ -298,8 +298,8 @@ if (!isset($_SESSION['user'])) {
                                     </a>
                                     <a class="dropdown-item" href="#">
                                         <div class="d-flex align-items-center">
-                                            <img src="assets/images/avatars/avatar-6.png" alt=""
-                                                class="rounded-circle" width="50" height="50">
+                                            <img src="assets/images/avatars/avatar-6.png" alt="" class="rounded-circle"
+                                                width="50" height="50">
                                             <div class="ms-3 flex-grow-1">
                                                 <h6 class="mb-0 dropdown-msg-user">جانی سیتز <span
                                                         class="msg-time float-end text-secondary">2 ماه</span></h6>
@@ -311,8 +311,8 @@ if (!isset($_SESSION['user'])) {
                                     </a>
                                     <a class="dropdown-item" href="#">
                                         <div class="d-flex align-items-center">
-                                            <img src="assets/images/avatars/avatar-1.png" alt=""
-                                                class="rounded-circle" width="50" height="50">
+                                            <img src="assets/images/avatars/avatar-1.png" alt="" class="rounded-circle"
+                                                width="50" height="50">
                                             <div class="ms-3 flex-grow-1">
                                                 <h6 class="mb-0 dropdown-msg-user">آملیو جولی <span
                                                         class="msg-time float-end text-secondary">1 ساعت</span></h6>
@@ -324,8 +324,8 @@ if (!isset($_SESSION['user'])) {
                                     </a>
                                     <a class="dropdown-item" href="#">
                                         <div class="d-flex align-items-center">
-                                            <img src="assets/images/avatars/avatar-2.png" alt=""
-                                                class="rounded-circle" width="50" height="50">
+                                            <img src="assets/images/avatars/avatar-2.png" alt="" class="rounded-circle"
+                                                width="50" height="50">
                                             <div class="ms-3 flex-grow-1">
                                                 <h6 class="mb-0 dropdown-msg-user">آلته کاباردو <span
                                                         class="msg-time float-end text-secondary">7 ساعت</span></h6>
@@ -337,8 +337,8 @@ if (!isset($_SESSION['user'])) {
                                     </a>
                                     <a class="dropdown-item" href="#">
                                         <div class="d-flex align-items-center">
-                                            <img src="assets/images/avatars/avatar-3.png" alt=""
-                                                class="rounded-circle" width="50" height="50">
+                                            <img src="assets/images/avatars/avatar-3.png" alt="" class="rounded-circle"
+                                                width="50" height="50">
                                             <div class="ms-3 flex-grow-1">
                                                 <h6 class="mb-0 dropdown-msg-user">کاترین پچون <span
                                                         class="msg-time float-end text-secondary">2 ساعت</span></h6>
@@ -536,7 +536,7 @@ if (!isset($_SESSION['user'])) {
                             $role = $db->where('id', $_SESSION['user'])->getValue('admin', "role");
                             $image = $db->where('id', $_SESSION['user'])->getValue('admin', "image");
                             ?>
-                            <img src="<?= !empty($image) ? $image : "assets/images/admin/default.png" ?>"
+                            <img src="<?= (file_exists($image) and !empty($image)) ? $image : "assets/images/admin/default.png" ?>"
                                 class="user-img" alt="">
                             <div class="  d-sm-block">
                                 <p class="user-name mb-0"><?= ($name['name']) ?></p>
@@ -794,6 +794,20 @@ if (!isset($_SESSION['user'])) {
                     </a>
                     <ul>
                         <li> <a href="admin-panel/FAQs/faqs_list.php"><i class="bi bi-circle"></i>لیست سوالات</a>
+                        </li>
+                    </ul>
+                </li>
+            <?php }
+                if (has_access('report_members_list.php')) {
+                    ?>
+                <li>
+                    <a class="has-arrow" href="javascript:;">
+                        <div class="parent-icon"><i class="bi bi-cloud-arrow-down-fill"></i>
+                        </div>
+                        <div class="menu-title">گزارشات</div>
+                    </a>
+                    <ul>
+                        <li> <a href="admin-panel/reports/report_members_filter.php"><i class="bi bi-circle"></i>گزارش مشتریان</a>
                         </li>
                     </ul>
                 </li>

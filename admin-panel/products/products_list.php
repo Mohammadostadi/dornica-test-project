@@ -24,7 +24,7 @@ $filter->filterCheck($db, $data, 'product', 'products_list.php');
 $col = ['products.id', 'products.name', 'price', 'products.status', 'image', 'date', 'qty', 'category.name AS category', 'brand.name AS brand'];
 (isset($product_category) and !empty($product_category)) ? $db->where($product_category) : '';
 (isset($product_brand) and !empty($product_brand)) ? $db->where($product_brand) : '';
-pageLimit('products', 3, false, $_SESSION['product_filter']['product']);
+pageLimit('products', 10, false, $_SESSION['product_filter']['product']);
 (isset($product_category) and !empty($product_category)) ? $db->where($product_category) : '';
 (isset($product_brand) and !empty($product_brand)) ? $db->where($product_brand) : '';
 $filter->loopQuery($db, $_SESSION['product_filter']['product']);

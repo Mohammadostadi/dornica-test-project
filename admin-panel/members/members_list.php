@@ -6,7 +6,7 @@
     $provinceList = $db->where('status', 1)
     ->orderBy('name', 'ASC')
     ->get('province', null, 'id, name');
-    $col = ['members.id', 'image', 'fname', 'lname', 'email', 'phone', 'birthday', 'cities.name AS city', 'province.name AS province', 'setdate', 'members.status'];
+    $col = ['members.id', 'image', 'gender', 'fname', 'lname', 'email', 'phone', 'birthday', 'cities.name AS city', 'province.name AS province', 'setdate', 'members.status'];
     $filter = new Filter('members', 'member_filter');
     $data = [
         'members.fname'=>'like',
@@ -16,7 +16,7 @@
         'members.setdate'=>'date',
     ];
     $filter->filterCheck($db, $data, 'member', 'members_list.php');
-    pageLimit('members', 3, false, $_SESSION['member_filter']['member']);
+    pageLimit('members', 5, false, $_SESSION['member_filter']['member']);
     $filter->loopQuery($db, $_SESSION['member_filter']['member']);
     $res = $db->join('province', 'members.province_id = province.id', ' LEFT')
     ->join('cities', 'members.city_id = cities.id', 'LEFT')
@@ -139,7 +139,10 @@
                                 نام</th>
                             <th>
                             <a href="<?= sort_link('lname') ?>" class="sort-table <?= sortActive('lname') ?>"></a>
-                                نام خانوادگی</th>
+                            نام خانوادگی</th>
+                            <th>
+                            <a href="<?= sort_link('gender') ?>" class="sort-table <?= sortActive('gender') ?>"></a>
+                                جنسیت</th>
                             <th>ایمیل</th>
                             <th>موبایل</th>
                             <th>
@@ -167,6 +170,7 @@
                                     </td>
                                     <td><?= $member['fname'] ?></td>
                                     <td><?= $member['lname'] ?></td>
+                                    <td><?= $member['gender'] == 0?"مرد":"زن" ?></td>
                                     <td><?= $member['email'] ?></td>
                                     <td><?= $member['phone'] ?></td>
                                     <td><?= $member['province'] ?></td>

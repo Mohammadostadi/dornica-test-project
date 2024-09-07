@@ -19,7 +19,7 @@
         'SELECT COUNT(*) AS total FROM cart LEFT JOIN members on members.id = cart.member_id LEFT JOIN products on products.id = cart.product_id WHERE '.(!empty($member_basket)?$member_basket:""),
         'SELECT members.fname, members.lname, products.name, products.price, cart.qty, cart.setdate, (cart.qty*products.price) as total FROM cart LEFT JOIN members on members.id = cart.member_id LEFT JOIN products on products.id = cart.product_id '.(!empty($member_basket)?' WHERE '.$member_basket:"")
     ];
-    $res = $filter->filterCheck($db, $data, 'basket', 'baskets_list.php', $query, 3, $sortField, $sortOrder, $member_basket);
+    $res = $filter->filterCheck($db, $data, 'basket', 'baskets_list.php', $query, 10, $sortField, $sortOrder, $member_basket);
 ?>
 
 <!doctype html>

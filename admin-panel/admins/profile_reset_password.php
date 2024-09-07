@@ -1,14 +1,14 @@
 <?php
 require_once('../../app/loader.php');
 $validator = new validator();
-if(isset($_GET['manager'])){
+if (isset($_GET['manager'])) {
     $res = $db->where('id', securityCheck($_GET['manager']))
-    ->getValue('admin', 'COUNT(*)');
-    if($res == 0 or !is_numeric($_GET['manager']))
-            redirect('../../error/error-403.php');
+        ->getValue('admin', 'COUNT(*)');
+    if ($res == 0 or !is_numeric($_GET['manager']))
+        redirect('../../error/error-403.php');
 }
 if (isset($_POST['changePassword']) and $_SERVER['REQUEST_METHOD'] == 'POST') {
-        $managerChanges = securityCheck($_GET['manager']);
+    $managerChanges = securityCheck($_GET['manager']);
     $newPassword = securityCheck($_POST['newPass']);
     $confirmPassword = securityCheck($_POST['confirmPassword']);
 
@@ -20,11 +20,11 @@ if (isset($_POST['changePassword']) and $_SERVER['REQUEST_METHOD'] == 'POST') {
     }
     if ($validator->count_error() == 0) {
         $hash = password_hash($newPassword, PASSWORD_DEFAULT);
-        $db->where('id', isset($managerChanges)?$managerChanges:($_SESSION['user']))
+        $db->where('id', isset($managerChanges) ? $managerChanges : ($_SESSION['user']))
             ->update('admin', [
                 'password' => $hash
             ]);
-        redirect(isset($managerChanges)?'admins_list.php':'profile_edit.php', 8);
+        redirect(isset($managerChanges) ? 'admins_list.php' : 'profile_edit.php', 8);
     }
 }
 ?>
@@ -37,6 +37,9 @@ if (isset($_POST['changePassword']) and $_SERVER['REQUEST_METHOD'] == 'POST') {
 <!-- Mirrored from codetheme.ir/onedash/demo/rtl/authentication-reset-password.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 31 May 2024 08:56:30 GMT -->
 
 <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="../assets/images/favicon-32x32.png" type="image/png" />
     <?php require_once("../../layout/css.php"); ?>
 
     <title>تغییر رمز عبور</title>
@@ -85,11 +88,11 @@ if (isset($_POST['changePassword']) and $_SERVER['REQUEST_METHOD'] == 'POST') {
                                                             <input type="password" class="form-control radius-30 ps-5"
                                                                 id="newPass" name="newPass"
                                                                 value="<?= checkExist('newPass') ?>"
-                                                                placeholder="رمز عبور جدید را وارد کنید" required >
+                                                                placeholder="رمز عبور جدید را وارد کنید" required>
                                                             <div class="invalid-feedback">
                                                                 فیلد رمز عبور جدید خالی باشد
                                                             </div>
-                                                            <span 
+                                                            <span
                                                                 class="text-danger"><?= $validator->show('newPass') ?></span>
                                                         </div>
                                                     </div>
@@ -143,22 +146,22 @@ if (isset($_POST['changePassword']) and $_SERVER['REQUEST_METHOD'] == 'POST') {
     </div>
     <?php require_once("../../layout/js.php"); ?>
 
-        <script>
-            (() => {
-                'use strict'
-                const forms = document.querySelectorAll('.needs-validation')
-                Array.from(forms).forEach(form => {
-                    form.addEventListener('submit', event => {
-                        if (!form.checkValidity()) {
-                            event.preventDefault()
-                            event.stopPropagation()
-                        }
-                        form.classList.add('was-validated')
-                    }, false)
-                })
-            })()
-        </script>
+    <script>
+        (() => {
+            'use strict'
+            const forms = document.querySelectorAll('.needs-validation')
+            Array.from(forms).forEach(form => {
+                form.addEventListener('submit', event => {
+                    if (!form.checkValidity()) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                    }
+                    form.classList.add('was-validated')
+                }, false)
+            })
+        })()
+    </script>
 
-        <!-- Mirrored from codetheme.ir/onedash/demo/rtl/authentication-reset-password.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 31 May 2024 08:56:30 GMT -->
+    <!-- Mirrored from codetheme.ir/onedash/demo/rtl/authentication-reset-password.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 31 May 2024 08:56:30 GMT -->
 
 </html>

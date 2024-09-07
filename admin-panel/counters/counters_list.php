@@ -1,6 +1,6 @@
 <?php
     require_once('../../app/loader.php');
-    pageLimit('counter', 3, false);
+    pageLimit('counter', 10, false);
      
     $col = ['members.fname AS member', 'ip', 'user_agent', 'date'];
     $res = $db->join('members', 'members.id = counter.member_id', ' LEFT')

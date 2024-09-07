@@ -10,7 +10,7 @@
         'status'=>'=',
     ];
     $filter->filterCheck($db, $data, 'category', 'products_categories_list.php');
-    pageLimit('category AS cat2', 3, false, $_SESSION['category_filter']['category']);
+    pageLimit('category AS cat2', 10, false, $_SESSION['category_filter']['category']);
     $filter->loopQuery($db, $_SESSION['category_filter']['category']);
     $col =['cat2.id', 'cat2.name', 'cat2.status', 'cat1.name AS parent', 'cat2.sort'];
     $res = $db->join('category AS cat1', 'cat1.id = cat2.parent_id', 'LEFT')

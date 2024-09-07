@@ -9,7 +9,7 @@ $data = [
     'status' => '=',
 ];
 $filter->filterCheck($db, $data, 'page', 'pages_list.php');
-pageLimit('pages', 3, false, $_SESSION['page_filter']['page']);
+pageLimit('pages', 10, false, $_SESSION['page_filter']['page']);
 $filter->loopQuery($db, $_SESSION['page_filter']['page']);
 $res = $db
     ->orderBy($sortField, $sortOrder)

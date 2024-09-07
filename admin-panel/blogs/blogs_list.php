@@ -14,7 +14,7 @@
         'setdate' => 'date',
     ];
     $filter->filterCheck($db, $data, 'blog', 'blogs_list.php');
-    pageLimit('blogs', 3, false, $_SESSION['blog_filter']['blog']);
+    pageLimit('blogs', 10, false, $_SESSION['blog_filter']['blog']);
     $filter->loopQuery($db, $_SESSION['blog_filter']['blog']);
     $res = $db->join('blog_category', 'blogs.category_id = blog_category.id', ' LEFT')
     ->orderBy($sortField, $sortOrder)

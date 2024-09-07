@@ -8,7 +8,7 @@ $data = [
     'status' => '=',
 ];
 $filter->filterCheck($db, $data, 'payment_type', 'payments_type.php');
-pageLimit('payment_type', 3, false, $_SESSION['payment_type_filter']['payment_type']);
+pageLimit('payment_type', 10, false, $_SESSION['payment_type_filter']['payment_type']);
 $filter->loopQuery($db, $_SESSION['payment_type_filter']['payment_type']);
 $res = $db
     ->orderBy($sortField, $sortOrder)

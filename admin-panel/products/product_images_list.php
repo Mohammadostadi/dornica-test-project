@@ -13,7 +13,7 @@ $query = [
     'SELECT COUNT(*) AS total FROM products_image LEFT JOIN products on products.id = products_image.products_id WHERE',
     'SELECT products_image.id, name, title, products_image.image, products_image.status FROM products_image LEFT JOIN products on products.id = products_image.products_id'
 ];
-$res = $filter->filterCheck($db, $data, 'product_image', 'product_images_list.php', $query, 3, $sortField, $sortOrder);
+$res = $filter->filterCheck($db, $data, 'product_image', 'product_images_list.php', $query, 10, $sortField, $sortOrder);
 ?>
 
 <!doctype html>

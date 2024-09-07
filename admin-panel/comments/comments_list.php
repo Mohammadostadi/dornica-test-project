@@ -3,19 +3,19 @@ $prefix = 'comment';
 require_once('../../app/loader.php');
 sortInTable($prefix, 'comments_list', 'page');
 // if(!isset($_SESSION['comment_member'])){
-    //     $_SESSION['comment_member'] = '';
-    // }    
-    if (isset($_GET['member'])) {
-        // $_SESSION['comment_member'] = 'comment.member_id = '.securityCheck($_GET['member']);
-        $member_comment = 'comment.member_id = ' . securityCheck($_GET['member']);
-    }
-    if (isset($_POST['change_status'])) {
-        list($id, $status) = explode('/', securityCheck($_POST['change_status']));
-        $db->where('id', $id)
-            ->update('comment', [
-                'status' => $status
-            ]);
-    }
+//     $_SESSION['comment_member'] = '';
+// }    
+if (isset($_GET['member'])) {
+    // $_SESSION['comment_member'] = 'comment.member_id = '.securityCheck($_GET['member']);
+    $member_comment = 'comment.member_id = ' . securityCheck($_GET['member']);
+}
+if (isset($_POST['change_status'])) {
+    list($id, $status) = explode('/', securityCheck($_POST['change_status']));
+    $db->where('id', $id)
+        ->update('comment', [
+            'status' => $status
+        ]);
+}
 if (isset($_GET['id']) and isset($_GET['option'])) {
 }
 $filter = new Filter('comment', 'comment_filter');
@@ -28,7 +28,7 @@ $query = [
     'SELECT  COUNT(*) AS total FROM comment LEFT JOIN products on products.id = comment.product_id WHERE ' . (!empty($member_comment) ? $member_comment : ""),
     'SELECT SQL_CALC_FOUND_ROWS comment.id, products.name AS product, comment.name, comment.subject, comment.description, ip, comment.email, comment.status, rate, comment.setdate FROM comment LEFT JOIN members on members.id = comment.member_id LEFT JOIN products on products.id = comment.product_id ' . (!empty($member_comment) ? ' WHERE ' . $member_comment : "")
 ];
-$res = $filter->filterCheck($db, $data, 'comment', 'comments_list.php', $query, 3, $sortField, $sortOrder, isset($member_comment) ? $member_comment : '');
+$res = $filter->filterCheck($db, $data, 'comment', 'comments_list.php', $query, 10, $sortField, $sortOrder, isset($member_comment) ? $member_comment : '');
 ?>
 
 <!doctype html>
@@ -201,61 +201,80 @@ $res = $filter->filterCheck($db, $data, 'comment', 'comments_list.php', $query, 
                                                         </td>
                                                         <td>
                                                             <div>
-                                                                <button value="<?= $comment['id'] ?>"
-                                                                    class=" btn border-0 bx p-0 bx-edit edit" data-toggle="modal"
-                                                                    data-target="#exampleModal"></button>
-                                                                <!-- <button class="btn border-0 p-0 change_status" value="<?= $comment['id'] . "/" . $comment['status'] ?>" data-bs-toggle="tooltip" data-bs-placement="bottom" title="تغییر وضعیت">
-                                                <i class="lni lni-comments"></i>
-                                            </button> -->
-                                                                <a href="javascript:;" class="text-primary"
-                                                                    data-bs-toggle="tooltip" data-bs-placement="bottom"
-                                                                    title="ویرایش اطلاعات"
-                                                                    data-bs-original-title="وضعیت جزئیات"
-                                                                    aria-label="Views"><i class="bi bi-eye-fill"></i></a>
-                                                                    <div class="modal fade" id="exampleModal<?= $comment['id'] ?>" tabindex="-1"
+                                                                <?php
+                                                                if (has_access('comment_status_update')) { ?>
+                                                                    <button value="<?= $comment['id'] ?>"
+                                                                        class=" btn border-0 bx p-0 bx-edit edit"
+                                                                        data-toggle="modal" data-bs-toggle="tooltip"
+                                                                        data-bs-placement="bottom" title="ویرایش وضعیت"
+                                                                        data-target="#exampleModal"></button>
+                                                                    <div class="modal fade"
+                                                                        id="exampleModal<?= $comment['id'] ?>" tabindex="-1"
                                                                         role="dialog" aria-labelledby="exampleModalLabel"
                                                                         aria-hidden="true">
                                                                         <div class="modal-dialog" role="document">
                                                                             <div class="modal-content">
                                                                                 <div class="modal-header">
-                
-                                                                                    <h5 class="modal-title" id="exampleModalLabel">ویرایش
+
+                                                                                    <h5 class="modal-title"
+                                                                                        id="exampleModalLabel">ویرایش
                                                                                         وضعیت</h5>
-                                                                                    <button type="button" class="close" data-dismiss="modal"
-                                                                                        aria-label="Close">
+                                                                                    <button type="button" class="close"
+                                                                                        data-dismiss="modal" aria-label="Close">
                                                                                         <span aria-hidden="true">&times;</span>
                                                                                     </button>
                                                                                 </div>
                                                                                 <form method="POST">
                                                                                     <div class="modal-body">
-                                                                                        <select class="form-select" name="change_status"
-                                                                                            id="SelectBox">
+                                                                                        <select class="form-select"
+                                                                                            name="change_status" id="SelectBox">
                                                                                             <?php if ($comment['status'] != 1) { ?>
-                                                                                                <option value="<?= $comment['id'] ?>/1">خوانده شده
+                                                                                                <option
+                                                                                                    value="<?= $comment['id'] ?>/1">
+                                                                                                    خوانده شده
                                                                                                 </option>
                                                                                             <?php }
                                                                                             if ($comment['status'] != 0) {
                                                                                                 ?>
-                                                                                                <option value="<?= $comment['id'] ?>/0">جهت بررسی
+                                                                                                <option
+                                                                                                    value="<?= $comment['id'] ?>/0">
+                                                                                                    جهت بررسی
                                                                                                 </option>
                                                                                             <?php }
                                                                                             if ($comment['status'] != 2) {
                                                                                                 ?>
-                                                                                                <option value="<?= $comment['id'] ?>/2">خوانده نشده
+                                                                                                <option
+                                                                                                    value="<?= $comment['id'] ?>/2">
+                                                                                                    خوانده نشده
                                                                                                 </option>
                                                                                             <?php } ?>
                                                                                         </select>
                                                                                     </div>
                                                                                     <div class="modal-footer">
-                                                                                        <button type="button" class="btn btn-secondary"
+                                                                                        <button type="button"
+                                                                                            class="btn btn-secondary"
                                                                                             data-dismiss="modal">لغو</button>
-                                                                                        <button type="submit" name="btn_change_status"
-                                                                                            class="btn btn-primary">ذخیره تنظیمات</button>
+                                                                                        <button type="submit"
+                                                                                            name="btn_change_status"
+                                                                                            class="btn btn-primary">ذخیره
+                                                                                            تنظیمات</button>
                                                                                     </div>
                                                                                 </form>
                                                                             </div>
                                                                         </div>
                                                                     </div>
+                                                                <?php }
+                                                                ?>
+
+                                                                <!-- <button class="btn border-0 p-0 change_status" value="<?= $comment['id'] . "/" . $comment['status'] ?>" data-bs-toggle="tooltip" data-bs-placement="bottom" title="تغییر وضعیت">
+                                                <i class="lni lni-comments"></i>
+                                            </button> -->
+                                                                <a href="javascript:;" class="text-primary"
+                                                                    data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                                                    title="وضعیت جزئیات"
+                                                                    data-bs-original-title="وضعیت جزئیات"
+                                                                    aria-label="Views"><i class="bi bi-eye-fill"></i></a>
+
                                                             </div>
                                                         </td>
                                                     </tr>
@@ -284,7 +303,7 @@ $res = $filter->filterCheck($db, $data, 'comment', 'comments_list.php', $query, 
     require_once('../../layout/js.php');
     ?>
     <script>
-        $('.edit').click(function(){
+        $('.edit').click(function () {
             const id = $(this).val();
             $(`#exampleModal${id}`).modal('show');
         })

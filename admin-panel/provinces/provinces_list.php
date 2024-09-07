@@ -11,7 +11,7 @@ $data = [
     'status' => '=',
 ];
 $filter->filterCheck($db, $data, 'province', 'provinces_list.php');
-pageLimit('province', 3, false, $_SESSION['province_filter']['province']);
+pageLimit('province', 10, false, $_SESSION['province_filter']['province']);
 $filter->loopQuery($db, $_SESSION['province_filter']['province']);
 $res = $db->orderBy($sortField, $sortOrder)
     ->paginate('province', $page);

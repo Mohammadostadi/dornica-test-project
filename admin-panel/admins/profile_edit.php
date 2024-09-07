@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['apply'])) {
     $validator->empty('lname', $lname, 'فیلد نام خانوادگی شما نباید خالی باشد');
     $validator->empty('username', $username, 'فیلد نام کاربری شما نباید خالی باشد');
     $validator->existValue('admin', 'username', $username, 'فیلد نام کاربری تکراری میباشد', $profile['username']);
-    $picture = $validator->imageUpdate("../../assets/images/ads/", $_FILES["file"], 'file', $profile['image']);
+    $picture = $validator->imageUpdate("../../assets/images/admin/", $_FILES["file"], 'file', $profile['image']);
 
     if ($validator->count_error() == 0) {
         array_map('unlink', glob("../../assets/images/upload/*.*"));
@@ -162,7 +162,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['apply'])) {
                                                     <input type="file" name="file" id="file"
                                                         onchange="loadFile(event)" />
                                                     <img id="img"
-                                                        src="../../<?= !empty($profile['image']) ? $profile['image'] : "assets/images/admin/default.png" ?>"
+                                                        src="../../<?= (file_exists("../../".$profile['image']) and !empty($profile['image'])) ? $profile['image'] : "assets/images/admin/default.png" ?>"
                                                         width="200" />
                                                 </div>
                                                 <div class="text-center mt-4">
@@ -242,10 +242,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['apply'])) {
 
                                 <select name="militaryService" class="form-select" required>
                                     <option value="">نظام وظیفه</option>
-                                    <option <?= ((isset($_POST['militaryService']) and $_POST['militaryService'] == 0) OR ($profile['military_service'] == 0))?"SELECTED":"" ?> value="0">سربازی</option>
-                                    <option <?= ((isset($_POST['militaryService']) and $_POST['militaryService'] == 1) OR ($profile['military_service'] == 1))?"SELECTED":"" ?> value="1">معافیت</option>
-                                    <option <?= ((isset($_POST['militaryService']) and $_POST['militaryService'] == 2) OR ($profile['military_service'] == 2))?"SELECTED":"" ?> value="2">در حال انجام وظیفه</option>
-                                    <option <?= ((isset($_POST['militaryService']) and $_POST['militaryService'] == 3) OR ($profile['military_service'] == 3))?"SELECTED":"" ?> value="3">پایان خدمت</option>
+                                    <option <?= ((isset($_POST['militaryService']) and $_POST['militaryService'] == 0) OR ($profile['militaryService'] == 0))?"SELECTED":"" ?> value="0">سربازی</option>
+                                    <option <?= ((isset($_POST['militaryService']) and $_POST['militaryService'] == 1) OR ($profile['militaryService'] == 1))?"SELECTED":"" ?> value="1">معافیت</option>
+                                    <option <?= ((isset($_POST['militaryService']) and $_POST['militaryService'] == 2) OR ($profile['militaryService'] == 2))?"SELECTED":"" ?> value="2">در حال انجام وظیفه</option>
+                                    <option <?= ((isset($_POST['militaryService']) and $_POST['militaryService'] == 3) OR ($profile['militaryService'] == 3))?"SELECTED":"" ?> value="3">پایان خدمت</option>
                                 </select>
                                 <div class="invalid-feedback">
                                     فیلد سربازی نباید خالی باشد

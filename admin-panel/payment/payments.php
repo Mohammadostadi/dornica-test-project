@@ -22,7 +22,7 @@
         'SELECT COUNT(*) AS total FROM payments LEFT JOIN members on members.id = payments.member_id LEFT JOIN orders on orders.id = payments.orders_code LEFT JOIN payment_type on payment_type.id = payments.payment_type_id WHERE '.(!empty($member_payment)?$member_payment:""),
         'SELECT payments.member_id, members.fname, members.lname, orders.ordersCode, payments.amount, payment_type.name AS payment, payments.status, payments.paydate, payments.paycode FROM payments LEFT JOIN members on members.id = payments.member_id LEFT JOIN orders on orders.ordersCode = payments.orders_code LEFT JOIN payment_type on payment_type.id = payments.payment_type_id '.(!empty($member_payment)?' WHERE '.$member_payment:"")
     ];
-    $res = $filter->filterCheck($db, $data, 'payments', 'payments.php', $query, 3, $sortField, $sortOrder, isset($member_payment)?$member_payment:'');
+    $res = $filter->filterCheck($db, $data, 'payments', 'payments.php', $query, 10, $sortField, $sortOrder, isset($member_payment)?$member_payment:'');
 ?>
 
 <!doctype html>

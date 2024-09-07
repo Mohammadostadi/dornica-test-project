@@ -4,7 +4,7 @@
     'status'=>'=',
     ];
     $filter->filterCheck($db, $data, 'brand', 'brands_list.php');
-    pageLimit('brand', 3, false, $_SESSION['brand_filter']['brand']);
+    pageLimit('brand', 10, false, $_SESSION['brand_filter']['brand']);
     $filter->loopQuery($db, $_SESSION['brand_filter']['brand']);
 
     $res = $db->orderBy($sortField, $sortOrder)

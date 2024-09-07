@@ -112,6 +112,16 @@ function showMessage($value)
             <strong>اجازه دسترسی برای استفاده را ندارید</strong>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
+    <?php }  elseif ($value == 10) { ?>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert" id="alert">
+            <strong>بازه تاریخ داده شده اشتباه میباشد</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    <?php }   elseif ($value == 11) { ?>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert" id="alert">
+            <strong>لطفا بازه تاریخ را مشخص کنید</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
     <?php } ?>
 <?php } ?>
 
@@ -161,10 +171,10 @@ function pageLimit($tableName, $limit, $soft = true, $condition = null)
 }
 function pagination($page, $pages)
 {
-    if($page > 0){
+    if ($page > 0) {
         $queryPrams = $_GET;
         unset($queryPrams['page']);
-        $queryString = http_build_query($queryPrams); 
+        $queryString = http_build_query($queryPrams);
     }
     if ($pages == 0) { ?>
         <div class="d-flex justify-content-center align-items-center">
@@ -174,16 +184,21 @@ function pagination($page, $pages)
         <nav class="float-end mt-0" aria-label="Page navigation">
             <ul class="pagination">
                 <?php if ($page > 1) { ?>
-                    <li class="page-item"><a class="page-link" href="<?= '?page=1'.($queryString ? '&'. $queryString:"" ) ?>">اول</a></li>
-                    <li class="page-item"><a class="page-link" href="<?= $page > 1 ? '?page=' . ($page - 1).($queryString ? '&'. $queryString:"" ) : '' ?>">قبلی</a></li>
+                    <li class="page-item"><a class="page-link"
+                            href="<?= '?page=1' . ($queryString ? '&' . $queryString : "") ?>">اول</a></li>
+                    <li class="page-item"><a class="page-link"
+                            href="<?= $page > 1 ? '?page=' . ($page - 1) . ($queryString ? '&' . $queryString : "") : '' ?>">قبلی</a>
+                    </li>
                 <?php } ?>
 
                 <li class="page-item active" disabled><a class="page-link">صفحه <?= $page ?> از <?= $pages ?></a></li>
 
                 <?php if ($page < $pages) { ?>
                     <li class="page-item"><a class="page-link" <?= ($page >= $pages) ? 'disabled' : '' ?>
-                            href="<?= $page < $pages ? '?page=' . ($page + 1).($queryString ? '&'. $queryString:"" ) : '' ?>">بعد</a></li>
-                    <li class="page-item"><a class="page-link" href="<?= '?page=' . $pages.($queryString ? '&'. $queryString:"" ) ?>">آخر</a></li>
+                            href="<?= $page < $pages ? '?page=' . ($page + 1) . ($queryString ? '&' . $queryString : "") : '' ?>">بعد</a>
+                    </li>
+                    <li class="page-item"><a class="page-link"
+                            href="<?= '?page=' . $pages . ($queryString ? '&' . $queryString : "") ?>">آخر</a></li>
                 <?php } ?>
             </ul>
         </nav>
@@ -298,7 +313,7 @@ function access($type, $after = '', $name = '')
     $urls = $_SERVER['PHP_SELF'];
     $urls = explode('/', $urls);
     $res = true;
-    foreach($urls as $url){
+    foreach ($urls as $url) {
         if ((!empty($url)) and ($url == 'admins_list.php')) {
             $res = false;
         }
@@ -310,50 +325,51 @@ function access($type, $after = '', $name = '')
             <a class="btn btn-outline-secondary" href="<?= $after ?>.php">اضافه کردن داده جدید</a>
             <?php
         }
-    }   
+    }
     if ($type == 'actions') {
-        if($_SESSION['user_role'] != 3){
+        if ($_SESSION['user_role'] != 3) {
             ?>
-        <td>
-            <?php
-    if ((!$res)) {
-                if ((($_SESSION['user_role']) == 0) or (($_SESSION['user_role']) == 2 and ($name['role'] != 0 and $name['role'] != 2))) {
+            <td>
+                <?php
+                if ((!$res)) {
+                    if ((($_SESSION['user_role']) == 0) or (($_SESSION['user_role']) == 2 and ($name['role'] != 0 and $name['role'] != 2))) {
+                        ?>
+                        <a href="admins_edit.php? id=<?= ($name['id']) ?>" name="_update" class="text-warning" data-bs-toggle="tooltip"
+                            data-bs-placement="bottom" title="" data-bs-original-title="ویرایش اطلاعات" aria-label="Edit"><i
+                                class="bi bi-pencil-fill"></i></a>
+                        <?php
+                    }
+                    if (($_SESSION['user_role']) == 0) {
+                        ?>
+                        <button class="open-confirm btn text-danger  p-0 " value="<?= $name['id'] ?>" data-bs-toggle="tooltip"
+                            data-bs-placement="bottom" title="حذف" data-bs-original-title="حذف" aria-label="Delete"
+                            style="cursor: pointer;"><i class="bi bi-trash-fill"></i></button>
+
+                        <?php
+                    }
+
+                } elseif ((($_SESSION['user_role']) == 0) or (($_SESSION['user_role']) == 1) or (($_SESSION['user_role']) == 2)) {
+                    global $result;
                     ?>
-                    <a href="admins_edit.php? id=<?= ($name['id']) ?>" name="_update" class="text-warning" data-bs-toggle="tooltip"
+                    <a href="javascript:;" class="text-primary" data-bs-toggle="tooltip" data-bs-placement="bottom" title="نمایش جزئیات"
+                        data-bs-original-title="نمایش جزئیات" aria-label="Views"><i class="bi bi-eye-fill"></i></a>
+                    <a href="<?= $after ?>.php? id=<?= ($name['id']) ?>" class="text-warning" data-bs-toggle="tooltip"
                         data-bs-placement="bottom" title="" data-bs-original-title="ویرایش اطلاعات" aria-label="Edit"><i
                             class="bi bi-pencil-fill"></i></a>
-                    <?php
-                }
-                if (($_SESSION['user_role']) == 0) {
-                    ?>
-                    <button class="open-confirm btn text-danger  p-0 " value="<?= $name['id'] ?>" data-bs-toggle="tooltip"
-                        data-bs-placement="bottom" title="حذف" data-bs-original-title="حذف" aria-label="Delete"
-                        style="cursor: pointer;"><i class="bi bi-trash-fill"></i></button>
+                    <?php if ((($_SESSION['user_role']) != 1)) { ?>
 
-                    <?php
+                        <button
+                            class="<?= (isset($result) and (empty($result) or $result)) ? 'disabled text-secondary' : ' open-confirm text-danger' ?>  btn border-0 p-0"
+                            value="<?= $name['id'] ?>" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                            title="<?= (isset($result) and (empty($result) or $result)) ? ' قابل حذف نیست' : 'حذف'; ?>"
+                            data-bs-original-title="حذف" aria-label="Delete" style="cursor: pointer;"><i
+                                class="bi bi-trash-fill"></i></button>
+                        <?php
+                    }
                 }
-
-            } elseif ((($_SESSION['user_role']) == 0) or (($_SESSION['user_role']) == 1) or (($_SESSION['user_role']) == 2)) {
-                global $result;
                 ?>
-                <a href="javascript:;" class="text-primary" data-bs-toggle="tooltip" data-bs-placement="bottom" title="نمایش جزئیات"
-                    data-bs-original-title="نمایش جزئیات" aria-label="Views"><i class="bi bi-eye-fill"></i></a>
-                <a href="<?= $after ?>.php? id=<?= ($name['id']) ?>" class="text-warning" data-bs-toggle="tooltip"
-                    data-bs-placement="bottom" title="" data-bs-original-title="ویرایش اطلاعات" aria-label="Edit"><i
-                        class="bi bi-pencil-fill"></i></a>
-                <?php if ((($_SESSION['user_role']) != 1)) {  ?>
-                    
-                    <button
-                        class="<?= (isset($result) and (empty($result) or $result)) ? 'disabled text-secondary' : ' open-confirm text-danger' ?>  btn border-0 p-0"
-                        value="<?= $name['id'] ?>" data-bs-toggle="tooltip" data-bs-placement="bottom"
-                        title="<?= (isset($result) and (empty($result) or $result)) ? ' قابل حذف نیست' : 'حذف'; ?>" data-bs-original-title="حذف"
-                        aria-label="Delete" style="cursor: pointer;"><i class="bi bi-trash-fill"></i></button>
-                    <?php
-                }
-            }
-            ?>
-        </td>
-        <?php
+            </td>
+            <?php
         }
     }
 
@@ -365,7 +381,7 @@ function accessRedirect($loc)
     $urls = $_SERVER['PHP_SELF'];
     $urls = explode('/', $urls);
     $res = true;
-    foreach($urls as $url){
+    foreach ($urls as $url) {
         if ((!empty($url)) and ($url == 'admins_list.php')) {
             $res = false;
         }
@@ -385,60 +401,160 @@ function accessRedirect($loc)
 }
 
 
-function has_access($current_loc='')  {
+function has_access($current_loc = '')
+{
     if (empty($current_loc)) {
         $current_loc = $_SERVER['PHP_SELF'];
         $current_loc = basename($current_loc);
     }
-    $permission=[
-        
-        1=>[
-            'profile_edit.php', 'profile_reset_password.php',
-            'ads_list.php', 'ads_add.php', 'ads_update.php',
+    $permission = [
+
+        1 => [
+            'profile_edit.php',
+            'profile_reset_password.php',
+            'ads_list.php',
+            'ads_add.php',
+            'ads_update.php',
             'baskets_list.php',
-            'blog_add.php', 'blog_category_add.php', 'blog_category_update.php', 'blog_delete.php', 'blog_update.php', 'blogs_categories_list.php', 'blogs_list.php',
-            'brand_add.php', 'brand_update.php', 'brands_list.php',
-            'city_add.php', 'city_update.php', 'citys_list.php',
+            'blog_add.php',
+            'blog_category_add.php',
+            'blog_category_update.php',
+            'blog_delete.php',
+            'blog_update.php',
+            'blogs_categories_list.php',
+            'blogs_list.php',
+            'brand_add.php',
+            'brand_update.php',
+            'brands_list.php',
+            'city_add.php',
+            'city_update.php',
+            'citys_list.php',
             'comments_list.php',
+            'comment_status_update',
             'contacts_list.php',
             'counters_list.php',
-            'faq_add.php', 'faq_update.php', 'faqs_list.php',
-            'member_add.php', 'member_update.php', 'members_list.php',
+            'faq_add.php',
+            'faq_update.php',
+            'faqs_list.php',
+            'member_add.php',
+            'member_update.php',
+            'members_list.php',
             'orders_list.php',
-            'page_add.php', 'page_update.php', 'pages_list.php',
-            'payment_type_add.php', 'payment_type_update.php', 'payment_type.php', 'payments.php',
-            'product_add.php', 'product_update.php', 'products_list.php', 'product_category_add.php', 'product_category_delete.php', 'product_image_add', 'product_image_delete', 'products_categories_list.php', 'product_image_update', 'product_images_list.php',
-            'province_add.php', 'province_update', 'provinces_list.php',
-            'shippingtype_add.php', 'shippingtype_update.php', 'shippingtypes_list.php',
-            'slideshow_add.php', 'slideshow_update.php', 'slideshows_list.php',
-            'team_add.php', 'team_update.php', 'teams_list.php',
+            'page_add.php',
+            'page_update.php',
+            'pages_list.php',
+            'payment_type_add.php',
+            'payment_type_update.php',
+            'payment_type.php',
+            'payments.php',
+            'product_add.php',
+            'product_update.php',
+            'products_list.php',
+            'product_category_add.php',
+            'product_category_delete.php',
+            'product_image_add',
+            'product_image_delete',
+            'products_categories_list.php',
+            'product_image_update',
+            'product_images_list.php',
+            'province_add.php',
+            'province_update',
+            'provinces_list.php',
+            'shippingtype_add.php',
+            'shippingtype_update.php',
+            'shippingtypes_list.php',
+            'slideshow_add.php',
+            'slideshow_update.php',
+            'slideshows_list.php',
+            'team_add.php',
+            'team_update.php',
+            'teams_list.php',
             'wishlists_list.php'
         ],
-        2=>[
-            'admins_list.php','admin_update.php','admins_list.php', 'admin_delete.php','profile_edit.php', 'profile_reset_password.php',
-            'ads_list.php', 'ads_add.php', 'ads_update.php', 'ads_delete.php',
+        2 => [
+            'admins_list.php',
+            'admin_update.php',
+            'admins_list.php',
+            'admin_delete.php',
+            'profile_edit.php',
+            'profile_reset_password.php',
+            'ads_list.php',
+            'ads_add.php',
+            'ads_update.php',
+            'ads_delete.php',
             'baskets_list.php',
-            'blog_add.php', 'blog_category_add.php', 'blog_category_delete.php', 'blog_category_update.php', 'blog_delete.php', 'blog_update.php', 'blogs_categories_list.php', 'blogs_list.php',
-            'brand_add.php', 'brand_delete.php', 'brand_update.php', 'brands_list.php',
-            'city_add.php', 'city_delete.php', 'city_update.php', 'citys_list.php',
+            'blog_add.php',
+            'blog_category_add.php',
+            'blog_category_delete.php',
+            'blog_category_update.php',
+            'blog_delete.php',
+            'blog_update.php',
+            'blogs_categories_list.php',
+            'blogs_list.php',
+            'brand_add.php',
+            'brand_delete.php',
+            'brand_update.php',
+            'brands_list.php',
+            'city_add.php',
+            'city_delete.php',
+            'city_update.php',
+            'citys_list.php',
             'comments_list.php',
+            'comment_status_update',
             'contacts_list.php',
             'counters_list.php',
-            'faq_add.php', 'faq_delete.php', 'faq_update.php', 'faqs_list.php',
-            'member_add.php', 'member_delete.php', 'member_update.php', 'members_list.php',
+            'faq_add.php',
+            'faq_delete.php',
+            'faq_update.php',
+            'faqs_list.php',
+            'member_add.php',
+            'member_delete.php',
+            'member_update.php',
+            'members_list.php',
             'orders_list.php',
-            'page_add.php', 'page_delete.php', 'page_update.php', 'pages_list.php',
-            'payment_type_add.php', 'payment_type_delete.php', 'payment_type_update.php', 'payment_type.php', 'payments.php',
-            'product_add.php', 'product_delete.php', 'product_update.php', 'products_list.php', 'product_category_add.php', 'product_category_delete', 'product_category_delete.php', 'products_categories_list.php', 'product_image_add', 'product_image_delete', 'product_image_update', 'product_images_list.php',
-            'province_add.php', 'province_delete.php', 'province_update.phppa', 'provinces_list.php',
+            'page_add.php',
+            'page_delete.php',
+            'page_update.php',
+            'pages_list.php',
+            'payment_type_add.php',
+            'payment_type_delete.php',
+            'payment_type_update.php',
+            'payment_type.php',
+            'payments.php',
+            'product_add.php',
+            'product_delete.php',
+            'product_update.php',
+            'products_list.php',
+            'product_category_add.php',
+            'product_category_delete',
+            'product_category_delete.php',
+            'products_categories_list.php',
+            'product_image_add',
+            'product_image_delete',
+            'product_image_update',
+            'product_images_list.php',
+            'province_add.php',
+            'province_delete.php',
+            'province_update.phppa',
+            'provinces_list.php',
             'setting_update.php',
-            'shippingtype_add.php', 'shippingtypr_delete.php', 'shippingtype_update.php', 'shippingtypes_list.php',
-            'slideshow_add.php', 'slideshow_delete.php', 'slideshow_update.php', 'slideshows_list.php',
-            'team_add.php', 'team_delete.php', 'team_update.php', 'teams_list.php',
+            'shippingtype_add.php',
+            'shippingtypr_delete.php',
+            'shippingtype_update.php',
+            'shippingtypes_list.php',
+            'slideshow_add.php',
+            'slideshow_delete.php',
+            'slideshow_update.php',
+            'slideshows_list.php',
+            'team_add.php',
+            'team_delete.php',
+            'team_update.php',
+            'teams_list.php',
             'wishlists_list.php'
         ],
-        3=>[
-            'profile_edit.php', 'profile_reset_password.php',
+        3 => [
+            'profile_edit.php',
+            'profile_reset_password.php',
             'ads_list.php',
             'baskets_list.php',
             'blogs_list.php',
@@ -450,12 +566,59 @@ function has_access($current_loc='')  {
             'members_list.php',
             'orders_list.php',
             'payments.php',
-            'products_list.php', 'products_categories_list.php', 'product_images_list.php',
+            'products_list.php',
+            'products_categories_list.php',
+            'product_images_list.php',
             'provinces_list.php',
         ]
-        ];
-        if ((isset($permission[$_SESSION['user_role']]) and (in_array($current_loc, $permission[$_SESSION['user_role']]))) or $_SESSION['user_role'] == 0) {
-            return true;
+    ];
+    if ((isset($permission[$_SESSION['user_role']]) and (in_array($current_loc, $permission[$_SESSION['user_role']]))) or $_SESSION['user_role'] == 0) {
+        return true;
+    }
+    return false;
+}
+
+
+
+
+function reportCheck($db, $table, $data)
+{
+
+    if (isset($_POST['report'])) {
+        foreach ($data as $field => $type) {
+            if ($type == 'date') {
+                list($start_date, $end_date, $field) = explode('/', $field);
+                if ((isset($_POST[$start_date]) && ($_POST[$start_date] != '')) or (isset($_POST[$end_date]) && ($_POST[$end_date] != ''))) {
+                    $newFilters = "DATE" . "(" . $table . '.' . $field . ")" . " BETWEEN " . '"' . changeDate($_POST[$start_date]) . '"' . " AND " . '"' . changeDate($_POST[$end_date]) . '"';
+                    $db->where($newFilters);
+                }
+                continue;
+            }
+            if ((isset($_POST[$field]) && ($_POST[$field] != ''))) {
+                if ($type === 'like') {
+                    $newFilters = $table . "." . $field . " LIKE '%" . securityCheck($_POST[$field]) . "%'";
+                    $db->where($newFilters);
+                } elseif ($type === '=') {
+                    $newFilters = $table . "." . $field . " = '" . securityCheck($_POST[$field]) . "'";
+                    $db->where($newFilters);
+                } elseif ($type === 'find_in_set') {
+                    $data = securityCheck($_POST[$field]);
+                    $newFilters = "find_in_set( '$data', $field)";
+                    $db->where($newFilters);
+                } elseif ($type === 'in') {
+                    if (!in_array(0 ,$_POST[$field]) and !in_array('' ,$_POST[$field])) {
+                        $data = implode(',', $_POST[$field]);
+                        $newFilters = $table.".".$field." IN ($data)";
+                        $db->where($newFilters);
+                    }
+                } elseif ($type === 'price') {
+                    $data = intval(str_replace(',', '', securityCheck($_POST[$field])));
+                    $newFilters = $table . "." . $field . " = '" . $data . "'";
+                    $db->where($newFilters);
+                }
+
+            }
         }
-        return false;
+    }
+
 }

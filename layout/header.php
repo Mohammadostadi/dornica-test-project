@@ -379,7 +379,7 @@
                                 $name = $db->where('id', $_SESSION['user'])->getOne('admin', "CONCAT(first_name, ' ',last_name) AS name");
                                 $role = $db->where('id', $_SESSION['user'])->getValue('admin', "role");
                             ?>
-                        <img src="../../<?= !empty($image)?$image:"assets/images/admin/default.png" ?>" class="user-img" alt="">
+                        <img src="../../<?= (file_exists("../../".$image) and !empty($image))?$image:"assets/images/admin/default.png" ?>" class="user-img" alt="">
                         <div class="  d-sm-block">
                             <p class="user-name mb-0"><?= $name['name'] ?></p>
                             <small class="mb-0 dropdown-user-designation"><?= admin_role($role) ?></small>

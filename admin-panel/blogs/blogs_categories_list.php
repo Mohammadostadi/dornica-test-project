@@ -8,7 +8,7 @@
         'status'=>'=',
     ];
     $filter->filterCheck($db, $data, 'blog_category', 'blogs_categories_list.php');
-    pageLimit('blog_category', 3, false, $_SESSION['blog_category_filter']['blog_category']);
+    pageLimit('blog_category', 10, false, $_SESSION['blog_category_filter']['blog_category']);
     $filter->loopQuery($db, $_SESSION['blog_category_filter']['blog_category']);
     $res = $db ->orderBy($sortField, $sortOrder) 
     ->paginate('blog_category', $page);
