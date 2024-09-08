@@ -1,10 +1,20 @@
-<?php require_once('app/Controller/functions.php');
+<?php 
+require_once('app/Controller/functions.php');
 require_once('app/Model/DB.php');
+require_once('app/Helper/jdf.php');
 session_start();
 if (!isset($_SESSION['user'])) {
     redirect('auth/sign-in.php', 7);
 }
+$this_month_first_day = date('Y/m/01');
+$this_month_last_day = date('Y/m/t');
+$last_month_first_day = date('Y/m/01', strtotime('-1 month'));
+$last_month_last_day = date('Y/m/t', strtotime('-1 month'));
 
+$today = strtotime("today");
+$last_week = strtotime("-7 day",$today);
+$end = date("Y/m/d",$today); 
+$start = date("Y/m/d",$last_week);
 ?>
 <!doctype html>
 <html lang="en" dir="rtl">
@@ -903,10 +913,19 @@ if (!isset($_SESSION['user'])) {
                             <div class="d-flex align-items-stretch justify-content-between overflow-hidden">
                                 <div class="w-50">
                                     <p>کل سفارشات</p>
-                                    <h4 class="">8,542</h4>
+                                    <?php $totalOrders = $db->getValue('orders', 'COUNT(*)') ?>
+                                    <h4 class=""><?= $totalOrders ?></h4>
                                 </div>
                                 <div class="w-50">
-                                    <p class="mb-3 float-end text-success">+ 16درصد <i class="bi bi-arrow-up"></i></p>
+                                    <?php 
+                                    $this_month_orders_countr = $db->where("DATE(setdate) BETWEEN '$this_month_first_day' AND '$this_month_last_day'")
+                                    ->getValue('orders', 'COUNT(*)');
+                                    $last_month_orders_countr = $db->where("DATE(setdate) BETWEEN '$last_month_first_day' AND '$last_month_last_day'")
+                                    ->getValue('orders', 'COUNT(*)');
+                                    $ordersProfit = intval((($this_month_orders_countr / $totalOrders) * 100) - (($last_month_orders_countr / $totalOrders) *100));
+                                    
+                                    ?>
+                                    <p class="mb-3 float-end text-<?= $ordersProfit > 0 ?"success":'danger' ?>"><?= $ordersProfit > 0 ?"+":'-' ?> <?= abs($ordersProfit) ?>درصد <i class="bi bi-arrow-<?= $ordersProfit > 0 ?"up":'down' ?>"></i></p>
                                     <div id="chart1"></div>
                                 </div>
                             </div>
@@ -951,10 +970,20 @@ if (!isset($_SESSION['user'])) {
                             <div class="d-flex align-items-stretch justify-content-between overflow-hidden">
                                 <div class="w-50">
                                     <p>مشتریان</p>
-                                    <h4 class="">25.8هزار</h4>
+                                    <?php $totalMember = $db->getValue('members', 'COUNT(*)') ?>
+                                    <h4 class=""><?= $totalMember ?></h4>
                                 </div>
                                 <div class="w-50">
-                                    <p class="mb-3 float-end text-success">+ 8.2درصد <i class="bi bi-arrow-up"></i></p>
+                                    <?php 
+                                    
+                                    $this_month_members_countr = $db->where("DATE(setdate) BETWEEN '$this_month_first_day' AND '$this_month_last_day'")
+                                    ->getValue('members', 'COUNT(*)');
+                                    $last_month_members_countr = $db->where("DATE(setdate) BETWEEN '$last_month_first_day' AND '$last_month_last_day'")
+                                    ->getValue('members', 'COUNT(*)');
+                                    $membersProfit = intval((($this_month_members_countr / $totalOrders) * 100) - (($last_month_members_countr / $totalOrders) *100));
+                                    
+                                    ?>
+                                    <p class="mb-3 float-end text-<?= $membersProfit > 0 ?"success":'danger' ?>"><?= $membersProfit > 0 ?"+":'-' ?> <?= abs($membersProfit) ?>درصد <i class="bi bi-arrow-<?= $membersProfit > 0 ?"up":'down' ?>"></i></p>
                                     <div id="chart4"></div>
                                 </div>
                             </div>
@@ -1046,7 +1075,7 @@ if (!isset($_SESSION['user'])) {
                     <div class="card radius-10 w-100">
                         <div class="card-body">
                             <div class="d-flex align-items-center">
-                                <h6 class="mb-0">منبع ترافیک</h6>
+                                <h6 class="mb-0">جمع امتیازات</h6>
                                 <div class="fs-5 ms-auto dropdown">
                                     <div class="dropdown-toggle dropdown-toggle-nocaret cursor-pointer"
                                         data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></div>
@@ -1061,24 +1090,53 @@ if (!isset($_SESSION['user'])) {
                                 </div>
                             </div>
                             <div id="chart7" class=""></div>
+                            <?php 
+                            $star5 = $db->where('rate', 5)
+                            ->getValue('comment', 'COUNT(*)');
+                            $star4 = $db->where('rate', 4)
+                            ->getValue('comment', 'COUNT(*)');
+                            $star3 = $db->where('rate', 3)
+                            ->getValue('comment', 'COUNT(*)');
+                            $star2 = $db->where('rate', 2)
+                            ->getValue('comment', 'COUNT(*)');
+                            $star1 = $db->where('rate', 1)
+                            ->getValue('comment', 'COUNT(*)');
+                            $totalRates = $star1 + $star2 + $star3 + $star4 + $star5;
+
+                            
+                            ?>
                             <div class="traffic-widget">
                                 <div class="progress-wrapper mb-3">
-                                    <p class="mb-1">اجتماعی <span class="float-end">8,475</span></p>
+                                    <p class="mb-1">امتیاز 5 <span class="float-end"><?= $star5 ?></span></p>
                                     <div class="progress rounded-0" style="height: 8px;">
-                                        <div class="progress-bar bg-primary" role="progressbar" style="width: 80%;">
+                                        <div class="progress-bar bg-primary" role="progressbar" style="width: <?= ($star5/$totalRates)*100 ?>%;">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="progress-wrapper mb-3">
-                                    <p class="mb-1">مستقیم <span class="float-end">7,989</span></p>
+                                    <p class="mb-1">امتیاز 4 <span class="float-end"><?= $star4 ?></span></p>
                                     <div class="progress rounded-0" style="height: 8px;">
-                                        <div class="progress-bar bg-pink" role="progressbar" style="width: 65%;"></div>
+                                        <div class="progress-bar bg-pink" role="progressbar" style="width: <?= ($star4/$totalRates)*100 ?>%;"></div>
+                                    </div>
+                                </div>
+                                <div class="progress-wrapper mb-3">
+                                    <p class="mb-1">امتیاز 3 <span class="float-end"><?= $star3 ?></span></p>
+                                    <div class="progress rounded-0" style="height: 8px;">
+                                        <div class="progress-bar bg-success" role="progressbar" style="width: <?= ($star3/$totalRates)*100 ?>%;">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="progress-wrapper mb-3">
+                                    <p class="mb-1">امتیاز 2 <span class="float-end"><?= $star2 ?></span></p>
+                                    <div class="progress rounded-0" style="height: 8px;">
+                                        <div class="progress-bar bg-warning" role="progressbar" style="width: <?= ($star2/$totalRates)*100 ?>%;">
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="progress-wrapper mb-0">
-                                    <p class="mb-1">جستجو کردن <span class="float-end">6,359</span></p>
+                                    <p class="mb-1">امتیاز 1 <span class="float-end"><?= $star1 ?></span></p>
                                     <div class="progress rounded-0" style="height: 8px;">
-                                        <div class="progress-bar bg-success" role="progressbar" style="width: 50%;">
+                                        <div class="progress-bar bg-danger" role="progressbar" style="width: <?= ($star1/$totalRates)*100 ?>%;">
                                         </div>
                                     </div>
                                 </div>
@@ -1094,7 +1152,8 @@ if (!isset($_SESSION['user'])) {
                                     <div class="d-flex align-items-center">
                                         <div class="">
                                             <p class="mb-1">پیام ها</p>
-                                            <h4 class="mb-0 text-pink">289</h4>
+                                            <?php $totalComments = $db->getValue('comment', 'COUNT(*)') ?>
+                                            <h4 class="mb-0 text-pink"><?= $totalComments ?></h4>
                                         </div>
                                         <div class="dropdown ms-auto">
                                             <div class="dropdown-toggle dropdown-toggle-nocaret cursor-pointer"
@@ -1121,7 +1180,8 @@ if (!isset($_SESSION['user'])) {
                                     <div class="d-flex align-items-center">
                                         <div class="">
                                             <p class="mb-1">مجموع پست ها</p>
-                                            <h4 class="mb-0 text-success">489</h4>
+                                            <?php $totalBlogs = $db->getValue('blogs', 'COUNT(*)')  ?>
+                                            <h4 class="mb-0 text-success"><?= $totalBlogs ?></h4>
                                         </div>
                                         <div class="dropdown ms-auto">
                                             <div class="dropdown-toggle dropdown-toggle-nocaret cursor-pointer"
@@ -1195,13 +1255,19 @@ if (!isset($_SESSION['user'])) {
                             <div
                                 class="d-flex align-items-center gap-5 justify-content-center mt-3 p-2 radius-10 border">
                                 <div class="text-center">
-                                    <h3 class="mb-2 text-primary">8,546</h3>
-                                    <p class="mb-0">بازدیدکنندگان جدید</p>
+                                    <?php   
+                                        $oldMembers = $db->where("setdate < '$start'")
+                                        ->getValue('members', 'COUNT(*)');
+                                        $newMembers = $db->where("DATE(setdate) BETWEEN '$start' AND '$end'")
+                                        ->getValue('members', 'COUNT(*)');
+                                    ?>
+                                    <h3 class="mb-2 text-primary"><?= $newMembers ?></h3>
+                                    <p class="mb-0">کاربران جدید</p>
                                 </div>
                                 <div class="border-end sepration"></div>
                                 <div class="text-center">
-                                    <h3 class="mb-2 text-primary-2">3,723</h3>
-                                    <p class="mb-0">بازدیدکنندگان قدیمی</p>
+                                    <h3 class="mb-2 text-primary-2"><?= $oldMembers ?></h3>
+                                    <p class="mb-0">کاربران قدیمی</p>
                                 </div>
                             </div>
                         </div>
@@ -1228,6 +1294,11 @@ if (!isset($_SESSION['user'])) {
                                     </ul>
                                 </div>
                             </div>
+                            <?php 
+                            
+                            $res =  $db->rawQuery('SELECT products.image, products.name, orders.qty, ordersCode, orders.setdate, orders.price FROM orders LEFT JOIN products on products.id = orders.product_id ORDER BY setdate DESC LIMIT 6');
+                            
+                            ?>
                             <div class="table-responsive mt-2">
                                 <table class="table align-middle mb-0">
                                     <thead class="table-light">
@@ -1237,196 +1308,27 @@ if (!isset($_SESSION['user'])) {
                                             <th>تعداد</th>
                                             <th>قیمت</th>
                                             <th>تاریخ</th>
-                                            <th>اقدامات</th>
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        <?php foreach($res as $order){ ?>
                                         <tr>
-                                            <td>#89742</td>
+                                            <td>#<?= $order['ordersCode'] ?></td>
                                             <td>
                                                 <div class="d-flex align-items-center gap-3">
                                                     <div class="product-box border">
-                                                        <img src="assets/images/products/11.png" alt="">
+                                                        <img src="<?= $order['image'] ?>" alt="">
                                                     </div>
                                                     <div class="product-info">
-                                                        <h6 class="product-name mb-1">تلفن همراه هوشمند</h6>
+                                                        <h6 class="product-name mb-1"><?= $order['name'] ?></h6>
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td>2</td>
-                                            <td>214 تومان</td>
-                                            <td>8 خرداد، 1400</td>
-                                            <td>
-                                                <div class="d-flex align-items-center gap-3 fs-6">
-                                                    <a href="javascript:;" class="text-primary" data-bs-toggle="tooltip"
-                                                        data-bs-placement="bottom" title=""
-                                                        data-bs-original-title="نمایش جزئیات" aria-label="Views"><i
-                                                            class="bi bi-eye-fill"></i></a>
-                                                    <a href="javascript:;" class="text-warning" data-bs-toggle="tooltip"
-                                                        data-bs-placement="bottom" title=""
-                                                        data-bs-original-title="ویرایش اطلاعات" aria-label="Edit"><i
-                                                            class="bi bi-pencil-fill"></i></a>
-                                                    <a href="javascript:;" class="text-danger" data-bs-toggle="tooltip"
-                                                        data-bs-placement="bottom" title="" data-bs-original-title="حذف"
-                                                        aria-label="Delete"><i class="bi bi-trash-fill"></i></a>
-                                                </div>
-                                            </td>
+                                            <td><?= $order['qty'] ?></td>
+                                            <td><?= $order['price'] ?> تومان</td>
+                                            <td><?= jdate('Y/m/d' , strtotime($order['setdate'])) ?></td>
                                         </tr>
-                                        <tr>
-                                            <td>#68570</td>
-                                            <td>
-                                                <div class="d-flex align-items-center gap-3">
-                                                    <div class="product-box border">
-                                                        <img src="assets/images/products/07.png" alt="">
-                                                    </div>
-                                                    <div class="product-info">
-                                                        <h6 class="product-name mb-1">ساعت ورزشی</h6>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td>1</td>
-                                            <td>185 تومان</td>
-                                            <td>9 خرداد، 1400</td>
-                                            <td>
-                                                <div class="d-flex align-items-center gap-3 fs-6">
-                                                    <a href="javascript:;" class="text-primary" data-bs-toggle="tooltip"
-                                                        data-bs-placement="bottom" title=""
-                                                        data-bs-original-title="نمایش جزئیات" aria-label="Views"><i
-                                                            class="bi bi-eye-fill"></i></a>
-                                                    <a href="javascript:;" class="text-warning" data-bs-toggle="tooltip"
-                                                        data-bs-placement="bottom" title=""
-                                                        data-bs-original-title="ویرایش اطلاعات" aria-label="Edit"><i
-                                                            class="bi bi-pencil-fill"></i></a>
-                                                    <a href="javascript:;" class="text-danger" data-bs-toggle="tooltip"
-                                                        data-bs-placement="bottom" title="" data-bs-original-title="حذف"
-                                                        aria-label="Delete"><i class="bi bi-trash-fill"></i></a>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>#38567</td>
-                                            <td>
-                                                <div class="d-flex align-items-center gap-3">
-                                                    <div class="product-box border">
-                                                        <img src="assets/images/products/17.png" alt="">
-                                                    </div>
-                                                    <div class="product-info">
-                                                        <h6 class="product-name mb-1">کفش پاشنه قرمز زنانه</h6>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td>3</td>
-                                            <td>356 تومان</td>
-                                            <td>10 خرداد، 1400</td>
-                                            <td>
-                                                <div class="d-flex align-items-center gap-3 fs-6">
-                                                    <a href="javascript:;" class="text-primary" data-bs-toggle="tooltip"
-                                                        data-bs-placement="bottom" title=""
-                                                        data-bs-original-title="نمایش جزئیات" aria-label="Views"><i
-                                                            class="bi bi-eye-fill"></i></a>
-                                                    <a href="javascript:;" class="text-warning" data-bs-toggle="tooltip"
-                                                        data-bs-placement="bottom" title=""
-                                                        data-bs-original-title="ویرایش اطلاعات" aria-label="Edit"><i
-                                                            class="bi bi-pencil-fill"></i></a>
-                                                    <a href="javascript:;" class="text-danger" data-bs-toggle="tooltip"
-                                                        data-bs-placement="bottom" title="" data-bs-original-title="حذف"
-                                                        aria-label="Delete"><i class="bi bi-trash-fill"></i></a>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>#48572</td>
-                                            <td>
-                                                <div class="d-flex align-items-center gap-3">
-                                                    <div class="product-box border">
-                                                        <img src="assets/images/products/04.png" alt="">
-                                                    </div>
-                                                    <div class="product-info">
-                                                        <h6 class="product-name mb-1">ژاکت زمستانی زرد</h6>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td>1</td>
-                                            <td>149 تومان</td>
-                                            <td>11 خرداد، 1400</td>
-                                            <td>
-                                                <div class="d-flex align-items-center gap-3 fs-6">
-                                                    <a href="javascript:;" class="text-primary" data-bs-toggle="tooltip"
-                                                        data-bs-placement="bottom" title=""
-                                                        data-bs-original-title="نمایش جزئیات" aria-label="Views"><i
-                                                            class="bi bi-eye-fill"></i></a>
-                                                    <a href="javascript:;" class="text-warning" data-bs-toggle="tooltip"
-                                                        data-bs-placement="bottom" title=""
-                                                        data-bs-original-title="ویرایش اطلاعات" aria-label="Edit"><i
-                                                            class="bi bi-pencil-fill"></i></a>
-                                                    <a href="javascript:;" class="text-danger" data-bs-toggle="tooltip"
-                                                        data-bs-placement="bottom" title="" data-bs-original-title="حذف"
-                                                        aria-label="Delete"><i class="bi bi-trash-fill"></i></a>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>#96857</td>
-                                            <td>
-                                                <div class="d-flex align-items-center gap-3">
-                                                    <div class="product-box border">
-                                                        <img src="assets/images/products/10.png" alt="">
-                                                    </div>
-                                                    <div class="product-info">
-                                                        <h6 class="product-name mb-1">هدفون میکرو نارنجی</h6>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td>2</td>
-                                            <td>199 تومان</td>
-                                            <td>15 خرداد، 1400</td>
-                                            <td>
-                                                <div class="d-flex align-items-center gap-3 fs-6">
-                                                    <a href="javascript:;" class="text-primary" data-bs-toggle="tooltip"
-                                                        data-bs-placement="bottom" title=""
-                                                        data-bs-original-title="نمایش جزئیات" aria-label="Views"><i
-                                                            class="bi bi-eye-fill"></i></a>
-                                                    <a href="javascript:;" class="text-warning" data-bs-toggle="tooltip"
-                                                        data-bs-placement="bottom" title=""
-                                                        data-bs-original-title="ویرایش اطلاعات" aria-label="Edit"><i
-                                                            class="bi bi-pencil-fill"></i></a>
-                                                    <a href="javascript:;" class="text-danger" data-bs-toggle="tooltip"
-                                                        data-bs-placement="bottom" title="" data-bs-original-title="حذف"
-                                                        aria-label="Delete"><i class="bi bi-trash-fill"></i></a>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>#96857</td>
-                                            <td>
-                                                <div class="d-flex align-items-center gap-3">
-                                                    <div class="product-box border">
-                                                        <img src="assets/images/products/12.png" alt="">
-                                                    </div>
-                                                    <div class="product-info">
-                                                        <h6 class="product-name mb-1">لپ تاپ پرو سامسونگ</h6>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td>1</td>
-                                            <td>699 تومان</td>
-                                            <td>18 خرداد، 1400</td>
-                                            <td>
-                                                <div class="d-flex align-items-center gap-3 fs-6">
-                                                    <a href="javascript:;" class="text-primary" data-bs-toggle="tooltip"
-                                                        data-bs-placement="bottom" title=""
-                                                        data-bs-original-title="نمایش جزئیات" aria-label="Views"><i
-                                                            class="bi bi-eye-fill"></i></a>
-                                                    <a href="javascript:;" class="text-warning" data-bs-toggle="tooltip"
-                                                        data-bs-placement="bottom" title=""
-                                                        data-bs-original-title="ویرایش اطلاعات" aria-label="Edit"><i
-                                                            class="bi bi-pencil-fill"></i></a>
-                                                    <a href="javascript:;" class="text-danger" data-bs-toggle="tooltip"
-                                                        data-bs-placement="bottom" title="" data-bs-original-title="حذف"
-                                                        aria-label="Delete"><i class="bi bi-trash-fill"></i></a>
-                                                </div>
-                                            </td>
-                                        </tr>
+                                        <?php } ?>
                                     </tbody>
                                 </table>
                             </div>
@@ -1593,7 +1495,7 @@ if (!isset($_SESSION['user'])) {
     <script src="assets/plugins/apexcharts-bundle/js/apexcharts.min.js"></script>
     <!--app-->
     <script src="assets/js/app.js"></script>
-    <script src="assets/js/index3.js"></script>
+    <?php require_once('assets/js/index3.php') ?>
     <script>
         new PerfectScrollbar(".best-product")
     </script>

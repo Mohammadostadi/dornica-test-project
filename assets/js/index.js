@@ -6,7 +6,7 @@ $(function() {
     var options = {
         series: [{
             name: "Total Orders",
-            data: [240, 160, 671, 414, 555, 257]
+            data: [100, 200, 300, 400]
         }],
         chart: {
             type: "line",

@@ -622,3 +622,17 @@ function reportCheck($db, $table, $data)
     }
 
 }
+
+
+function chartData($num, $field, $table){
+    global $db;
+    $data = [];
+    for($i = --$num; $i >= 0; $i--){
+        $first_day_month = date('Y/m/01', strtotime("-$i month"));
+        $last_day_month = date('Y/m/t', strtotime("$first_day_month"));
+        $res = $db->where("DATE($field) BETWEEN '$first_day_month' AND '$last_day_month'")
+        ->getValue($table, 'COUNT(*)');
+        $data[] = $res;
+    }
+    return implode(', ', $data);
+} 

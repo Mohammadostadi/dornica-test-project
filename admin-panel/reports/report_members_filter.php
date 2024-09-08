@@ -107,7 +107,7 @@ $province = $db->get('province', null, 'province.name , province.id ');
                                         </div>
                                         <div class="col-12">
                                             <div class="d-flex flex-row justify-content-end">
-                                                <button class="btn btn-primary" type="submit" name="report">گزارش
+                                                <button formtarget="_blank" class="btn btn-primary" type="submit" id="report" name="report">گزارش
                                                     گیری</button>
 
                                             </div>
@@ -124,6 +124,12 @@ $province = $db->get('province', null, 'province.name , province.id ');
     <script type="text/javascript" src="../../assets/datePiker/js/persianDatepicker.min.js"></script>
     <script src="../../assets/plugins/select2/js/select2.min.js"></script>
     <script src="../../assets/js/form-select2.js"></script>
+    <script>
+        $('#report').click(function(){
+            $('body').load('report_members_filter.php');
+        })
+
+    </script>
     <!-- city ajax -->
     <script>
         $(document).ready(function () {
@@ -156,9 +162,6 @@ $province = $db->get('province', null, 'province.name , province.id ');
                     },
                     success: function (res) {
                         $("#city").html(res);
-                        $("#city").select("rebuild");
-                        $("#city").select2();
-
                     }
 
                 })

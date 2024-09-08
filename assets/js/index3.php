@@ -1,12 +1,12 @@
+<script>
+
 $(function() {
     "use strict";
-
-
 // chart 1
     var options = {
         series: [{
             name: "Total Orders",
-            data: [240, 160, 671, 414, 555, 257]
+            data: [<?= chartData(6, 'setdate', 'orders') ?>]
         }],
         chart: {
             type: "line",
@@ -256,13 +256,24 @@ $(function() {
     chart.render();
 
 
-
+    <?php 
+    
+    $data = [];
+    for($i = 6; $i >= 0; $i--){
+        $day = date('Y/m/d', strtotime("-$i day"));
+        $res = $db->where("setdate LIKE '%$day%'")
+        ->getValue('members', 'COUNT(*)');
+        $data[] = $res;
+    }
+    $data =  implode(', ', $data);
+    
+    ?>
 
 // chart 4
     var options = {
         series: [{
             name: "Customers",
-            data: [400, 555, 257, 640, 460, 671, 350]
+            data: [<?= $data ?>]
         }],
         chart: {
             type: "bar",
@@ -468,9 +479,27 @@ $(function() {
         }
     });
 
+    
 
 
 
+<?php 
+
+$star5 = $db->where('rate', 5)
+->getValue('comment', 'COUNT(*)');
+$star4 = $db->where('rate', 4)
+->getValue('comment', 'COUNT(*)');
+$star3 = $db->where('rate', 3)
+->getValue('comment', 'COUNT(*)');
+$star2 = $db->where('rate', 2)
+->getValue('comment', 'COUNT(*)');
+$star1 = $db->where('rate', 1)
+->getValue('comment', 'COUNT(*)');
+$totalRates = $star1 + $star2 + $star3 + $star4 + $star5;
+$max = max($star1, $star2, $star3, $star4, $star5);
+$res = intval(($max / $totalRates) * 100);
+
+?>
     // chart 7
 
     var options = {
@@ -549,12 +578,12 @@ $(function() {
             }
         },
         colors: ["#8932ff"],
-        series: [78],
+        series: [<?= $res ?>],
         stroke: {
             lineCap: 'round',
             //dashArray: 4
         },
-        labels: ['ترافیک کل'],
+        labels: ['بیشترین امتیاز'],
         responsive: [
             {
                 breakpoint: 1281,
@@ -582,7 +611,7 @@ $(function() {
     var options = {
         series: [{
             name: "Messages",
-            data: [0, 160, 671, 414, 555, 257, 901, 613, 727, 414, 555, 0]
+            data: [<?= chartData(12, 'setdate', 'comment') ?>]
         }],
         chart: {
             type: "area",
@@ -682,7 +711,7 @@ $(function() {
     var options = {
         series: [{
             name: "Posts",
-            data: [0, 160, 671, 414, 555, 257, 901, 613, 727, 414, 555, 0]
+            data: [<?= chartData(12, 'setdate', 'blogs') ?>]
         }],
         chart: {
             type: "area",
@@ -871,14 +900,29 @@ $(function() {
 
 
 // chart 11
+<?php
+
+$today = strtotime("today"); 
+$days = [];
+$data = [];
+for($i = 6; $i >= 0; $i--){
+    $last_week = strtotime("-$i day",$today);
+    $day = "'".jdate('l', $last_week)."'";
+    $date = date("Y/m/d",$last_week);
+    $res = $db->where("setdate LIKE '%$date%'")
+    ->getValue('members', 'COUNT(*)');
+    $days[] = $day;
+    $data[] = $res;
+}
+$data = implode(', ', $data);
+$days = implode(', ', $days);
+
+?>
 
     var options = {
         series: [{
             name: "New Visitors",
-            data: [640, 560, 871, 614, 755, 457, 650]
-        },{
-            name: "Old Visitors",
-            data: [440, 360, 671, 414, 555, 257, 450]
+            data: [<?= $data ?>]
         }],
         chart: {
             foreColor: '#9a9797',
@@ -933,7 +977,7 @@ $(function() {
         },
         colors: ["#3461ff", "#c1cfff"],
         xaxis: {
-            categories: ["دوشنبه", "سه شنبه", "چهارشنبه", "پنجشنبه", "جمعه", "شنبه", "یکشنبه"]
+            categories: [<?= $days ?>]
         },
         grid:{
             show: true,
@@ -1013,3 +1057,5 @@ $(function() {
 
 
 });
+
+</script>
