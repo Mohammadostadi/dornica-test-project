@@ -64,13 +64,6 @@ members.city_id , cities.name as city , province.name as province');
                                 </ol>
                             </nav>
                         </div>
-                        <div class="ms-auto">
-                            <div class="btn-group">
-                                <?php if(has_access('report_members_filter.php')){ ?> 
-                                    <a class="btn btn-outline-secondary" href="report_members_filter.php">برگشت</a>
-                                <?php } ?>
-                            </div>
-                        </div>
                     </div>
                     <div class="row">
                         <div class="col-12  d-flex">

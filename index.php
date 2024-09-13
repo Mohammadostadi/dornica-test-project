@@ -1,4 +1,4 @@
-<?php 
+<?php
 require_once('app/Controller/functions.php');
 require_once('app/Model/DB.php');
 require_once('app/Helper/jdf.php');
@@ -12,9 +12,9 @@ $last_month_first_day = date('Y/m/01', strtotime('-1 month'));
 $last_month_last_day = date('Y/m/t', strtotime('-1 month'));
 
 $today = strtotime("today");
-$last_week = strtotime("-7 day",$today);
-$end = date("Y/m/d",$today); 
-$start = date("Y/m/d",$last_week);
+$last_week = strtotime("-7 day", $today);
+$end = date("Y/m/d", $today);
+$start = date("Y/m/d", $last_week);
 ?>
 <!doctype html>
 <html lang="en" dir="rtl">
@@ -59,533 +59,525 @@ $start = date("Y/m/d",$last_week);
     <!--start wrapper-->
     <div class="wrapper">
         <!--start top header-->
-        <header class="top-header">
-            <nav class="navbar navbar-expand gap-3">
-                <div class="mobile-toggle-icon fs-3 d-flex d-lg-none">
-                    <i class="bi bi-list"></i>
-                </div>
-                <form class="searchbar">
-                    <div class="position-absolute top-50 translate-middle-y search-icon ms-3"><i
-                            class="bi bi-search"></i></div>
-                    <input class="form-control" type="text" placeholder="برای جستجو اینجا تایپ کنید">
-                    <div class="position-absolute top-50 translate-middle-y search-close-icon"><i
-                            class="bi bi-x-lg"></i></div>
-                </form>
-                <div class="top-navbar-right ms-auto">
-                    <ul class="navbar-nav align-items-center gap-1">
-                        <li class="nav-item search-toggle-icon d-flex d-lg-none">
-                            <a class="nav-link" href="javascript:;">
-                                <div class="">
-                                    <i class="bi bi-search"></i>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="nav-item dropdown dropdown-laungauge   d-sm-flex">
-                            <a class="nav-link dropdown-toggle dropdown-toggle-nocaret" href="javascript:;"
-                                data-bs-toggle="dropdown"><img src="assets/images/county/02.png" width="22" alt="">
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-end p-2">
-                                <li><a class="dropdown-item d-flex align-items-center py-2" href="javascript:;"><img
-                                            src="assets/images/county/01.png" width="20" alt=""><span
-                                            class="ms-2">انگلیسی</span></a>
-                                </li>
-                                <li><a class="dropdown-item d-flex align-items-center py-2" href="javascript:;"><img
-                                            src="assets/images/county/02.png" width="20" alt=""><span
-                                            class="ms-2">کاتالان</span></a>
-                                </li>
-                                <li><a class="dropdown-item d-flex align-items-center py-2" href="javascript:;"><img
-                                            src="assets/images/county/03.png" width="20" alt=""><span
-                                            class="ms-2">فرانسوی</span></a>
-                                </li>
-                                <li><a class="dropdown-item d-flex align-items-center py-2" href="javascript:;"><img
-                                            src="assets/images/county/04.png" width="20" alt=""><span
-                                            class="ms-2">بلیز</span></a>
-                                </li>
-                                <li><a class="dropdown-item d-flex align-items-center py-2" href="javascript:;"><img
-                                            src="assets/images/county/05.png" width="20" alt=""><span
-                                            class="ms-2">کلمبیا</span></a>
-                                </li>
-                                <li><a class="dropdown-item d-flex align-items-center py-2" href="javascript:;"><img
-                                            src="assets/images/county/06.png" width="20" alt=""><span
-                                            class="ms-2">اسپانیایی</span></a>
-                                </li>
-                                <li><a class="dropdown-item d-flex align-items-center py-2" href="javascript:;"><img
-                                            src="assets/images/county/07.png" width="20" alt=""><span
-                                            class="ms-2">گرجی</span></a>
-                                </li>
-                                <li><a class="dropdown-item d-flex align-items-center py-2" href="javascript:;"><img
-                                            src="assets/images/county/08.png" width="20" alt=""><span
-                                            class="ms-2">هندی</span></a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-item dark-mode   d-sm-flex">
-                            <a class="nav-link dark-mode-icon" href="javascript:;">
-                                <div class="">
-                                    <i class="bi bi-moon-fill"></i>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="nav-item dropdown dropdown-large">
-                            <a class="nav-link dropdown-toggle dropdown-toggle-nocaret" href="#"
-                                data-bs-toggle="dropdown">
-                                <div class="projects">
-                                    <i class="bi bi-grid-3x3-gap-fill"></i>
-                                </div>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-end">
-                                <div class="row row-cols-3 gx-2">
-                                    <div class="col">
-                                        <a href="ecommerce-orders.php">
-                                            <div class="apps p-2 radius-10 text-center">
-                                                <div class="apps-icon-box mb-1 text-white bg-gradient-purple">
-                                                    <i class="bi bi-basket2-fill"></i>
-                                                </div>
-                                                <p class="mb-0 apps-name">سفارشات</p>
-                                            </div>
-                                        </a>
-                                    </div>
-                                    <div class="col">
-                                        <a href="javascript:;">
-                                            <div class="apps p-2 radius-10 text-center">
-                                                <div class="apps-icon-box mb-1 text-white bg-gradient-info">
-                                                    <i class="bi bi-people-fill"></i>
-                                                </div>
-                                                <p class="mb-0 apps-name">کاربران</p>
-                                            </div>
-                                        </a>
-                                    </div>
-                                    <div class="col">
-                                        <a href="ecommerce-products-grid.php">
-                                            <div class="apps p-2 radius-10 text-center">
-                                                <div class="apps-icon-box mb-1 text-white bg-gradient-success">
-                                                    <i class="bi bi-trophy-fill"></i>
-                                                </div>
-                                                <p class="mb-0 apps-name">محصولات</p>
-                                            </div>
-                                        </a>
-                                    </div>
-                                    <div class="col">
-                                        <a href="component-media-object.php">
-                                            <div class="apps p-2 radius-10 text-center">
-                                                <div class="apps-icon-box mb-1 text-white bg-gradient-danger">
-                                                    <i class="bi bi-collection-play-fill"></i>
-                                                </div>
-                                                <p class="mb-0 apps-name">رسانه ها</p>
-                                            </div>
-                                        </a>
-                                    </div>
-                                    <div class="col">
-                                        <a href="pages-user-profile.php">
-                                            <div class="apps p-2 radius-10 text-center">
-                                                <div class="apps-icon-box mb-1 text-white bg-gradient-warning">
-                                                    <i class="bi bi-person-circle"></i>
-                                                </div>
-                                                <p class="mb-0 apps-name">حساب</p>
-                                            </div>
-                                        </a>
-                                    </div>
-                                    <div class="col">
-                                        <a href="javascript:;">
-                                            <div class="apps p-2 radius-10 text-center">
-                                                <div class="apps-icon-box mb-1 text-white bg-gradient-voilet">
-                                                    <i class="bi bi-file-earmark-text-fill"></i>
-                                                </div>
-                                                <p class="mb-0 apps-name">اسناد</p>
-                                            </div>
-                                        </a>
-                                    </div>
-                                    <div class="col">
-                                        <a href="ecommerce-orders-detail.php">
-                                            <div class="apps p-2 radius-10 text-center">
-                                                <div class="apps-icon-box mb-1 text-white bg-gradient-branding">
-                                                    <i class="bi bi-credit-card-fill"></i>
-                                                </div>
-                                                <p class="mb-0 apps-name">پرداخت</p>
-                                            </div>
-                                        </a>
-                                    </div>
-                                    <div class="col">
-                                        <a href="javascript:;">
-                                            <div class="apps p-2 radius-10 text-center">
-                                                <div class="apps-icon-box mb-1 text-white bg-gradient-desert">
-                                                    <i class="bi bi-calendar-check-fill"></i>
-                                                </div>
-                                                <p class="mb-0 apps-name">مناسبت ها</p>
-                                            </div>
-                                        </a>
-                                    </div>
-                                    <div class="col">
-                                        <a href="javascript:;">
-                                            <div class="apps p-2 radius-10 text-center">
-                                                <div class="apps-icon-box mb-1 text-white bg-gradient-amour">
-                                                    <i class="bi bi-book-half"></i>
-                                                </div>
-                                                <p class="mb-0 apps-name">داستان</p>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div><!--end row-->
-                            </div>
-                        </li>
-                        <li class="nav-item dropdown dropdown-large">
-                            <a class="nav-link dropdown-toggle dropdown-toggle-nocaret" href="#"
-                                data-bs-toggle="dropdown">
-                                <div class="messages">
-                                    <span class="notify-badge">5</span>
-                                    <i class="bi bi-chat-left-text-fill"></i>
-                                </div>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-end p-0">
-                                <div class="p-2 border-bottom m-2">
-                                    <h5 class="h5 mb-0">پیام ها</h5>
-                                </div>
-                                <div class="header-message-list p-2">
-                                    <a class="dropdown-item" href="#">
-                                        <div class="d-flex align-items-center">
-                                            <img src="assets/images/avatars/avatar-1.png" alt="" class="rounded-circle"
-                                                width="50" height="50">
-                                            <div class="ms-3 flex-grow-1">
-                                                <h6 class="mb-0 dropdown-msg-user">آملیو جولی <span
-                                                        class="msg-time float-end text-secondary">1 ساعت</span></h6>
-                                                <small
-                                                    class="mb-0 dropdown-msg-text text-secondary d-flex align-items-center">لورم
-                                                    ایپسوم...</small>
-                                            </div>
-                                        </div>
-                                    </a>
-                                    <a class="dropdown-item" href="#">
-                                        <div class="d-flex align-items-center">
-                                            <img src="assets/images/avatars/avatar-2.png" alt="" class="rounded-circle"
-                                                width="50" height="50">
-                                            <div class="ms-3 flex-grow-1">
-                                                <h6 class="mb-0 dropdown-msg-user">آلته کاباردو <span
-                                                        class="msg-time float-end text-secondary">7 ساعت</span></h6>
-                                                <small
-                                                    class="mb-0 dropdown-msg-text text-secondary d-flex align-items-center">لورم
-                                                    ایپسوم...</small>
-                                            </div>
-                                        </div>
-                                    </a>
-                                    <a class="dropdown-item" href="#">
-                                        <div class="d-flex align-items-center">
-                                            <img src="assets/images/avatars/avatar-3.png" alt="" class="rounded-circle"
-                                                width="50" height="50">
-                                            <div class="ms-3 flex-grow-1">
-                                                <h6 class="mb-0 dropdown-msg-user">کاترین پچون <span
-                                                        class="msg-time float-end text-secondary">2 ساعت</span></h6>
-                                                <small
-                                                    class="mb-0 dropdown-msg-text text-secondary d-flex align-items-center">لورم
-                                                    ایپسوم...</small>
-                                            </div>
-                                        </div>
-                                    </a>
-                                    <a class="dropdown-item" href="#">
-                                        <div class="d-flex align-items-center">
-                                            <img src="assets/images/avatars/avatar-4.png" alt="" class="rounded-circle"
-                                                width="50" height="50">
-                                            <div class="ms-3 flex-grow-1">
-                                                <h6 class="mb-0 dropdown-msg-user">پیتر کوستانزو <span
-                                                        class="msg-time float-end text-secondary">3 ساعت</span></h6>
-                                                <small
-                                                    class="mb-0 dropdown-msg-text text-secondary d-flex align-items-center">لورم
-                                                    ایپسوم...</small>
-                                            </div>
-                                        </div>
-                                    </a>
-                                    <a class="dropdown-item" href="#">
-                                        <div class="d-flex align-items-center">
-                                            <img src="assets/images/avatars/avatar-5.png" alt="" class="rounded-circle"
-                                                width="50" height="50">
-                                            <div class="ms-3 flex-grow-1">
-                                                <h6 class="mb-0 dropdown-msg-user">توماس ویلر <span
-                                                        class="msg-time float-end text-secondary">1 روز</span></h6>
-                                                <small
-                                                    class="mb-0 dropdown-msg-text text-secondary d-flex align-items-center">لورم
-                                                    ایپسوم...</small>
-                                            </div>
-                                        </div>
-                                    </a>
-                                    <a class="dropdown-item" href="#">
-                                        <div class="d-flex align-items-center">
-                                            <img src="assets/images/avatars/avatar-6.png" alt="" class="rounded-circle"
-                                                width="50" height="50">
-                                            <div class="ms-3 flex-grow-1">
-                                                <h6 class="mb-0 dropdown-msg-user">جانی سیتز <span
-                                                        class="msg-time float-end text-secondary">2 ماه</span></h6>
-                                                <small
-                                                    class="mb-0 dropdown-msg-text text-secondary d-flex align-items-center">لورم
-                                                    ایپسوم...</small>
-                                            </div>
-                                        </div>
-                                    </a>
-                                    <a class="dropdown-item" href="#">
-                                        <div class="d-flex align-items-center">
-                                            <img src="assets/images/avatars/avatar-1.png" alt="" class="rounded-circle"
-                                                width="50" height="50">
-                                            <div class="ms-3 flex-grow-1">
-                                                <h6 class="mb-0 dropdown-msg-user">آملیو جولی <span
-                                                        class="msg-time float-end text-secondary">1 ساعت</span></h6>
-                                                <small
-                                                    class="mb-0 dropdown-msg-text text-secondary d-flex align-items-center">لورم
-                                                    ایپسوم...</small>
-                                            </div>
-                                        </div>
-                                    </a>
-                                    <a class="dropdown-item" href="#">
-                                        <div class="d-flex align-items-center">
-                                            <img src="assets/images/avatars/avatar-2.png" alt="" class="rounded-circle"
-                                                width="50" height="50">
-                                            <div class="ms-3 flex-grow-1">
-                                                <h6 class="mb-0 dropdown-msg-user">آلته کاباردو <span
-                                                        class="msg-time float-end text-secondary">7 ساعت</span></h6>
-                                                <small
-                                                    class="mb-0 dropdown-msg-text text-secondary d-flex align-items-center">لورم
-                                                    ایپسوم...</small>
-                                            </div>
-                                        </div>
-                                    </a>
-                                    <a class="dropdown-item" href="#">
-                                        <div class="d-flex align-items-center">
-                                            <img src="assets/images/avatars/avatar-3.png" alt="" class="rounded-circle"
-                                                width="50" height="50">
-                                            <div class="ms-3 flex-grow-1">
-                                                <h6 class="mb-0 dropdown-msg-user">کاترین پچون <span
-                                                        class="msg-time float-end text-secondary">2 ساعت</span></h6>
-                                                <small
-                                                    class="mb-0 dropdown-msg-text text-secondary d-flex align-items-center">لورم
-                                                    ایپسوم...</small>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div class="p-2">
-                                    <div>
-                                        <hr class="dropdown-divider">
-                                    </div>
-                                    <a class="dropdown-item" href="#">
-                                        <div class="text-center">مشاهده همه پیام ها</div>
-                                    </a>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="nav-item dropdown dropdown-large">
-                            <a class="nav-link dropdown-toggle dropdown-toggle-nocaret" href="#"
-                                data-bs-toggle="dropdown">
-                                <div class="notifications">
-                                    <span class="notify-badge">8</span>
-                                    <i class="bi bi-bell-fill"></i>
-                                </div>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-end p-0">
-                                <div class="p-2 border-bottom m-2">
-                                    <h5 class="h5 mb-0">اطلاعیه</h5>
-                                </div>
-                                <div class="header-notifications-list p-2">
-                                    <a class="dropdown-item" href="#">
-                                        <div class="d-flex align-items-center">
-                                            <div class="notification-box bg-light-primary text-primary"><i
-                                                    class="bi bi-basket2-fill"></i></div>
-                                            <div class="ms-3 flex-grow-1">
-                                                <h6 class="mb-0 dropdown-msg-user">سفارشات جدید <span
-                                                        class="msg-time float-end text-secondary">1 دقیقه</span></h6>
-                                                <small
-                                                    class="mb-0 dropdown-msg-text text-secondary d-flex align-items-center">شما
-                                                    سفارشات جدیدی دریافت کرده اید</small>
-                                            </div>
-                                        </div>
-                                    </a>
-                                    <a class="dropdown-item" href="#">
-                                        <div class="d-flex align-items-center">
-                                            <div class="notification-box bg-light-purple text-purple"><i
-                                                    class="bi bi-people-fill"></i></div>
-                                            <div class="ms-3 flex-grow-1">
-                                                <h6 class="mb-0 dropdown-msg-user">مشتریان جدید <span
-                                                        class="msg-time float-end text-secondary">7 دقیقه</span></h6>
-                                                <small
-                                                    class="mb-0 dropdown-msg-text text-secondary d-flex align-items-center">5
-                                                    کاربر جدید ثبت نام کرد</small>
-                                            </div>
-                                        </div>
-                                    </a>
-                                    <a class="dropdown-item" href="#">
-                                        <div class="d-flex align-items-center">
-                                            <div class="notification-box bg-light-success text-success"><i
-                                                    class="bi bi-file-earmark-bar-graph-fill"></i></div>
-                                            <div class="ms-3 flex-grow-1">
-                                                <h6 class="mb-0 dropdown-msg-user">24 فایل پی دی اف <span
-                                                        class="msg-time float-end text-secondary">2 ساعت</span></h6>
-                                                <small
-                                                    class="mb-0 dropdown-msg-text text-secondary d-flex align-items-center">فایل
-                                                    های پی دی اف تولید شده است</small>
-                                            </div>
-                                        </div>
-                                    </a>
-                                    <a class="dropdown-item" href="#">
-                                        <div class="d-flex align-items-center">
-                                            <div class="notification-box bg-light-orange text-orange"><i
-                                                    class="bi bi-collection-play-fill"></i></div>
-                                            <div class="ms-3 flex-grow-1">
-                                                <h6 class="mb-0 dropdown-msg-user">پاسخ زمان <span
-                                                        class="msg-time float-end text-secondary">3 ساعت</span></h6>
-                                                <small
-                                                    class="mb-0 dropdown-msg-text text-secondary d-flex align-items-center">پاسخ
-                                                    زمان متوسط 5.1 دقیقه</small>
-                                            </div>
-                                        </div>
-                                    </a>
-                                    <a class="dropdown-item" href="#">
-                                        <div class="d-flex align-items-center">
-                                            <div class="notification-box bg-light-info text-info"><i
-                                                    class="bi bi-cursor-fill"></i></div>
-                                            <div class="ms-3 flex-grow-1">
-                                                <h6 class="mb-0 dropdown-msg-user">محصول جدید تایید شده <span
-                                                        class="msg-time float-end text-secondary">1 د</span></h6>
-                                                <small
-                                                    class="mb-0 dropdown-msg-text text-secondary d-flex align-items-center">محصول
-                                                    جدید شما تایید شده است</small>
-                                            </div>
-                                        </div>
-                                    </a>
-                                    <a class="dropdown-item" href="#">
-                                        <div class="d-flex align-items-center">
-                                            <div class="notification-box bg-light-pink text-pink"><i
-                                                    class="bi bi-gift-fill"></i></div>
-                                            <div class="ms-3 flex-grow-1">
-                                                <h6 class="mb-0 dropdown-msg-user">نظرات جدید <span
-                                                        class="msg-time float-end text-secondary">2 ماه</span></h6>
-                                                <small
-                                                    class="mb-0 dropdown-msg-text text-secondary d-flex align-items-center">نظرات
-                                                    مشتریان جدید دریافت شد</small>
-                                            </div>
-                                        </div>
-                                    </a>
-                                    <a class="dropdown-item" href="#">
-                                        <div class="d-flex align-items-center">
-                                            <div class="notification-box bg-light-warning text-warning"><i
-                                                    class="bi bi-droplet-fill"></i></div>
-                                            <div class="ms-3 flex-grow-1">
-                                                <h6 class="mb-0 dropdown-msg-user">24 نویسنده جدید<span
-                                                        class="msg-time float-end text-secondary">1 دقیقه</span></h6>
-                                                <small
-                                                    class="mb-0 dropdown-msg-text text-secondary d-flex align-items-center">24
-                                                    نویسنده جدید هفته گذشته به آن پیوستند</small>
-                                            </div>
-                                        </div>
-                                    </a>
-                                    <a class="dropdown-item" href="#">
-                                        <div class="d-flex align-items-center">
-                                            <div class="notification-box bg-light-primary text-primary"><i
-                                                    class="bi bi-mic-fill"></i></div>
-                                            <div class="ms-3 flex-grow-1">
-                                                <h6 class="mb-0 dropdown-msg-user">کالای شما ارسال شده است <span
-                                                        class="msg-time float-end text-secondary">7 دقیقه</span></h6>
-                                                <small
-                                                    class="mb-0 dropdown-msg-text text-secondary d-flex align-items-center">مورد
-                                                    شما با موفقیت ارسال شد</small>
-                                            </div>
-                                        </div>
-                                    </a>
-                                    <a class="dropdown-item" href="#">
-                                        <div class="d-flex align-items-center">
-                                            <div class="notification-box bg-light-success text-success"><i
-                                                    class="bi bi-lightbulb-fill"></i></div>
-                                            <div class="ms-3 flex-grow-1">
-                                                <h6 class="mb-0 dropdown-msg-user">هشدارهای دفاعی <span
-                                                        class="msg-time float-end text-secondary">2 ساعت</span></h6>
-                                                <small
-                                                    class="mb-0 dropdown-msg-text text-secondary d-flex align-items-center">45٪
-                                                    هشدار کدقیقه 4 هفته طول می کشد</small>
-                                            </div>
-                                        </div>
-                                    </a>
-                                    <a class="dropdown-item" href="#">
-                                        <div class="d-flex align-items-center">
-                                            <div class="notification-box bg-light-info text-info"><i
-                                                    class="bi bi-bookmark-heart-fill"></i></div>
-                                            <div class="ms-3 flex-grow-1">
-                                                <h6 class="mb-0 dropdown-msg-user">4 ثبت نام جدید <span
-                                                        class="msg-time float-end text-secondary">2 ماه</span></h6>
-                                                <small
-                                                    class="mb-0 dropdown-msg-text text-secondary d-flex align-items-center">4
-                                                    کاربر جدید ثبت نام</small>
-                                            </div>
-                                        </div>
-                                    </a>
-                                    <a class="dropdown-item" href="#">
-                                        <div class="d-flex align-items-center">
-                                            <div class="notification-box bg-light-bronze text-bronze"><i
-                                                    class="bi bi-briefcase-fill"></i></div>
-                                            <div class="ms-3 flex-grow-1">
-                                                <h6 class="mb-0 dropdown-msg-user">همه اسناد آپلود شد <span
-                                                        class="msg-time float-end text-secondary">1 ماه</span></h6>
-                                                <small
-                                                    class="mb-0 dropdown-msg-text text-secondary d-flex align-items-center">همه
-                                                    فایل‌ها را با دقت آپلود کرد</small>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div class="p-2">
-                                    <div>
-                                        <hr class="dropdown-divider">
-                                    </div>
-                                    <a class="dropdown-item" href="#">
-                                        <div class="text-center">مشاهده همه اعلان ها</div>
-                                    </a>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-                <div class="dropdown dropdown-user-setting">
-                    <a class="dropdown-toggle dropdown-toggle-nocaret" href="#" data-bs-toggle="dropdown">
-                        <div class="user-setting d-flex align-items-center gap-3">
-                            <?php
-                            $name = $db->where('id', $_SESSION['user'])->getOne('admin', "CONCAT(first_name, ' ',last_name) AS name");
-                            $role = $db->where('id', $_SESSION['user'])->getValue('admin', "role");
-                            $image = $db->where('id', $_SESSION['user'])->getValue('admin', "image");
-                            ?>
-                            <img src="<?= (file_exists($image) and !empty($image)) ? $image : "assets/images/admin/default.png" ?>"
-                                class="user-img" alt="">
-                            <div class="  d-sm-block">
-                                <p class="user-name mb-0"><?= ($name['name']) ?></p>
-                                <small class="mb-0 dropdown-user-designation"><?= admin_role($role) ?></small>
-                            </div>
+        <?php
+
+$profile = $db->where('id', $_SESSION['user'])->getOne('admin');
+
+?>
+
+<header class="top-header">
+    <nav class="navbar navbar-expand gap-3">
+        <div class="mobile-toggle-icon fs-3 d-flex d-lg-none">
+            <i class="bi bi-list"></i>
+        </div>
+        <form class="searchbar">
+            <div class="position-absolute top-50 translate-middle-y search-icon ms-3"><i class="bi bi-search"></i></div>
+            <input class="form-control" type="text" placeholder="برای جستجو اینجا تایپ کنید">
+            <div class="position-absolute top-50 translate-middle-y search-close-icon"><i class="bi bi-x-lg"></i></div>
+        </form>
+        <div class="top-navbar-right ms-auto">
+            <ul class="navbar-nav align-items-center gap-1">
+                <li class="nav-item search-toggle-icon d-flex d-lg-none">
+                    <a class="nav-link" href="javascript:;">
+                        <div class="">
+                            <i class="bi bi-search"></i>
                         </div>
                     </a>
-                    <ul class="dropdown-menu dropdown-menu-end">
-                        <li>
-                            <a class="dropdown-item" href="admin-panel/admins/profile_edit.php">
-                                <div class="d-flex align-items-center">
-                                    <div class=""><i class="bi bi-person-fill"></i></div>
-                                    <div class="ms-3"><span>مشخصات</span></div>
-                                </div>
-                            </a>
+                </li>
+                <li class="nav-item dropdown dropdown-laungauge d-none d-sm-flex">
+                    <a class="nav-link dropdown-toggle dropdown-toggle-nocaret" href="javascript:;"
+                        data-bs-toggle="dropdown"><img src="assets/images/county/02.png" width="22" alt="">
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end p-2">
+                        <li><a class="dropdown-item d-flex align-items-center py-2" href="javascript:;"><img
+                                    src="assets/images/county/01.png" width="20" alt=""><span
+                                    class="ms-2">انگلیسی</span></a>
                         </li>
-                        <li>
-                            <a class="dropdown-item" href="admin-panel/admins/profile_reset_password.php">
-                                <div class="d-flex align-items-center">
-                                    <div class=""><i class="bi bi-gear-fill"></i></div>
-                                    <div class="ms-3"><span>تغییر رمز عبور</span></div>
-                                </div>
-                            </a>
+                        <li><a class="dropdown-item d-flex align-items-center py-2" href="javascript:;"><img
+                                    src="assets/images/county/02.png" width="20" alt=""><span
+                                    class="ms-2">کاتالان</span></a>
                         </li>
-                        <li>
-                            <hr class="dropdown-divider">
+                        <li><a class="dropdown-item d-flex align-items-center py-2" href="javascript:;"><img
+                                    src="assets/images/county/03.png" width="20" alt=""><span
+                                    class="ms-2">فرانسوی</span></a>
                         </li>
-                        <li>
-                            <a class="dropdown-item" href="auth/logout.php">
-                                <div class="d-flex align-items-center">
-                                    <div class=""><i class="bi bi-lock-fill"></i></div>
-                                    <div class="ms-3"><span>خروج</span></div>
-                                </div>
-                            </a>
+                        <li><a class="dropdown-item d-flex align-items-center py-2" href="javascript:;"><img
+                                    src="assets/images/county/04.png" width="20" alt=""><span
+                                    class="ms-2">بلیز</span></a>
+                        </li>
+                        <li><a class="dropdown-item d-flex align-items-center py-2" href="javascript:;"><img
+                                    src="assets/images/county/05.png" width="20" alt=""><span
+                                    class="ms-2">کلمبیا</span></a>
+                        </li>
+                        <li><a class="dropdown-item d-flex align-items-center py-2" href="javascript:;"><img
+                                    src="assets/images/county/06.png" width="20" alt=""><span
+                                    class="ms-2">اسپانیایی</span></a>
+                        </li>
+                        <li><a class="dropdown-item d-flex align-items-center py-2" href="javascript:;"><img
+                                    src="assets/images/county/07.png" width="20" alt=""><span
+                                    class="ms-2">گرجی</span></a>
+                        </li>
+                        <li><a class="dropdown-item d-flex align-items-center py-2" href="javascript:;"><img
+                                    src="assets/images/county/08.png" width="20" alt=""><span
+                                    class="ms-2">هندی</span></a>
                         </li>
                     </ul>
+                </li>
+                <li class="nav-item dark-mode d-none d-sm-flex">
+                    <a class="nav-link dark-mode-icon" href="javascript:;">
+                        <div class="">
+                            <i class="bi bi-moon-fill"></i>
+                        </div>
+                    </a>
+                </li>
+                <li class="nav-item dropdown dropdown-large">
+                    <a class="nav-link dropdown-toggle dropdown-toggle-nocaret" href="#" data-bs-toggle="dropdown">
+                        <div class="projects">
+                            <i class="bi bi-grid-3x3-gap-fill"></i>
+                        </div>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-end">
+                        <div class="row row-cols-3 gx-2">
+                            <div class="col">
+                                <a href="ecommerce-orders.html">
+                                    <div class="apps p-2 radius-10 text-center">
+                                        <div class="apps-icon-box mb-1 text-white bg-gradient-purple">
+                                            <i class="bi bi-basket2-fill"></i>
+                                        </div>
+                                        <p class="mb-0 apps-name">سفارشات</p>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="col">
+                                <a href="javascript:;">
+                                    <div class="apps p-2 radius-10 text-center">
+                                        <div class="apps-icon-box mb-1 text-white bg-gradient-info">
+                                            <i class="bi bi-people-fill"></i>
+                                        </div>
+                                        <p class="mb-0 apps-name">کاربران</p>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="col">
+                                <a href="ecommerce-products-grid.html">
+                                    <div class="apps p-2 radius-10 text-center">
+                                        <div class="apps-icon-box mb-1 text-white bg-gradient-success">
+                                            <i class="bi bi-trophy-fill"></i>
+                                        </div>
+                                        <p class="mb-0 apps-name">محصولات</p>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="col">
+                                <a href="component-media-object.html">
+                                    <div class="apps p-2 radius-10 text-center">
+                                        <div class="apps-icon-box mb-1 text-white bg-gradient-danger">
+                                            <i class="bi bi-collection-play-fill"></i>
+                                        </div>
+                                        <p class="mb-0 apps-name">رسانه ها</p>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="col">
+                                <a href="pages-user-profile.html">
+                                    <div class="apps p-2 radius-10 text-center">
+                                        <div class="apps-icon-box mb-1 text-white bg-gradient-warning">
+                                            <i class="bi bi-person-circle"></i>
+                                        </div>
+                                        <p class="mb-0 apps-name">حساب</p>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="col">
+                                <a href="javascript:;">
+                                    <div class="apps p-2 radius-10 text-center">
+                                        <div class="apps-icon-box mb-1 text-white bg-gradient-voilet">
+                                            <i class="bi bi-file-earmark-text-fill"></i>
+                                        </div>
+                                        <p class="mb-0 apps-name">اسناد</p>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="col">
+                                <a href="ecommerce-orders-detail.html">
+                                    <div class="apps p-2 radius-10 text-center">
+                                        <div class="apps-icon-box mb-1 text-white bg-gradient-branding">
+                                            <i class="bi bi-credit-card-fill"></i>
+                                        </div>
+                                        <p class="mb-0 apps-name">پرداخت</p>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="col">
+                                <a href="javascript:;">
+                                    <div class="apps p-2 radius-10 text-center">
+                                        <div class="apps-icon-box mb-1 text-white bg-gradient-desert">
+                                            <i class="bi bi-calendar-check-fill"></i>
+                                        </div>
+                                        <p class="mb-0 apps-name">مناسبت ها</p>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="col">
+                                <a href="javascript:;">
+                                    <div class="apps p-2 radius-10 text-center">
+                                        <div class="apps-icon-box mb-1 text-white bg-gradient-amour">
+                                            <i class="bi bi-book-half"></i>
+                                        </div>
+                                        <p class="mb-0 apps-name">داستان</p>
+                                    </div>
+                                </a>
+                            </div>
+                        </div><!--end row-->
+                    </div>
+                </li>
+                <li class="nav-item dropdown dropdown-large">
+                    <a class="nav-link dropdown-toggle dropdown-toggle-nocaret" href="#" data-bs-toggle="dropdown">
+                        <div class="messages">
+                            <span class="notify-badge">5</span>
+                            <i class="bi bi-chat-left-text-fill"></i>
+                        </div>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-end p-0">
+                        <div class="p-2 border-bottom m-2">
+                            <h5 class="h5 mb-0">پیام ها</h5>
+                        </div>
+                        <div class="header-message-list p-2">
+                            <a class="dropdown-item" href="#">
+                                <div class="d-flex align-items-center">
+                                    <img src="assets/images/avatars/avatar-1.png" alt="" class="rounded-circle"
+                                        width="50" height="50">
+                                    <div class="ms-3 flex-grow-1">
+                                        <h6 class="mb-0 dropdown-msg-user">آملیو جولی <span
+                                                class="msg-time float-end text-secondary">1 ساعت</span></h6>
+                                        <small
+                                            class="mb-0 dropdown-msg-text text-secondary d-flex align-items-center">لورم
+                                            ایپسوم...</small>
+                                    </div>
+                                </div>
+                            </a>
+                            <a class="dropdown-item" href="#">
+                                <div class="d-flex align-items-center">
+                                    <img src="assets/images/avatars/avatar-2.png" alt="" class="rounded-circle"
+                                        width="50" height="50">
+                                    <div class="ms-3 flex-grow-1">
+                                        <h6 class="mb-0 dropdown-msg-user">آلته کاباردو <span
+                                                class="msg-time float-end text-secondary">7 ساعت</span></h6>
+                                        <small
+                                            class="mb-0 dropdown-msg-text text-secondary d-flex align-items-center">لورم
+                                            ایپسوم...</small>
+                                    </div>
+                                </div>
+                            </a>
+                            <a class="dropdown-item" href="#">
+                                <div class="d-flex align-items-center">
+                                    <img src="assets/images/avatars/avatar-3.png" alt="" class="rounded-circle"
+                                        width="50" height="50">
+                                    <div class="ms-3 flex-grow-1">
+                                        <h6 class="mb-0 dropdown-msg-user">کاترین پچون <span
+                                                class="msg-time float-end text-secondary">2 ساعت</span></h6>
+                                        <small
+                                            class="mb-0 dropdown-msg-text text-secondary d-flex align-items-center">لورم
+                                            ایپسوم...</small>
+                                    </div>
+                                </div>
+                            </a>
+                            <a class="dropdown-item" href="#">
+                                <div class="d-flex align-items-center">
+                                    <img src="assets/images/avatars/avatar-4.png" alt="" class="rounded-circle"
+                                        width="50" height="50">
+                                    <div class="ms-3 flex-grow-1">
+                                        <h6 class="mb-0 dropdown-msg-user">پیتر کوستانزو <span
+                                                class="msg-time float-end text-secondary">3 ساعت</span></h6>
+                                        <small
+                                            class="mb-0 dropdown-msg-text text-secondary d-flex align-items-center">لورم
+                                            ایپسوم...</small>
+                                    </div>
+                                </div>
+                            </a>
+                            <a class="dropdown-item" href="#">
+                                <div class="d-flex align-items-center">
+                                    <img src="assets/images/avatars/avatar-5.png" alt="" class="rounded-circle"
+                                        width="50" height="50">
+                                    <div class="ms-3 flex-grow-1">
+                                        <h6 class="mb-0 dropdown-msg-user">توماس ویلر <span
+                                                class="msg-time float-end text-secondary">1 روز</span></h6>
+                                        <small
+                                            class="mb-0 dropdown-msg-text text-secondary d-flex align-items-center">لورم
+                                            ایپسوم...</small>
+                                    </div>
+                                </div>
+                            </a>
+                            <a class="dropdown-item" href="#">
+                                <div class="d-flex align-items-center">
+                                    <img src="assets/images/avatars/avatar-6.png" alt="" class="rounded-circle"
+                                        width="50" height="50">
+                                    <div class="ms-3 flex-grow-1">
+                                        <h6 class="mb-0 dropdown-msg-user">جانی سیتز <span
+                                                class="msg-time float-end text-secondary">2 ماه</span></h6>
+                                        <small
+                                            class="mb-0 dropdown-msg-text text-secondary d-flex align-items-center">لورم
+                                            ایپسوم...</small>
+                                    </div>
+                                </div>
+                            </a>
+                            <a class="dropdown-item" href="#">
+                                <div class="d-flex align-items-center">
+                                    <img src="assets/images/avatars/avatar-1.png" alt="" class="rounded-circle"
+                                        width="50" height="50">
+                                    <div class="ms-3 flex-grow-1">
+                                        <h6 class="mb-0 dropdown-msg-user">آملیو جولی <span
+                                                class="msg-time float-end text-secondary">1 ساعت</span></h6>
+                                        <small
+                                            class="mb-0 dropdown-msg-text text-secondary d-flex align-items-center">لورم
+                                            ایپسوم...</small>
+                                    </div>
+                                </div>
+                            </a>
+                            <a class="dropdown-item" href="#">
+                                <div class="d-flex align-items-center">
+                                    <img src="assets/images/avatars/avatar-2.png" alt="" class="rounded-circle"
+                                        width="50" height="50">
+                                    <div class="ms-3 flex-grow-1">
+                                        <h6 class="mb-0 dropdown-msg-user">آلته کاباردو <span
+                                                class="msg-time float-end text-secondary">7 ساعت</span></h6>
+                                        <small
+                                            class="mb-0 dropdown-msg-text text-secondary d-flex align-items-center">لورم
+                                            ایپسوم...</small>
+                                    </div>
+                                </div>
+                            </a>
+                            <a class="dropdown-item" href="#">
+                                <div class="d-flex align-items-center">
+                                    <img src="assets/images/avatars/avatar-3.png" alt="" class="rounded-circle"
+                                        width="50" height="50">
+                                    <div class="ms-3 flex-grow-1">
+                                        <h6 class="mb-0 dropdown-msg-user">کاترین پچون <span
+                                                class="msg-time float-end text-secondary">2 ساعت</span></h6>
+                                        <small
+                                            class="mb-0 dropdown-msg-text text-secondary d-flex align-items-center">لورم
+                                            ایپسوم...</small>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="p-2">
+                            <div>
+                                <hr class="dropdown-divider">
+                            </div>
+                            <a class="dropdown-item" href="#">
+                                <div class="text-center">مشاهده همه پیام ها</div>
+                            </a>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item dropdown dropdown-large">
+                    <a class="nav-link dropdown-toggle dropdown-toggle-nocaret" href="#" data-bs-toggle="dropdown">
+                        <div class="notifications">
+                            <span class="notify-badge">8</span>
+                            <i class="bi bi-bell-fill"></i>
+                        </div>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-end p-0">
+                        <div class="p-2 border-bottom m-2">
+                            <h5 class="h5 mb-0">اطلاعیه</h5>
+                        </div>
+                        <div class="header-notifications-list p-2">
+                            <a class="dropdown-item" href="#">
+                                <div class="d-flex align-items-center">
+                                    <div class="notification-box bg-light-primary text-primary"><i
+                                            class="bi bi-basket2-fill"></i></div>
+                                    <div class="ms-3 flex-grow-1">
+                                        <h6 class="mb-0 dropdown-msg-user">سفارشات جدید <span
+                                                class="msg-time float-end text-secondary">1 دقیقه</span></h6>
+                                        <small
+                                            class="mb-0 dropdown-msg-text text-secondary d-flex align-items-center">شما
+                                            سفارشات جدیدی دریافت کرده اید</small>
+                                    </div>
+                                </div>
+                            </a>
+                            <a class="dropdown-item" href="#">
+                                <div class="d-flex align-items-center">
+                                    <div class="notification-box bg-light-purple text-purple"><i
+                                            class="bi bi-people-fill"></i></div>
+                                    <div class="ms-3 flex-grow-1">
+                                        <h6 class="mb-0 dropdown-msg-user">مشتریان جدید <span
+                                                class="msg-time float-end text-secondary">7 دقیقه</span></h6>
+                                        <small class="mb-0 dropdown-msg-text text-secondary d-flex align-items-center">5
+                                            کاربر جدید ثبت نام کرد</small>
+                                    </div>
+                                </div>
+                            </a>
+                            <a class="dropdown-item" href="#">
+                                <div class="d-flex align-items-center">
+                                    <div class="notification-box bg-light-success text-success"><i
+                                            class="bi bi-file-earmark-bar-graph-fill"></i></div>
+                                    <div class="ms-3 flex-grow-1">
+                                        <h6 class="mb-0 dropdown-msg-user">24 فایل پی دی اف <span
+                                                class="msg-time float-end text-secondary">2 ساعت</span></h6>
+                                        <small
+                                            class="mb-0 dropdown-msg-text text-secondary d-flex align-items-center">فایل
+                                            های پی دی اف تولید شده است</small>
+                                    </div>
+                                </div>
+                            </a>
+                            <a class="dropdown-item" href="#">
+                                <div class="d-flex align-items-center">
+                                    <div class="notification-box bg-light-orange text-orange"><i
+                                            class="bi bi-collection-play-fill"></i></div>
+                                    <div class="ms-3 flex-grow-1">
+                                        <h6 class="mb-0 dropdown-msg-user">پاسخ زمان <span
+                                                class="msg-time float-end text-secondary">3 ساعت</span></h6>
+                                        <small
+                                            class="mb-0 dropdown-msg-text text-secondary d-flex align-items-center">پاسخ
+                                            زمان متوسط 5.1 دقیقه</small>
+                                    </div>
+                                </div>
+                            </a>
+                            <a class="dropdown-item" href="#">
+                                <div class="d-flex align-items-center">
+                                    <div class="notification-box bg-light-info text-info"><i
+                                            class="bi bi-cursor-fill"></i></div>
+                                    <div class="ms-3 flex-grow-1">
+                                        <h6 class="mb-0 dropdown-msg-user">محصول جدید تایید شده <span
+                                                class="msg-time float-end text-secondary">1 د</span></h6>
+                                        <small
+                                            class="mb-0 dropdown-msg-text text-secondary d-flex align-items-center">محصول
+                                            جدید شما تایید شده است</small>
+                                    </div>
+                                </div>
+                            </a>
+                            <a class="dropdown-item" href="#">
+                                <div class="d-flex align-items-center">
+                                    <div class="notification-box bg-light-pink text-pink"><i
+                                            class="bi bi-gift-fill"></i></div>
+                                    <div class="ms-3 flex-grow-1">
+                                        <h6 class="mb-0 dropdown-msg-user">نظرات جدید <span
+                                                class="msg-time float-end text-secondary">2 ماه</span></h6>
+                                        <small
+                                            class="mb-0 dropdown-msg-text text-secondary d-flex align-items-center">نظرات
+                                            مشتریان جدید دریافت شد</small>
+                                    </div>
+                                </div>
+                            </a>
+                            <a class="dropdown-item" href="#">
+                                <div class="d-flex align-items-center">
+                                    <div class="notification-box bg-light-warning text-warning"><i
+                                            class="bi bi-droplet-fill"></i></div>
+                                    <div class="ms-3 flex-grow-1">
+                                        <h6 class="mb-0 dropdown-msg-user">24 نویسنده جدید<span
+                                                class="msg-time float-end text-secondary">1 دقیقه</span></h6>
+                                        <small
+                                            class="mb-0 dropdown-msg-text text-secondary d-flex align-items-center">24
+                                            نویسنده جدید هفته گذشته به آن پیوستند</small>
+                                    </div>
+                                </div>
+                            </a>
+                            <a class="dropdown-item" href="#">
+                                <div class="d-flex align-items-center">
+                                    <div class="notification-box bg-light-primary text-primary"><i
+                                            class="bi bi-mic-fill"></i></div>
+                                    <div class="ms-3 flex-grow-1">
+                                        <h6 class="mb-0 dropdown-msg-user">کالای شما ارسال شده است <span
+                                                class="msg-time float-end text-secondary">7 دقیقه</span></h6>
+                                        <small
+                                            class="mb-0 dropdown-msg-text text-secondary d-flex align-items-center">مورد
+                                            شما با موفقیت ارسال شد</small>
+                                    </div>
+                                </div>
+                            </a>
+                            <a class="dropdown-item" href="#">
+                                <div class="d-flex align-items-center">
+                                    <div class="notification-box bg-light-success text-success"><i
+                                            class="bi bi-lightbulb-fill"></i></div>
+                                    <div class="ms-3 flex-grow-1">
+                                        <h6 class="mb-0 dropdown-msg-user">هشدارهای دفاعی <span
+                                                class="msg-time float-end text-secondary">2 ساعت</span></h6>
+                                        <small
+                                            class="mb-0 dropdown-msg-text text-secondary d-flex align-items-center">45٪
+                                            هشدار کدقیقه 4 هفته طول می کشد</small>
+                                    </div>
+                                </div>
+                            </a>
+                            <a class="dropdown-item" href="#">
+                                <div class="d-flex align-items-center">
+                                    <div class="notification-box bg-light-info text-info"><i
+                                            class="bi bi-bookmark-heart-fill"></i></div>
+                                    <div class="ms-3 flex-grow-1">
+                                        <h6 class="mb-0 dropdown-msg-user">4 ثبت نام جدید <span
+                                                class="msg-time float-end text-secondary">2 ماه</span></h6>
+                                        <small class="mb-0 dropdown-msg-text text-secondary d-flex align-items-center">4
+                                            کاربر جدید ثبت نام</small>
+                                    </div>
+                                </div>
+                            </a>
+                            <a class="dropdown-item" href="#">
+                                <div class="d-flex align-items-center">
+                                    <div class="notification-box bg-light-bronze text-bronze"><i
+                                            class="bi bi-briefcase-fill"></i></div>
+                                    <div class="ms-3 flex-grow-1">
+                                        <h6 class="mb-0 dropdown-msg-user">همه اسناد آپلود شد <span
+                                                class="msg-time float-end text-secondary">1 ماه</span></h6>
+                                        <small
+                                            class="mb-0 dropdown-msg-text text-secondary d-flex align-items-center">همه
+                                            فایل‌ها را با دقت آپلود کرد</small>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="p-2">
+                            <div>
+                                <hr class="dropdown-divider">
+                            </div>
+                            <a class="dropdown-item" href="#">
+                                <div class="text-center">مشاهده همه اعلان ها</div>
+                            </a>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="dropdown dropdown-user-setting">
+            <a class="dropdown-toggle dropdown-toggle-nocaret" id="headerDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="true">
+                <div class="user-setting d-flex align-items-center gap-3">
+                <img src="<?= empty($profile['image']) ? 'assets/images/admin/default.jpg' : $profile['image']  ?>" alt="" class="user-img" >                
+                    <div class="d-none d-sm-block">
+                        <p class="user-name mb-0"><?= $profile['first_name'] . ' ' . $profile['last_name'] ?></p>
+                        <small class="mb-0 dropdown-user-designation"><?= admin_role($profile['role']) ?></small>
+                    </div>
                 </div>
-            </nav>
-        </header>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end myShow-menu " data-bs-popper="static">
+                <li>
+                    <a class="dropdown-item" href="admin-panel/admins/profile_edit.php">
+                        <div class="d-flex align-items-center">
+                            <div class=""><i class="bi bi-person-fill"></i></div>
+                            <div class="ms-3"><span>مشخصات</span></div>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a class="dropdown-item" href="admin-panel/admins/profile_reset_password.php">
+                        <div class="d-flex align-items-center">
+                            <div class=""><i class="bi bi-gear-fill"></i></div>
+                            <div class="ms-3"><span>تغییر رمز عبور</span></div>
+                        </div>
+                    </a>
+                </li>
+                <hr class="dropdown-divider">
+                </li>
+                <li>
+                    <a class="dropdown-item" href="auth/logout.php" name="logout">
+                        <div class="d-flex align-items-center">
+                            <div class=""><i class="bi bi-lock-fill"></i></div>
+                            <div class="ms-3"><span>خروج</span></div>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>
         <!--end top header-->
 
         <!--start sidebar -->
@@ -817,7 +809,8 @@ $start = date("Y/m/d",$last_week);
                         <div class="menu-title">گزارشات</div>
                     </a>
                     <ul>
-                        <li> <a href="admin-panel/reports/report_members_filter.php"><i class="bi bi-circle"></i>گزارش مشتریان</a>
+                        <li> <a href="admin-panel/reports/report_members_filter.php"><i class="bi bi-circle"></i>گزارش
+                                مشتریان</a>
                         </li>
                     </ul>
                 </li>
@@ -906,33 +899,40 @@ $start = date("Y/m/d",$last_week);
         <!--start content-->
         <main class="page-content">
             <?php require_once('layout/message.php'); ?>
-            <div class="row row-cols-1 row-cols-lg-2 row-cols-xl-2 row-cols-xxl-4">
-                <div class="col">
-                    <div class="card overflow-hidden radius-10">
-                        <div class="card-body">
-                            <div class="d-flex align-items-stretch justify-content-between overflow-hidden">
-                                <div class="w-50">
-                                    <p>کل سفارشات</p>
-                                    <?php $totalOrders = $db->getValue('orders', 'COUNT(*)') ?>
-                                    <h4 class=""><?= $totalOrders ?></h4>
-                                </div>
-                                <div class="w-50">
-                                    <?php 
-                                    $this_month_orders_countr = $db->where("DATE(setdate) BETWEEN '$this_month_first_day' AND '$this_month_last_day'")
-                                    ->getValue('orders', 'COUNT(*)');
-                                    $last_month_orders_countr = $db->where("DATE(setdate) BETWEEN '$last_month_first_day' AND '$last_month_last_day'")
-                                    ->getValue('orders', 'COUNT(*)');
-                                    $ordersProfit = intval((($this_month_orders_countr / $totalOrders) * 100) - (($last_month_orders_countr / $totalOrders) *100));
-                                    
-                                    ?>
-                                    <p class="mb-3 float-end text-<?= $ordersProfit > 0 ?"success":'danger' ?>"><?= $ordersProfit > 0 ?"+":'-' ?> <?= abs($ordersProfit) ?>درصد <i class="bi bi-arrow-<?= $ordersProfit > 0 ?"up":'down' ?>"></i></p>
-                                    <div id="chart1"></div>
+
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card overflow-hidden radius-10">
+                                <div class="card-body">
+                                    <div class="d-flex align-items-stretch justify-content-between overflow-hidden">
+                                        <div class="w-50">
+                                            <p>کل سفارشات</p>
+                                            <?php $totalOrders = $db->getValue('orders', 'COUNT(*)') ?>
+                                            <h4 class=""><?= $totalOrders ?></h4>
+                                        </div>
+                                        <div class="w-50">
+                                            <?php
+                                            $this_month_orders_countr = $db->where("DATE(setdate) BETWEEN '$this_month_first_day' AND '$this_month_last_day'")
+                                                ->getValue('orders', 'COUNT(*)');
+                                            $last_month_orders_countr = $db->where("DATE(setdate) BETWEEN '$last_month_first_day' AND '$last_month_last_day'")
+                                                ->getValue('orders', 'COUNT(*)');
+                                            $ordersProfit = intval((($this_month_orders_countr / $totalOrders) * 100) - (($last_month_orders_countr / $totalOrders) * 100));
+
+                                            ?>
+                                            <p
+                                                class="mb-3 float-end text-<?= $ordersProfit > 0 ? "success" : 'danger' ?>">
+                                                <?= $ordersProfit > 0 ? "+" : '-' ?> <?= abs($ordersProfit) ?>درصد <i
+                                                    class="bi bi-arrow-<?= $ordersProfit > 0 ? "up" : 'down' ?>"></i>
+                                            </p>
+                                            <div id="chart1"></div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <div class="col">
+                        <!-- <div class="col">
                     <div class="card overflow-hidden radius-10">
                         <div class="card-body">
                             <div class="d-flex align-items-stretch justify-content-between overflow-hidden">
@@ -947,53 +947,69 @@ $start = date("Y/m/d",$last_week);
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col">
-                    <div class="card overflow-hidden radius-10">
-                        <div class="card-body">
-                            <div class="d-flex align-items-stretch justify-content-between overflow-hidden">
-                                <div class="w-50">
-                                    <p>درآمد</p>
-                                    <h4 class="">32 تومان</h4>
-                                </div>
-                                <div class="w-50">
-                                    <p class="mb-3 float-end text-success">+ 24درصد <i class="bi bi-arrow-up"></i></p>
-                                    <div id="chart3"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card overflow-hidden radius-10">
-                        <div class="card-body">
-                            <div class="d-flex align-items-stretch justify-content-between overflow-hidden">
-                                <div class="w-50">
-                                    <p>مشتریان</p>
-                                    <?php $totalMember = $db->getValue('members', 'COUNT(*)') ?>
-                                    <h4 class=""><?= $totalMember ?></h4>
-                                </div>
-                                <div class="w-50">
-                                    <?php 
-                                    
-                                    $this_month_members_countr = $db->where("DATE(setdate) BETWEEN '$this_month_first_day' AND '$this_month_last_day'")
-                                    ->getValue('members', 'COUNT(*)');
-                                    $last_month_members_countr = $db->where("DATE(setdate) BETWEEN '$last_month_first_day' AND '$last_month_last_day'")
-                                    ->getValue('members', 'COUNT(*)');
-                                    $membersProfit = intval((($this_month_members_countr / $totalOrders) * 100) - (($last_month_members_countr / $totalOrders) *100));
-                                    
-                                    ?>
-                                    <p class="mb-3 float-end text-<?= $membersProfit > 0 ?"success":'danger' ?>"><?= $membersProfit > 0 ?"+":'-' ?> <?= abs($membersProfit) ?>درصد <i class="bi bi-arrow-<?= $membersProfit > 0 ?"up":'down' ?>"></i></p>
-                                    <div id="chart4"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div><!--end row-->
+                </div> -->
+                        <div class="col-12">
+                            <div class="card overflow-hidden radius-10">
+                                <div class="card-body">
+                                    <div class="d-flex align-items-stretch justify-content-between overflow-hidden">
+                                        <div class="w-50">
+                                        <?php $totalProduct = $db->getValue('products', 'COUNT(*)') ?>
+                                            <p>محصولات</p>
+                                            <h4 class=""><?= $totalProduct ?></h4>
+                                        </div>
+                                        <div class="w-50">
+                                            <?php
 
-            <div class="row">
-                <div class="col-12 col-lg-6 d-flex">
+                                            $this_month_products_countr = $db->where("DATE(date) BETWEEN '$this_month_first_day' AND '$this_month_last_day'")
+                                                ->getValue('products', 'COUNT(*)');
+                                            $last_month_products_countr = $db->where("DATE(date) BETWEEN '$last_month_first_day' AND '$last_month_last_day'")
+                                                ->getValue('products', 'COUNT(*)');
+                                            $productsProfit = intval((($this_month_products_countr / $totalProduct) * 100) - (($last_month_products_countr / $totalProduct) * 100));
+
+
+
+                                            ?>
+                                            <p class="mb-3 float-end text-<?= $productsProfit > 0 ? "success" : 'danger' ?>"><?= $productsProfit > 0 ? "+" : '-' ?> <?= abs($productsProfit) ?>درصد <i
+                                                    class="bi bi-arrow-<?= $productsProfit > 0 ? "up" : 'down' ?>"></i></p>
+                                            <div id="chart3"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="card overflow-hidden radius-10">
+                                <div class="card-body">
+                                    <div class="d-flex align-items-stretch justify-content-between overflow-hidden">
+                                        <div class="w-50">
+                                            <p>مشتریان</p>
+                                            <?php $totalMember = $db->getValue('members', 'COUNT(*)') ?>
+                                            <h4 class=""><?= $totalMember ?></h4>
+                                        </div>
+                                        <div class="w-50">
+                                            <?php
+
+                                            $this_month_members_countr = $db->where("DATE(setdate) BETWEEN '$this_month_first_day' AND '$this_month_last_day'")
+                                                ->getValue('members', 'COUNT(*)');
+                                            $last_month_members_countr = $db->where("DATE(setdate) BETWEEN '$last_month_first_day' AND '$last_month_last_day'")
+                                                ->getValue('members', 'COUNT(*)');
+                                            $membersProfit = intval((($this_month_members_countr / $totalOrders) * 100) - (($last_month_members_countr / $totalOrders) * 100));
+
+                                            ?>
+                                            <p
+                                                class="mb-3 float-end text-<?= $membersProfit > 0 ? "success" : 'danger' ?>">
+                                                <?= $membersProfit > 0 ? "+" : '-' ?> <?= abs($membersProfit) ?>درصد <i
+                                                    class="bi bi-arrow-<?= $membersProfit > 0 ? "up" : 'down' ?>"></i>
+                                            </p>
+                                            <div id="chart4"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!--end row-->
+                </div>
+                <!-- <div class="col-12 col-lg-6 d-flex">
                     <div class="card radius-10 w-100">
                         <div class="card-body">
                             <div class="d-flex align-items-center">
@@ -1014,7 +1030,7 @@ $start = date("Y/m/d",$last_week);
                             <div id="chart5"></div>
                         </div>
                     </div>
-                </div>
+                </div> -->
                 <div class="col-12 col-lg-6 d-flex">
                     <div class="card radius-10 w-100">
                         <div class="card-body">
@@ -1033,12 +1049,27 @@ $start = date("Y/m/d",$last_week);
                                     </ul>
                                 </div>
                             </div>
+                            <?php
+                            $star5 = $db->where('rate', 5)
+                                ->getValue('comment', 'COUNT(*)');
+                            $star4 = $db->where('rate', 4)
+                                ->getValue('comment', 'COUNT(*)');
+                            $star3 = $db->where('rate', 3)
+                                ->getValue('comment', 'COUNT(*)');
+                            $star2 = $db->where('rate', 2)
+                                ->getValue('comment', 'COUNT(*)');
+                            $star1 = $db->where('rate', 1)
+                                ->getValue('comment', 'COUNT(*)');
+                            $totalRates = $star1 + $star2 + $star3 + $star4 + $star5;
+
+
+                            ?>
                             <div class="row row-cols-1 row-cols-md-2 g-3 mt-2 align-items-center">
                                 <div class="col-lg-7 col-xl-7 col-xxl-8">
                                     <div class="by-device-container">
                                         <div class="piechart-legend">
-                                            <h2 class="mb-1">85درصد</h2>
-                                            <h6 class="mb-0">کل بازدیدکنندگان</h6>
+                                            <h2 class="mb-1"><?= $totalRates ?></h2>
+                                            <h6 class="mb-0">کل نظرات</h6>
                                         </div>
                                         <canvas id="chart6"></canvas>
                                     </div>
@@ -1046,20 +1077,25 @@ $start = date("Y/m/d",$last_week);
                                 <div class="col-lg-5 col-xl-5 col-xxl-4">
                                     <div class="">
                                         <ul class="list-group list-group-flush">
-                                            <li
-                                                class="list-group-item d-flex align-items-center justify-content-between border-0">
-                                                <i class="bi bi-display-fill me-2 text-primary"></i> <span>پی سی -
-                                                </span> <span>15.2درصد</span>
+                                            <li class="list-group-item d-flex align-items-center border-0">
+                                                <i class="lni lni-star-filled mx-2 text-primary"></i><span>امتیاز 5 -
+                                                    <?= intval(($star5 / $totalRates) * 100) ?>%</span>
                                             </li>
-                                            <li
-                                                class="list-group-item d-flex align-items-center justify-content-between border-0">
-                                                <i class="bi bi-phone-fill me-2 text-success"></i> <span>موبایل -
-                                                </span> <span>62.3درصد</span>
+                                            <li class="list-group-item d-flex align-items-center border-0">
+                                                <i class="lni lni-star-filled mx-2 text-success"></i><span>امتیاز 4 -
+                                                    <?= intval(($star4 / $totalRates) * 100) ?>%</span>
                                             </li>
-                                            <li
-                                                class="list-group-item d-flex align-items-center justify-content-between border-0">
-                                                <i class="bi bi-tablet-landscape-fill me-2 text-orange"></i> <span>تبلت
-                                                    - </span> <span>22.5درصد</span>
+                                            <li class="list-group-item d-flex align-items-center border-0">
+                                                <i class="lni lni-star-filled mx-2 text-pink"></i><span>امتیاز 3 -
+                                                    <?= intval(($star3 / $totalRates) * 100) ?>%</span>
+                                            </li>
+                                            <li class="list-group-item d-flex align-items-center border-0">
+                                                <i class="lni lni-star-filled mx-2 text-warning"></i><span>امتیاز 2 -
+                                                    <?= intval(($star2 / $totalRates) * 100) ?>%</span>
+                                            </li>
+                                            <li class="list-group-item d-flex align-items-center border-0">
+                                                <i class="lni lni-star-filled mx-2 text-danger"></i><span>امتیاز 1 -
+                                                    <?= intval(($star1 / $totalRates) * 100) ?>%</span>
                                             </li>
                                         </ul>
                                     </div>
@@ -1071,80 +1107,7 @@ $start = date("Y/m/d",$last_week);
             </div><!--end row-->
 
             <div class="row">
-                <div class="col-12 col-lg-6 col-xl-4 d-flex">
-                    <div class="card radius-10 w-100">
-                        <div class="card-body">
-                            <div class="d-flex align-items-center">
-                                <h6 class="mb-0">جمع امتیازات</h6>
-                                <div class="fs-5 ms-auto dropdown">
-                                    <div class="dropdown-toggle dropdown-toggle-nocaret cursor-pointer"
-                                        data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></div>
-                                    <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item" href="#">عمل</a></li>
-                                        <li><a class="dropdown-item" href="#">یک اقدام دیگر</a></li>
-                                        <li>
-                                            <hr class="dropdown-divider">
-                                        </li>
-                                        <li><a class="dropdown-item" href="#">یه چیز دیگه اینجا</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div id="chart7" class=""></div>
-                            <?php 
-                            $star5 = $db->where('rate', 5)
-                            ->getValue('comment', 'COUNT(*)');
-                            $star4 = $db->where('rate', 4)
-                            ->getValue('comment', 'COUNT(*)');
-                            $star3 = $db->where('rate', 3)
-                            ->getValue('comment', 'COUNT(*)');
-                            $star2 = $db->where('rate', 2)
-                            ->getValue('comment', 'COUNT(*)');
-                            $star1 = $db->where('rate', 1)
-                            ->getValue('comment', 'COUNT(*)');
-                            $totalRates = $star1 + $star2 + $star3 + $star4 + $star5;
-
-                            
-                            ?>
-                            <div class="traffic-widget">
-                                <div class="progress-wrapper mb-3">
-                                    <p class="mb-1">امتیاز 5 <span class="float-end"><?= $star5 ?></span></p>
-                                    <div class="progress rounded-0" style="height: 8px;">
-                                        <div class="progress-bar bg-primary" role="progressbar" style="width: <?= ($star5/$totalRates)*100 ?>%;">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="progress-wrapper mb-3">
-                                    <p class="mb-1">امتیاز 4 <span class="float-end"><?= $star4 ?></span></p>
-                                    <div class="progress rounded-0" style="height: 8px;">
-                                        <div class="progress-bar bg-pink" role="progressbar" style="width: <?= ($star4/$totalRates)*100 ?>%;"></div>
-                                    </div>
-                                </div>
-                                <div class="progress-wrapper mb-3">
-                                    <p class="mb-1">امتیاز 3 <span class="float-end"><?= $star3 ?></span></p>
-                                    <div class="progress rounded-0" style="height: 8px;">
-                                        <div class="progress-bar bg-success" role="progressbar" style="width: <?= ($star3/$totalRates)*100 ?>%;">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="progress-wrapper mb-3">
-                                    <p class="mb-1">امتیاز 2 <span class="float-end"><?= $star2 ?></span></p>
-                                    <div class="progress rounded-0" style="height: 8px;">
-                                        <div class="progress-bar bg-warning" role="progressbar" style="width: <?= ($star2/$totalRates)*100 ?>%;">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="progress-wrapper mb-0">
-                                    <p class="mb-1">امتیاز 1 <span class="float-end"><?= $star1 ?></span></p>
-                                    <div class="progress rounded-0" style="height: 8px;">
-                                        <div class="progress-bar bg-danger" role="progressbar" style="width: <?= ($star1/$totalRates)*100 ?>%;">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-lg-6 col-xl-4 d-flex">
+                <div class="col-12 col-lg-6 d-flex">
                     <div class="card radius-10 w-100">
                         <div class="card-body">
                             <div class="card radius-10 border shadow-none mb-3">
@@ -1152,8 +1115,8 @@ $start = date("Y/m/d",$last_week);
                                     <div class="d-flex align-items-center">
                                         <div class="">
                                             <p class="mb-1">پیام ها</p>
-                                            <?php $totalComments = $db->getValue('comment', 'COUNT(*)') ?>
-                                            <h4 class="mb-0 text-pink"><?= $totalComments ?></h4>
+                                            <?php $totalContacts = $db->getValue('contacts', 'COUNT(*)') ?>
+                                            <h4 class="mb-0 text-pink"><?= $totalContacts ?></h4>
                                         </div>
                                         <div class="dropdown ms-auto">
                                             <div class="dropdown-toggle dropdown-toggle-nocaret cursor-pointer"
@@ -1180,7 +1143,7 @@ $start = date("Y/m/d",$last_week);
                                     <div class="d-flex align-items-center">
                                         <div class="">
                                             <p class="mb-1">مجموع پست ها</p>
-                                            <?php $totalBlogs = $db->getValue('blogs', 'COUNT(*)')  ?>
+                                            <?php $totalBlogs = $db->getValue('blogs', 'COUNT(*)') ?>
                                             <h4 class="mb-0 text-success"><?= $totalBlogs ?></h4>
                                         </div>
                                         <div class="dropdown ms-auto">
@@ -1207,8 +1170,9 @@ $start = date("Y/m/d",$last_week);
                                 <div class="card-body">
                                     <div class="d-flex align-items-center">
                                         <div class="">
-                                            <p class="mb-1">وظایف جدید</p>
-                                            <h4 class="mb-0 text-info">149</h4>
+                                            <p class="mb-1">پرداختی ها</p>
+                                            <?php $totalPayment = $db->getValue('payments', 'COUNT(*)') ?>
+                                            <h4 class="mb-0 text-info"><?= $totalPayment ?></h4>
                                         </div>
                                         <div class="dropdown ms-auto">
                                             <div class="dropdown-toggle dropdown-toggle-nocaret cursor-pointer"
@@ -1233,7 +1197,7 @@ $start = date("Y/m/d",$last_week);
                         </div>
                     </div>
                 </div>
-                <div class="col-12 col-lg-12 col-xl-4 d-flex">
+                <div class="col-12 col-lg-6 d-flex">
                     <div class="card radius-10 w-100">
                         <div class="card-body">
                             <div class="d-flex align-items-center">
@@ -1255,10 +1219,10 @@ $start = date("Y/m/d",$last_week);
                             <div
                                 class="d-flex align-items-center gap-5 justify-content-center mt-3 p-2 radius-10 border">
                                 <div class="text-center">
-                                    <?php   
-                                        $oldMembers = $db->where("setdate < '$start'")
+                                    <?php
+                                    $oldMembers = $db->where("setdate < '$start'")
                                         ->getValue('members', 'COUNT(*)');
-                                        $newMembers = $db->where("DATE(setdate) BETWEEN '$start' AND '$end'")
+                                    $newMembers = $db->where("DATE(setdate) BETWEEN '$start' AND '$end'")
                                         ->getValue('members', 'COUNT(*)');
                                     ?>
                                     <h3 class="mb-2 text-primary"><?= $newMembers ?></h3>
@@ -1294,10 +1258,10 @@ $start = date("Y/m/d",$last_week);
                                     </ul>
                                 </div>
                             </div>
-                            <?php 
-                            
-                            $res =  $db->rawQuery('SELECT products.image, products.name, orders.qty, ordersCode, orders.setdate, orders.price FROM orders LEFT JOIN products on products.id = orders.product_id ORDER BY setdate DESC LIMIT 6');
-                            
+                            <?php
+
+                            $res = $db->rawQuery('SELECT products.image, products.name, orders.qty, ordersCode, orders.setdate, orders.price FROM orders LEFT JOIN products on products.id = orders.product_id ORDER BY setdate DESC LIMIT 6');
+
                             ?>
                             <div class="table-responsive mt-2">
                                 <table class="table align-middle mb-0">
@@ -1311,23 +1275,23 @@ $start = date("Y/m/d",$last_week);
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php foreach($res as $order){ ?>
-                                        <tr>
-                                            <td>#<?= $order['ordersCode'] ?></td>
-                                            <td>
-                                                <div class="d-flex align-items-center gap-3">
-                                                    <div class="product-box border">
-                                                        <img src="<?= $order['image'] ?>" alt="">
+                                        <?php foreach ($res as $order) { ?>
+                                            <tr>
+                                                <td>#<?= $order['ordersCode'] ?></td>
+                                                <td>
+                                                    <div class="d-flex align-items-center gap-3">
+                                                        <div class="product-box border">
+                                                            <img src="<?= $order['image'] ?>" alt="">
+                                                        </div>
+                                                        <div class="product-info">
+                                                            <h6 class="product-name mb-1"><?= $order['name'] ?></h6>
+                                                        </div>
                                                     </div>
-                                                    <div class="product-info">
-                                                        <h6 class="product-name mb-1"><?= $order['name'] ?></h6>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td><?= $order['qty'] ?></td>
-                                            <td><?= $order['price'] ?> تومان</td>
-                                            <td><?= jdate('Y/m/d' , strtotime($order['setdate'])) ?></td>
-                                        </tr>
+                                                </td>
+                                                <td><?= $order['qty'] ?></td>
+                                                <td><?= $order['price'] ?> تومان</td>
+                                                <td><?= jdate('Y/m/d', strtotime($order['setdate'])) ?></td>
+                                            </tr>
                                         <?php } ?>
                                     </tbody>
                                 </table>

@@ -176,7 +176,7 @@ $(function() {
     var options = {
         series: [{
             name: "Revenue",
-            data: [240, 160, 555, 257, 671, 414]
+            data: [<?= chartData(6, 'date', 'products') ?>]
         }],
         chart: {
             type: "line",
@@ -256,29 +256,17 @@ $(function() {
     chart.render();
 
 
-    <?php 
-    
-    $data = [];
-    for($i = 6; $i >= 0; $i--){
-        $day = date('Y/m/d', strtotime("-$i day"));
-        $res = $db->where("setdate LIKE '%$day%'")
-        ->getValue('members', 'COUNT(*)');
-        $data[] = $res;
-    }
-    $data =  implode(', ', $data);
-    
-    ?>
 
 // chart 4
     var options = {
         series: [{
             name: "Customers",
-            data: [<?= $data ?>]
+            data: [<?= chartData(6, 'setdate', 'members') ?>]
         }],
         chart: {
             type: "bar",
             //width: 100%,
-            height: 40,
+            height: 30,
             toolbar: {
                 show: !1
             },
@@ -287,8 +275,8 @@ $(function() {
             },
             dropShadow: {
                 enabled: 0,
-                top: 3,
-                left: 14,
+                bottom: 0,
+                left: 0,
                 blur: 4,
                 opacity: .12,
                 color: "#ff6632"
@@ -309,7 +297,7 @@ $(function() {
         plotOptions: {
             bar: {
                 horizontal: !1,
-                columnWidth: "35%",
+                columnWidth: "40%",
                 endingShape: "rounded"
             }
         },
@@ -455,35 +443,7 @@ $(function() {
 
 
 
-
-
-// chart6
-
-    var chart = new Chart(document.getElementById('chart6'), {
-        type: 'doughnut',
-        data: {
-            labels: ["موبایل", "دسکتاپ", "تبلت"],
-            datasets: [{
-                label: "Device Users",
-                backgroundColor: ["#12bf24", "#3461ff", "#ff6632"],
-                data: [2478, 5267, 1834]
-            }]
-        },
-        options: {
-            maintainAspectRatio: false,
-            cutoutPercentage: 85,
-            responsive: true,
-            legend: {
-                display: false
-            }
-        }
-    });
-
-    
-
-
-
-<?php 
+    <?php 
 
 $star5 = $db->where('rate', 5)
 ->getValue('comment', 'COUNT(*)');
@@ -500,109 +460,34 @@ $max = max($star1, $star2, $star3, $star4, $star5);
 $res = intval(($max / $totalRates) * 100);
 
 ?>
-    // chart 7
 
-    var options = {
-        chart: {
-            height: 300,
-            type: 'radialBar',
-            toolbar: {
-                show: false
-            }
-        },
-        plotOptions: {
-            radialBar: {
-                //startAngle: -135,
-                //endAngle: 225,
-                hollow: {
-                    margin: 0,
-                    size: '80%',
-                    background: 'transparent',
-                    image: undefined,
-                    imageOffsetX: 0,
-                    imageOffsetY: 0,
-                    position: 'front',
-                    dropShadow: {
-                        enabled: true,
-                        top: 3,
-                        left: 0,
-                        blur: 4,
-                        color: 'rgba(0, 169, 255, 0.85)',
-                        opacity: 0.65
-                    }
-                },
-                track: {
-                    background: '#e5d1ff',
-                    strokeWidth: '67%',
-                    margin: 0, // margin is in pixels
-                    dropShadow: {
-                        enabled: 0,
-                        top: -3,
-                        left: 0,
-                        blur: 4,
-                        color: 'rgba(0, 169, 255, 0.85)',
-                        opacity: 0.65
-                    }
-                },
-                dataLabels: {
-                    showOn: 'always',
-                    name: {
-                        offsetY: -20,
-                        show: true,
-                        color: '#212529',
-                        fontSize: '16px'
-                    },
-                    value: {
-                        formatter: function (val) {
-                            return val + "%";
-                        },
-                        color: '#212529',
-                        fontSize: '35px',
-                        show: true,
-                        offsetY: 10,
-                    }
-                }
-            }
-        },
-        fill: {
-            type: 'gradient',
-            gradient: {
-                shade: 'light',
-                type: 'horizontal',
-                shadeIntensity: 0.5,
-                gradientToColors: ['#8932ff'],
-                inverseColors: false,
-                opacityFrom: 1,
-                opacityTo: 1,
-                stops: [0, 100]
-            }
-        },
-        colors: ["#8932ff"],
-        series: [<?= $res ?>],
-        stroke: {
-            lineCap: 'round',
-            //dashArray: 4
-        },
-        labels: ['بیشترین امتیاز'],
-        responsive: [
-            {
-                breakpoint: 1281,
-                options: {
-                    chart: {
-                        height: 280,
-                    }
-                }
-            }
-        ],
+// chart6
 
-    }
+    var chart = new Chart(document.getElementById('chart6'), {
+        type: 'doughnut',
+        data: {
+            labels: ["امتیاز 1", "امتیاز 2", "امتیاز 3", "امتیاز 4", "امتیاز 5"],
+            datasets: [{
+                label: "Device Users",
+                backgroundColor: ["#e72e2e", "#ffcb32", "#e72e7a", "#12bf24", "#3461ff"],
+                data: [<?= $star1.",". $star2.",". $star3.",". $star4.",". $star5 ?>]
+            }]
+        },
+        options: {
+            maintainAspectRatio: false,
+            cutoutPercentage: 85,
+            responsive: true,
+            legend: {
+                display: false
+            }
+        }
+    });
 
-    var chart = new ApexCharts(
-        document.querySelector("#chart7"),
-        options
-    );
+    
 
-    chart.render();
+
+
+
 
 
 
@@ -611,7 +496,7 @@ $res = intval(($max / $totalRates) * 100);
     var options = {
         series: [{
             name: "Messages",
-            data: [<?= chartData(12, 'setdate', 'comment') ?>]
+            data: [<?= chartData(12, 'setdate', 'contacts') ?>]
         }],
         chart: {
             type: "area",
@@ -808,7 +693,7 @@ $res = intval(($max / $totalRates) * 100);
     var options = {
         series: [{
             name: "Tasks",
-            data: [0, 160, 671, 414, 555, 257, 901, 613, 727, 414, 555, 0]
+            data: [<?= chartData(12, 'paydate', 'payments') ?>]
         }],
         chart: {
             type: "area",
