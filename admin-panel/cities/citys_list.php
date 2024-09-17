@@ -96,39 +96,6 @@ $res = $filter->filterCheck($db, $data, 'cities', 'citys_list.php', $query, 10, 
                         <div class="col-12 d-flex">
                             <div class="card border shadow-none w-100">
                                 <div class="card-body">
-                                    <div class="card-header">
-                                        <div id="<?= (isset($_SESSION['city_filter']['cities']) and !empty($_SESSION['city_filter']['cities'])) ? "" : "filter-row" ?>"
-                                            class="<?= (isset($_SESSION['city_filter']['cities']) and !empty($_SESSION['city_filter']['cities'])) ? "" : "d-none" ?>">
-                                            <form class="" id="form" action="citys_list.php?page=1" method="post">
-                                                <div class="row g-3">
-                                                    <div class="col-lg-2 col-md-4"> <input class="col form-control"
-                                                            type="text"
-                                                            value="<?= isset($_SESSION['city_filter']['province_name']) ? $_SESSION['city_filter']['province_name'] : "" ?>"
-                                                            name="province_name" placeholder="استان"> </div>
-                                                    <div class="col-lg-2 col-md-4"> <input class="col form-control"
-                                                            type="text"
-                                                            value="<?= isset($_SESSION['city_filter']['cities_name']) ? $_SESSION['city_filter']['cities_name'] : "" ?>"
-                                                            name="cities_name" placeholder="شهر"> </div>
-                                                    <div class="col-lg-2 col-md-4"> <select
-                                                            class="form-select text-secondary" name="cities_status"
-                                                            id="status">
-                                                            <option value="" class="text-secondary">وضعیت</option>
-                                                            <option <?= (isset($_SESSION['city_filter']['cities_status']) and $_SESSION['city_filter']['cities_status'] == 1) ? 'selected' : '' ?> value="1">فعال</option>
-                                                            <option <?= (isset($_SESSION['city_filter']['cities_status']) and $_SESSION['city_filter']['cities_status'] == 0) ? 'selected' : '' ?> value="0">غیر فعال</option>
-                                                        </select> </div>
-                                                    <div class="col-lg-2 col-md-4 text-center button-filter"> <button
-                                                            type="submit" name="filtered" id="apply_filter"
-                                                            class="btn btn-success"> اعمال فیلتر</button></div>
-                                                    <?php if (isset($_SESSION['city_filter']['city']) and !empty($_SESSION['city_filter']['city'])) { ?>
-                                                        <div class="col-lg-2 col-md-4 button-filter"> <button type="submit"
-                                                                name="unFilter" id="delete_filter"
-                                                                class="btn btn-danger button-filter"> حذف فیلتر</button>
-                                                        </div>
-                                                    <?php } ?>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
                                     <div class="table-responsive">
                                         <table class="table">
                                             <thead class="table-light text-center">
@@ -153,6 +120,40 @@ $res = $filter->filterCheck($db, $data, 'cities', 'citys_list.php', $query, 10, 
                                                 </tr>
                                             </thead>
                                             <tbody class="text-center">
+                                                
+                                        <tr id="<?= (isset($_SESSION['city_filter']['cities']) and !empty($_SESSION['city_filter']['cities'])) ? "" : "filter-row" ?>"
+                                            class="<?= (isset($_SESSION['city_filter']['cities']) and !empty($_SESSION['city_filter']['cities'])) ? "" : "d-none" ?>">
+                                            <form class="" id="form" action="citys_list.php?page=1" method="post">
+                                                <td></td>
+                                                    <td> <input class="col form-control"
+                                                            type="text"
+                                                            value="<?= isset($_SESSION['city_filter']['province_name']) ? $_SESSION['city_filter']['province_name'] : "" ?>"
+                                                            name="province_name" placeholder="استان"> </td>
+                                                    <td> <input class="col form-control"
+                                                            type="text"
+                                                            value="<?= isset($_SESSION['city_filter']['cities_name']) ? $_SESSION['city_filter']['cities_name'] : "" ?>"
+                                                            name="cities_name" placeholder="شهر"> </td>
+                                                    <td> <select
+                                                            class="form-select text-secondary" name="cities_status"
+                                                            id="status">
+                                                            <option value="" class="text-secondary">وضعیت</option>
+                                                            <option <?= (isset($_SESSION['city_filter']['cities_status']) and $_SESSION['city_filter']['cities_status'] == 1) ? 'selected' : '' ?> value="1">فعال</option>
+                                                            <option <?= (isset($_SESSION['city_filter']['cities_status']) and $_SESSION['city_filter']['cities_status'] == 0) ? 'selected' : '' ?> value="0">غیر فعال</option>
+                                                        </select> </td>
+                                                    <td class="text-center button-filter"> 
+                                                    <div class="btn-group p-0 m-0">
+                                                        <button
+                                                            type="submit" name="filtered" id="apply_filter"
+                                                            class="btn btn-success"> اعمال فیلتر</button>
+                                                            <?php if (isset($_SESSION['city_filter']['cities']) and !empty($_SESSION['city_filter']['cities'])) { ?>
+                                                            <button type="submit"
+                                                                name="unFilter" id="delete_filter"
+                                                                class="btn btn-danger button-filter"> حذف فیلتر</button>
+                                                                <?php } ?>
+                                                                </div>
+                                                        </td>
+                                            </form>
+                                        </tr>
                                                 <?php foreach ($res as $key => $city) { ?>
                                                     <tr>
                                                         <td>

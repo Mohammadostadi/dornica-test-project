@@ -25,10 +25,9 @@ class Filter{
                         }elseif ($type === '=') {
                             $this->filter[] = $data." = '" . $_POST[str_replace('.', '_', $data)] . "'";
                         }elseif($type === 'find_in_set'){
-                            $data = explode(',', $_POST[$_POST[str_replace('.', '_', $data)]]);
-                            foreach($data as $value){
-                                $this->filter[] = "find_in_set($value, $data)";
-                            }
+                            $field = implode(',', $_POST[str_replace('.', '_', $data)]);
+                            // var_dump("find_in_set($data, $field)");die;
+                                $this->filter[] = "find_in_set('$field', $data)";
                         }
                         elseif($type === 'date'){
                             $date = changeDate($_POST[str_replace('.', '_', $data)]);
@@ -40,7 +39,7 @@ class Filter{
                     }
                     elseif($type == 'price' and isset($_POST[str_replace('.', '_', $data)])){
                         $input = intval(str_replace(',', '', (securityCheck($_POST[str_replace('.', '_', $data)]))));
-                        $this->filter[] = $data." = $input";
+                        $this->filter[] = $data." LIKE '%$input%'";
                     }
                 }
             }
@@ -88,7 +87,6 @@ class Filter{
         if(!empty($_SESSION[$this->prefix][$cond]) and count($_SESSION[$this->prefix][$cond]) > 0){
             $condition = ($_SESSION[$this->prefix][$cond]);
         }
-        
         if(!empty($condition)){
             $db->pageLimit = $limit;
             $condition=(implode(' AND ', $condition));
@@ -102,7 +100,7 @@ class Filter{
             return $db->rawQuery($query[1]. ((isset($con) and !empty($con)) ? " AND " : " WHERE ") .$condition." ORDER BY $sortField $sortOrder LIMIT $limitation, $limit");
 
             }else{
-                $con = ((isset($con) and !empty($con)) ? $con : null);
+            $con = ((isset($con) and !empty($con)) ? $con : null);
             pageLimit( $this->table_name, $limit, false, $con);
             $limitation = ($page - 1)*$limit;   
             return $db->rawQuery($query[1]." ORDER BY $sortField $sortOrder LIMIT $limitation, $limit");                    

@@ -96,10 +96,7 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <img src="../../<?= $wishlist['image'] ?>" alt="" width="60px" class="rounded mx-2">
-                                        <span>
                                             <?= $wishlist['name'] ?>
-                                        </span>
                                     </td>
                                     <td>
                                         <span>

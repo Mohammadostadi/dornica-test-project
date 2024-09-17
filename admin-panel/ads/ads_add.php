@@ -55,9 +55,9 @@ h1 {
     margin: 50px auto;
     .avatar-edit {
         position: absolute;
-        right: 8px;
+        right: 0px;
         z-index: 1;
-        top: 5px;
+        top: 0px;
         input {
             display: none;
             + label {
@@ -91,8 +91,8 @@ h1 {
         }
     }
     .avatar-preview {
-        width: 152px;
-        height: 145px;
+        width: 110px;
+        height: 100px;
         position: relative;
         border-radius: 100%;
         border: 6px solid #F8F8F8;

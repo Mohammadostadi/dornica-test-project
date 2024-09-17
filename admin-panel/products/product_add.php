@@ -18,6 +18,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
     $special = intval(str_replace(',', '', (securityCheck($_REQUEST['special']))));
     $qty = intval(str_replace(',', '', (securityCheck($_REQUEST['qty']))));
     $picture = $validator->imageCheck("../../assets/images/products/", $_FILES["fileToUpload"], 'fileToUpload');
+    $brand = securityCheck(implode(",", $_POST['brand_ids']));
     if($special != 0 and !empty($price)){
         $oldPrice = $price;
         $price = $price -  ($price*($special/100));
@@ -34,6 +35,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
     $validator->empty($price, 'price', 'فیلد قیمت شما نباید خالی باشد');
     $validator->empty($date, 'date', 'فیلد تاریخ شما نباید خالی باشد');
     $validator->empty($qty, 'qty', 'فیلد تعداد محصول شما نباید خالی باشد');
+    $validator->empty($brand, 'brand', 'فیلد برند شما نباید خالی باشد');
     if(10 < strlen($date) or strlen($date) < 8){
         $validator->set('date', 'فیلد تاریخ شما نامعتبر میباشد');
     }
@@ -44,9 +46,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
     if(!isset($_POST['category'])){
         $validator->set('category', 'فیلد دسته بندی شما نباید خالی باشد');
     }
-    if(!isset($_POST['brand'])){
-        $validator->set('brand', 'فیلد برند شما نباید خالی باشد');
-    }
     
     if ($validator->count_error() == 0) {
             $db->insert('products', [
@@ -55,7 +54,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
                 'price'=>$price,
                 'description'=>$description,
                 'category_id'=>(int)$_POST['category'],
-                'brand_id'=>(int)$_POST['brand'],
+                'brand_ids'=>$brand,
                 'date'=>$date,
                 'qty'=>$qty,
                 'image'=>$picture,
@@ -83,6 +82,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
     <?php
         require_once('../../layout/css.php');
     ?>
+    <link href="../../assets/plugins/select2/css/select2.min.css" rel="stylesheet" />
+    <link href="../../assets/plugins/select2/css/select2-bootstrap4.css" rel="stylesheet" />
     <link type="text/css" rel="stylesheet" href="../../assets/datePiker/css/persianDatepicker-default.css" />
     <title>اضافه کردن محصول</title>
 </head>
@@ -119,14 +120,20 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
                                     </div>
                                         <div class="col-lg-6">
                                                         <label for="brand" class="form-label">برند</label>
-                                                        <select name="brand" class="form-control" required>
-                                                <option value="0" selected disabled>یک برند را انتخاب کنید</option>
-                                            <?php foreach($brandList as $brand){ ?>
-                                                    <option value="<?= $brand['id'] ?>">
-                                                        <?= $brand['name'] ?>
-                                                    </option>
-                                                    <?php } ?>
-                                                </select>
+                                                        <select class="multiple-select"
+                                                                title="هر چیزی را انتخاب کنید" multiple
+                                                                name="brand_ids[]">
+                                                                <?php foreach ($brandList as $brand) {
+                                                                    if (isset($_POST['brand_ids'])) {
+                                                                        foreach ($_POST['brand_ids'] as $brandSelect) {
+                                                                            $brand_select = (isset($brandSelect) and $brandSelect == $brand['id']) ? "SELECTED" : '';
+                                                                        }
+                                                                    } ?>
+                                                                    <option <?= isset($brand_select) ? $brand_select : "" ?>
+                                                                        value="<?= $brand['id'] ?>"> <?= $brand['name'] ?>
+                                                                    </option>
+                                                                <?php } ?>
+                                                            </select>
                                             <span class="text-danger"><?= $validator->show('brand') ?></span>
                                             <div class="invalid-feedback">
                                             فیلد برند نباید خالی باشد
@@ -222,6 +229,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
     ?>
     
 <!-- <script type="text/javascript" src="js/jquery-1.10.1.min.js"></script> -->
+<script src="../../assets/plugins/select2/js/select2.min.js"></script>
+<script src="../../assets/js/form-select2.js"></script>
 <script type="text/javascript" src="../../assets/datePiker/js/persianDatepicker.min.js"></script>
 <script type="text/javascript">
     $("#date").persianDatepicker({formatDate: "YYYY/0M/0D"});

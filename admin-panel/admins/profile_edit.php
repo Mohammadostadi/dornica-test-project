@@ -48,6 +48,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['apply'])) {
 <!-- Mirrored from codetheme.ir/onedash/demo/rtl/pages-user-profile.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 31 May 2024 08:55:56 GMT -->
 
 <head>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <?php require_once("../../layout/css.php"); ?>
 
     <style>
@@ -162,7 +165,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['apply'])) {
                                                     <input type="file" name="file" id="file"
                                                         onchange="loadFile(event)" />
                                                     <img id="img"
-                                                        src="../../<?= (file_exists("../../".$profile['image']) and !empty($profile['image'])) ? $profile['image'] : "assets/images/admin/default.png" ?>"
+                                                        src="../../<?= (file_exists("../../" . $profile['image']) and !empty($profile['image'])) ? $profile['image'] : "assets/images/admin/default.png" ?>"
                                                         width="200" />
                                                 </div>
                                                 <div class="text-center mt-4">
@@ -174,21 +177,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['apply'])) {
                                                 <hr>
 
                                             </div>
-                                            <ul class=" d-md-flex justify-content-around align-items-center">
+                                            <ul class=" d-md-flex justify-content-around align-items-center p-0">
                                                 <li
-                                                    class="d-flex justify-content-between align-items-center bg-light rounded w-100 mx-3 my-3 py-2 px-4">
+                                                    class="d-flex justify-content-between align-items-center bg-light col-sm-6 col-xs-12 col-lg-3 col-md-4 rounded mx-3 my-3 py-2 px-4">
                                                     دنبال کننده
                                                     <span
                                                         class="badge bg-primary rounded d-flex justify-content-center align-items-center p-2">95</span>
                                                 </li>
                                                 <li
-                                                    class="d-flex justify-content-between align-items-center bg-light rounded w-100 mx-3 my-3 py-2 px-4">
+                                                    class="d-flex justify-content-between align-items-center bg-light col-sm-6 col-xs-12 col-lg-3 col-md-4 rounded mx-3 my-3 py-2 px-4">
                                                     دنبال شونده
                                                     <span
                                                         class="badge bg-primary rounded d-flex justify-content-center align-items-center p-2">75</span>
                                                 </li>
                                                 <li
-                                                    class="d-flex justify-content-between align-items-center bg-light rounded w-100 mx-3 my-3 py-2 px-4">
+                                                    class="d-flex justify-content-between align-items-center bg-light col-sm-6 col-xs-12 col-lg-3 col-md-4 rounded mx-3 my-3 py-2 px-4">
                                                     قالب ها
                                                     <span
                                                         class="badge bg-primary rounded d-flex justify-content-center align-items-center p-2">14</span>
@@ -226,31 +229,35 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['apply'])) {
                                             <span class="text-danger"><?= $validator->show('username') ?></span>
                                         </div>
                                         <div class="col-lg-6">
-                                <label class="form-label">جنسیت</label>
-                                <select name="gender" id="gender" class="form-select" required>
-                                    <option value="">جنسیت</option>
-                                    <option <?= ((isset($_POST['gender']) and $_POST['gender'] == 0) or ($profile['gender'] == 0))?"SELECTED":"" ?> value="0">مرد</option>
-                                    <option <?= ((isset($_POST['gender']) and $_POST['gender'] == 1) or ($profile['gender'] == 1))?"SELECTED":"" ?> value="1">زن</option>
-                                </select>
-                                <span class="text-danger"><?= $validator->show('gender') ?></span>
-                                <div class="invalid-feedback">
-                                    فیلد جنسیت نباید خالی باشد
-                                </div>
-                            </div>
-                            <div class="col-lg-6 d-none" id="militaryService">
-                                <label class="form-label">نظام وظیفه</label>
+                                            <label class="form-label">جنسیت</label>
+                                            <select name="gender" id="gender" class="form-select" required>
+                                                <option value="">جنسیت</option>
+                                                <option <?= ((isset($_POST['gender']) and $_POST['gender'] == 0) or ($profile['gender'] == 0)) ? "SELECTED" : "" ?> value="0">مرد</option>
+                                                <option <?= ((isset($_POST['gender']) and $_POST['gender'] == 1) or ($profile['gender'] == 1)) ? "SELECTED" : "" ?> value="1">زن</option>
+                                            </select>
+                                            <span class="text-danger"><?= $validator->show('gender') ?></span>
+                                            <div class="invalid-feedback">
+                                                فیلد جنسیت نباید خالی باشد
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 d-none" id="militaryService">
+                                            <label class="form-label">نظام وظیفه</label>
 
-                                <select name="militaryService" class="form-select" required>
-                                    <option value="">نظام وظیفه</option>
-                                    <option <?= ((isset($_POST['militaryService']) and $_POST['militaryService'] == 0) OR ($profile['militaryService'] == 0))?"SELECTED":"" ?> value="0">سربازی</option>
-                                    <option <?= ((isset($_POST['militaryService']) and $_POST['militaryService'] == 1) OR ($profile['militaryService'] == 1))?"SELECTED":"" ?> value="1">معافیت</option>
-                                    <option <?= ((isset($_POST['militaryService']) and $_POST['militaryService'] == 2) OR ($profile['militaryService'] == 2))?"SELECTED":"" ?> value="2">در حال انجام وظیفه</option>
-                                    <option <?= ((isset($_POST['militaryService']) and $_POST['militaryService'] == 3) OR ($profile['militaryService'] == 3))?"SELECTED":"" ?> value="3">پایان خدمت</option>
-                                </select>
-                                <div class="invalid-feedback">
-                                    فیلد سربازی نباید خالی باشد
-                                </div>
-                            </div>
+                                            <select name="militaryService" class="form-select" required>
+                                                <option value="">نظام وظیفه</option>
+                                                <option <?= ((isset($_POST['militaryService']) and $_POST['militaryService'] == 0) or ($profile['militaryService'] == 0)) ? "SELECTED" : "" ?> value="0">سربازی
+                                                </option>
+                                                <option <?= ((isset($_POST['militaryService']) and $_POST['militaryService'] == 1) or ($profile['militaryService'] == 1)) ? "SELECTED" : "" ?> value="1">معافیت
+                                                </option>
+                                                <option <?= ((isset($_POST['militaryService']) and $_POST['militaryService'] == 2) or ($profile['militaryService'] == 2)) ? "SELECTED" : "" ?> value="2">در حال
+                                                    انجام وظیفه</option>
+                                                <option <?= ((isset($_POST['militaryService']) and $_POST['militaryService'] == 3) or ($profile['militaryService'] == 3)) ? "SELECTED" : "" ?> value="3">پایان
+                                                    خدمت</option>
+                                            </select>
+                                            <div class="invalid-feedback">
+                                                فیلد سربازی نباید خالی باشد
+                                            </div>
+                                        </div>
                                         <div class="text-start">
                                             <button type="submit" name="apply" class="btn btn-primary px-4">ذخیره
                                                 تغییرات</button>
@@ -321,21 +328,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['apply'])) {
 
         </script>
         <script>
-        const gender = $('#gender').find('option:selected').val();
-        if(gender == 0)
-            $('#militaryService').removeClass('d-none');
-            
-        $('#gender').click(function () {
-            const id = $(this).val();
-            if (id == 0 && id != '') {
+            const gender = $('#gender').find('option:selected').val();
+            if (gender == 0)
                 $('#militaryService').removeClass('d-none');
-            }
-            else if(!$('#militaryService').hasClass('d-none')){
-                $('#militaryService').addClass('d-none');
-            }
-        })
 
-    </script>
+            $('#gender').click(function () {
+                const id = $(this).val();
+                if (id == 0 && id != '') {
+                    $('#militaryService').removeClass('d-none');
+                }
+                else if (!$('#militaryService').hasClass('d-none')) {
+                    $('#militaryService').addClass('d-none');
+                }
+            })
+
+        </script>
 
         <!--توابع jquery-->
         <script>

@@ -5,10 +5,11 @@ sortInTable($prefix, 'ads_list', 'page');
 $filter = new Filter('ads', 'ads_filter');
 $data = [
     'title' => 'like',
+    'sort' => 'like',
     'status' => '=',
 ];
 $filter->filterCheck($db, $data, 'ads', 'ads_list.php');
-pageLimit('ads', 10, false);
+pageLimit('ads', 7, false);
 $filter->loopQuery($db, $_SESSION['ads_filter']['ads']);
 $res = $db->orderBy($sortField, $sortOrder)
     ->paginate('ads', $page);
@@ -84,34 +85,6 @@ $res = $db->orderBy($sortField, $sortOrder)
                         <div class="col-12 d-flex">
                             <div class="card border shadow-none w-100">
                                 <div class="card-body">
-                                    <div class="card-header">
-                                        <div id="<?= (isset($_SESSION['ads_filter']['ads']) and !empty($_SESSION['ads_filter']['ads'])) ? "" : "filter-row" ?>" class="<?= (isset($_SESSION['ads_filter']['ads']) and !empty($_SESSION['ads_filter']['ads'])) ? "" : "d-none" ?>">
-                                            <form class="" id="form" action="ads_list.php?page=1" method="post">
-                                                <div class="row g-3">
-                                                    <div class="col-lg-2 col-md-4"> <input class="col form-control"
-                                                            type="text"
-                                                            value="<?= isset($_SESSION['ads_filter']['title']) ? $_SESSION['ads_filter']['title'] : "" ?>"
-                                                            name="title" placeholder="عنوان"> </div>
-                                                    <div class="col-lg-2 col-md-4"> <select
-                                                            class="form-select text-secondary" name="status"
-                                                            id="status">
-                                                            <option value="" class="text-secondary">وضعیت</option>
-                                                            <option <?= (isset($_SESSION['ads_filter']['status']) and $_SESSION['ads_filter']['status'] == 1) ? 'selected' : '' ?> value="1">فعال</option>
-                                                            <option <?= (isset($_SESSION['ads_filter']['status']) and $_SESSION['ads_filter']['status'] == 0) ? 'selected' : '' ?> value="0">غیر فعال</option>
-                                                        </select> </div>
-                                                    <div class="col-lg-2 col-md-4 text-center "> <button type="submit"
-                                                            name="filtered" id="apply_filter" class="btn btn-success">
-                                                            اعمال فیلتر</button></div>
-                                                    <?php if (isset($_SESSION['ads_filter']['ads']) and !empty($_SESSION['ads_filter']['ads'])) { ?>
-                                                        <div class="col-lg-2 col-md-4 button-filter"> <button type="submit"
-                                                                name="unFilter" id="delete_filter"
-                                                                class="btn btn-danger button-filter"> حذف فیلتر</button>
-                                                        </div>
-                                                    <?php } ?>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
                                     <div class="table-responsive">
                                         <table class="table">
                                             <thead class="text-center">
@@ -128,22 +101,61 @@ $res = $db->orderBy($sortField, $sortOrder)
                                                         
                                                     </th>
                                                     
-                                                    <?= (has_access('ads_update.php') or has_access('ads_delete.php'))?"<th class='text-start'>اقدامات</th>":"" ?>
+                                                    <?= (has_access('ads_update.php') or has_access('ads_delete.php'))?"<th>اقدامات</th>":"" ?>
 
                                                 </tr>
                                             <tbody class="text-center">
+                                                
+                                        <tr id="<?= (isset($_SESSION['ads_filter']['ads']) and !empty($_SESSION['ads_filter']['ads'])) ? "" : "filter-row" ?>" class="<?= (isset($_SESSION['ads_filter']['ads']) and !empty($_SESSION['ads_filter']['ads'])) ? "" : "d-none" ?>">
+                                            <form class="" id="form" action="ads_list.php?page=1" method="post">
+                                                <td></td>
+                                                    <td> 
+                                                        <input class="col form-control"
+                                                            type="text"
+                                                            value="<?= isset($_SESSION['ads_filter']['title']) ? $_SESSION['ads_filter']['title'] : "" ?>"
+                                                            name="title" placeholder="عنوان">
+                                                        </td>
+                                                        <td></td>
+                                                        <td>
+                                                                <input class="col form-control"
+                                                                    type="number"
+                                                                    value="<?= isset($_SESSION['ads_filter']['sort']) ? $_SESSION['ads_filter']['sort'] : "" ?>"
+                                                                    name="sort" placeholder="ترتیب">
+
+                                                            </td>
+                                                    <td> <select
+                                                            class="form-select text-secondary" name="status"
+                                                            id="status">
+                                                            <option value="" class="text-secondary">وضعیت</option>
+                                                            <option <?= (isset($_SESSION['ads_filter']['status']) and $_SESSION['ads_filter']['status'] == 1) ? 'selected' : '' ?> value="1">فعال</option>
+                                                            <option <?= (isset($_SESSION['ads_filter']['status']) and $_SESSION['ads_filter']['status'] == 0) ? 'selected' : '' ?> value="0">غیر فعال</option>
+                                                        </select> </td>
+                                                    <td class="text-center ">
+                                                    <div class="btn-group p-0 m-0">    
+                                                    <button type="submit"
+                                                            name="filtered" id="apply_filter" class="btn btn-success">
+                                                            اعمال فیلتر</button>
+                                                            <?php if (isset($_SESSION['ads_filter']['ads']) and !empty($_SESSION['ads_filter']['ads'])) { ?>
+                                                            <button type="submit"
+                                                            name="unFilter" id="delete_filter"
+                                                            class="btn btn-danger button-filter"> حذف فیلتر</button>
+                                                            <?php } ?>
+                                                            </div>
+                                                        </td>
+                                            </form>
+                                        </tr>
                                                 <?php foreach ($res as $ad) { ?>
                                                     <tr>
                                                         <td>
                                                             <input class="form-check-input" type="checkbox">
                                                         </td>
                                                         <td><?= $ad['title'] ?></td>
-                                                        <td class="text-center">
+                                                        <td>
                                                             <img src="../../<?= $ad['image'] ?>" alt="" width="40px"
                                                                 class="rounded text-center">
                                                         </td>
                                                         <td><?= $ad['sort'] ?></td>
-                                                        <td class="text-center">
+                                                        <td>
                                                             <?= status('active', $ad['status']); ?>
                                                         </td>
                                                         <?php if(has_access('ads_update.php') or has_access('ads_delete.php')){ ?>

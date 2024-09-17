@@ -88,55 +88,18 @@ $res = $db->orderBy($sortField, $sortOrder)
                         <div class="col-12 d-flex">
                             <div class="card border shadow-none w-100">
                                 <div class="card-body">
-                                    <div class="card-header">
-                                        <div id="<?= (isset($_SESSION['team_filter']['team']) and !empty($_SESSION['team_filter']['team'])) ? "" : "filter-row" ?>"
-                                            class="<?= (isset($_SESSION['team_filter']['team']) and !empty($_SESSION['team_filter']['team'])) ? "" : "d-none" ?>">
-                                            <form class=" d-flex justify-content-around align-content-start" id="form"
-                                                action="teams_list.php?page=1" method="post">
-                                                <div class="row g-3">
-                                                    <div class="col-lg-2 col-md-4"> <input class="col form-control"
-                                                            type="text"
-                                                            value="<?= isset($_SESSION['team_filter']['first_name']) ? $_SESSION['team_filter']['first_name'] : "" ?>"
-                                                            name="first_name" placeholder="نام"> </div>
-                                                    <div class="col-lg-2 col-md-4"> <input class="col form-control"
-                                                            type="text"
-                                                            value="<?= isset($_SESSION['team_filter']['last_name']) ? $_SESSION['team_filter']['last_name'] : "" ?>"
-                                                            name="last_name" placeholder="نام خانوادگی"> </div>
-                                                    <div class="col-lg-2 col-md-4"> <input class="col form-control"
-                                                            type="text"
-                                                            value="<?= isset($_SESSION['team_filter']['title']) ? $_SESSION['team_filter']['title'] : "" ?>"
-                                                            name="title" placeholder="نقش"> </div>
-                                                    <div class="col-lg-2 col-md-4"> <select
-                                                            class="form-select text-secondary" name="status"
-                                                            id="status">
-                                                            <option value="" class="text-secondary">وضعیت</option>
-                                                            <option <?= (isset($_SESSION['team_filter']['status']) and $_SESSION['team_filter']['status'] == 1) ? 'selected' : '' ?> value="1">فعال</option>
-                                                            <option <?= (isset($_SESSION['team_filter']['status']) and $_SESSION['team_filter']['status'] == 0) ? 'selected' : '' ?> value="0">غیر فعال</option>
-                                                        </select> </div>
-                                                    <div class="col-lg-2 col-md-4 text-center button-filter"> <button
-                                                            type="submit" name="filtered" id="apply_filter"
-                                                            class="btn btn-success"> اعمال فیلتر</button></div>
-                                                    <div class="col-lg-2 col-md-4 button-filter"> <button type="submit"
-                                                            name="unFilter" id="delete_filter"
-                                                            class="btn btn-danger button-filter"> حذف فیلتر</button>
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
                                     <div class="table-responsive">
                                         <table class="table">
                                             <thead class="table-light text-center">
                                                 <tr>
-                                                    <th>#</th>
                                                     <th>تصویر</th>
-                                                    <th>
+                                                    <th class="px-5">
                                                         <a href="<?= sort_link("first_name OR last_name") ?>"
                                                             class="sort-table <?= sortActive("first_name OR last_name") ?>"></a>
                                                         نام
                                                     </th>
                                                     <th>ایمیل</th>
-                                                    <th>
+                                                    <th class="px-5">
                                                         <a href="<?= sort_link('title') ?>"
                                                             class="sort-table <?= sortActive('title') ?>"></a>
                                                         سمت
@@ -144,7 +107,7 @@ $res = $db->orderBy($sortField, $sortOrder)
                                                     <th>اینستاگرام</th>
                                                     <th>واتساپ</th>
                                                     <th>تلگرام</th>
-                                                    <th>
+                                                    <th class="px-5">
                                                         <a href="<?= sort_link('status') ?>"
                                                             class="sort-table <?= sortActive('status') ?>"></a>
                                                         وضعیت
@@ -153,9 +116,56 @@ $res = $db->orderBy($sortField, $sortOrder)
                                                 </tr>
                                             </thead>
                                             <tbody class="text-center">
+
+                                                <tr id="<?= (isset($_SESSION['team_filter']['team']) and !empty($_SESSION['team_filter']['team'])) ? "" : "filter-row" ?>"
+                                                    class="<?= (isset($_SESSION['team_filter']['team']) and !empty($_SESSION['team_filter']['team'])) ? "" : "d-none" ?>">
+                                                    <form class=" d-flex justify-content-around align-content-start"
+                                                        id="form" action="teams_list.php?page=1" method="post">
+                                                        <td></td>
+                                                            <td class="d-flex"> 
+                                                                <input
+                                                                    class="col form-control" type="text"
+                                                                    value="<?= isset($_SESSION['team_filter']['first_name']) ? $_SESSION['team_filter']['first_name'] : "" ?>"
+                                                                    name="first_name" placeholder="نام"> 
+                                                                    <input
+                                                                        class="col form-control" type="text"
+                                                                        value="<?= isset($_SESSION['team_filter']['last_name']) ? $_SESSION['team_filter']['last_name'] : "" ?>"
+                                                                        name="last_name" placeholder="نام خانوادگی">
+                                                                </td>
+                                                                <td></td>
+                                                            <td> <input
+                                                                    class="col form-control" type="text"
+                                                                    value="<?= isset($_SESSION['team_filter']['title']) ? $_SESSION['team_filter']['title'] : "" ?>"
+                                                                    name="title" placeholder="نقش"> </td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                            <td> <select
+                                                                    class="form-select text-secondary" name="status"
+                                                                    id="status">
+                                                                    <option value="" class="text-secondary">وضعیت
+                                                                    </option>
+                                                                    <option
+                                                                        <?= (isset($_SESSION['team_filter']['status']) and $_SESSION['team_filter']['status'] == 1) ? 'selected' : '' ?> value="1">فعال</option>
+                                                                    <option
+                                                                        <?= (isset($_SESSION['team_filter']['status']) and $_SESSION['team_filter']['status'] == 0) ? 'selected' : '' ?> value="0">غیر فعال</option>
+                                                                </select> </td>
+                                                            <td class="col-lg-2 col-md-4 text-center button-filter">
+                                                                <div class="btn-group">
+                                                                <button type="submit" name="filtered" id="apply_filter"
+                                                                class="btn btn-success"> اعمال فیلتر</button>
+                                                                <?php if (isset($_SESSION['team_filter']['team']) and !empty($_SESSION['team_filter']['team'])) { ?>
+                                                                <button
+                                                                    type="submit" name="unFilter" id="delete_filter"
+                                                                    class="btn btn-danger button-filter"> حذف
+                                                                    فیلتر</button>
+                                                                    <?php } ?>
+                                                                    </div>
+                                                                </td>
+                                                    </form>
+                                                </tr>
                                                 <?php foreach ($res as $team) { ?>
                                                     <tr>
-                                                        <td><?= $team['id'] ?></td>
                                                         <td>
                                                             <div class="product-box">
                                                                 <img src="../../<?= $team['image'] ?>" alt=""
@@ -174,21 +184,21 @@ $res = $db->orderBy($sortField, $sortOrder)
                                                         <?php if (has_access('team_delete.php') or has_access('team_update.php')) { ?>
                                                             <td>
                                                                 <div>
-                                                                    <?php if(has_access('team_update.php')){ ?>
-                                                                    <a href="team_update.php?id=<?= $team['id'] ?>"
-                                                                        class="text-warning" data-bs-toggle="tooltip"
-                                                                        data-bs-placement="bottom" title="ویرایش اطلاعات"
-                                                                        data-bs-original-title="ویرایش اطلاعات"
-                                                                        aria-label="Edit"><i class="bi bi-pencil-fill"></i></a>
-                                                                        <?php 
-                                                                        }
-                                                                        if(has_access('team_delete.php')){ ?>
-                                                                    <button class="open-confirm border-0 btn text-danger"
-                                                                        value="<?= $team['id'] ?>" data-bs-toggle="tooltip"
-                                                                        data-bs-placement="bottom" title="حذف"
-                                                                        data-bs-original-title="حذف" aria-label="Delete"><i
-                                                                            class="bi bi-trash-fill"></i></button>
-                                                                            <?php } ?>
+                                                                    <?php if (has_access('team_update.php')) { ?>
+                                                                        <a href="team_update.php?id=<?= $team['id'] ?>"
+                                                                            class="text-warning" data-bs-toggle="tooltip"
+                                                                            data-bs-placement="bottom" title="ویرایش اطلاعات"
+                                                                            data-bs-original-title="ویرایش اطلاعات"
+                                                                            aria-label="Edit"><i class="bi bi-pencil-fill"></i></a>
+                                                                        <?php
+                                                                    }
+                                                                    if (has_access('team_delete.php')) { ?>
+                                                                        <button class="open-confirm border-0 btn text-danger"
+                                                                            value="<?= $team['id'] ?>" data-bs-toggle="tooltip"
+                                                                            data-bs-placement="bottom" title="حذف"
+                                                                            data-bs-original-title="حذف" aria-label="Delete"><i
+                                                                                class="bi bi-trash-fill"></i></button>
+                                                                    <?php } ?>
                                                                 </div>
                                                             </td>
                                                         <?php } ?>

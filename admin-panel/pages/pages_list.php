@@ -87,38 +87,6 @@ $res = $db
                         <div class="col-12 d-flex">
                             <div class="card border shadow-none w-100">
                                 <div class="card-body">
-                                    <div class="card-header">
-                                        <div id="<?= (isset($_SESSION['page_filter']['page']) and !empty($_SESSION['page_filter']['page'])) ? "" : "filter-row" ?>"
-                                            class="<?= (isset($_SESSION['page_filter']['page']) and !empty($_SESSION['page_filter']['page'])) ? "" : "d-none" ?>">
-                                            <form class=" d-flex justify-content-around align-content-start" id="form"
-                                                action="pages_list.php?page=1" method="post">
-                                                <div class="row g-3">
-                                                    <div class="col-lg-2 col-md-4"> <input class="col form-control"
-                                                            type="text"
-                                                            value="<?= isset($_SESSION['page_filter']['title']) ? $_SESSION['page_filter']['title'] : "" ?>"
-                                                            name="title" placeholder="عنوان"> </div>
-                                                    <div class="col-lg-2 col-md-4"> <input class="col form-control"
-                                                            type="text"
-                                                            value="<?= isset($_SESSION['page_filter']['code']) ? $_SESSION['page_filter']['code'] : "" ?>"
-                                                            name="code" placeholder="کد"> </div>
-                                                    <div class="col-lg-2 col-md-4"> <select
-                                                            class="form-select text-secondary" name="status"
-                                                            id="status">
-                                                            <option value="" class="text-secondary">وضعیت</option>
-                                                            <option <?= (isset($_SESSION['page_filter']['status']) and $_SESSION['page_filter']['status'] == 1) ? 'selected' : '' ?> value="1">فعال</option>
-                                                            <option <?= (isset($_SESSION['page_filter']['status']) and $_SESSION['page_filter']['status'] == 0) ? 'selected' : '' ?> value="0">غیر فعال</option>
-                                                        </select> </div>
-                                                    <div class="col-lg-2 col-md-4 text-center button-filter"> <button
-                                                            type="submit" name="filtered" id="apply_filter"
-                                                            class="btn btn-success"> اعمال فیلتر</button></div>
-                                                    <div class="col-lg-2 col-md-4 button-filter"> <button type="submit"
-                                                            name="unFilter" id="delete_filter"
-                                                            class="btn btn-danger button-filter"> حذف فیلتر</button>
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
                                     <div class="table-responsive">
                                         <table class="table">
                                             <thead class="table-light">
@@ -148,6 +116,45 @@ $res = $db
                                                 </tr>
                                             </thead>
                                             <tbody class="text-center">
+
+                                                <tr id="<?= (isset($_SESSION['page_filter']['page']) and !empty($_SESSION['page_filter']['page'])) ? "" : "filter-row" ?>"
+                                                    class="<?= (isset($_SESSION['page_filter']['page']) and !empty($_SESSION['page_filter']['page'])) ? "" : "d-none" ?>">
+                                                    <form class=" d-flex justify-content-around align-content-start"
+                                                        id="form" action="pages_list.php?page=1" method="post">
+                                                        <td></td>
+                                                            <td> <input
+                                                                    class="col form-control" type="text"
+                                                                    value="<?= isset($_SESSION['page_filter']['title']) ? $_SESSION['page_filter']['title'] : "" ?>"
+                                                                    name="title" placeholder="عنوان"> </td>
+                                                                    <td></td>
+                                                            <td> <input
+                                                                    class="col form-control" type="text"
+                                                                    value="<?= isset($_SESSION['page_filter']['code']) ? $_SESSION['page_filter']['code'] : "" ?>"
+                                                                    name="code" placeholder="کد"> </td>
+                                                            <td> <select
+                                                                    class="form-select text-secondary" name="status"
+                                                                    id="status">
+                                                                    <option value="" class="text-secondary">وضعیت
+                                                                    </option>
+                                                                    <option
+                                                                        <?= (isset($_SESSION['page_filter']['status']) and $_SESSION['page_filter']['status'] == 1) ? 'selected' : '' ?> value="1">فعال</option>
+                                                                    <option
+                                                                        <?= (isset($_SESSION['page_filter']['status']) and $_SESSION['page_filter']['status'] == 0) ? 'selected' : '' ?> value="0">غیر فعال</option>
+                                                                </select> </td>
+                                                            <td class="col-lg-2 col-md-4 text-center button-filter">
+                                                                <div class="btn-group p-0 m-0">
+                                                                    <button type="submit" name="filtered" id="apply_filter"
+                                                                    class="btn btn-success"> اعمال فیلتر</button>
+                                                                    <?php if (isset($_SESSION['page_filter']['page']) and !empty($_SESSION['page_filter']['page'])) { ?>
+                                                                    <button
+                                                                        type="submit" name="unFilter" id="delete_filter"
+                                                                        class="btn btn-danger button-filter"> حذف
+                                                                        فیلتر</button>
+                                                                        <?php } ?>
+                                                                    </div>
+                                                                </td>
+                                                    </form>
+                                                </tr>
                                                 <?php foreach ($res as $pageList) { ?>
                                                     <tr>
                                                         <td>

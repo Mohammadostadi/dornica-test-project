@@ -613,7 +613,7 @@ function reportCheck($db, $table, $data)
                     }
                 } elseif ($type === 'price') {
                     $data = intval(str_replace(',', '', securityCheck($_POST[$field])));
-                    $newFilters = $table . "." . $field . " = '" . $data . "'";
+                    $newFilters = $table . "." . $field . " LIKE '%" . $data . "%'";
                     $db->where($newFilters);
                 }
 

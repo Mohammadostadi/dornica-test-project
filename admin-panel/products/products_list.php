@@ -8,35 +8,22 @@ $brandList = $db->where('status', 1)
     ->get('brand', null, 'id, name');
 $filter = new Filter('products', 'product_filter');
 $data = [
-    'name' => 'like',
-    'brand_id' => 'in',
+    'products.name' => 'like',
+    'brand_ids' => 'find_in_set',
     'category_id' => 'in',
     'status' => '=',
     'qty' => '=',
     'date' => 'date',
     'price' => 'price',
 ];
-if (isset($_GET['category'])) {
-    $product_category = "products.category_id = " . securityCheck($_GET['category']);
-}
-$product_brand = isset($_GET['brand']) ? "products.brand_id = " . securityCheck($_GET['brand']) : "";
-$filter->filterCheck($db, $data, 'product', 'products_list.php');
-$col = ['products.id', 'products.name', 'price', 'products.status', 'image', 'date', 'qty', 'category.name AS category', 'brand.name AS brand'];
-(isset($product_category) and !empty($product_category)) ? $db->where($product_category) : '';
-(isset($product_brand) and !empty($product_brand)) ? $db->where($product_brand) : '';
-pageLimit('products', 10, false, $_SESSION['product_filter']['product']);
-(isset($product_category) and !empty($product_category)) ? $db->where($product_category) : '';
-(isset($product_brand) and !empty($product_brand)) ? $db->where($product_brand) : '';
-$filter->loopQuery($db, $_SESSION['product_filter']['product']);
-$res = $db->join('category', 'category.id = products.category_id', 'LEFT')
-    ->join('brand', 'brand.id = products.brand_id', 'LEFT')
-    ->orderBy($sortField, $sortOrder)
-    ->paginate(
-        'products',
-        $page,
-        $col
-    );
-
+$product_category = isset($_GET['category'])?"products.category_id = " . securityCheck($_GET['category']):"";
+$product_brand = isset($_GET['brand']) ? "products.brand_ids = " . securityCheck($_GET['brand']) : "";
+$query = [
+        'SELECT  COUNT(*) AS total FROM products LEFT JOIN category on category.id = products.category_id LEFT JOIN brand on brand.id = products.brand_ids WHERE'.(!empty($product_brand)?$product_brand:"").((!empty($product_brand) and !empty($product_category))?" AND ":"").((!empty($product_category))?$product_category:""),
+        'SELECT products.id, products.name, price, products.status, image, date, qty, category.name AS category, products.brand_ids FROM products LEFT JOIN category on category.id = products.category_id LEFT JOIN brand on brand.id = products.brand_ids'.(!empty($product_brand)?' WHERE '.$product_brand:"").((!empty($product_brand) and !empty($product_category))?" AND ":"").((empty($product_brand) and !empty($product_category))?" WHERE ":"").((!empty($product_category))?$product_category:"")
+    ];
+    $con = $product_category.(!empty($product_category)?" AND ":"").$product_brand;
+    $res = $filter->filterCheck($db, $data, 'product', 'products_list.php', $query, 7, $sortField, $sortOrder, $con);
 ?>
 
 <!doctype html>
@@ -119,118 +106,42 @@ $res = $db->join('category', 'category.id = products.category_id', 'LEFT')
                         <div class="col-12 d-flex">
                             <div class="card border shadow-none w-100">
                                 <div class="card-body">
-                                    <div class="card-header">
-                                        <div id="<?= (isset($_SESSION['product_filter']['product']) and !empty($_SESSION['product_filter']['product'])) ? "" : "filter-row" ?>"
-                                            class="<?= (isset($_SESSION['product_filter']['product']) and !empty($_SESSION['product_filter']['product'])) ? "" : "d-none" ?>">
-                                            <form class=" d-flex justify-content-around align-content-start" id="form"
-                                                action="products_list.php?page=1" method="post">
-                                                <div class="row g-3">
-                                                    <div class="col-lg-2 col-md-4"> <input class="col form-control"
-                                                            type="text" value="<?= $filter->is_exist('name') ?>"
-                                                            name="name" placeholder="نام کتاب"> </div>
-                                                    <div class="col-lg-4 col-md-6">
-                                                        <div class="d-flex align-items-center">
-                                                            <label class="mx-2" for="">برند:</label>
-                                                            <select class="multiple-select"
-                                                                title="هر چیزی را انتخاب کنید" multiple
-                                                                name="brand_id[]">
-                                                                <?php foreach ($brandList as $brand) {
-                                                                    if (isset($_SESSION['product_filter']['brand_id'])) {
-                                                                        foreach ($_SESSION['product_filter']['brand_id'] as $brandSelect) {
-                                                                            $brand_select = (isset($brandSelect) and $brandSelect == $brand['id']) ? "SELECTED" : '';
-                                                                        }
-                                                                    } ?>
-                                                                    <option <?= isset($brand_select) ? $brand_select : "" ?>
-                                                                        value="<?= $brand['id'] ?>"> <?= $brand['name'] ?>
-                                                                    </option>
-                                                                <?php } ?>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                    <?php
-                                                    ?>
-                                                    <div class="col-lg-4 col-md-6">
-                                                        <div class="d-flex align-items-center">
-                                                            <label class="mx-2" for="">دسته بندی:</label>
-                                                            <select class="multiple-select" multiple
-                                                                name="category_id[]">
-                                                                <?php foreach ($categoryList as $category) {
-                                                                    if (isset($_SESSION['product_filter']['category_id'])) {
-                                                                        foreach ($_SESSION['product_filter']['category_id'] as $categorySelect) {
-                                                                            $category_select = (isset($categorySelect) and $categorySelect == $category['id']) ? "SELECTED" : "";
-                                                                        }
-                                                                    } ?>
-                                                                    <option <?= isset($category_select) ? $category_select : "" ?> value="<?= $category['id'] ?>">
-                                                                        <?= $category['name'] ?></option>
-                                                                <?php } ?>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-2 col-md-4"> <select
-                                                            class="form-select text-secondary" name="status"
-                                                            id="status">
-                                                            <option value="" class="text-secondary">وضعیت</option>
-                                                            <option <?= (isset($_SESSION['product_filter']['status']) and $_SESSION['product_filter']['status'] == 1) ? 'selected' : '' ?> value="1">فعال</option>
-                                                            <option <?= (isset($_SESSION['product_filter']['status']) and $_SESSION['product_filter']['status'] == 0) ? 'selected' : '' ?> value="0">غیر فعال</option>
-                                                        </select> </div>
-                                                    <div class="col-lg-2 col-md-4"> <input class="col form-control"
-                                                            type="text" value="<?= $filter->is_exist('qty') ?>"
-                                                            name="qty" placeholder="تعداد کتاب"> </div>
-                                                    <div class="col-lg-2 col-md-4"> <input class="col form-control"
-                                                            type="text" value="<?= $filter->is_exist('price') ?>"
-                                                            name="price" id="price" placeholder="قیمت کتاب"> </div>
-                                                    <div class="col-lg-2 col-md-4"> <input class="col form-control"
-                                                            type="text" value="<?= $filter->is_exist('date') ?>"
-                                                            name="date" id="date" placeholder="تاریخ تولید"> </div>
-                                                    <div class="col-lg-2 col-md-4 text-center button-filter"> <button
-                                                            type="submit" name="filtered" id="apply_filter"
-                                                            class="btn btn-success"> اعمال فیلتر</button></div>
-                                                    <?php if ((isset($_SESSION['product_filter']['product']) and !empty($_SESSION['product_filter']['product']))) { ?>
-                                                        <div class="col-lg-2 col-md-4 button-filter"> <button type="submit"
-                                                                name="unFilter" id="delete_filter"
-                                                                class="btn btn-danger button-filter"> حذف فیلتر</button>
-                                                        </div>
-                                                    <?php } ?>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
                                     <div class="table-responsive">
                                         <table class="table">
                                             <thead class="text-center">
                                                 <tr>
                                                     <th>#</th>
-                                                    <th>
+                                                    <th class="px-5">
                                                         <a href="<?= sort_link('name') ?>"
                                                             class="sort-table <?= sortActive('name') ?>"></a>
                                                         نام کتاب
                                                     </th>
-                                                    <th>
+                                                    <th class="px-5">
                                                         <a href="<?= sort_link('category') ?>"
                                                             class="sort-table <?= sortActive('category') ?>"></a>
                                                         دسته بندی
                                                     </th>
-                                                    <th>
+                                                    <th class="px-5">
                                                         <a href="<?= sort_link('brand') ?>"
                                                             class="sort-table <?= sortActive('brand') ?>"></a>
                                                         برند
                                                     </th>
-                                                    <th>
+                                                    <th class="px-5">
                                                         <a href="<?= sort_link('price') ?>"
                                                             class="sort-table <?= sortActive('price') ?>"></a>
                                                         قیمت
                                                     </th>
-                                                    <th>
+                                                    <th class="px-5">
                                                         <a href="<?= sort_link('qty') ?>"
                                                             class="sort-table <?= sortActive('qty') ?>"></a>
                                                         تعداد محصول
                                                     </th>
-                                                    <th>
+                                                    <th class="px-5">
                                                         <a href="<?= sort_link('status') ?>"
                                                             class="sort-table <?= sortActive('status') ?>"></a>
                                                         وضعیت
                                                     </th>
-                                                    <th>
+                                                    <th class="px-5">
                                                         <a href="<?= sort_link('date') ?>"
                                                             class="sort-table <?= sortActive('date') ?>"></a>
                                                         تاریخ تولید
@@ -239,6 +150,69 @@ $res = $db->join('category', 'category.id = products.category_id', 'LEFT')
                                                 </tr>
                                             </thead>
                                             <tbody class="text-center">
+                                                <tr id="<?= (isset($_SESSION['product_filter']['product']) and !empty($_SESSION['product_filter']['product'])) ? "" : "filter-row" ?>"
+                                            class="<?= (isset($_SESSION['product_filter']['product']) and !empty($_SESSION['product_filter']['product'])) ? "" : "d-none" ?>">
+                                            <form class=" d-flex justify-content-around align-content-start" id="form"
+                                                action="products_list.php?page=1" method="post">
+                                                <td></td>
+                                                    <td class="col-lg-2 col-md-4"> <input class="col form-control"
+                                                            type="text" value="<?= $filter->is_exist('products_name') ?>"
+                                                            name="products_name" placeholder="نام کتاب"> </td>
+                                                    <td>
+                                                            <select class="multiple-select"
+                                                                title="هر چیزی را انتخاب کنید" multiple
+                                                                name="brand_ids[]">
+                                                                <?php foreach ($brandList as $brand) { ?>
+                                                                    
+                                                                    <option <?= (isset($_SESSION['product_filter']['brand_ids']) and in_array($brand['id'], $_SESSION['product_filter']['brand_ids']))?"selected":"" ?>
+                                                                        value="<?= $brand['id'] ?>"> <?= $brand['name'] ?>
+                                                                    </option>
+                                                                <?php } ?>
+                                                            </select>
+                                                    </td>
+                                                    <?php
+                                                    ?>
+                                                    <td>
+                                                        <div class="d-flex align-items-center">
+                                                            <select class="multiple-select" multiple
+                                                                name="category_id[]">
+                                                                <?php foreach ($categoryList as $category) { ?>
+                                                                    <option <?= (isset($_SESSION['product_filter']['category_id']) and in_array($category['id'], $_SESSION['product_filter']['category_id']))?"selected":"" ?> value="<?= $category['id'] ?>">
+                                                                        <?= $category['name'] ?></option>
+                                                                <?php } ?>
+                                                            </select>
+                                                        </div>
+                                                    </td>
+                                                    <td> <input class="col form-control"
+                                                            type="text" value="<?= $filter->is_exist('price') ?>"
+                                                            name="price" id="price" placeholder="قیمت کتاب"> </td>
+                                                    <td> <input class="col form-control"
+                                                            type="text" value="<?= $filter->is_exist('qty') ?>"
+                                                            name="qty" placeholder="تعداد کتاب"> </td>
+                                                            <td> <select
+                                                            class="form-select text-secondary" name="status"
+                                                            id="status">
+                                                            <option value="" class="text-secondary">وضعیت</option>
+                                                            <option <?= (isset($_SESSION['product_filter']['status']) and $_SESSION['product_filter']['status'] == 1) ? 'selected' : '' ?> value="1">فعال</option>
+                                                            <option <?= (isset($_SESSION['product_filter']['status']) and $_SESSION['product_filter']['status'] == 0) ? 'selected' : '' ?> value="0">غیر فعال</option>
+                                                        </select> </td>
+                                                    <td> <input dir="ltr" class="col form-control"
+                                                            type="text" value="<?= $filter->is_exist('date') ?>"
+                                                            name="date" id="date" placeholder="تاریخ تولید"> </td>
+                                                    <td class="text-center button-filter"> 
+                                                    <div class="btn-group p-0 m-0">    
+                                                    <button
+                                                            type="submit" name="filtered" id="apply_filter"
+                                                            class="btn btn-success"> اعمال فیلتر</button>
+                                                            <?php if ((isset($_SESSION['product_filter']['product']) and !empty($_SESSION['product_filter']['product']))) { ?>
+                                                            <button type="submit"
+                                                                name="unFilter" id="delete_filter"
+                                                                class="btn btn-danger button-filter"> حذف فیلتر</button>
+                                                                <?php } ?>
+                                                                </div>
+                                                        </td>
+                                            </form>
+                                        </tr>
                                                 <?php foreach ($res as $key => $value) { ?>
                                                     <tr>
                                                         <td>
@@ -249,7 +223,7 @@ $res = $db->join('category', 'category.id = products.category_id', 'LEFT')
                                                         <td class="productlist">
                                                             <a class="d-flex align-items-center gap-2" href="#">
                                                                 <div class="product-box">
-                                                                    <img src="../../<?= $res[$key]['image'] ?>" alt="">
+                                                                    <img src="../../<?= $value['image'] ?>" alt="">
                                                                 </div>
                                                                 <div>
                                                                     <h6 class="mb-0 product-title"><?= $value['name'] ?>
@@ -258,7 +232,13 @@ $res = $db->join('category', 'category.id = products.category_id', 'LEFT')
                                                             </a>
                                                         </td>
                                                         <td><span><?= $value['category'] ?></span></td>
-                                                        <td><span><?= $value['brand'] ?></span></td>
+                                                        <td><span>
+                                                            <?php
+                                                            $brand = $db->where("id IN ({$value['brand_ids']})")
+                                                            ->getOne('brand', 'GROUP_CONCAT(name) AS brand');
+                                                            echo $brand['brand'];
+                                                            ?>
+                                                        </span></td>
                                                         <td><span><?= number_format($value['price']) ?> تومان</span></td>
                                                         <td><span><?= $value['qty'] ?></span></td>
                                                         <td>
@@ -335,9 +315,17 @@ $res = $db->join('category', 'category.id = products.category_id', 'LEFT')
     ?>
     <script src="../../assets/plugins/select2/js/select2.min.js"></script>
     <script src="../../assets/js/form-select2.js"></script>
-    <script type="text/javascript" src="../assets/datePiker/js/persianDatepicker.min.js"></script>
+    <script type="text/javascript" src="../../assets/datePiker/js/persianDatepicker.min.js"></script>
+    
+            <!-- formatDate: "YYYY/0M/0D 0h:0m:0s" , -->
     <script type="text/javascript">
-        $("#date").persianDatepicker({ formatDate: "YYYY/0M/0D" });
+        $("#date").persianDatepicker({ 
+        
+            formatDate: "YYYY/0M/0D" ,
+            "timePicker.enabled": true,
+            "timePicker.step": 2
+
+        });
     </script>
 </body>
 

@@ -57,6 +57,66 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])) {
     <?php
     require_once('../../layout/css.php');
     ?>
+    <style>
+        .avatar-upload {
+    position: relative;
+    max-width: 205px;
+    margin: 50px auto;
+    .avatar-edit {
+        position: absolute;
+        right: 0px;
+        z-index: 1;
+        top: 0px;
+        input {
+            display: none;
+            + label {
+                display: inline-block;
+                width: 34px;
+                height: 34px;
+                margin-bottom: 0;
+                border-radius: 100%;
+                background: #FFFFFF;
+                border: 1px solid transparent;
+                box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.12);
+                cursor: pointer;
+                font-weight: normal;
+                transition: all .2s ease-in-out;
+                &:hover {
+                    background: #f1f1f1;
+                    border-color: #d6d6d6;
+                }
+                &:after {
+                    content: "\eb46";
+                    font: normal normal normal 16px/1'LineIcons';
+                    color: #757575;
+                    position: absolute;
+                    top: 10px;
+                    left: 0;
+                    right: 0;
+                    text-align: center;
+                    margin: auto;
+                }
+            }
+        }
+    }
+    .avatar-preview {
+        width: 110px;
+        height: 100px;
+        position: relative;
+        border-radius: 100%;
+        border: 6px solid #F8F8F8;
+        box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.1);
+        > div {
+            width: 100%;
+            height: 100%;
+            border-radius: 100%;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+    }
+}
+    </style>
     <title>آپدیت تبلیغات</title>
 </head>
 
@@ -76,6 +136,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])) {
                         <hr />
                         <form class="row g-3 needs-validation" action="" method="post" enctype="multipart/form-data"
                             novalidate>
+                            <div class="container">
+                                <div class="avatar-upload">
+                                    <div class="avatar-edit">
+                                        <!-- <img src="../../assets/images/ads/08.png" alt=""> -->
+                                        <input type='file' id="fileToUpload" name="fileToUpload" accept=".png, .jpg, .jpeg" required />
+                                        <label for="fileToUpload"></label>
+                                    </div>
+                                    <div class="avatar-preview">
+                                        <div id="imagePreview" style="background-image: url(<?= "../../".(isset($ad['image'])?$ad['image']:"assets/images/ads/default.png") ?>);">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <span class="text-danger"><?= $validator->show('fileToUpload') ?></span>
+                                    <div class="invalid-feedback">
+                                        فیلد تصویر نباید خالی باشد
+                                    </div>
+                            </div>
                             <div class="col-lg-6">
                                 <label class="form-label">عنوان </label>
                                 <input type="text" class="form-control" name="name"
@@ -94,20 +171,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])) {
                                     فیلد ترتیب نباید خالی باشد
                                 </div>
                             </div>
-                            <div class="col-12">
-                                <label class="form-label">تصویر</label>
-                                <div class="row">
-                                    <div class="col-12 text-center bg-light my-3 rounded preview">
-                                        <img src="../../<?= $ad['image'] ?>" class="rounded-circle shadow m-3" id="img"
-                                            width="100" height="100" alt="">
-                                    </div>
-                                    <div class="col-12">
-                                        <input type="file" class="form-control" aria-label="file example"
-                                            id="fileToUpload" name="fileToUpload">
-                                    </div>
-                                </div>
-                                <span class="text-danger"><?= $validator->show('fileToUpload') ?></span>
-                            </div>
+                            
                             <div class="col-lg-8">
                                 <div class="d-flex">
                                     <label class="form-check-label mx-1" for="flexSwitchCheckChecked">غیرفعال</label>
@@ -145,5 +209,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])) {
     <?php
     require_once('../../layout/js.php');
     ?>
-    <?php require_once('../../layout/update_image.php') ?>
+    <script>
+        function readURL(input) {
+    if (input.files && input.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            $('#imagePreview').css('background-image', 'url('+e.target.result +')');
+            $('#imagePreview').hide();
+            $('#imagePreview').fadeIn(650);
+        }
+        reader.readAsDataURL(input.files[0]);
+    }
+    }
+    $("#fileToUpload").change(function() {
+        readURL(this);
+    });
+    </script>
 </body>

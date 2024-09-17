@@ -81,25 +81,6 @@
                     <div class="col-12 d-flex">
                         <div class="card border shadow-none w-100">
                             <div class="card-body">
-                            <div class="card-header">
-                                <div id="<?= (isset($_SESSION['contact_filter']['contact']) and !empty($_SESSION['contact_filter']['contact']))?"":"filter-row"?>" class="<?= (isset($_SESSION['contact_filter']['contact']) and !empty($_SESSION['contact_filter']['contact']))?"":"d-none"?>">
-                                    <form class="" id="form" action="contacts_list.php?page=1" method="post" >
-                                        <div class="row g-3">
-                                    <div class="col-lg-2 col-md-4" > <input class="col form-control" type="text" value="<?= isset($_SESSION['admin_filter']['fname'])?$_SESSION['admin_filter']['fname']:"" ?>" name="title" placeholder="عنوان" > </div>
-                                    <div class="col-lg-2 col-md-4" > <select class="form-select text-secondary" name="status" id="status">
-                                        <option value="" class="text-secondary" >وضعیت</option>
-                                        <option <?= (isset($_SESSION['contact_filter']['status']) and $_SESSION['contact_filter']['status']== 0) ? 'selected' : '' ?> value="0">درحال بررسی</option>
-                                        <option <?= (isset($_SESSION['contact_filter']['status']) and $_SESSION['contact_filter']['status'] == 1) ? 'selected' : '' ?> value="1">خوانده شده</option>
-                                        <option <?= (isset($_SESSION['contact_filter']['status']) and $_SESSION['contact_filter']['status'] == 2) ? 'selected' : '' ?> value="2">خوانده نشده</option>
-                                    </select> </div>
-                                    <div class="col-lg-2 col-md-4 text-center button-filter"> <button type="submit" name="filtered" id="apply_filter" class="btn btn-success" > اعمال فیلتر</button></div>
-                                    <?php if(isset($_SESSION['contact_filter']['contact']) and !empty($_SESSION['contact_filter']['contact'])){ ?>                                     
-                                        <div class="col-lg-2 col-md-4 button-filter"> <button type="submit" name="unFilter" id="delete_filter" class="btn btn-danger button-filter" > حذف فیلتر</button></div>
-                                    <?php } ?>
-                                    </div>
-                                    </form>
-                                </div>
-                            </div>
                                 <div class="table-responsive">
                                     <table class="table">
                     <thead class="text-center">
@@ -123,6 +104,30 @@
                         </tr>
                         </thead>
                         <tbody class="text-center">
+                            
+                        <tr id="<?= (isset($_SESSION['contact_filter']['contact']) and !empty($_SESSION['contact_filter']['contact']))?"":"filter-row"?>" class="<?= (isset($_SESSION['contact_filter']['contact']) and !empty($_SESSION['contact_filter']['contact']))?"":"d-none"?>">
+                                    <form class="" id="form" action="contacts_list.php?page=1" method="post" >
+                                        <td></td>
+                                        <td></td>
+                                    <td> <input class="col form-control" type="text" value="<?= isset($_SESSION['admin_filter']['fname'])?$_SESSION['admin_filter']['fname']:"" ?>" name="title" placeholder="عنوان" > </td>
+                                    <td></td>
+                                    <td></td>
+                                    <td> <select class="form-select text-secondary" name="status" id="status">
+                                        <option value="" class="text-secondary" >وضعیت</option>
+                                        <option <?= (isset($_SESSION['contact_filter']['status']) and $_SESSION['contact_filter']['status']== 0) ? 'selected' : '' ?> value="0">درحال بررسی</option>
+                                        <option <?= (isset($_SESSION['contact_filter']['status']) and $_SESSION['contact_filter']['status'] == 1) ? 'selected' : '' ?> value="1">خوانده شده</option>
+                                        <option <?= (isset($_SESSION['contact_filter']['status']) and $_SESSION['contact_filter']['status'] == 2) ? 'selected' : '' ?> value="2">خوانده نشده</option>
+                                    </select> </td>
+                                    <td class="text-center button-filter"> 
+                                    <div class="btn-group p-0 m-0">
+                                        <button type="submit" name="filtered" id="apply_filter" class="btn btn-success" > اعمال فیلتر</button>
+                                        <?php if(isset($_SESSION['contact_filter']['contact']) and !empty($_SESSION['contact_filter']['contact'])){ ?>                                     
+                                        <button type="submit" name="unFilter" id="delete_filter" class="btn btn-danger button-filter" > حذف فیلتر</button>
+                                        <?php } ?>
+                                        </div>
+                                </td>
+                                    </form>
+                                </tr>
                         <?php foreach($res as $key => $contact) { ?>
                                 <tr>
                                     <td>

@@ -71,7 +71,7 @@ $res = $filter->filterCheck($db, $data, 'product_image', 'product_images_list.ph
                 </div>
                 <div class="ms-auto">
                     <div class="btn-group">
-                        <?= has_access('product_image_add.php')?"<a class='btn btn-outline-secondary' href='product_image_add.php'> اضافه کردن داده جدید</a>":"" ?>
+                        <?= has_access('product_image_add.php') ? "<a class='btn btn-outline-secondary' href='product_image_add.php'> اضافه کردن داده جدید</a>" : "" ?>
                         <button class="btn btn-outline-secondary" id="_filter">فیلتر</button>
                     </div>
                 </div>
@@ -87,41 +87,6 @@ $res = $filter->filterCheck($db, $data, 'product_image', 'product_images_list.ph
                         <div class="col-12 d-flex">
                             <div class="card border shadow-none w-100">
                                 <div class="card-body">
-                                    <div class="card-header">
-                                        <div id="<?= (isset($_SESSION['product_image_filter']['product_image']) and !empty($_SESSION['product_image_filter']['product_image'])) ? "" : "filter-row" ?>"
-                                            class="<?= (isset($_SESSION['product_image_filter']['product_image']) and !empty($_SESSION['product_image_filter']['product_image'])) ? "" : "d-none" ?>">
-                                            <form class=" d-flex justify-content-around align-content-start" id="form"
-                                                action="product_images_list.php?page=1" method="post">
-                                                <div class="row g-3">
-                                                    <div class="col-lg-2 col-md-4"> <input class="col form-control"
-                                                            type="text"
-                                                            value="<?= $filter->is_exist('products_name') ?>"
-                                                            name="products_name" placeholder="نام محصول"> </div>
-                                                    <div class="col-lg-2 col-md-4"> <input class="col form-control"
-                                                            type="text" value="<?= $filter->is_exist('title') ?>"
-                                                            name="title" placeholder="عنوان"> </div>
-                                                    <div class="col-lg-2 col-md-4"> <select
-                                                            class="form-select text-secondary" name="status"
-                                                            id="status">
-                                                            <option value="" class="text-secondary">وضعیت</option>
-                                                            <option
-                                                                <?= (isset($_SESSION['product_image_filter']['status']) and $_SESSION['product_image_filter']['status'] == 1) ? 'selected' : '' ?> value="1">فعال</option>
-                                                            <option
-                                                                <?= (isset($_SESSION['product_image_filter']['status']) and $_SESSION['product_image_filter']['status'] == 0) ? 'selected' : '' ?> value="0">غیر فعال</option>
-                                                        </select> </div>
-                                                    <div class="col-lg-2 col-md-4 text-center button-filter"> <button
-                                                            type="submit" name="filtered" id="apply_filter"
-                                                            class="btn btn-success"> اعمال فیلتر</button></div>
-                                                    <?php if ((isset($_SESSION['product_image_filter']['product_image']) and !empty($_SESSION['product_image_filter']['product_image']))) { ?>
-                                                        <div class="col-lg-2 col-md-4 button-filter"> <button type="submit"
-                                                                name="unFilter" id="delete_filter"
-                                                                class="btn btn-danger button-filter"> حذف فیلتر</button>
-                                                        </div>
-                                                    <?php } ?>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
                                     <div class="table-responsive">
                                         <table class="table">
                                             <thead class="table-light text-center">
@@ -143,10 +108,45 @@ $res = $filter->filterCheck($db, $data, 'product_image', 'product_images_list.ph
                                                             class="sort-table <?= sortActive('status') ?>"></a>
                                                         وضعیت
                                                     </th>
-                                                    <?= (has_access('product_image_update.php') or has_access('product_image_delete.php'))?"<th>اقدامات</th>":"" ?>
+                                                    <?= (has_access('product_image_update.php') or has_access('product_image_delete.php')) ? "<th>اقدامات</th>" : "" ?>
                                                 </tr>
                                             </thead>
                                             <tbody class="text-center">
+
+                                                <tr id="<?= (isset($_SESSION['product_image_filter']['product_image']) and !empty($_SESSION['product_image_filter']['product_image'])) ? "" : "filter-row" ?>"
+                                                    class="<?= (isset($_SESSION['product_image_filter']['product_image']) and !empty($_SESSION['product_image_filter']['product_image'])) ? "" : "d-none" ?>">
+                                                    <form class=" d-flex justify-content-around align-content-start"
+                                                        id="form" action="product_images_list.php?page=1" method="post">
+                                                        <td></td>
+                                                        <td class="col-lg-2 col-md-4"> <input class="col form-control"
+                                                                type="text"
+                                                                value="<?= $filter->is_exist('products_name') ?>"
+                                                                name="products_name" placeholder="نام محصول"> </td>
+                                                        <td class="col-lg-2 col-md-4"> <input class="col form-control"
+                                                                type="text" value="<?= $filter->is_exist('title') ?>"
+                                                                name="title" placeholder="عنوان"> </td>
+                                                                <td></td>
+                                                        <td class="col-lg-2 col-md-4"> <select
+                                                                class="form-select text-secondary" name="status"
+                                                                id="status">
+                                                                <option value="" class="text-secondary">وضعیت</option>
+                                                                <option
+                                                                    <?= (isset($_SESSION['product_image_filter']['status']) and $_SESSION['product_image_filter']['status'] == 1) ? 'selected' : '' ?> value="1">فعال</option>
+                                                                <option
+                                                                    <?= (isset($_SESSION['product_image_filter']['status']) and $_SESSION['product_image_filter']['status'] == 0) ? 'selected' : '' ?> value="0">غیر فعال</option>
+                                                            </select> </td>
+                                                        <td class="col-lg-2 col-md-4 text-center button-filter">
+                                                            <div class="btn-group p-0 m-0">
+                                                            <button type="submit" name="filtered" id="apply_filter"
+                                                                class="btn btn-success"> اعمال فیلتر</button>
+                                                            <?php if ((isset($_SESSION['product_image_filter']['product_image']) and !empty($_SESSION['product_image_filter']['product_image']))) { ?>
+                                                                <button type="submit" name="unFilter" id="delete_filter"
+                                                                    class="btn btn-danger button-filter"> حذف فیلتر</button>
+                                                            <?php } ?>
+                                                            </div>
+                                                        </td>
+                                                    </form>
+                                                </tr>
                                                 <?php foreach ($res as $key => $pimage) { ?>
                                                     <tr>
                                                         <td>
@@ -161,28 +161,28 @@ $res = $filter->filterCheck($db, $data, 'product_image', 'product_images_list.ph
                                                         <td>
                                                             <?= status('active', $pimage['status']); ?>
                                                         </td>
-                                                        <?php if(has_access('product_image_update') or has_access('product_image_delete')){ ?>
-                                                        <td>
-                                                            <?php if(has_access('product_image_update.php')){ ?>
-                                                            <div>
-                                                                <a href="product_image_update.php?id=<?= $pimage['id'] ?>"
-                                                                    class="text-warning" data-bs-toggle="tooltip"
-                                                                    data-bs-placement="bottom" title="ویرایش اطلاعات"
-                                                                    data-bs-original-title="ویرایش اطلاعات"
-                                                                    aria-label="Edit"><i class="bi bi-pencil-fill"></i></a>
-                                                                    <?php
-                                                                        }
-                                                                        if(has_access('product_image_delete.php')){
+                                                        <?php if (has_access('product_image_update') or has_access('product_image_delete')) { ?>
+                                                            <td>
+                                                                <?php if (has_access('product_image_update.php')) { ?>
+                                                                    <div>
+                                                                        <a href="product_image_update.php?id=<?= $pimage['id'] ?>"
+                                                                            class="text-warning" data-bs-toggle="tooltip"
+                                                                            data-bs-placement="bottom" title="ویرایش اطلاعات"
+                                                                            data-bs-original-title="ویرایش اطلاعات"
+                                                                            aria-label="Edit"><i class="bi bi-pencil-fill"></i></a>
+                                                                        <?php
+                                                                }
+                                                                if (has_access('product_image_delete.php')) {
                                                                     ?>
-                                                                <button class="open-confirm border-0 btn text-danger"
-                                                                    value="<?= $pimage['id'] ?>" data-bs-toggle="tooltip"
-                                                                    data-bs-placement="bottom" title="حذف"
-                                                                    data-bs-original-title="حذف" aria-label="Delete"><i
-                                                                        class="bi bi-trash-fill"></i></button>
-                                                                        <?php } ?>
-                                                            </div>
-                                                        </td>
-                                                        <?php }?>
+                                                                        <button class="open-confirm border-0 btn text-danger"
+                                                                            value="<?= $pimage['id'] ?>" data-bs-toggle="tooltip"
+                                                                            data-bs-placement="bottom" title="حذف"
+                                                                            data-bs-original-title="حذف" aria-label="Delete"><i
+                                                                                class="bi bi-trash-fill"></i></button>
+                                                                    <?php } ?>
+                                                                </div>
+                                                            </td>
+                                                        <?php } ?>
                                                     </tr>
                                                 <?php } ?>
                                             </tbody>

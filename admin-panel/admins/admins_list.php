@@ -93,22 +93,70 @@ $res = $db->orderBy($sortField, $sortOrder)
                         <div class="col-12 d-flex">
                             <div class="card border shadow-none w-100">
                                 <div class="card-body">
-                                    <div class="card-header">
-                                        <div
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <thead class="text-center">
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>پروفایل</th>
+                                                    <th class="px-5">
+                                                        <a href="<?= sort_link('first_name') ?>" class="sort-table <?= sortActive('first_name') ?>"></a>
+                                                        نام
+                                                    </th>
+                                                    <th class="px-5">
+                                                        <a href="<?= sort_link('last_name') ?>" class="sort-table <?= sortActive('last_name') ?>"></a>
+                                                        نام خانوادگی
+                                                    </th>
+                                                    <th class="px-5">
+                                                        <a href="<?= sort_link('username') ?>" class="sort-table <?= sortActive('username') ?>"></a>
+                                                        نام کاربری
+                                                    </th>
+                                                    <th class="px-5">
+                                                        <a href="<?= sort_link('gender') ?>" class="sort-table <?= sortActive('gender') ?>"></a>
+                                                        جنسیت 
+                                                    </th>
+                                                    <th class="px-5">
+                                                        <a href="<?= sort_link('role') ?>" class="sort-table <?= sortActive('role') ?>"></a>
+                                                        نقش مدیر
+                                                    </th>
+                                                    <th class="px-5">
+                                                        <a href="<?= sort_link('status') ?>" class="sort-table <?= sortActive('status') ?>"></a>
+                                                        وضعیت
+                                                    </th>
+                                                    <th>اقدامات</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="text-center">
+                                                
+                                        <tr
                                             id="<?= (isset($_SESSION['admin_filter']['admin']) and !empty($_SESSION['admin_filter']['admin'])) ? "" : "filter-row" ?>" class="<?= (isset($_SESSION['admin_filter']['admin']) and !empty($_SESSION['admin_filter']['admin'])) ? "" : "d-none" ?>">
                                             <form class=" d-flex justify-content-around align-content-start" id="form"
                                                 action="admins_list.php?page=1" method="post">
-                                                <div class="row g-3">
-                                                    <div class="col-lg-2 col-md-4"> <input class="col form-control"
+                                                <td></td>
+                                                <td></td>
+                                                    <td class="d-flex">
+                                                         <input class="col form-control"
                                                             type="text" value="<?= $filter->is_exist('first_name') ?>"
-                                                            name="first_name" placeholder="نام"> </div>
-                                                    <div class="col-lg-2 col-md-4"> <input class="col form-control"
+                                                            name="first_name" placeholder="نام"> 
+                                                        </td>
+                                                        <td > 
+                                                        <input class="col form-control"
                                                             type="text" value="<?= $filter->is_exist('last_name') ?>"
-                                                            name="last_name" placeholder="نام خانوادگی"> </div>
-                                                    <div class="col-lg-2 col-md-4"> <input class="col form-control"
+                                                            name="last_name" placeholder="نام خانوادگی"> 
+                                                        </td>
+                                                    <td > 
+                                                        <input class="col form-control"
                                                             type="text" value="<?= $filter->is_exist('username') ?>"
-                                                            name="username" placeholder="نام کاربری"> </div>
-                                                    <div class="col-lg-2 col-md-4"> 
+                                                            name="username" placeholder="نام کاربری">
+                                                         </td>
+                                                    <td > <select
+                                                            class="form-select text-secondary" name="gender"
+                                                            id="gender">
+                                                            <option value="" class="text-secondary">جنسیت</option>
+                                                            <option <?= (isset($_SESSION['admin_filter']['gender']) and $_SESSION['admin_filter']['gender'] == 1) ? 'selected' : '' ?> value="1">زن</option>
+                                                            <option <?= (isset($_SESSION['admin_filter']['gender']) and $_SESSION['admin_filter']['gender'] == 0) ? 'selected' : '' ?> value="0">مرد</option>
+                                                        </select> </td>
+                                                    <td > 
                                                         <select
                                                             class="form-select text-secondary" name="role"
                                                             id="role">
@@ -118,68 +166,28 @@ $res = $db->orderBy($sortField, $sortOrder)
                                                             <option <?= (isset($_SESSION['admin_filter']['role']) and $_SESSION['admin_filter']['role'] == 1) ? 'selected' : '' ?> value="1">ادمین</option>
                                                             <option <?= (isset($_SESSION['admin_filter']['role']) and $_SESSION['admin_filter']['role'] == 3) ? 'selected' : '' ?> value="3">اپراتور</option>
                                                         </select>
-                                                    </div>
-                                                    <div class="col-lg-2 col-md-4"> <select
+                                                    </td>
+                                                    <td > <select
                                                             class="form-select text-secondary" name="status"
                                                             id="status">
                                                             <option value="" class="text-secondary">وضعیت</option>
                                                             <option <?= (isset($_SESSION['admin_filter']['status']) and $_SESSION['admin_filter']['status'] == 1) ? 'selected' : '' ?> value="1">فعال</option>
                                                             <option <?= (isset($_SESSION['admin_filter']['status']) and $_SESSION['admin_filter']['status'] == 0) ? 'selected' : '' ?> value="0">غیر فعال</option>
-                                                        </select> </div>
-                                                    <div class="col-lg-2 col-md-4"> <select
-                                                            class="form-select text-secondary" name="gender"
-                                                            id="gender">
-                                                            <option value="" class="text-secondary">جنسیت</option>
-                                                            <option <?= (isset($_SESSION['admin_filter']['gender']) and $_SESSION['admin_filter']['gender'] == 1) ? 'selected' : '' ?> value="1">زن</option>
-                                                            <option <?= (isset($_SESSION['admin_filter']['gender']) and $_SESSION['admin_filter']['gender'] == 0) ? 'selected' : '' ?> value="0">مرد</option>
-                                                        </select> </div>
-                                                    <div class="col-lg-2 col-md-4 text-center button-filter"> <button
+                                                        </select> </td>
+                                                        <td class=" text-center button-filter"> 
+                                                        <div class="btn-group p-0 m-0">    
+                                                        <button
                                                             type="submit" name="filtered" id="apply_filter"
-                                                            class="btn btn-success"> اعمال فیلتر</button></div>
-                                                    <?php if ((isset($_SESSION['admin_filter']['admin']) and !empty($_SESSION['admin_filter']['admin']))) { ?>
-                                                        <div class="col-lg-2 col-md-4 button-filter"> <button type="submit"
+                                                            class="btn btn-success"> اعمال فیلتر</button>
+                                                            <?php if ((isset($_SESSION['admin_filter']['admin']) and !empty($_SESSION['admin_filter']['admin']))) { ?>
+                                                            <button type="submit"
                                                                 name="unFilter" id="delete_filter"
                                                                 class="btn btn-danger button-filter"> حذف فیلتر</button>
-                                                        </div>
-                                                    <?php } ?>
-                                                </div>
+                                                                <?php } ?>
+                                                                </div>
+                                                        </td>
                                             </form>
-                                        </div>
-                                    </div>
-                                    <div class="table-responsive">
-                                        <table class="table">
-                                            <thead class="text-center">
-                                                <tr>
-                                                    <th>#</th>
-                                                    <th>پروفایل</th>
-                                                    <th>
-                                                        <a href="<?= sort_link('first_name') ?>" class="sort-table <?= sortActive('first_name') ?>"></a>
-                                                        نام
-                                                    </th>
-                                                    <th>
-                                                        <a href="<?= sort_link('last_name') ?>" class="sort-table <?= sortActive('last_name') ?>"></a>
-                                                        نام خانوادگی
-                                                    </th>
-                                                    <th>
-                                                        <a href="<?= sort_link('username') ?>" class="sort-table <?= sortActive('username') ?>"></a>
-                                                        نام کاربری
-                                                    </th>
-                                                    <th>
-                                                        <a href="<?= sort_link('gender') ?>" class="sort-table <?= sortActive('gender') ?>"></a>
-                                                        جنسیت 
-                                                    </th>
-                                                    <th>
-                                                        <a href="<?= sort_link('role') ?>" class="sort-table <?= sortActive('role') ?>"></a>
-                                                        نقش مدیر
-                                                    </th>
-                                                    <th>
-                                                        <a href="<?= sort_link('status') ?>" class="sort-table <?= sortActive('status') ?>"></a>
-                                                        وضعیت
-                                                    </th>
-                                                    <th>اقدامات</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody class="text-center">
+                                        </tr>
                                                 <?php foreach ($res as $admin) { ?>
                                                     <tr class="text-center">
                                                         <td>
@@ -188,7 +196,7 @@ $res = $db->orderBy($sortField, $sortOrder)
                                                             </div>
                                                         </td>
                                                         <td>
-                                                            <div class="product-box">
+                                                            <div class="product-box ">
                                                                 <img src="../../<?= (file_exists("../../".$admin['image']) and !empty($admin['image']))?$admin['image']:"assets/images/admin/default.png" ?>" alt="" width="80px" class="rounded">
                                                             </div>
                                                         </td>
