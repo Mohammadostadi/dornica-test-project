@@ -35,7 +35,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
     $validator->empty($price, 'price', 'فیلد قیمت شما نباید خالی باشد');
     $validator->empty($date, 'date', 'فیلد تاریخ شما نباید خالی باشد');
     $validator->empty($qty, 'qty', 'فیلد تعداد محصول شما نباید خالی باشد');
-    $validator->empty($brand, 'brand', 'فیلد برند شما نباید خالی باشد');
+    $validator->empty($brand, 'brand_ids', 'فیلد برند شما نباید خالی باشد');
     if(10 < strlen($date) or strlen($date) < 8){
         $validator->set('date', 'فیلد تاریخ شما نامعتبر میباشد');
     }
@@ -123,18 +123,13 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
                                                         <select class="multiple-select"
                                                                 title="هر چیزی را انتخاب کنید" multiple
                                                                 name="brand_ids[]">
-                                                                <?php foreach ($brandList as $brand) {
-                                                                    if (isset($_POST['brand_ids'])) {
-                                                                        foreach ($_POST['brand_ids'] as $brandSelect) {
-                                                                            $brand_select = (isset($brandSelect) and $brandSelect == $brand['id']) ? "SELECTED" : '';
-                                                                        }
-                                                                    } ?>
-                                                                    <option <?= isset($brand_select) ? $brand_select : "" ?>
+                                                                <?php foreach ($brandList as $brand) { ?>
+                                                                    <option <?= (isset($_POST['brand_ids']) and in_array($brand['id'], $_POST['brand_ids']))?"selected":"" ?>
                                                                         value="<?= $brand['id'] ?>"> <?= $brand['name'] ?>
                                                                     </option>
                                                                 <?php } ?>
                                                             </select>
-                                            <span class="text-danger"><?= $validator->show('brand') ?></span>
+                                            <span class="text-danger"><?= $validator->show('brand_ids') ?></span>
                                             <div class="invalid-feedback">
                                             فیلد برند نباید خالی باشد
                                         </div>
