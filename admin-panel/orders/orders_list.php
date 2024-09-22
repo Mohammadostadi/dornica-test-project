@@ -298,9 +298,7 @@ $res = $filter->filterCheck($db, $data, 'order', 'orders_list.php', $query, 10, 
     require_once('../../layout/js.php');
     ?>
     <script type="text/javascript" src="../../assets/datePiker/js/persianDatepicker.min.js"></script>
-    <script type="text/javascript">
-        $("#date").persianDatepicker({ formatDate: "YYYY/0M/0D" });
-    </script>
+    <script src="assets/js/order_page.js"></script>
 </body>
 
 

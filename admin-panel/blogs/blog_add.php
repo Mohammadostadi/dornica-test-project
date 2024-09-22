@@ -109,11 +109,11 @@
                                         </div>
                                         <div class="col-12">
                                             <label class="form-label">توضیحات</label>
-                                            <textarea id="editor1" type="text" class="form-control" name="description"><?= checkExist('description') ?></textarea>
+                                            <textarea type="text" class="form-control" rows="6" name="description"><?= checkExist('description') ?></textarea>
                                         </div>
                                         <div class="col-12">
                                             <label class="form-label">توضیحات کامل</label>
-                                            <textarea id="editor2" class="form-control" rows="3" placeholder="توضیحات" name="fullDescription"></textarea>
+                                            <textarea class="form-control editor" rows="3" placeholder="توضیحات" name="fullDescription"></textarea>
                                         </div>
                                         <div class="col-12">
                                             <div class="row d-flex justify-content-end">
@@ -146,12 +146,7 @@
     ?>
 <script src="../../assets/ckeditor/ckeditor.js"></script>
 <script src="../../assets/ckeditor/adapters/jquery.js"></script>
-<script>
-    $(document).ready(function(){
-        $('#editor1').ckeditor();
-        $('#editor2').ckeditor();
-    });
-</script>
+<script src="assets/js/blog_add_page.js"></script>
 </body>
 
 

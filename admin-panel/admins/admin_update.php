@@ -216,56 +216,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['_insert'])) {
     require_once('../../layout/js.php');
     require_once('../../layout/update_image.php');
     ?>
-    <script>
-        const gender = $('#gender').find('option:selected').val();
-        if (gender == 0)
-            $('#militaryService').removeClass('d-none');
-
-        $('#gender').click(function () {
-            const id = $(this).val();
-            if (id == 0 && id != '') {
-                $('#militaryService').removeClass('d-none');
-            }
-            else if (!$('#militaryService').hasClass('d-none')) {
-                $('#militaryService').addClass('d-none');
-            }
-        })
-
-    </script>
-    <!-- <script>
-    $('#gender').change(function () {
-            const id = $(this).val();
-            if(id == 0 && id != ''){
-                changeGender(id);
-            }else{
-                $('#militaryService').html(' ');
-            }
-        });
-        const current_gender = $('#gender').find('option:selected').val();
-        const current_service = "<?= isset($_POST['militaryService']) ? $_POST['militaryService'] : $admin['militaryService'] ?>";
-        if(current_gender == 0){
-            if(current_service != '' && current_gender != ''){
-                changeGender(current_gender, current_service);
-            }
-            if(current_service == '' && current_gender != ''){
-                changeGender(current_gender);
-            }
-        }
-
-
-        function changeGender(gender, militaryService = null){
-            $.ajax({
-                url:'admin_update.php',
-                type:'POST',
-                data:{
-                    genderForm: gender,
-                    militaryService: militaryService
-                },
-                success:function(msg) {
-                    $('#militaryService').html(msg);
-                }
-        })}
-</script> -->
+    <script src="assets/js/admin_edit_page.js"></script>
     <!--end wrapper-->
 </body>
 

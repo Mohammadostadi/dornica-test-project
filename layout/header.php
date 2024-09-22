@@ -171,140 +171,56 @@ $profile = $db->where('id', $_SESSION['user'])->getOne('admin');
                     </div>
                 </li>
                 <li class="nav-item dropdown dropdown-large">
-                    <a class="nav-link dropdown-toggle dropdown-toggle-nocaret" href="#" data-bs-toggle="dropdown">
+                    <a class="nav-link dropdown-toggle dropdown-toggle-nocaret" id="notifLink" href="#" data-bs-toggle="dropdown">
                         <div class="messages">
-                            <span class="notify-badge">5</span>
+                            <?php 
+                            $notification = $db->where('is_read', 0)
+                            ->getValue('comment', 'COUNT(id)');
+                            ?>
+                            <span class="notify-badge"><?= $notification ?></span>
                             <i class="bi bi-chat-left-text-fill"></i>
                         </div>
                     </a>
-                    <div class="dropdown-menu dropdown-menu-end p-0">
+                    <div class="dropdown-menu dropdown-menu-end p-0" id="notifDiv" dat  a-bs-popper="static">
                         <div class="p-2 border-bottom m-2">
                             <h5 class="h5 mb-0">پیام ها</h5>
                         </div>
                         <div class="header-message-list p-2">
-                            <a class="dropdown-item" href="#">
+                            <?php 
+                            $db->pageLimit = 6;
+                            $comments = $db->where('is_read', 0)
+                            ->join('members', 'members.id = comment.member_id', 'LEFT')
+                            ->orderBy('setdate', 'DESC')
+                            ->paginate('comment', 1, "comment.id, CONCAT(members.fname, ' ', members.lname) AS name, members.image,subject, comment.setdate, comment.status");
+                            
+                            if(count($comments) == 0){ ?>
+                                    <h6 class="text-center">داده ایی برای نمایش وجود ندارد</h6>
+                            <?php }else{
+                            foreach($comments as $comment){
+                            ?>
+                            <a class="dropdown-item" href="../comments/comment_detail.php?id=<?= $comment['id'] ?>">
                                 <div class="d-flex align-items-center">
-                                    <img src="../../assets/images/avatars/avatar-1.png" alt="" class="rounded-circle"
+                                    <img src="../../<?= isset($comment['image'])?$comment['image']:"assets/images/admin/placeholder.png" ?>" alt="" class="rounded-circle"
                                         width="50" height="50">
-                                    <div class="ms-3 flex-grow-1">
-                                        <h6 class="mb-0 dropdown-msg-user">آملیو جولی <span
-                                                class="msg-time float-end text-secondary">1 ساعت</span></h6>
+                                    <div class="ms-3 flex-grow-1 fw-bold">
+                                        <h6 class="mb-0 dropdown-msg-user fw-bold"><?= $comment['name'] ?><span
+                                                class="msg-time float-end fw-bold">
+                                                <?= jdate('Y/m/d', strtotime($comment['setdate'])) ?>
+                                            </span></h6>
                                         <small
-                                            class="mb-0 dropdown-msg-text text-secondary d-flex align-items-center">لورم
-                                            ایپسوم...</small>
+                                            class="mb-0 dropdown-msg-text text-secondary d-flex align-items-center"><?= $comment['subject'] ?></small>
                                     </div>
                                 </div>
                             </a>
-                            <a class="dropdown-item" href="#">
-                                <div class="d-flex align-items-center">
-                                    <img src="../../assets/images/avatars/avatar-2.png" alt="" class="rounded-circle"
-                                        width="50" height="50">
-                                    <div class="ms-3 flex-grow-1">
-                                        <h6 class="mb-0 dropdown-msg-user">آلته کاباردو <span
-                                                class="msg-time float-end text-secondary">7 ساعت</span></h6>
-                                        <small
-                                            class="mb-0 dropdown-msg-text text-secondary d-flex align-items-center">لورم
-                                            ایپسوم...</small>
-                                    </div>
-                                </div>
-                            </a>
-                            <a class="dropdown-item" href="#">
-                                <div class="d-flex align-items-center">
-                                    <img src="../../assets/images/avatars/avatar-3.png" alt="" class="rounded-circle"
-                                        width="50" height="50">
-                                    <div class="ms-3 flex-grow-1">
-                                        <h6 class="mb-0 dropdown-msg-user">کاترین پچون <span
-                                                class="msg-time float-end text-secondary">2 ساعت</span></h6>
-                                        <small
-                                            class="mb-0 dropdown-msg-text text-secondary d-flex align-items-center">لورم
-                                            ایپسوم...</small>
-                                    </div>
-                                </div>
-                            </a>
-                            <a class="dropdown-item" href="#">
-                                <div class="d-flex align-items-center">
-                                    <img src="../../assets/images/avatars/avatar-4.png" alt="" class="rounded-circle"
-                                        width="50" height="50">
-                                    <div class="ms-3 flex-grow-1">
-                                        <h6 class="mb-0 dropdown-msg-user">پیتر کوستانزو <span
-                                                class="msg-time float-end text-secondary">3 ساعت</span></h6>
-                                        <small
-                                            class="mb-0 dropdown-msg-text text-secondary d-flex align-items-center">لورم
-                                            ایپسوم...</small>
-                                    </div>
-                                </div>
-                            </a>
-                            <a class="dropdown-item" href="#">
-                                <div class="d-flex align-items-center">
-                                    <img src="../../assets/images/avatars/avatar-5.png" alt="" class="rounded-circle"
-                                        width="50" height="50">
-                                    <div class="ms-3 flex-grow-1">
-                                        <h6 class="mb-0 dropdown-msg-user">توماس ویلر <span
-                                                class="msg-time float-end text-secondary">1 روز</span></h6>
-                                        <small
-                                            class="mb-0 dropdown-msg-text text-secondary d-flex align-items-center">لورم
-                                            ایپسوم...</small>
-                                    </div>
-                                </div>
-                            </a>
-                            <a class="dropdown-item" href="#">
-                                <div class="d-flex align-items-center">
-                                    <img src="../../assets/images/avatars/avatar-6.png" alt="" class="rounded-circle"
-                                        width="50" height="50">
-                                    <div class="ms-3 flex-grow-1">
-                                        <h6 class="mb-0 dropdown-msg-user">جانی سیتز <span
-                                                class="msg-time float-end text-secondary">2 ماه</span></h6>
-                                        <small
-                                            class="mb-0 dropdown-msg-text text-secondary d-flex align-items-center">لورم
-                                            ایپسوم...</small>
-                                    </div>
-                                </div>
-                            </a>
-                            <a class="dropdown-item" href="#">
-                                <div class="d-flex align-items-center">
-                                    <img src="../../assets/images/avatars/avatar-1.png" alt="" class="rounded-circle"
-                                        width="50" height="50">
-                                    <div class="ms-3 flex-grow-1">
-                                        <h6 class="mb-0 dropdown-msg-user">آملیو جولی <span
-                                                class="msg-time float-end text-secondary">1 ساعت</span></h6>
-                                        <small
-                                            class="mb-0 dropdown-msg-text text-secondary d-flex align-items-center">لورم
-                                            ایپسوم...</small>
-                                    </div>
-                                </div>
-                            </a>
-                            <a class="dropdown-item" href="#">
-                                <div class="d-flex align-items-center">
-                                    <img src="../../assets/images/avatars/avatar-2.png" alt="" class="rounded-circle"
-                                        width="50" height="50">
-                                    <div class="ms-3 flex-grow-1">
-                                        <h6 class="mb-0 dropdown-msg-user">آلته کاباردو <span
-                                                class="msg-time float-end text-secondary">7 ساعت</span></h6>
-                                        <small
-                                            class="mb-0 dropdown-msg-text text-secondary d-flex align-items-center">لورم
-                                            ایپسوم...</small>
-                                    </div>
-                                </div>
-                            </a>
-                            <a class="dropdown-item" href="#">
-                                <div class="d-flex align-items-center">
-                                    <img src="../../assets/images/avatars/avatar-3.png" alt="" class="rounded-circle"
-                                        width="50" height="50">
-                                    <div class="ms-3 flex-grow-1">
-                                        <h6 class="mb-0 dropdown-msg-user">کاترین پچون <span
-                                                class="msg-time float-end text-secondary">2 ساعت</span></h6>
-                                        <small
-                                            class="mb-0 dropdown-msg-text text-secondary d-flex align-items-center">لورم
-                                            ایپسوم...</small>
-                                    </div>
-                                </div>
-                            </a>
+                            <?php } 
+                            }
+                            ?>
                         </div>
                         <div class="p-2">
                             <div>
                                 <hr class="dropdown-divider">
                             </div>
-                            <a class="dropdown-item" href="#">
+                            <a class="dropdown-item <?= count($comments) == 0?"disabled":"" ?>" href="<?= count($comments) != 0?"../comments/comments_list.php?comment=1":"" ?>">
                                 <div class="text-center">مشاهده همه پیام ها</div>
                             </a>
                         </div>
@@ -506,7 +422,7 @@ $profile = $db->where('id', $_SESSION['user'])->getOne('admin');
                 <hr class="dropdown-divider">
                 </li>
                 <li>
-                    <a class="dropdown-item" href="../../logout.php" name="logout">
+                    <a class="dropdown-item" href="../../auth/logout.php" name="logout">
                         <div class="d-flex align-items-center">
                             <div class=""><i class="bi bi-lock-fill"></i></div>
                             <div class="ms-3"><span>خروج</span></div>

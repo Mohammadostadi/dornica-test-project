@@ -10,8 +10,9 @@
     $filter->filterCheck($db, $data, 'contact', 'contacts_list.php');
     pageLimit('contacts', 10, false, $_SESSION['contact_filter']['contact']);
     $filter->loopQuery($db, $_SESSION['contact_filter']['contact']);
-    $res = $db->orderBy($sortField, $sortOrder)
-    ->paginate('contacts', $page);
+    $res = $db->join('admin', 'admin.id = contacts.admin_id', 'LEFT')
+    ->orderBy($sortField, $sortOrder)
+    ->paginate('contacts', $page, "CONCAT(admin.first_name, ' ', admin.last_name) AS name, email, admin.image,subject, setdate, contacts.status");
 ?>
 
 <!doctype html>

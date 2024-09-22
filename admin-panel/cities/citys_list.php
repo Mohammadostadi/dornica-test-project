@@ -2,11 +2,11 @@
 $prefix = 'cities';
 require_once('../../app/loader.php');
 sortInTable($prefix, 'citys_list', 'page');
-if(!isset($_SESSION['province'])){
+if (!isset($_SESSION['province'])) {
     $_SESSION['province'] = '';
 }
-if(isset($_GET['province'])){
-    $province_city = 'cities.province_id = '.securityCheck($_GET['province']);
+if (isset($_GET['province'])) {
+    $province_city = 'cities.province_id = ' . securityCheck($_GET['province']);
 }
 $filter = new Filter('cities', 'city_filter');
 $data = [
@@ -15,10 +15,10 @@ $data = [
     'cities.status' => '=',
 ];
 $query = [
-    'SELECT COUNT(*) AS total FROM cities LEFT JOIN province on province.id = cities.province_id WHERE '.(!empty($province_city)?$province_city:""),
-    'SELECT province.name AS province, cities.name AS city, cities.id, cities.province_id, cities.status FROM cities LEFT JOIN province on province.id = cities.province_id '.(!empty($province_city)?' WHERE '.$province_city:"")
+    'SELECT COUNT(*) AS total FROM cities LEFT JOIN province on province.id = cities.province_id WHERE ' . (!empty($province_city) ? $province_city : ""),
+    'SELECT province.name AS province, cities.name AS city, cities.id, cities.province_id, cities.status FROM cities LEFT JOIN province on province.id = cities.province_id ' . (!empty($province_city) ? ' WHERE ' . $province_city : "")
 ];
-$res = $filter->filterCheck($db, $data, 'cities', 'citys_list.php', $query, 10, $sortField, $sortOrder, isset($province_city)?$province_city:"");
+$res = $filter->filterCheck($db, $data, 'cities', 'citys_list.php', $query, 10, $sortField, $sortOrder, isset($province_city) ? $province_city : "");
 ?>
 
 <!doctype html>
@@ -77,10 +77,11 @@ $res = $filter->filterCheck($db, $data, 'cities', 'citys_list.php', $query, 10, 
                 </div>
                 <div class="ms-auto">
                     <div class="btn-group">
-                    <?php if(isset($province_city) and !empty($province_city)) { ?>
-                                        <a class="btn btn-outline-secondary" href="../provinces/provinces_list.php">برگشت به لیست استان ها</a>
-                                <?php } ?>
-                        <?= has_access('city_add.php') ?"<a class='btn btn-outline-secondary' href='city_add.php'> اضافه کردن داده جدید</a>":"" ?>
+                        <?php if (isset($province_city) and !empty($province_city)) { ?>
+                            <a class="btn btn-outline-secondary" href="../provinces/provinces_list.php">برگشت به لیست استان
+                                ها</a>
+                        <?php } ?>
+                        <?= has_access('city_add.php') ? "<a class='btn btn-outline-secondary' href='city_add.php'> اضافه کردن داده جدید</a>" : "" ?>
                         <button class="btn btn-outline-secondary" id="_filter">فیلتر</button>
                     </div>
                 </div>
@@ -116,44 +117,43 @@ $res = $filter->filterCheck($db, $data, 'cities', 'citys_list.php', $query, 10, 
                                                             class="sort-table <?= sortActive('status') ?>"></a>
                                                         وضعیت
                                                     </th>
-                                                    <?= (has_access('city_update.php') or has_access('city_delete.php'))?"<th>اقدامات</th>":"" ?>
+                                                    <?= (has_access('city_update.php') or has_access('city_delete.php')) ? "<th>اقدامات</th>" : "" ?>
                                                 </tr>
                                             </thead>
                                             <tbody class="text-center">
-                                                
-                                        <tr id="<?= (isset($_SESSION['city_filter']['cities']) and !empty($_SESSION['city_filter']['cities'])) ? "" : "filter-row" ?>"
-                                            class="<?= (isset($_SESSION['city_filter']['cities']) and !empty($_SESSION['city_filter']['cities'])) ? "" : "d-none" ?>">
-                                            <form class="" id="form" action="citys_list.php?page=1" method="post">
-                                                <td></td>
-                                                    <td> <input class="col form-control"
-                                                            type="text"
-                                                            value="<?= isset($_SESSION['city_filter']['province_name']) ? $_SESSION['city_filter']['province_name'] : "" ?>"
-                                                            name="province_name" placeholder="استان"> </td>
-                                                    <td> <input class="col form-control"
-                                                            type="text"
-                                                            value="<?= isset($_SESSION['city_filter']['cities_name']) ? $_SESSION['city_filter']['cities_name'] : "" ?>"
-                                                            name="cities_name" placeholder="شهر"> </td>
-                                                    <td> <select
-                                                            class="form-select text-secondary" name="cities_status"
-                                                            id="status">
-                                                            <option value="" class="text-secondary">وضعیت</option>
-                                                            <option <?= (isset($_SESSION['city_filter']['cities_status']) and $_SESSION['city_filter']['cities_status'] == 1) ? 'selected' : '' ?> value="1">فعال</option>
-                                                            <option <?= (isset($_SESSION['city_filter']['cities_status']) and $_SESSION['city_filter']['cities_status'] == 0) ? 'selected' : '' ?> value="0">غیر فعال</option>
-                                                        </select> </td>
-                                                    <td class="text-center button-filter"> 
-                                                    <div class="btn-group p-0 m-0">
-                                                        <button
-                                                            type="submit" name="filtered" id="apply_filter"
-                                                            class="btn btn-success"> اعمال فیلتر</button>
-                                                            <?php if (isset($_SESSION['city_filter']['cities']) and !empty($_SESSION['city_filter']['cities'])) { ?>
-                                                            <button type="submit"
-                                                                name="unFilter" id="delete_filter"
-                                                                class="btn btn-danger button-filter"> حذف فیلتر</button>
+
+                                                <tr id="<?= (isset($_SESSION['city_filter']['cities']) and !empty($_SESSION['city_filter']['cities'])) ? "" : "filter-row" ?>"
+                                                    class="<?= (isset($_SESSION['city_filter']['cities']) and !empty($_SESSION['city_filter']['cities'])) ? "" : "d-none" ?>">
+                                                    <form class="" id="form" action="citys_list.php?page=1"
+                                                        method="post">
+                                                        <td></td>
+                                                        <td> <input class="col form-control" type="text"
+                                                                value="<?= isset($_SESSION['city_filter']['province_name']) ? $_SESSION['city_filter']['province_name'] : "" ?>"
+                                                                name="province_name" placeholder="استان"> </td>
+                                                        <td> <input class="col form-control" type="text"
+                                                                value="<?= isset($_SESSION['city_filter']['cities_name']) ? $_SESSION['city_filter']['cities_name'] : "" ?>"
+                                                                name="cities_name" placeholder="شهر"> </td>
+                                                        <td> <select class="form-select text-secondary"
+                                                                name="cities_status" id="status">
+                                                                <option value="" class="text-secondary">وضعیت</option>
+                                                                <option
+                                                                    <?= (isset($_SESSION['city_filter']['cities_status']) and $_SESSION['city_filter']['cities_status'] == 1) ? 'selected' : '' ?> value="1">فعال</option>
+                                                                <option
+                                                                    <?= (isset($_SESSION['city_filter']['cities_status']) and $_SESSION['city_filter']['cities_status'] == 0) ? 'selected' : '' ?> value="0">غیر فعال</option>
+                                                            </select> </td>
+                                                        <td class="text-center button-filter">
+                                                            <div class="btn-group p-0 m-0">
+                                                                <button type="submit" name="filtered" id="apply_filter"
+                                                                    class="btn btn-success"> اعمال فیلتر</button>
+                                                                <?php if (isset($_SESSION['city_filter']['cities']) and !empty($_SESSION['city_filter']['cities'])) { ?>
+                                                                    <button type="submit" name="unFilter" id="delete_filter"
+                                                                        class="btn btn-danger button-filter"> حذف
+                                                                        فیلتر</button>
                                                                 <?php } ?>
-                                                                </div>
+                                                            </div>
                                                         </td>
-                                            </form>
-                                        </tr>
+                                                    </form>
+                                                </tr>
                                                 <?php foreach ($res as $key => $city) { ?>
                                                     <tr>
                                                         <td>
@@ -164,30 +164,61 @@ $res = $filter->filterCheck($db, $data, 'cities', 'citys_list.php', $query, 10, 
                                                         <td>
                                                             <?= status('active', $city['status']); ?>
                                                         </td>
-                                                        <?php if(has_access('city_update.php') or has_access('city_delete.php')){ ?>
-                                                        <td>
-                                                            <div>
-                                                                <?php if(has_access('city_update.php')){ ?>
-                                                                <a href="city_update.php?id=<?= $city['id'] ?>"
-                                                                    class="text-warning" data-bs-toggle="tooltip"
-                                                                    data-bs-placement="bottom" title="ویرایش اطلاعات"
-                                                                    data-bs-original-title="ویرایش اطلاعات"
-                                                                    aria-label="Edit"><i class="bi bi-pencil-fill"></i></a>
-                                                                <?php
-                                                                }
-                                                                if(has_access('city_delete.php')){
-                                                                $res = $db->where('city_id', $city['id'])
-                                                                    ->getOne('members');
-                                                                ?>
-                                                                <button
-                                                                    class="<?= is_countable($res) ? "disabled text-secondary" : 'open-confirm text-danger' ?>  btn border-0"
-                                                                    data-bs-toggle="tooltip" data-bs-placement="bottom"
-                                                                    title="<?= is_countable($res) ? 'قابل حذف نیست' : 'حذف' ?>"
-                                                                    data-bs-original-title="حذف" aria-label="Delete"><i
-                                                                        class="bi bi-trash-fill"></i></button>
-                                                                <?php } ?>
-                                                            </div>
-                                                        </td>
+                                                        <?php if (has_access('city_update.php') or has_access('city_delete.php')) { ?>
+                                                            <td>
+                                                                <div>
+                                                                    <?php if (has_access('city_update.php')) { ?>
+                                                                        <a href="city_update.php?id=<?= $city['id'] ?>"
+                                                                            class="text-warning" data-bs-toggle="tooltip"
+                                                                            data-bs-placement="bottom" title="ویرایش اطلاعات"
+                                                                            data-bs-original-title="ویرایش اطلاعات"
+                                                                            aria-label="Edit"><i class="bi bi-pencil-fill"></i></a>
+                                                                        <?php
+                                                                    }
+                                                                    if (has_access('city_delete.php')) {
+                                                                        $res = $db->where('city_id', $city['id'])
+                                                                            ->getOne('members');
+                                                                        ?>
+                                                                        <button
+                                                                            class="<?= is_countable($res) ? "disabled text-secondary" : 'edit text-danger' ?>  btn border-0"
+                                                                            data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                                                            title="<?= is_countable($res) ? 'قابل حذف نیست' : 'حذف' ?>"
+                                                                            data-bs-original-title="حذف" aria-label="Delete"><i
+                                                                                class="bi bi-trash-fill"></i></button>
+
+                                                                        <div class="modal-dialog" role="document">
+                                                                            <div class="modal-content">
+                                                                                <div class="modal-header">
+
+                                                                                    <h5 class="modal-title" id="exampleModalLabel">
+                                                                                        حذف داده</h5>
+                                                                                    <button type="button" class="close"
+                                                                                        value="<?= $city['id'] ?>"
+                                                                                        data-dismiss="modal" aria-label="Close">
+                                                                                        <span aria-hidden="true">&times;</span>
+                                                                                    </button>
+                                                                                </div>
+                                                                                <form
+                                                                                    action="city_delete.php?id=<?= $city['id'] ?>">
+                                                                                    <div class="modal-body">
+                                                                                        <h5>آیا مطمئن هستید؟</h5>
+                                                                                    </div>
+                                                                                    <div class="modal-footer">
+                                                                                        <button type="button"
+                                                                                            value="<?= $city['id'] ?>"
+                                                                                            class="btn btn-secondary close"
+                                                                                            data-dismiss="modal">لغو</button>
+                                                                                        <button type="submit"
+                                                                                            name="btn_change_status"
+                                                                                            class="btn btn-primary">ذخیره
+                                                                                            تنظیمات</button>
+                                                                                    </div>
+                                                                                </form>
+                                                                            </div>
+                                                                        </div>
+                                                                    <?php } ?>
+                                                                </div>
+                                                            </td>
                                                         <?php } ?>
                                                     </tr>
                                                 <?php } ?>
@@ -211,12 +242,11 @@ $res = $filter->filterCheck($db, $data, 'cities', 'citys_list.php', $query, 10, 
         ?>
     </div>
     <!--end wrapper-->
-    <script>
-        const path = 'city_delete.php'
-    </script>
+
     <?php
     require_once('../../layout/js.php');
     ?>
+    <script src="assets/js/city_page.js"></script>
 
 </body>
 

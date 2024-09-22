@@ -52,61 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['apply'])) {
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <?php require_once("../../layout/css.php"); ?>
-
-    <style>
-        .profile-pic {
-            color: transparent;
-            transition: all 0.3s ease;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-            transition: all 0.3s ease;
-        }
-
-        .profile-pic input {
-            display: none;
-        }
-
-        .profile-pic img {
-            position: absolute;
-            object-fit: cover;
-            width: 165px;
-            height: 165px;
-            box-shadow: 0 0 10px 0 rgba(255, 255, 255, 0.35);
-            border-radius: 100px;
-            z-index: 0;
-        }
-
-        .profile-pic .-label {
-            cursor: pointer;
-            height: 165px;
-            width: 165px;
-        }
-
-        .profile-pic:hover .-label {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: rgba(0, 0, 0, 0.8);
-            z-index: 10000;
-            color: #fafafa;
-            transition: background-color 0.2s ease-in-out;
-            border-radius: 100px;
-            margin-bottom: 0;
-        }
-
-        .profile-pic span {
-            display: inline-flex;
-            padding: 0.2em;
-            height: 2em;
-        }
-
-
-        body a:hover {
-            text-decoration: none;
-        }
-    </style>
+    <link rel="stylesheet" href="assets/style/profile_edit.css">
 
     <title>پروفایل</title>
 
@@ -277,80 +223,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['apply'])) {
 
 
         <?php require_once("../../layout/js.php"); ?>
-        <script>
-            $(document).ready(function () {
-                $("#file").change(function () {
-                    const fd = new FormData();
-                    const files = $('#file')[0].files[0];
-                    fd.append('file', files);
-                    $.ajax({
-                        url: '../../app/Controller/profile_upload.php',
-                        type: 'post',
-                        data: fd,
-                        contentType: false,
-                        processData: false,
-                        success: function (response) {
-                            if (response != 0) {
-                                $("#img").attr("src", response);
-                                $(".preview img").show(); // Display image element
-                            } else {
-                                alert('file not uploaded');
-                            }
-                        },
-                    });
-                });
-            });
-        </script>
-        <script>
-
-            $("#alert").fadeTo(3000, 500).slideUp(500, function () {
-                $("#alert").slideUp(600);
-            });
-
-
-        </script>
-
-        <script>
-            (() => {
-                'use strict'
-                const forms = document.querySelectorAll('.needs-validation')
-                Array.from(forms).forEach(form => {
-                    form.addEventListener('submit', event => {
-                        if (!form.checkValidity()) {
-                            event.preventDefault()
-                            event.stopPropagation()
-                        }
-                        form.classList.add('was-validated')
-                    }, false)
-                })
-            })()
-
-
-        </script>
-        <script>
-            const gender = $('#gender').find('option:selected').val();
-            if (gender == 0)
-                $('#militaryService').removeClass('d-none');
-
-            $('#gender').click(function () {
-                const id = $(this).val();
-                if (id == 0 && id != '') {
-                    $('#militaryService').removeClass('d-none');
-                }
-                else if (!$('#militaryService').hasClass('d-none')) {
-                    $('#militaryService').addClass('d-none');
-                }
-            })
-
-        </script>
-
-        <!--توابع jquery-->
-        <script>
-            //نام کاربری
-            function usernamejs(input) {
-                input.value = input.value.replace(/[^a-zA-Z0-9@_-]/g, '');
-            }
-        </script>
+        <script src="assets/js/profile_edit_page.js"></script>
 </body>
 
 </html>

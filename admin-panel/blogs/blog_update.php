@@ -123,11 +123,11 @@
                                         </div>
                                         <div class="col-12">
                                             <label class="form-label">توضیحات</label>
-                                            <textarea class="form-control" id="description" rows="3" placeholder="توضیحات" name="description"><?= checkUpdate('description', $blog['description']) ?></textarea>
+                                            <textarea class="form-control" rows="6" placeholder="توضیحات" name="description"><?= checkUpdate('description', $blog['description']) ?></textarea>
                                             <span class="text-danger"><?= $validator->show('description') ?></span>
                                         </div>
                                         <div class="col-12">
-                                            <textarea class="form-control" id="full_description" rows="3" placeholder="توضیحات" name="fullDescription"><?= checkUpdate('fullDescription', $blog['full_description']) ?></textarea>
+                                            <textarea class="form-control editor" rows="3" placeholder="توضیحات" name="fullDescription"><?= checkUpdate('fullDescription', $blog['full_description']) ?></textarea>
                                             <label class="form-label">توضیحات کامل</label>
                                         </div>
                                         
@@ -184,12 +184,7 @@
     ?>
     <script src="../../assets/ckeditor/ckeditor.js"></script>
     <script src="../../assets/ckeditor/adapters/jquery.js"></script>
-    <script>
-        $(document).ready(function(){
-            $('#full_description').ckeditor();
-            $('#description').ckeditor();
-        });
-    </script>
+    <script src="assets/js/blog_add_page.js"></script>
     <?php require_once('../../layout/update_image.php') ?>
 </body>
 

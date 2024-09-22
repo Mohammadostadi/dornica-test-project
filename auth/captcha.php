@@ -46,10 +46,7 @@ $fonts = ['..\assets\fonts\irsans.ttf', '..\assets\fonts\irsans.ttf', '..\assets
 
 $string_length = rand(5, 6);
 $captcha_string = generate_string($permitted_chars, $string_length);
-// var_dump($captcha_string);die;
-if (!isset($_SESSION['captcha_text'])) {
-  $_SESSION['captcha_text'] = $captcha_string;
-}
+$_SESSION['captcha_text'] = $captcha_string;
 
 for ($i = 0; $i < $string_length; $i++) {
   $letter_space = (int) (130 / $string_length);

@@ -188,7 +188,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
                                     <div class="col-lg-6">
                                         <div>
                                             <label class="form-label">تاریخ تولد</label>
-                                            <input id="date" name="birthday" class="form-control datepicker text-end" value="<?= checkExist('birthday') ?>" required/>
+                                            <input id="date" name="birthday" class="form-control datepicker date text-end" value="<?= checkExist('birthday') ?>" required/>
                                             <span class="text-danger"><?= $validator->show('date') ?></span>
                                             <div class="invalid-feedback">
                                             فیلد تاریخ تولد نباید خالی باشد
@@ -248,42 +248,12 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
 <?php
         require_once('../../layout/js.php');
     ?>
-
-<script>
-        $('#state').change(function () {
-            const id = $(this).val();
-            console.log(id);
-            cities(id);
-        });
-        const current_province = "<?= isset($_POST['state'])?$_POST['state']:""?>";
-        const current_city = "<?= isset($_POST['city'])?$_POST['city']:""?>";
-        if(current_city != '' && current_province != ''){
-            cities(current_province, current_city);
-        }
-        if(current_city == '' && current_province != ''){
-            cities(current_province);
-        }
-
-
-        function cities(province, city = null){
-            $.ajax({
-                url:'member_add.php',
-                type:'POST',
-                data:{
-                    province_id:province,
-                    city_id:city
-                },
-                success:function(msg) {
-                    $('#city').html(msg);
-                }
-        })}
-</script>
-
 <script type="text/javascript" src="../../assets/datePiker/js/persianDatepicker.min.js"></script>
-<script type="text/javascript">
-    $("#date").persianDatepicker({formatDate: "YYYY/0M/0D"});
-    $("#endTime").persianDatepicker({formatDate: "YYYY/0M/0D"});
+<script>
+    const current_province = "<?= isset($_POST['state'])?$_POST['state']:""?>";
+    const current_city = "<?= isset($_POST['city'])?$_POST['city']:""?>";
 </script>
+<script src="assets/js/member_add.js"></script>
 
 </body>
 

@@ -86,7 +86,8 @@ $validator = new validator();
 
 <?php
         require_once('../../layout/js.php');
-    ?>
+?>
+<script src="assets/js/blog_category_page.js"></script>
 </body>
 
 

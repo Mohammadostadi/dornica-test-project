@@ -8,10 +8,10 @@ if (isset($_GET['manager'])) {
         redirect('../../error/error-403.php');
 }
 if (isset($_POST['changePassword']) and $_SERVER['REQUEST_METHOD'] == 'POST') {
-    $managerChanges = securityCheck($_GET['manager']);
+    $managerChanges = isset($_GET['manager'])?(securityCheck($_GET['manager'])):"";
     $newPassword = securityCheck($_POST['newPass']);
     $confirmPassword = securityCheck($_POST['confirmPassword']);
-
+    
     $validator->empty($newPassword, 'newPass', 'فیلد رمز عبور جدید شما نباید خالی باشد');
     $validator->empty($confirmPassword, 'confirmPassword', 'فیلد تایید رمز عبور شما نباید خالی باشد');
 
@@ -20,7 +20,7 @@ if (isset($_POST['changePassword']) and $_SERVER['REQUEST_METHOD'] == 'POST') {
     }
     if ($validator->count_error() == 0) {
         $hash = password_hash($newPassword, PASSWORD_DEFAULT);
-        $db->where('id', isset($managerChanges) ? $managerChanges : ($_SESSION['user']))
+        $db->where('id', (isset($managerChanges) and $managerChanges != '') ? $managerChanges : ($_SESSION['user']))
             ->update('admin', [
                 'password' => $hash
             ]);
@@ -144,22 +144,7 @@ if (isset($_POST['changePassword']) and $_SERVER['REQUEST_METHOD'] == 'POST') {
         </main>
     </div>
     <?php require_once("../../layout/js.php"); ?>
-
-    <script>
-        (() => {
-            'use strict'
-            const forms = document.querySelectorAll('.needs-validation')
-            Array.from(forms).forEach(form => {
-                form.addEventListener('submit', event => {
-                    if (!form.checkValidity()) {
-                        event.preventDefault()
-                        event.stopPropagation()
-                    }
-                    form.classList.add('was-validated')
-                }, false)
-            })
-        })()
-    </script>
+    <script src="assets/js/reset_password.js"></script>
 
     <!-- Mirrored from codetheme.ir/onedash/demo/rtl/authentication-reset-password.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 31 May 2024 08:56:30 GMT -->
 

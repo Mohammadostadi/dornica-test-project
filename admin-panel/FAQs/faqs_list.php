@@ -119,7 +119,7 @@ $res = $db->orderBy($sortField, $sortOrder)
                                                                 type="text"
                                                                 value="<?= isset($_SESSION['faq_filter']['title']) ? $_SESSION['faq_filter']['title'] : "" ?>"
                                                                 name="title" placeholder="عنوان"> </td>
-                                                                <td></td>
+                                                        <td></td>
                                                         <td class="col-lg-2 col-md-4"> <select
                                                                 class="form-select text-secondary" name="status"
                                                                 id="status">
@@ -127,15 +127,15 @@ $res = $db->orderBy($sortField, $sortOrder)
                                                                 <option <?= (isset($_SESSION['faq_filter']['status']) and $_SESSION['faq_filter']['status'] == 1) ? 'selected' : '' ?> value="1">فعال</option>
                                                                 <option <?= (isset($_SESSION['faq_filter']['status']) and $_SESSION['faq_filter']['status'] == 0) ? 'selected' : '' ?> value="0">غیر فعال</option>
                                                             </select> </td>
-                                                        <td class="col-lg-2 col-md-4 text-center button-filter"> 
-                                                        <div class="btn-group p-0 m-0">    
-                                                            <button
-                                                                type="submit" name="filtered" id="apply_filter"
-                                                                class="btn btn-success"> اعمال فیلتر</button>
+                                                        <td class="col-lg-2 col-md-4 text-center button-filter">
+                                                            <div class="btn-group p-0 m-0">
+                                                                <button type="submit" name="filtered" id="apply_filter"
+                                                                    class="btn btn-success"> اعمال فیلتر</button>
                                                                 <?php if (isset($_SESSION['faq_filter']['faq']) and !empty($_SESSION['faq_filter']['faq'])) { ?>
                                                                     <button type="submit" name="unFilter" id="delete_filter"
-                                                                        class="btn btn-danger button-filter"> حذف فیلتر</button>
-                                                            <?php } ?>
+                                                                        class="btn btn-danger button-filter"> حذف
+                                                                        فیلتر</button>
+                                                                <?php } ?>
                                                             </div>
                                                         </td>
                                                     </form>
@@ -165,11 +165,39 @@ $res = $db->orderBy($sortField, $sortOrder)
                                                                 <?php }
                                                                 if (has_access('faq_delete.php')) {
                                                                     ?>
-                                                                    <button class="open-confirm border-0 btn text-danger"
+                                                                    <button class="edit border-0 btn text-danger"
                                                                         data-bs-toggle="tooltip" data-bs-placement="bottom"
                                                                         title="حذف" data-bs-original-title="حذف"
                                                                         aria-label="Delete"><i
                                                                             class="bi bi-trash-fill"></i></button>
+                                                                            
+                                                                        <div class="modal-dialog" role="document">
+                                                                            <div class="modal-content">
+                                                                                <div class="modal-header">
+
+                                                                                    <h5 class="modal-title"
+                                                                                        id="exampleModalLabel">حذف داده</h5>
+                                                                                    <button type="button" class="close" value="<?= $faq['id'] ?>"
+                                                                                        data-dismiss="modal" aria-label="Close">
+                                                                                        <span aria-hidden="true">&times;</span>
+                                                                                    </button>
+                                                                                </div>
+                                                                                <form action="faq_delete.php?id=<?= $faq['id'] ?>">
+                                                                                    <div class="modal-body">
+                                                                                        <h5>آیا مطمئن هستید؟</h5>
+                                                                                    </div>
+                                                                                    <div class="modal-footer">
+                                                                                        <button type="button" value="<?= $faq['id'] ?>"
+                                                                                            class="btn btn-secondary close"
+                                                                                            data-dismiss="modal">لغو</button>
+                                                                                        <button type="submit"
+                                                                                            name="btn_change_status"
+                                                                                            class="btn btn-primary">ذخیره
+                                                                                            تنظیمات</button>
+                                                                                    </div>
+                                                                                </form>
+                                                                            </div>
+                                                                        </div>
                                                                 <?php } ?>
                                                             </div>
                                                         </td>
@@ -195,9 +223,7 @@ $res = $db->orderBy($sortField, $sortOrder)
 
     </div>
     <!--end wrapper-->
-    <script>
-        const path = 'faq_delete.php'
-    </script>
+
     <?php
     require_once('../../layout/js.php');
     ?>

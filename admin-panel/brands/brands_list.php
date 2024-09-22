@@ -125,13 +125,13 @@ $res = $db->orderBy($sortField, $sortOrder)
                                                             <option <?= (isset($_SESSION['brand_filter']['status']) and $_SESSION['brand_filter']['status'] == 0) ? 'selected' : '' ?> value="0">غیر فعال</option>
                                                         </select> </td>
                                                     <td class="text-center button-filter">
-                                                    <div class="btn-group p-0 m-0">
-                                                        <button type="submit" name="filtered" id="apply_filter"
-                                                            class="btn btn-success"> اعمال فیلتر</button>
-                                                        <?php if (isset($_SESSION['brand_filter']['brand']) and !empty($_SESSION['brand_filter']['brand'])) { ?>
-                                                            <button type="submit" name="unFilter" id="delete_filter"
-                                                                class="btn btn-danger button-filter"> حذف فیلتر</button>
-                                                        <?php } ?>
+                                                        <div class="btn-group p-0 m-0">
+                                                            <button type="submit" name="filtered" id="apply_filter"
+                                                                class="btn btn-success"> اعمال فیلتر</button>
+                                                            <?php if (isset($_SESSION['brand_filter']['brand']) and !empty($_SESSION['brand_filter']['brand'])) { ?>
+                                                                <button type="submit" name="unFilter" id="delete_filter"
+                                                                    class="btn btn-danger button-filter"> حذف فیلتر</button>
+                                                            <?php } ?>
                                                         </div>
                                                     </td>
                                                 </form>
@@ -169,12 +169,43 @@ $res = $db->orderBy($sortField, $sortOrder)
                                                                         ->getValue('products', 'COUNT(*)');
                                                                     ?>
                                                                     <button
-                                                                        class="<?= !empty($res) ? 'disabled text-secondary' : 'open-confirm text-danger' ?> border-0 btn"
+                                                                        class="<?= !empty($res) ? 'disabled text-secondary' : 'edit text-danger' ?> border-0 btn"
                                                                         value="<?= $brand['id'] ?>" data-bs-toggle="tooltip"
                                                                         data-bs-placement="bottom"
                                                                         title="<?= !empty($res) ? 'قابل حذف نیست' : 'حذف' ?>"
                                                                         aria-label="Delete"><i
                                                                             class="bi bi-trash-fill"></i></button>
+
+                                                                    <div class="modal-dialog" role="document">
+                                                                        <div class="modal-content">
+                                                                            <div class="modal-header">
+
+                                                                                <h5 class="modal-title" id="exampleModalLabel">
+                                                                                    حذف داده</h5>
+                                                                                <button type="button" class="close"
+                                                                                    value="<?= $brand['id'] ?>"
+                                                                                    data-dismiss="modal" aria-label="Close">
+                                                                                    <span aria-hidden="true">&times;</span>
+                                                                                </button>
+                                                                            </div>
+                                                                            <form
+                                                                                action="brand_delete.php?id=<?= $brand['id'] ?>">
+                                                                                <div class="modal-body">
+                                                                                    <h5>آیا مطمئن هستید؟</h5>
+                                                                                </div>
+                                                                                <div class="modal-footer">
+                                                                                    <button type="button"
+                                                                                        value="<?= $brand['id'] ?>"
+                                                                                        class="btn btn-secondary close"
+                                                                                        data-dismiss="modal">لغو</button>
+                                                                                    <button type="submit"
+                                                                                        name="btn_change_status"
+                                                                                        class="btn btn-primary">ذخیره
+                                                                                        تنظیمات</button>
+                                                                                </div>
+                                                                            </form>
+                                                                        </div>
+                                                                    </div>
                                                                 <?php } ?>
                                                             </div>
                                                         </td>
@@ -203,13 +234,11 @@ $res = $db->orderBy($sortField, $sortOrder)
 
     </div>
     <!--end wrapper-->
-    <script>
-        const path = 'brand_delete.php'
-    </script>
+
     <?php
     require_once('../../layout/js.php');
     ?>
-
+    <script src="assets/js/brand_page.js"></script>
 </body>
 
 

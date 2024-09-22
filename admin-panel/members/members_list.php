@@ -166,7 +166,8 @@ $res = $db->join('province', 'members.province_id = province.id', ' LEFT')
                                                                 foreach ($provinceList as $province) { ?>
                                                                     <option
                                                                         <?= (isset($_SESSION['member_filter']['members_province_id']) and $_SESSION['member_filter']['members_province_id'] == $province['id']) ? "SELECTED" : "" ?> value="<?= $province['id'] ?>">
-                                                                        <?= $province['name'] ?></option>
+                                                                        <?= $province['name'] ?>
+                                                                    </option>
                                                                 <?php } ?>
                                                             </select>
                                                         </td>
@@ -189,13 +190,14 @@ $res = $db->join('province', 'members.province_id = province.id', ' LEFT')
                                                                     <?= (isset($_SESSION['member_filter']['members_status']) and $_SESSION['member_filter']['members_status'] == 0) ? 'selected' : '' ?> value="0">غیر فعال</option>
                                                             </select> </td>
                                                         <td class="text-center button-filter">
-                                                        <div class="btn-group p-0 m-0">
-                                                            <button type="submit" name="filtered" id="apply_filter"
-                                                                class="btn btn-success"> اعمال فیلتر</button>
-                                                            <?php if ((isset($_SESSION['member_filter']['member']) and !empty($_SESSION['member_filter']['member']))) { ?>
-                                                                <button type="submit" name="unFilter" id="delete_filter"
-                                                                    class="btn btn-danger button-filter"> حذف فیلتر</button>
-                                                                    </div>
+                                                            <div class="btn-group p-0 m-0">
+                                                                <button type="submit" name="filtered" id="apply_filter"
+                                                                    class="btn btn-success"> اعمال فیلتر</button>
+                                                                <?php if ((isset($_SESSION['member_filter']['member']) and !empty($_SESSION['member_filter']['member']))) { ?>
+                                                                    <button type="submit" name="unFilter" id="delete_filter"
+                                                                        class="btn btn-danger button-filter"> حذف
+                                                                        فیلتر</button>
+                                                                </div>
                                                             </td>
                                                         <?php } ?>
                                                     </form>
@@ -223,12 +225,11 @@ $res = $db->join('province', 'members.province_id = province.id', ' LEFT')
                                                         </td>
                                                         <td>
                                                             <div>
-
-                                                                <a id="dropdownMenu2" class='pe-auto' data-toggle="dropdown"
-                                                                    aria-haspopup="true" aria-expanded="false">
-                                                                    <i class="lni lni-more"></i>
+                                                                <a class="dropdown-toggle dropdown-toggle-nocaret bx bx-dots-horizontal"
+                                                                    href="#" data-bs-toggle="dropdown">
                                                                 </a>
-                                                                <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+
+                                                                <ul class="dropdown-menu dropdown-menu-end">
                                                                     <li>
                                                                         <a href="javascript:;"
                                                                             class="btn border-0 text-primary dropdown-item"
@@ -266,10 +267,10 @@ $res = $db->join('province', 'members.province_id = province.id', ' LEFT')
                                                                         } else {
                                                                             $result = false;
                                                                         }
-                                                                        ?>
+                                                                    ?>
                                                                         <li>
                                                                             <button
-                                                                                class="<?= $result ? 'disabled text-secondary' : 'open-confirm text-danger' ?>  btn border-0 dropdown-item"
+                                                                                class="<?= $result ? 'disabled text-secondary' : 'edit text-danger' ?>  btn border-0 dropdown-item"
                                                                                 value="<?= $member['id'] ?>"
                                                                                 data-bs-toggle="tooltip"
                                                                                 data-bs-placement="bottom"
@@ -304,6 +305,43 @@ $res = $db->join('province', 'members.province_id = province.id', ' LEFT')
                                                                         </a>
                                                                     </li>
                                                                 </ul>
+                                                                <div class="modal fade" id="exampleModal<?= $member['id'] ?>"
+                                                            tabindex="-1" role="dialog"
+                                                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                                
+                                                                <div class="modal-dialog" role="document">
+                                                                                <div class="modal-content">
+                                                                                    <div class="modal-header">
+
+                                                                                        <h5 class="modal-title"
+                                                                                            id="exampleModalLabel">حذف داده</h5>
+                                                                                        <button type="button" class="close"
+                                                                                            value="<?= $member['id'] ?>"
+                                                                                            data-dismiss="modal"
+                                                                                            aria-label="Close">
+                                                                                            <span
+                                                                                                aria-hidden="true">&times;</span>
+                                                                                        </button>
+                                                                                    </div>
+                                                                                    <form
+                                                                                        action="member_delete.php?id=<?= $member['id'] ?>">
+                                                                                        <div class="modal-body">
+                                                                                            <h5>آیا مطمئن هستید؟</h5>
+                                                                                        </div>
+                                                                                        <div class="modal-footer">
+                                                                                            <button type="button"
+                                                                                                value="<?= $member['id'] ?>"
+                                                                                                class="btn btn-secondary close"
+                                                                                                data-dismiss="modal">لغو</button>
+                                                                                            <button type="submit"
+                                                                                                name="btn_change_status"
+                                                                                                class="btn btn-primary">ذخیره
+                                                                                                تنظیمات</button>
+                                                                                        </div>
+                                                                                    </form>
+                                                                                </div>
+                                                                            </div>
+                                                                            </div>
                                                             </div>
                                                         </td>
                                                     </tr>
@@ -327,56 +365,16 @@ $res = $db->join('province', 'members.province_id = province.id', ' LEFT')
         ?>
     </div>
     <!--end wrapper-->
-
-    <script>
-        const path = 'member_delete.php'
-    </script>
-
     <?php
     require_once('../../layout/js.php');
     ?>
-    <script>
-        $('#state').change(function () {
-            const id = $(this).val();
-            cities(id);
-        });
-        const current_province = $('#state').find('option:selected').val();
-        const current_city = "<?= isset($_SESSION['member_filter']['members_city_id']) ? $_SESSION['member_filter']['members_city_id'] : "" ?>";
-        if (current_city != '' && current_province != '') {
-            cities(current_province, current_city);
-        }
-        if (current_city == '' && current_province != '') {
-            cities(current_province);
-        }
-
-
-        function cities(province, city = null) {
-            $.ajax({
-                url: 'members_list.php',
-                type: 'POST',
-                data: {
-                    province_id: province,
-                    city_id: city,
-                },
-                success: function (msg) {
-                    $('#city').html(msg);
-                }
-            })
-        }
-    </script>
     <script type="text/javascript" src="../../assets/datePiker/js/persianDatepicker.min.js"></script>
-    <script type="text/javascript">
-        $("#date").persianDatepicker({ formatDate: "YYYY/0M/0D" });
-    </script>
     <script>
-        $('#dropdownMemberShow').click(function () {
-            if ($('#memberDropdownMenu').hasClass('show')) {
-                $('#memberDropdownMenu').removeClass('show')
-            } else {
-                $('#memberDropdownMenu').addClass('show')
-            }
-        });
+        const current_province = $('#state').find('option:selected').val();
+        const current_city = "<?= isset($_SESSION['member_filter']['members_city_id']) ? $_SESSION['member_filter']['members_city_id'] : '' ?>";
     </script>
+    <script src="assets/js/member_page.js"></script>
+
 </body>
 
 

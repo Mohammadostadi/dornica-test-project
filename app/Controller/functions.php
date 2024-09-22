@@ -32,13 +32,13 @@ function status($type, $value)
     } elseif ($type == 'read') {
         switch ($value) {
             case 0: ?>
-                <span class="badge rounded-pill bg-warning">جهت بررسی</span>
+                <span class="badge rounded-pill bg-warning">درحال بررسی</span>
                 <?php break;
             case 1: ?>
-                <span class="badge rounded-pill bg-success">خوانده شده</span>
+                <span class="badge rounded-pill bg-success">تایید شده</span>
                 <?php break;
             case 2: ?>
-                <span class="badge rounded-pill bg-danger">خوانده نشده</span>
+                <span class="badge rounded-pill bg-danger">تایید نشده</span>
                 <?php break;
         }
     }
@@ -117,9 +117,22 @@ function showMessage($value)
             <strong>بازه تاریخ داده شده اشتباه میباشد</strong>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
-    <?php }   elseif ($value == 11) { ?>
+    <?php }   
+    elseif ($value == 11) { ?>
         <div class="alert alert-danger alert-dismissible fade show" role="alert" id="alert">
             <strong>لطفا بازه تاریخ را مشخص کنید</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    <?php }
+    elseif ($value == 12) { ?>
+        <div class="alert alert-success alert-dismissible fade show" role="alert" id="alert">
+            <strong>رمز عبور شما با موفقیت تغییر کرد.</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    <?php } 
+    elseif ($value == 13) { ?>
+        <div class="alert alert-success alert-dismissible fade show" role="alert" id="alert">
+            <strong>وضعیت تغییر کرد.</strong>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     <?php } ?>

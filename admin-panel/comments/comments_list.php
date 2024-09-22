@@ -2,12 +2,11 @@
 $prefix = 'comment';
 require_once('../../app/loader.php');
 sortInTable($prefix, 'comments_list', 'page');
-// if(!isset($_SESSION['comment_member'])){
-//     $_SESSION['comment_member'] = '';
-// }    
 if (isset($_GET['member'])) {
-    // $_SESSION['comment_member'] = 'comment.member_id = '.securityCheck($_GET['member']);
     $member_comment = 'comment.member_id = ' . securityCheck($_GET['member']);
+}
+if (isset($_GET['comment'])) {
+    $read_comment = 'is_read = 0';
 }
 if (isset($_POST['change_status'])) {
     list($id, $status) = explode('/', securityCheck($_POST['change_status']));
@@ -25,10 +24,10 @@ $data = [
     'comment.status' => '=',
 ];
 $query = [
-    'SELECT  COUNT(*) AS total FROM comment LEFT JOIN products on products.id = comment.product_id WHERE ' . (!empty($member_comment) ? $member_comment : ""),
-    'SELECT SQL_CALC_FOUND_ROWS comment.id, products.name AS product, comment.name, comment.subject, comment.description, ip, comment.email, comment.status, rate, comment.setdate FROM comment LEFT JOIN members on members.id = comment.member_id LEFT JOIN products on products.id = comment.product_id ' . (!empty($member_comment) ? ' WHERE ' . $member_comment : "")
+    'SELECT  COUNT(*) AS total FROM comment LEFT JOIN products on products.id = comment.product_id WHERE ' . (!empty($member_comment) ? $member_comment : "" ). ((!empty($read_comment) and !empty($member_comment))?" AND ".$read_comment:""). (!empty($read_comment) ? $read_comment : ""),
+    'SELECT SQL_CALC_FOUND_ROWS comment.id, products.name AS product, comment.name, comment.subject, comment.description, ip, comment.email, comment.status, rate, comment.setdate FROM comment LEFT JOIN members on members.id = comment.member_id LEFT JOIN products on products.id = comment.product_id ' . (!empty($member_comment) ? ' WHERE ' . $member_comment : ""). ((!empty($read_comment) and !empty($member_comment))?" AND ".$read_comment:""). ((!empty($read_comment) and empty($member_comment)) ? " WHERE ".$read_comment : "")
 ];
-$res = $filter->filterCheck($db, $data, 'comment', 'comments_list.php', $query, 10, $sortField, $sortOrder, isset($member_comment) ? $member_comment : '');
+$res = $filter->filterCheck($db, $data, 'comment', 'comments_list.php', $query, 10, $sortField, $sortOrder, (isset($member_comment)?$member_comment:"").(isset($read_comment)?$read_comment:""));
 ?>
 
 <!doctype html>
@@ -68,7 +67,9 @@ $res = $filter->filterCheck($db, $data, 'comment', 'comments_list.php', $query, 
 
         <!--start content-->
         <main class="page-content">
-
+            <?php 
+            require_once('../../layout/message.php');
+            ?>
             <!--breadcrumb-->
             <div class="page-breadcrumb   d-sm-flex align-items-center mb-3">
                 <div class="breadcrumb-title pe-3">نظرات و پیام ها</div>
@@ -142,49 +143,45 @@ $res = $filter->filterCheck($db, $data, 'comment', 'comments_list.php', $query, 
                                                 </tr>
                                             </thead>
                                             <tbody class="text-center">
-                                                
-                                        <tr id="<?= (isset($_SESSION['comment_filter']['comment']) and !empty($_SESSION['comment_filter']['comment'])) ? "" : "filter-row" ?>"
-                                            class="<?= (isset($_SESSION['comment_filter']['comment']) and !empty($_SESSION['comment_filter']['comment'])) ? "" : "d-none" ?>">
-                                            <form class=" d-flex justify-content-around align-content-start" id="form"
-                                                action="comments_list.php?page=1" method="post">
-                                                <td></td>
-                                                    <td> <input class="col form-control"
-                                                            type="text"
-                                                            value="<?= isset($_SESSION['comment_filter']['products_name']) ? $_SESSION['comment_filter']['products_name'] : "" ?>"
-                                                            name="products_name" placeholder="محصول"> </td>
-                                                            <td></td>
-                                                            <td></td>
-                                                    <td> <input class="col form-control"
-                                                            type="text"
-                                                            value="<?= isset($_SESSION['comment_filter']['comment_subject']) ? $_SESSION['comment_filter']['comment_subject'] : "" ?>"
-                                                            name="comment_subject" placeholder="عنوان"> </td>
-                                                            <td></td>
-                                                            <td></td>
-                                                    <td> <select
-                                                            class="form-select text-secondary" name="comment_status"
-                                                            id="status">
-                                                            <option value="" class="text-secondary">وضعیت</option>
-                                                            <option
-                                                                <?= (isset($_SESSION['comment_filter']['comment_status']) and $_SESSION['comment_filter']['comment_status'] == 0) ? 'selected' : '' ?> value="0">درحال بررسی</option>
-                                                            <option
-                                                                <?= (isset($_SESSION['comment_filter']['comment_status']) and $_SESSION['comment_filter']['comment_status'] == 1) ? 'selected' : '' ?> value="1">خوانده شده</option>
-                                                            <option
-                                                                <?= (isset($_SESSION['comment_filter']['comment_status']) and $_SESSION['comment_filter']['comment_status'] == 2) ? 'selected' : '' ?> value="2">خوانده نشده</option>
-                                                        </select> </td>
-                                                    <td class="text-center button-filter"> 
-                                                    <div class="btn-group p-0 m-0">
-                                                        <button
-                                                            type="submit" name="filtered" id="apply_filter"
-                                                            class="btn btn-success"> اعمال فیلتر</button>
-                                                            <?php if (isset($_SESSION['comment_filter']['comment']) and !empty($_SESSION['comment_filter']['comment'])) { ?>
-                                                            <button type="submit"
-                                                                name="unFilter" id="delete_filter"
-                                                                class="btn btn-danger button-filter"> حذف فیلتر</button>
+
+                                                <tr id="<?= (isset($_SESSION['comment_filter']['comment']) and !empty($_SESSION['comment_filter']['comment'])) ? "" : "filter-row" ?>"
+                                                    class="<?= (isset($_SESSION['comment_filter']['comment']) and !empty($_SESSION['comment_filter']['comment'])) ? "" : "d-none" ?>">
+                                                    <form class=" d-flex justify-content-around align-content-start"
+                                                        id="form" action="comments_list.php?page=1" method="post">
+                                                        <td></td>
+                                                        <td> <input class="col form-control" type="text"
+                                                                value="<?= isset($_SESSION['comment_filter']['products_name']) ? $_SESSION['comment_filter']['products_name'] : "" ?>"
+                                                                name="products_name" placeholder="محصول"> </td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td> <input class="col form-control" type="text"
+                                                                value="<?= isset($_SESSION['comment_filter']['comment_subject']) ? $_SESSION['comment_filter']['comment_subject'] : "" ?>"
+                                                                name="comment_subject" placeholder="عنوان"> </td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td> <select class="form-select text-secondary"
+                                                                name="comment_status" id="status">
+                                                                <option value="" class="text-secondary">وضعیت</option>
+                                                                <option
+                                                                    <?= (isset($_SESSION['comment_filter']['comment_status']) and $_SESSION['comment_filter']['comment_status'] == 0) ? 'selected' : '' ?> value="0">درحال بررسی</option>
+                                                                <option
+                                                                    <?= (isset($_SESSION['comment_filter']['comment_status']) and $_SESSION['comment_filter']['comment_status'] == 1) ? 'selected' : '' ?> value="1">خوانده شده</option>
+                                                                <option
+                                                                    <?= (isset($_SESSION['comment_filter']['comment_status']) and $_SESSION['comment_filter']['comment_status'] == 2) ? 'selected' : '' ?> value="2">خوانده نشده</option>
+                                                            </select> </td>
+                                                        <td class="text-center button-filter">
+                                                            <div class="btn-group p-0 m-0">
+                                                                <button type="submit" name="filtered" id="apply_filter"
+                                                                    class="btn btn-success"> اعمال فیلتر</button>
+                                                                <?php if (isset($_SESSION['comment_filter']['comment']) and !empty($_SESSION['comment_filter']['comment'])) { ?>
+                                                                    <button type="submit" name="unFilter" id="delete_filter"
+                                                                        class="btn btn-danger button-filter"> حذف
+                                                                        فیلتر</button>
                                                                 <?php } ?>
-                                                                </div>
+                                                            </div>
                                                         </td>
-                                            </form>
-                                        </tr>
+                                                    </form>
+                                                </tr>
                                                 <?php foreach ($res as $key => $comment) { ?>
                                                     <tr>
                                                         <td>
@@ -223,7 +220,7 @@ $res = $filter->filterCheck($db, $data, 'comment', 'comments_list.php', $query, 
                                                                                     <h5 class="modal-title"
                                                                                         id="exampleModalLabel">ویرایش
                                                                                         وضعیت</h5>
-                                                                                    <button type="button" class="close"
+                                                                                    <button type="button" class="close" value="<?= $comment['id'] ?>"
                                                                                         data-dismiss="modal" aria-label="Close">
                                                                                         <span aria-hidden="true">&times;</span>
                                                                                     </button>
@@ -235,28 +232,28 @@ $res = $filter->filterCheck($db, $data, 'comment', 'comments_list.php', $query, 
                                                                                             <?php if ($comment['status'] != 1) { ?>
                                                                                                 <option
                                                                                                     value="<?= $comment['id'] ?>/1">
-                                                                                                    خوانده شده
+                                                                                                    تایید شده
                                                                                                 </option>
                                                                                             <?php }
                                                                                             if ($comment['status'] != 0) {
                                                                                                 ?>
                                                                                                 <option
                                                                                                     value="<?= $comment['id'] ?>/0">
-                                                                                                    جهت بررسی
+                                                                                                    درحال بررسی
                                                                                                 </option>
                                                                                             <?php }
                                                                                             if ($comment['status'] != 2) {
                                                                                                 ?>
                                                                                                 <option
                                                                                                     value="<?= $comment['id'] ?>/2">
-                                                                                                    خوانده نشده
+                                                                                                    تایید نشده
                                                                                                 </option>
                                                                                             <?php } ?>
                                                                                         </select>
                                                                                     </div>
                                                                                     <div class="modal-footer">
                                                                                         <button type="button"
-                                                                                            class="btn btn-secondary"
+                                                                                            class="btn btn-secondary close" value="<?= $comment['id'] ?>"
                                                                                             data-dismiss="modal">لغو</button>
                                                                                         <button type="submit"
                                                                                             name="btn_change_status"
@@ -269,11 +266,7 @@ $res = $filter->filterCheck($db, $data, 'comment', 'comments_list.php', $query, 
                                                                     </div>
                                                                 <?php }
                                                                 ?>
-
-                                                                <!-- <button class="btn border-0 p-0 change_status" value="<?= $comment['id'] . "/" . $comment['status'] ?>" data-bs-toggle="tooltip" data-bs-placement="bottom" title="تغییر وضعیت">
-                                                <i class="lni lni-comments"></i>
-                                            </button> -->
-                                                                <a href="javascript:;" class="text-primary"
+                                                                <a href="comment_detail.php?id=<?= $comment['id'] ?>" class="text-primary"
                                                                     data-bs-toggle="tooltip" data-bs-placement="bottom"
                                                                     title="وضعیت جزئیات"
                                                                     data-bs-original-title="وضعیت جزئیات"
@@ -306,54 +299,7 @@ $res = $filter->filterCheck($db, $data, 'comment', 'comments_list.php', $query, 
     <?php
     require_once('../../layout/js.php');
     ?>
-    <script>
-        $('.edit').click(function () {
-            const id = $(this).val();
-            $(`#exampleModal${id}`).modal('show');
-        })
-    </script>
-    <!-- <script>
-        $(document).ready(function () {
-
-            function confirmDemo() {
-                const value = $(this).val().split('/')
-                const edit_id = value[0],  status = value[1];
-                console.log(edit_id);
-                const path = 'comments_list.php';
-                const params = {
-                    title: 'ویرایش کردن',
-                    message: `
-                    <select class="form-select" id="yourSelectBox">
-                            <option value="1" ${(status == 1) ? 'SELECTED' : ""} >خوانده شده</option>
-                            <option value="0" ${(status == 0) ? 'SELECTED' : ""} >جهت بررسی</option>
-                            <option value="2" ${(status == 2) ? 'SELECTED' : ""} >خوانده نشده</option>
-                    </select>`
-                ,
-                    confirm: {
-                        label: 'تایید',
-                        style: [
-                            'btn-success',
-                            'btn-danger'
-                        ]
-                    },
-                    onHide: hiddenModal
-                };
-
-                return $.eModal
-                    .label('تایید', 'لغو')
-                    .confirm(params)
-                    .then(function () {
-                        const selectedOption = $('#yourSelectBox').val();
-                        console.log('Selected option:', selectedOption);
-                        window.location.href = `${path}?<?= isset($_GET['page']) ? "page=" . $_GET['page'] . "&" : "" ?>id=${edit_id}&option=${selectedOption}`;
-                    });
-                function hiddenModal(e) {
-                    console.info('Confirm modal is close.');
-                }
-            }
-            $('.change_status').on('click', confirmDemo);
-        });
-    </script> -->
+    <script src="assets/js/comment_page.js"></script>
 </body>
 
 

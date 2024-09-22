@@ -2,9 +2,6 @@
 $prefix = 'cart';
 require_once('../../app/loader.php');
 sortInTable($prefix, 'baskets_list', 'page');
-// if(!isset($_SESSION['basket_member'])){
-//     $_SESSION['basket_member'] = '';
-// }
 if (isset($_GET['member'])) {
     $member_basket = 'cart.member_id = ' . securityCheck($_GET['member']);
 }
@@ -20,7 +17,6 @@ $query = [
     'SELECT members.fname, members.lname, products.name, products.price, cart.qty, cart.setdate, (cart.qty*products.price) as total FROM cart LEFT JOIN members on members.id = cart.member_id LEFT JOIN products on products.id = cart.product_id ' . (!empty($member_basket) ? ' WHERE ' . $member_basket : "")
 ];
 $res = $filter->filterCheck($db, $data, 'basket', 'baskets_list.php', $query, 7, $sortField, $sortOrder, isset($member_basket) ? $member_basket : "");
-// var_dump($db->getLastQuery());die;
 ?>
 
 <!doctype html>
@@ -35,9 +31,7 @@ $res = $filter->filterCheck($db, $data, 'basket', 'baskets_list.php', $query, 7,
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <?php
-
     require_once('../../layout/css.php');
-
     ?>
 
 
@@ -212,10 +206,10 @@ $res = $filter->filterCheck($db, $data, 'basket', 'baskets_list.php', $query, 7,
 
 
     <?php
-
     require_once('../../layout/js.php');
-    separator('#price');
     ?>
+    <script src="../../assets/js/jquery.number.min.js"></script>
+    <script src="assets/js/baskets_page.js"></script>
 </body>
 
 

@@ -32,7 +32,20 @@ $res = $db->orderBy($sortField, $sortOrder)
     <?php
     require_once ('../../layout/css.php');
     ?>
-
+<link rel="stylesheet" href="assets/style/admin_list_page.css">
+<style>
+    .active::after {
+                color:
+                    <?= (isset($_SESSION[$prefix.'_sort_order']) and $_SESSION[$prefix.'_sort_order'] == 'DESC') ? '#000' : '#ccc' ?>
+                ;
+            }
+    
+            .active::before {
+                color:
+                    <?= (isset($_SESSION[$prefix.'_sort_order']) and $_SESSION[$prefix.'_sort_order'] == 'ASC') ? '#000' : '#ccc' ?>
+                ;
+            }
+</style>
 
     <title>ادمین</title>
 </head>
@@ -217,11 +230,44 @@ $res = $db->orderBy($sortField, $sortOrder)
                                                                     aria-label="Edit"><i class="bi bi-pencil-fill"></i></a>
                                                                 <?php } ?>
                                                                 <?php if(has_access('admin_delete.php')){ ?>
-                                                                <button class="<?= (($_SESSION['user_role'] == 0  and $_SESSION['user_role'] != $admin['role']) or ($_SESSION['user_role'] == 2 and ($admin['role'] != 0 and $admin['role'] != $_SESSION['user_role'])))?"open-confirm text-danger":"disabled text-secondary" ?> btn border-0 "
+                                                                <button class="<?= (($_SESSION['user_role'] == 0  and $_SESSION['user_role'] != $admin['role']) or ($_SESSION['user_role'] == 2 and ($admin['role'] != 0 and $admin['role'] != $_SESSION['user_role'])))?"edit text-danger":"disabled text-secondary" ?> btn border-0 "
                                                                     value="<?= $admin['id'] ?>" data-bs-toggle="tooltip"
                                                                     data-bs-placement="bottom" title="<?= (($_SESSION['user_role'] == 0 and $_SESSION['user_role'] != $admin['role']) or ($_SESSION['user_role'] == 2 and ($admin['role'] != 0 and $admin['role'] != $_SESSION['user_role'])))?"حذف":"عدم دسترسی" ?>" aria-label="Delete"
                                                                     style="cursor: pointer;"><i
                                                                         class="bi bi-trash-fill"></i></button>
+                                                                        
+                                                                    <div class="modal fade"
+                                                                        id="exampleModal<?= $admin['id'] ?>" tabindex="-1"
+                                                                        role="dialog" aria-labelledby="exampleModalLabel"
+                                                                        aria-hidden="true">
+                                                                        <div class="modal-dialog" role="document">
+                                                                            <div class="modal-content">
+                                                                                <div class="modal-header">
+
+                                                                                    <h5 class="modal-title"
+                                                                                        id="exampleModalLabel">حذف داده</h5>
+                                                                                    <button type="button" class="close" value="<?= $admin['id'] ?>"
+                                                                                        data-dismiss="modal" aria-label="Close">
+                                                                                        <span aria-hidden="true">&times;</span>
+                                                                                    </button>
+                                                                                </div>
+                                                                                <form action="admin_delete.php?id=<?= $admin['id'] ?>">
+                                                                                    <div class="modal-body">
+                                                                                        <h5>آیا مطمئن هستید؟</h5>
+                                                                                    </div>
+                                                                                    <div class="modal-footer">
+                                                                                        <button type="button" value="<?= $admin['id'] ?>"
+                                                                                            class="btn btn-secondary close"
+                                                                                            data-dismiss="modal">لغو</button>
+                                                                                        <button type="submit"
+                                                                                            name="btn_change_status"
+                                                                                            class="btn btn-primary">ذخیره
+                                                                                            تنظیمات</button>
+                                                                                    </div>
+                                                                                </form>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
                                                                 <?php } 
                                                                 if($_SESSION['user_role'] == 0) { ?>
                                                                 <a href="profile_reset_password.php?manager=<?= $admin['id'] ?>" data-bs-toggle="tooltip"
@@ -250,11 +296,9 @@ $res = $db->orderBy($sortField, $sortOrder)
         ?>
     </div>
     <!--end wrapper-->
-    <script>
-        const path = 'admin_delete.php'
-    </script>
     <?php require_once ('../../layout/js.php'); ?>
-    
+    <script  src="assets/js/admin_list_page.js"></script>
+
 </body>
 
 

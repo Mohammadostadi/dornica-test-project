@@ -214,11 +214,43 @@ $res = $db->join('blog_category', 'blogs.category_id = blog_category.id', ' LEFT
                                                                 <?php }
                                                                 if (has_access('blog_delete.php')) {
                                                                     ?>
-                                                                    <button class="open-confirm btn border-0 text-danger"
+                                                                    <button class="edit btn border-0 text-danger"
                                                                         value="<?= $blog['id'] ?>" data-bs-toggle="tooltip"
                                                                         data-bs-placement="bottom" title="حذف"
                                                                         data-bs-original-title="حذف" aria-label="Delete"><i
                                                                             class="bi bi-trash-fill"></i></button>
+                                                                            <div class="modal fade"
+                                                                        id="exampleModal<?= $blog['id'] ?>" tabindex="-1"
+                                                                        role="dialog" aria-labelledby="exampleModalLabel"
+                                                                        aria-hidden="true">
+                                                                        <div class="modal-dialog" role="document">
+                                                                            <div class="modal-content">
+                                                                                <div class="modal-header">
+
+                                                                                    <h5 class="modal-title"
+                                                                                        id="exampleModalLabel">حذف داده</h5>
+                                                                                    <button type="button" class="close" value="<?= $blog['id'] ?>"
+                                                                                        data-dismiss="modal" aria-label="Close">
+                                                                                        <span aria-hidden="true">&times;</span>
+                                                                                    </button>
+                                                                                </div>
+                                                                                <form action="blog_delete.php?id=<?= $blog['id'] ?>">
+                                                                                    <div class="modal-body">
+                                                                                        <h5>آیا مطمئن هستید؟</h5>
+                                                                                    </div>
+                                                                                    <div class="modal-footer">
+                                                                                        <button type="button" value="<?= $blog['id'] ?>"
+                                                                                            class="btn btn-secondary close"
+                                                                                            data-dismiss="modal">لغو</button>
+                                                                                        <button type="submit"
+                                                                                            name="btn_change_status"
+                                                                                            class="btn btn-primary">ذخیره
+                                                                                            تنظیمات</button>
+                                                                                    </div>
+                                                                                </form>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
                                                                 <?php } ?>
                                                             </div>
                                                         </td>
@@ -228,7 +260,6 @@ $res = $db->join('blog_category', 'blogs.category_id = blog_category.id', ' LEFT
                                             </tbody>
                                         </table>
                                     </div>
-                                    <nav class="float-end mt-0" aria-label="Page navigation">
                                         <?php pagination($page, $pages); ?>
                                 </div>
                             </div>
@@ -246,17 +277,12 @@ $res = $db->join('blog_category', 'blogs.category_id = blog_category.id', ' LEFT
 
     </div>
     <!--end wrapper-->
-    <script>
-        const path = 'blog_delete.php'
-    </script>
+
     <?php
     require_once('../../layout/js.php');
     ?>
-
     <script type="text/javascript" src="../../assets/datePiker/js/persianDatepicker.min.js"></script>
-    <script type="text/javascript">
-        $("#date").persianDatepicker({ formatDate: "YYYY/0M/0D" });
-    </script>
+    <script src="assets/js/blog_list_page.js"></script>
 </body>
 
 

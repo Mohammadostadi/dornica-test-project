@@ -217,7 +217,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])) {
                             <div class="col-lg-6">
                                 <div>
                                     <label class="form-label">تاریخ تولد</label>
-                                    <input id="date" name="birthday" class="form-control datepicker"
+                                    <input id="date" name="birthday" class="form-control datepicker date"
                                         value="<?= checkUpdate('birthday', changeDate($member['birthday'], false)) ?>"
                                         required />
                                     <div class="invalid-feedback">
@@ -290,42 +290,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])) {
     <?php
     require_once('../../layout/js.php');
     ?>
-
-    <script>
-        $('#state').change(function () {
-            const id = $(this).val();
-            cities(id);
-        });
-        const current_province = $('#state').find('option:selected').val();
-        console.log(current_province);
-        const current_city = "<?= isset($_POST['city']) ? $_POST['city'] : $member['city_id'] ?>";
-        if (current_city != '' && current_province != '') {
-            cities(current_province, current_city);
-        }
-
-        if (current_city == '' && current_province != '')
-            cities(current_province);
-
-
-
-        function cities(province, city = null) {
-            $.ajax({
-                url: 'member_update.php',
-                type: 'POST',
-                data: {
-                    province_id: province,
-                    city_id: city
-                },
-                success: function (msg) {
-                    $('#city').html(msg);
-                }
-            })
-        }
-    </script>
     <script type="text/javascript" src="../../assets/datePiker/js/persianDatepicker.min.js"></script>
-    <script type="text/javascript">
-        $("#date").persianDatepicker({ formatDate: "YYYY/0M/0D" });
+    <script>
+        const current_city = "<?= isset($_POST['city']) ? $_POST['city'] : $member['city_id'] ?>";
     </script>
+    <script src="assets/js/member_edit.js"></script>
     <?php require_once('../../layout/update_image.php') ?>
 </body>
 
