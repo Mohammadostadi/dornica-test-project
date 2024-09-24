@@ -31,18 +31,18 @@ $res = $db
     ?>
     <link rel="stylesheet" href="../../assets/css/sort.css">
     <style>
-    .active::after {
-                color:
-                    <?= (isset($_SESSION[$prefix.'_sort_order']) and $_SESSION[$prefix.'_sort_order'] == 'DESC') ? '#000' : '#ccc' ?>
-                ;
-            }
-    
-            .active::before {
-                color:
-                    <?= (isset($_SESSION[$prefix.'_sort_order']) and $_SESSION[$prefix.'_sort_order'] == 'ASC') ? '#000' : '#ccc' ?>
-                ;
-            }
-</style>
+        .active::after {
+            color:
+                <?= (isset($_SESSION[$prefix . '_sort_order']) and $_SESSION[$prefix . '_sort_order'] == 'DESC') ? '#000' : '#ccc' ?>
+            ;
+        }
+
+        .active::before {
+            color:
+                <?= (isset($_SESSION[$prefix . '_sort_order']) and $_SESSION[$prefix . '_sort_order'] == 'ASC') ? '#000' : '#ccc' ?>
+            ;
+        }
+    </style>
 
     <title>مدل پرداخت</title>
 
@@ -124,39 +124,37 @@ $res = $db
                                                 </tr>
                                             </thead>
                                             <tbody class="text-center">
-                                                
-                                        <tr id="<?= (isset($_SESSION['payment_type_filter']['payment_type']) and !empty($_SESSION['payment_type_filter']['payment_type'])) ? "" : "filter-row" ?>"
-                                            class="<?= (isset($_SESSION['payment_type_filter']['payment_type']) and !empty($_SESSION['payment_type_filter']['payment_type'])) ? "" : "d-none" ?>">
-                                            <form class="" id="form" action="payments_type.php?page=1" method="post">
-                                                <td></td>
-                                                    <td> <input class="col form-control"
-                                                            type="text"
-                                                            value="<?= isset($_SESSION['payment_type_filter']['name']) ? $_SESSION['payment_type_filter']['name'] : "" ?>"
-                                                            name="name" placeholder="عنوان"> </td>
-                                                            <td></td>
-                                                    <td> <select
-                                                            class="form-select text-secondary" name="status"
-                                                            id="status">
-                                                            <option value="" class="text-secondary">وضعیت</option>
-                                                            <option
-                                                                <?= (isset($_SESSION['payment_type_filter']['status']) and $_SESSION['payment_type_filter']['status'] == 1) ? 'selected' : '' ?> value="1">فعال</option>
-                                                            <option
-                                                                <?= (isset($_SESSION['payment_type_filter']['status']) and $_SESSION['payment_type_filter']['status'] == 0) ? 'selected' : '' ?> value="0">غیر فعال</option>
-                                                        </select> </td>
-                                                    <td class="col-lg-2 col-md-4 text-center button-filter"> 
-                                                    <div class="btn-group p-0 m-0">
-                                                        <button
-                                                            type="submit" name="filtered" id="apply_filter"
-                                                            class="btn btn-success"> اعمال فیلتر</button>
-                                                            <?php if (isset($_SESSION['payment_type_filter']['payment_type']) and !empty($_SESSION['payment_type_filter']['payment_type'])) { ?>
-                                                            <button type="submit"
-                                                                name="unFilter" id="delete_filter"
-                                                                class="btn btn-danger button-filter"> حذف فیلتر</button>
+
+                                                <tr id="<?= (isset($_SESSION['payment_type_filter']['payment_type']) and !empty($_SESSION['payment_type_filter']['payment_type'])) ? "" : "filter-row" ?>"
+                                                    class="<?= (isset($_SESSION['payment_type_filter']['payment_type']) and !empty($_SESSION['payment_type_filter']['payment_type'])) ? "" : "d-none" ?>">
+                                                    <form class="" id="form" action="payments_type.php?page=1"
+                                                        method="post">
+                                                        <td></td>
+                                                        <td> <input class="col form-control" type="text"
+                                                                value="<?= isset($_SESSION['payment_type_filter']['name']) ? $_SESSION['payment_type_filter']['name'] : "" ?>"
+                                                                name="name" placeholder="عنوان"> </td>
+                                                        <td></td>
+                                                        <td> <select class="form-select text-secondary" name="status"
+                                                                id="status">
+                                                                <option value="" class="text-secondary">وضعیت</option>
+                                                                <option
+                                                                    <?= (isset($_SESSION['payment_type_filter']['status']) and $_SESSION['payment_type_filter']['status'] == 1) ? 'selected' : '' ?> value="1">فعال</option>
+                                                                <option
+                                                                    <?= (isset($_SESSION['payment_type_filter']['status']) and $_SESSION['payment_type_filter']['status'] == 0) ? 'selected' : '' ?> value="0">غیر فعال</option>
+                                                            </select> </td>
+                                                        <td class="col-lg-2 col-md-4 text-center button-filter">
+                                                            <div class="btn-group p-0 m-0">
+                                                                <button type="submit" name="filtered" id="apply_filter"
+                                                                    class="btn btn-success"> اعمال فیلتر</button>
+                                                                <?php if (isset($_SESSION['payment_type_filter']['payment_type']) and !empty($_SESSION['payment_type_filter']['payment_type'])) { ?>
+                                                                    <button type="submit" name="unFilter" id="delete_filter"
+                                                                        class="btn btn-danger button-filter"> حذف
+                                                                        فیلتر</button>
                                                                 <?php } ?>
-                                                                </div>
+                                                            </div>
                                                         </td>
-                                            </form>
-                                        </tr>
+                                                    </form>
+                                                </tr>
                                                 <?php foreach ($res as $payment) { ?>
                                                     <tr>
                                                         <td>
@@ -170,60 +168,61 @@ $res = $db
                                                         <?php if (has_access('payment_type_delete.php') or has_access('payment_type_update.php')) { ?>
                                                             <td>
                                                                 <div>
-                                                                    <?php if(has_access('payment_type_update.php')){ ?>
-                                                                    <a href="payment_type_update.php?id=<?= $payment['id'] ?>"
-                                                                        class="text-warning" data-bs-toggle="tooltip"
-                                                                        data-bs-placement="bottom" title="ویرایش اطلاعات"
-                                                                        data-bs-original-title="ویرایش اطلاعات"
-                                                                        aria-label="Edit"><i class="bi bi-pencil-fill"></i></a>
-                                                                    <?php
+                                                                    <?php if (has_access('payment_type_update.php')) { ?>
+                                                                        <a href="payment_type_update.php?id=<?= $payment['id'] ?>"
+                                                                            class="text-warning" data-bs-toggle="tooltip"
+                                                                            data-bs-placement="bottom" title="ویرایش اطلاعات"
+                                                                            data-bs-original-title="ویرایش اطلاعات"
+                                                                            aria-label="Edit"><i class="bi bi-pencil-fill"></i></a>
+                                                                        <?php
                                                                     }
-                                                                    if(has_access('payment_type_delete.php')){
-                                                                    $res = $db->where('paymentTypeId', $payment['id'])
-                                                                        ->getValue('orders', 'COUNT(*)');
-                                                                    ?>
-                                                                    <button
-                                                                        class="<?= !empty($res) ? "disabled text-secondary" : "edit text-danger" ?> btn border-0"
-                                                                        value="<?= $payment['id'] ?>" data-bs-toggle="tooltip"
-                                                                        data-bs-placement="bottom"
-                                                                        title="<?= !empty($res) ? "قابل حذف نیست" : "حذف" ?>"
-                                                                        data-bs-original-title="حذف" aria-label="Delete"><i
-                                                                            class="bi bi-trash-fill"></i></button>
-                                                                            <div class="modal fade"
-                                                                id="exampleModal<?= $payment['id'] ?>" tabindex="-1"
-                                                                role="dialog" aria-labelledby="exampleModalLabel"
-                                                                aria-hidden="true">
-                                                                <div class="modal-dialog" role="document">
-                                                                    <div class="modal-content">
-                                                                        <div class="modal-header">
+                                                                    if (has_access('payment_type_delete.php')) {
+                                                                        $res = $db->where('paymentTypeId', $payment['id'])
+                                                                            ->getValue('orders', 'COUNT(*)');
+                                                                        ?>
+                                                                        <button
+                                                                            class="<?= !empty($res) ? "disabled-sort text-secondary" : "edit text-danger" ?> btn border-0"
+                                                                            value="<?= $payment['id'] ?>" data-bs-toggle="tooltip"
+                                                                            data-bs-placement="bottom"
+                                                                            title="<?= !empty($res) ? "قابل حذف نیست" : "حذف" ?>"
+                                                                            data-bs-original-title="حذف" aria-label="Delete"><i
+                                                                                class="bi bi-trash-fill"></i></button>
+                                                                        <div class="modal fade"
+                                                                            id="exampleModal<?= $payment['id'] ?>" tabindex="-1"
+                                                                            role="dialog" aria-labelledby="exampleModalLabel"
+                                                                            aria-hidden="true">
+                                                                            <div class="modal-dialog" role="document">
+                                                                                <div class="modal-content">
+                                                                                    <div class="modal-header">
 
-                                                                            <h5 class="modal-title"
-                                                                                id="exampleModalLabel">حذف داده</h5>
-                                                                            <button type="button" class="close"
-                                                                                value="<?= $payment['id'] ?>"
-                                                                                data-dismiss="modal" aria-label="Close">
-                                                                                <span aria-hidden="true">&times;</span>
-                                                                            </button>
+                                                                                        <h5 class="modal-title"
+                                                                                            id="exampleModalLabel">حذف داده</h5>
+                                                                                        <button type="button" class="close"
+                                                                                            value="<?= $payment['id'] ?>"
+                                                                                            data-dismiss="modal" aria-label="Close">
+                                                                                            <span aria-hidden="true">&times;</span>
+                                                                                        </button>
+                                                                                    </div>
+                                                                                    <form
+                                                                                        action="payment_type_delete.php?id=<?= $payment['id'] ?>"
+                                                                                        method="post">
+                                                                                        <div class="modal-body">
+                                                                                            <h5>آیا مطمئن هستید؟</h5>
+                                                                                        </div>
+                                                                                        <div class="modal-footer">
+                                                                                            <button type="button"
+                                                                                                value="<?= $payment['id'] ?>"
+                                                                                                class="btn btn-secondary close"
+                                                                                                data-dismiss="modal">لغو</button>
+                                                                                            <button type="submit"
+                                                                                                name="btn_change_status"
+                                                                                                class="btn btn-primary">حذف</button>
+                                                                                        </div>
+                                                                                    </form>
+                                                                                </div>
+                                                                            </div>
                                                                         </div>
-                                                                        <form
-                                                                            action="payment_type_delete.php?id=<?= $payment['id'] ?>" method="post">
-                                                                            <div class="modal-body">
-                                                                                <h5>آیا مطمئن هستید؟</h5>
-                                                                            </div>
-                                                                            <div class="modal-footer">
-                                                                                <button type="button"
-                                                                                    value="<?= $payment['id'] ?>"
-                                                                                    class="btn btn-secondary close"
-                                                                                    data-dismiss="modal">لغو</button>
-                                                                                <button type="submit"
-                                                                                    name="btn_change_status"
-                                                                                    class="btn btn-primary">حذف</button>
-                                                                            </div>
-                                                                        </form>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                                            <?php } ?>
+                                                                    <?php } ?>
                                                                 </div>
                                                             </td>
                                                         <?php } ?>
@@ -252,7 +251,7 @@ $res = $db
     </div>
     <!--end wrapper-->
 
-    
+
     <?php
     require_once('../../layout/js.php');
     ?>

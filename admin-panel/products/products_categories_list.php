@@ -219,7 +219,7 @@ $res = $db->join('category AS cat1', 'cat1.id = cat2.parent_id', 'LEFT')
                                                                     }
                                                                     ?>
                                                                     <button
-                                                                        class="<?= $result ? 'disabled text-secondary' : 'open-confirm text-danger' ?>  btn border-0"
+                                                                        class="<?= $result ? 'disabled-sort text-secondary' : 'open-confirm text-danger' ?>  btn border-0"
                                                                         value="<?= $pcategory['id'] ?>" data-bs-toggle="tooltip"
                                                                         data-bs-placement="bottom"
                                                                         title="<?= $result ? 'قابل حذف نیست' : ' حذف ' ?>"

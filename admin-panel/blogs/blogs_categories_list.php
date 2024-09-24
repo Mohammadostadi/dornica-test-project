@@ -30,18 +30,18 @@ $res = $db->orderBy($sortField, $sortOrder)
     ?>
     <link rel="stylesheet" href="../../assets/css/sort.css">
     <style>
-    .active::after {
-                color:
-                    <?= (isset($_SESSION[$prefix.'_sort_order']) and $_SESSION[$prefix.'_sort_order'] == 'DESC') ? '#000' : '#ccc' ?>
-                ;
-            }
-    
-            .active::before {
-                color:
-                    <?= (isset($_SESSION[$prefix.'_sort_order']) and $_SESSION[$prefix.'_sort_order'] == 'ASC') ? '#000' : '#ccc' ?>
-                ;
-            }
-</style>
+        .active::after {
+            color:
+                <?= (isset($_SESSION[$prefix . '_sort_order']) and $_SESSION[$prefix . '_sort_order'] == 'DESC') ? '#000' : '#ccc' ?>
+            ;
+        }
+
+        .active::before {
+            color:
+                <?= (isset($_SESSION[$prefix . '_sort_order']) and $_SESSION[$prefix . '_sort_order'] == 'ASC') ? '#000' : '#ccc' ?>
+            ;
+        }
+    </style>
 
     <title>لیست دسته بندی بلاگ ها</title>
 
@@ -183,7 +183,7 @@ $res = $db->orderBy($sortField, $sortOrder)
                                                                             ->getValue('blogs', 'COUNT(*)');
                                                                         ?>
                                                                         <button
-                                                                            class="<?= !empty($res) ? "disabled text-secondary" : 'edit text-danger' ?> btn border-0"
+                                                                            class="<?= !empty($res) ? "disabled-sort text-secondary" : 'edit text-danger' ?> btn border-0"
                                                                             value="<?= $bcategory['id'] ?>" data-bs-toggle="tooltip"
                                                                             data-bs-placement="bottom"
                                                                             title="<?= !empty($res) ? 'قابل حذف نیست' : "حذف" ?>"
@@ -206,7 +206,8 @@ $res = $db->orderBy($sortField, $sortOrder)
                                                                                         </button>
                                                                                     </div>
                                                                                     <form
-                                                                                        action="blog_category_delete.php?id=<?= $bcategory['id'] ?>" method="post" >
+                                                                                        action="blog_category_delete.php?id=<?= $bcategory['id'] ?>"
+                                                                                        method="post">
                                                                                         <div class="modal-body">
                                                                                             <h5>آیا مطمئن هستید؟</h5>
                                                                                         </div>
@@ -254,7 +255,7 @@ $res = $db->orderBy($sortField, $sortOrder)
     <?php
     require_once('../../layout/js.php');
     ?>
-    <script src="assets/js/blog_category_list_page.js" ></script>
+    <script src="assets/js/blog_category_list_page.js"></script>
 </body>
 
 

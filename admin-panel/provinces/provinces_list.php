@@ -32,18 +32,18 @@ $res = $db->orderBy($sortField, $sortOrder)
     ?>
     <link rel="stylesheet" href="../../assets/css/sort.css">
     <style>
-    .active::after {
-                color:
-                    <?= (isset($_SESSION[$prefix.'_sort_order']) and $_SESSION[$prefix.'_sort_order'] == 'DESC') ? '#000' : '#ccc' ?>
-                ;
-            }
-    
-            .active::before {
-                color:
-                    <?= (isset($_SESSION[$prefix.'_sort_order']) and $_SESSION[$prefix.'_sort_order'] == 'ASC') ? '#000' : '#ccc' ?>
-                ;
-            }
-</style>
+        .active::after {
+            color:
+                <?= (isset($_SESSION[$prefix . '_sort_order']) and $_SESSION[$prefix . '_sort_order'] == 'DESC') ? '#000' : '#ccc' ?>
+            ;
+        }
+
+        .active::before {
+            color:
+                <?= (isset($_SESSION[$prefix . '_sort_order']) and $_SESSION[$prefix . '_sort_order'] == 'ASC') ? '#000' : '#ccc' ?>
+            ;
+        }
+    </style>
     <title>لیست استان ها</title>
 
 </head>
@@ -120,8 +120,8 @@ $res = $db->orderBy($sortField, $sortOrder)
                                             <tbody class="text-center">
                                                 <tr id="<?= (isset($_SESSION['province_filter']['province']) and !empty($_SESSION['province_filter']['province'])) ? "" : "filter-row" ?>"
                                                     class="<?= (isset($_SESSION['province_filter']['province']) and !empty($_SESSION['province_filter']['province'])) ? "" : "d-none" ?>">
-                                                    <form class="d-flex justify-content-around align-content-start" id="form" action="provinces_list.php?page=1"
-                                                        method="post">
+                                                    <form class="d-flex justify-content-around align-content-start"
+                                                        id="form" action="provinces_list.php?page=1" method="post">
                                                         <td class="col-lg-2 col-md-4"> <input class="col form-control"
                                                                 type="text"
                                                                 value="<?= isset($_SESSION['province_filter']['name']) ? $_SESSION['province_filter']['name'] : "" ?>"
@@ -176,46 +176,47 @@ $res = $db->orderBy($sortField, $sortOrder)
                                                                         ->getValue('cities', 'COUNT(*)');
                                                                     ?>
                                                                     <button
-                                                                        class="<?= !empty($res) ? "disabled text-secondary" : 'open-confirm text-danger' ?> btn border-0"
+                                                                        class="<?= !empty($res) ? "disabled-sort text-secondary" : 'open-confirm text-danger' ?> btn border-0"
                                                                         value="<?= $province['id'] ?>" data-bs-toggle="tooltip"
                                                                         data-bs-placement="bottom"
                                                                         title="<?= !empty($res) ? "قابل حذف نیست" : "حذف" ?>"
                                                                         data-bs-original-title="حذف" aria-label="Delete">
                                                                         <i class="bi bi-trash-fill"></i></button>
-                                                                        <div class="modal fade"
-                                                                id="exampleModal<?= $province['id'] ?>" tabindex="-1"
-                                                                role="dialog" aria-labelledby="exampleModalLabel"
-                                                                aria-hidden="true">
-                                                                <div class="modal-dialog" role="document">
-                                                                    <div class="modal-content">
-                                                                        <div class="modal-header">
+                                                                    <div class="modal fade"
+                                                                        id="exampleModal<?= $province['id'] ?>" tabindex="-1"
+                                                                        role="dialog" aria-labelledby="exampleModalLabel"
+                                                                        aria-hidden="true">
+                                                                        <div class="modal-dialog" role="document">
+                                                                            <div class="modal-content">
+                                                                                <div class="modal-header">
 
-                                                                            <h5 class="modal-title"
-                                                                                id="exampleModalLabel">حذف داده</h5>
-                                                                            <button type="button" class="close"
-                                                                                value="<?= $province['id'] ?>"
-                                                                                data-dismiss="modal" aria-label="Close">
-                                                                                <span aria-hidden="true">&times;</span>
-                                                                            </button>
+                                                                                    <h5 class="modal-title"
+                                                                                        id="exampleModalLabel">حذف داده</h5>
+                                                                                    <button type="button" class="close"
+                                                                                        value="<?= $province['id'] ?>"
+                                                                                        data-dismiss="modal" aria-label="Close">
+                                                                                        <span aria-hidden="true">&times;</span>
+                                                                                    </button>
+                                                                                </div>
+                                                                                <form
+                                                                                    action="province_delete.php?id=<?= $province['id'] ?>"
+                                                                                    method="post">
+                                                                                    <div class="modal-body">
+                                                                                        <h5>آیا مطمئن هستید؟</h5>
+                                                                                    </div>
+                                                                                    <div class="modal-footer">
+                                                                                        <button type="button"
+                                                                                            value="<?= $province['id'] ?>"
+                                                                                            class="btn btn-secondary close"
+                                                                                            data-dismiss="modal">لغو</button>
+                                                                                        <button type="submit"
+                                                                                            name="btn_change_status"
+                                                                                            class="btn btn-primary">حذف</button>
+                                                                                    </div>
+                                                                                </form>
+                                                                            </div>
                                                                         </div>
-                                                                        <form
-                                                                            action="province_delete.php?id=<?= $province['id'] ?>" method="post">
-                                                                            <div class="modal-body">
-                                                                                <h5>آیا مطمئن هستید؟</h5>
-                                                                            </div>
-                                                                            <div class="modal-footer">
-                                                                                <button type="button"
-                                                                                    value="<?= $province['id'] ?>"
-                                                                                    class="btn btn-secondary close"
-                                                                                    data-dismiss="modal">لغو</button>
-                                                                                <button type="submit"
-                                                                                    name="btn_change_status"
-                                                                                    class="btn btn-primary">حذف</button>
-                                                                            </div>
-                                                                        </form>
                                                                     </div>
-                                                                </div>
-                                                            </div>
                                                                 <?php } ?>
                                                             </div>
                                                         </td>

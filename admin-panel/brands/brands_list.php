@@ -35,18 +35,18 @@ $res = $db->orderBy($sortField, $sortOrder)
     ?>
     <link rel="stylesheet" href="../../assets/css/sort.css">
     <style>
-    .active::after {
-                color:
-                    <?= (isset($_SESSION[$prefix.'_sort_order']) and $_SESSION[$prefix.'_sort_order'] == 'DESC') ? '#000' : '#ccc' ?>
-                ;
-            }
-    
-            .active::before {
-                color:
-                    <?= (isset($_SESSION[$prefix.'_sort_order']) and $_SESSION[$prefix.'_sort_order'] == 'ASC') ? '#000' : '#ccc' ?>
-                ;
-            }
-</style>
+        .active::after {
+            color:
+                <?= (isset($_SESSION[$prefix . '_sort_order']) and $_SESSION[$prefix . '_sort_order'] == 'DESC') ? '#000' : '#ccc' ?>
+            ;
+        }
+
+        .active::before {
+            color:
+                <?= (isset($_SESSION[$prefix . '_sort_order']) and $_SESSION[$prefix . '_sort_order'] == 'ASC') ? '#000' : '#ccc' ?>
+            ;
+        }
+    </style>
 
     <title>برند ها</title>
 
@@ -184,7 +184,7 @@ $res = $db->orderBy($sortField, $sortOrder)
                                                                         ->getValue('products', 'COUNT(*)');
                                                                     ?>
                                                                     <button
-                                                                        class="<?= !empty($res) ? 'disabled text-secondary' : 'edit text-danger' ?> border-0 btn"
+                                                                        class="<?= !empty($res) ? 'disabled-sort text-secondary' : 'edit text-danger' ?> border-0 btn"
                                                                         value="<?= $brand['id'] ?>" data-bs-toggle="tooltip"
                                                                         data-bs-placement="bottom"
                                                                         title="<?= !empty($res) ? 'قابل حذف نیست' : 'حذف' ?>"
@@ -207,7 +207,8 @@ $res = $db->orderBy($sortField, $sortOrder)
                                                                                     </button>
                                                                                 </div>
                                                                                 <form
-                                                                                    action="brand_delete.php?id=<?= $brand['id'] ?>" method="post" >
+                                                                                    action="brand_delete.php?id=<?= $brand['id'] ?>"
+                                                                                    method="post">
                                                                                     <div class="modal-body">
                                                                                         <h5>آیا مطمئن هستید؟</h5>
                                                                                     </div>

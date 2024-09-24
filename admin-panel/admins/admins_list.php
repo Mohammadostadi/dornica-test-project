@@ -225,12 +225,12 @@ $res = $db->orderBy($sortField, $sortOrder)
                                                             <div>
                                                                 <?php if(has_access('admin_update.php')){ ?>
                                                                 <a <?= ($role == 0 or ($role == 2 and ($admin['role'] == 1 or $admin['role'] == 3)))?"href=admin_update.php?id=".$admin['id']:"" ?>
-                                                                    class="btn border-0 disabled <?=($role == 0 or ($role == 2 and ($admin['role'] == 1 or $admin['role'] == 3)))?"text-warning":"text-secondary" ?>" data-bs-toggle="tooltip"
+                                                                    class="btn border-0 disabled-sort <?=($role == 0 or ($role == 2 and ($admin['role'] == 1 or $admin['role'] == 3)))?"text-warning":"text-secondary" ?>" data-bs-toggle="tooltip"
                                                                     data-bs-placement="bottom" title="<?=($role == 0 or ($role == 2 and ($admin['role'] == 1 or $admin['role'] == 3)))?"ویرایش اطلاعات":"عدم اجازه دسترسی"?>"
                                                                     aria-label="Edit"><i class="bi bi-pencil-fill"></i></a>
                                                                 <?php } ?>
                                                                 <?php if(has_access('admin_delete.php')){ ?>
-                                                                <button class="<?= (($_SESSION['user_role'] == 0  and $_SESSION['user_role'] != $admin['role']) or ($_SESSION['user_role'] == 2 and ($admin['role'] != 0 and $admin['role'] != $_SESSION['user_role'])))?"edit text-danger":"disabled text-secondary" ?> btn border-0 "
+                                                                <button class="<?= (($_SESSION['user_role'] == 0  and $_SESSION['user_role'] != $admin['role']) or ($_SESSION['user_role'] == 2 and ($admin['role'] != 0 and $admin['role'] != $_SESSION['user_role'])))?"edit text-danger":"disabled-sort text-secondary" ?> btn border-0 "
                                                                     value="<?= $admin['id'] ?>" data-bs-toggle="tooltip"
                                                                     data-bs-placement="bottom" title="<?= (($_SESSION['user_role'] == 0 and $_SESSION['user_role'] != $admin['role']) or ($_SESSION['user_role'] == 2 and ($admin['role'] != 0 and $admin['role'] != $_SESSION['user_role'])))?"حذف":"عدم دسترسی" ?>" aria-label="Delete"
                                                                     style="cursor: pointer;"><i

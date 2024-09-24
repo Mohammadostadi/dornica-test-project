@@ -112,25 +112,22 @@ function showMessage($value)
             <strong>اجازه دسترسی برای استفاده را ندارید</strong>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
-    <?php }  elseif ($value == 10) { ?>
+    <?php } elseif ($value == 10) { ?>
         <div class="alert alert-danger alert-dismissible fade show" role="alert" id="alert">
             <strong>بازه تاریخ داده شده اشتباه میباشد</strong>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
-    <?php }   
-    elseif ($value == 11) { ?>
+    <?php } elseif ($value == 11) { ?>
         <div class="alert alert-danger alert-dismissible fade show" role="alert" id="alert">
             <strong>لطفا بازه تاریخ را مشخص کنید</strong>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
-    <?php }
-    elseif ($value == 12) { ?>
+    <?php } elseif ($value == 12) { ?>
         <div class="alert alert-success alert-dismissible fade show" role="alert" id="alert">
             <strong>رمز عبور شما با موفقیت تغییر کرد.</strong>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
-    <?php } 
-    elseif ($value == 13) { ?>
+    <?php } elseif ($value == 13) { ?>
         <div class="alert alert-success alert-dismissible fade show" role="alert" id="alert">
             <strong>وضعیت تغییر کرد.</strong>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -372,7 +369,7 @@ function access($type, $after = '', $name = '')
                     <?php if ((($_SESSION['user_role']) != 1)) { ?>
 
                         <button
-                            class="<?= (isset($result) and (empty($result) or $result)) ? 'disabled text-secondary' : ' open-confirm text-danger' ?>  btn border-0 p-0"
+                            class="<?= (isset($result) and (empty($result) or $result)) ? 'disabled-sort text-secondary' : ' open-confirm text-danger' ?>  btn border-0 p-0"
                             value="<?= $name['id'] ?>" data-bs-toggle="tooltip" data-bs-placement="bottom"
                             title="<?= (isset($result) and (empty($result) or $result)) ? ' قابل حذف نیست' : 'حذف'; ?>"
                             data-bs-original-title="حذف" aria-label="Delete" style="cursor: pointer;"><i
@@ -619,9 +616,9 @@ function reportCheck($db, $table, $data)
                     $newFilters = "find_in_set( '$data', $field)";
                     $db->where($newFilters);
                 } elseif ($type === 'in') {
-                    if (!in_array(0 ,$_POST[$field]) and !in_array('' ,$_POST[$field])) {
+                    if (!in_array(0, $_POST[$field]) and !in_array('', $_POST[$field])) {
                         $data = implode(',', $_POST[$field]);
-                        $newFilters = $table.".".$field." IN ($data)";
+                        $newFilters = $table . "." . $field . " IN ($data)";
                         $db->where($newFilters);
                     }
                 } elseif ($type === 'price') {
@@ -637,21 +634,23 @@ function reportCheck($db, $table, $data)
 }
 
 
-function chartData($num, $field, $table){
+function chartData($num, $field, $table)
+{
     global $db;
     $data = [];
-    for($i = --$num; $i >= 0; $i--){
+    for ($i = --$num; $i >= 0; $i--) {
         $first_day_month = date('Y/m/01', strtotime("-$i month"));
         $last_day_month = date('Y/m/t', strtotime("$first_day_month"));
         $res = $db->where("DATE($field) BETWEEN '$first_day_month' AND '$last_day_month'")
-        ->getValue($table, 'COUNT(*)');
+            ->getValue($table, 'COUNT(*)');
         $data[] = $res;
     }
     return implode(', ', $data);
-} 
+}
 
 
-function persian_number($number) {
+function persian_number($number)
+{
     $pnumbers = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
     $enumbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
     return str_replace($pnumbers, $enumbers, $number);
@@ -666,7 +665,7 @@ function _var_dump($input)
         echo $type . '<br>';
         foreach ($input as $key => $value) {
             $length_array = strlen($input[$key]);
-            echo    $key . ' => ' . get_debug_type($input[$key]) . ' ' . "'" . $input[$key] . "'" . ' ' . '(length =' . ' ' . $length_array . ' ' . ')' . '<br>';
+            echo $key . ' => ' . get_debug_type($input[$key]) . ' ' . "'" . $input[$key] . "'" . ' ' . '(length =' . ' ' . $length_array . ' ' . ')' . '<br>';
         }
     } elseif ((is_bool($input))) {
         if ($input == 1) {
@@ -679,7 +678,7 @@ function _var_dump($input)
         if (is_string($input)) {
             echo $type . ' ' . "' " . $input . " '" . ' ' . '(length =' . ' ' . $length . ')';
         } else {
-            echo $type . ' '  . $input  . ' ';
+            echo $type . ' ' . $input . ' ';
         }
     }
 }

@@ -37,18 +37,18 @@ $res = $filter->filterCheck($db, $data, 'cities', 'citys_list.php', $query, 10, 
     ?>
     <link rel="stylesheet" href="../../assets/css/sort.css">
     <style>
-    .active::after {
-                color:
-                    <?= (isset($_SESSION[$prefix.'_sort_order']) and $_SESSION[$prefix.'_sort_order'] == 'DESC') ? '#000' : '#ccc' ?>
-                ;
-            }
-    
-            .active::before {
-                color:
-                    <?= (isset($_SESSION[$prefix.'_sort_order']) and $_SESSION[$prefix.'_sort_order'] == 'ASC') ? '#000' : '#ccc' ?>
-                ;
-            }
-</style>
+        .active::after {
+            color:
+                <?= (isset($_SESSION[$prefix . '_sort_order']) and $_SESSION[$prefix . '_sort_order'] == 'DESC') ? '#000' : '#ccc' ?>
+            ;
+        }
+
+        .active::before {
+            color:
+                <?= (isset($_SESSION[$prefix . '_sort_order']) and $_SESSION[$prefix . '_sort_order'] == 'ASC') ? '#000' : '#ccc' ?>
+            ;
+        }
+    </style>
     <title>لیست شهر</title>
 
 </head>
@@ -193,7 +193,7 @@ $res = $filter->filterCheck($db, $data, 'cities', 'citys_list.php', $query, 10, 
                                                                             ->getOne('members');
                                                                         ?>
                                                                         <button
-                                                                            class="<?= is_countable($res) ? "disabled text-secondary" : 'edit text-danger' ?>  btn border-0"
+                                                                            class="<?= is_countable($res) ? "disabled-sort text-secondary" : 'edit text-danger' ?>  btn border-0"
                                                                             data-bs-toggle="tooltip" data-bs-placement="bottom"
                                                                             title="<?= is_countable($res) ? 'قابل حذف نیست' : 'حذف' ?>"
                                                                             data-bs-original-title="حذف" aria-label="Delete"><i

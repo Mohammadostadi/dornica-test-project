@@ -289,7 +289,7 @@ $query = [
                                                                 }
                                                                 ?>
                                                                 <button
-                                                                    class="<?= $result ? 'disabled text-secondary' : 'open-confirm text-danger' ?>  btn border-0"
+                                                                    class="<?= $result ? 'disabled-sort text-secondary' : 'open-confirm text-danger' ?>  btn border-0"
                                                                     value="<?= $value['id'] ?>" data-bs-toggle="tooltip"
                                                                     data-bs-placement="bottom"
                                                                     title="<?= $result ? 'قابل حذف نیست' : 'حذف' ?>"

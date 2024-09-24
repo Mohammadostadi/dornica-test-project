@@ -184,7 +184,7 @@ $res = $db
                                                                             ->getValue('orders', 'COUNT(*)');
                                                                         ?>
                                                                         <button
-                                                                            class="<?= !empty($res) ? "disabled text-secondary" : "open-confirm text-danger" ?> btn border-0"
+                                                                            class="<?= !empty($res) ? "disabled-sort text-secondary" : "open-confirm text-danger" ?> btn border-0"
                                                                             value="<?= $ship['id'] ?>" data-bs-toggle="tooltip"
                                                                             data-bs-placement="bottom"
                                                                             title="<?= !empty($res) ? "قابل حذف نیست" : "حذف" ?>"

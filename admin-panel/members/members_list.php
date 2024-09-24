@@ -283,7 +283,7 @@ $res = $db->join('province', 'members.province_id = province.id', ' LEFT')
                                                                         ?>
                                                                         <li>
                                                                             <button
-                                                                                class="<?= $result ? 'disabled text-secondary' : 'edit text-danger' ?>  btn border-0 dropdown-item"
+                                                                                class="<?= $result ? 'disabled-sort text-secondary' : 'edit text-danger' ?>  btn border-0 dropdown-item"
                                                                                 value="<?= $member['id'] ?>"
                                                                                 data-bs-toggle="tooltip"
                                                                                 data-bs-placement="bottom"
@@ -319,41 +319,41 @@ $res = $db->join('province', 'members.province_id = province.id', ' LEFT')
                                                                     </li>
                                                                 </ul>
                                                             </div>
-                                                            <?php if (has_access('member_delete.php')){ ?>
-                                                            <div class="modal fade"
-                                                                id="exampleModal<?= $member['id'] ?>" tabindex="-1"
-                                                                role="dialog" aria-labelledby="exampleModalLabel"
-                                                                aria-hidden="true">
-                                                                <div class="modal-dialog" role="document">
-                                                                    <div class="modal-content">
-                                                                        <div class="modal-header">
+                                                            <?php if (has_access('member_delete.php')) { ?>
+                                                                <div class="modal fade" id="exampleModal<?= $member['id'] ?>"
+                                                                    tabindex="-1" role="dialog"
+                                                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                                    <div class="modal-dialog" role="document">
+                                                                        <div class="modal-content">
+                                                                            <div class="modal-header">
 
-                                                                            <h5 class="modal-title"
-                                                                                id="exampleModalLabel">حذف داده</h5>
-                                                                            <button type="button" class="close"
-                                                                                value="<?= $member['id'] ?>"
-                                                                                data-dismiss="modal" aria-label="Close">
-                                                                                <span aria-hidden="true">&times;</span>
-                                                                            </button>
-                                                                        </div>
-                                                                        <form
-                                                                            action="member_delete.php?id=<?= $member['id'] ?>" method="post">
-                                                                            <div class="modal-body">
-                                                                                <h5>آیا مطمئن هستید؟</h5>
-                                                                            </div>
-                                                                            <div class="modal-footer">
-                                                                                <button type="button"
+                                                                                <h5 class="modal-title" id="exampleModalLabel">
+                                                                                    حذف داده</h5>
+                                                                                <button type="button" class="close"
                                                                                     value="<?= $member['id'] ?>"
-                                                                                    class="btn btn-secondary close"
-                                                                                    data-dismiss="modal">لغو</button>
-                                                                                <button type="submit"
-                                                                                    name="btn_change_status"
-                                                                                    class="btn btn-primary">حذف</button>
+                                                                                    data-dismiss="modal" aria-label="Close">
+                                                                                    <span aria-hidden="true">&times;</span>
+                                                                                </button>
                                                                             </div>
-                                                                        </form>
+                                                                            <form
+                                                                                action="member_delete.php?id=<?= $member['id'] ?>"
+                                                                                method="post">
+                                                                                <div class="modal-body">
+                                                                                    <h5>آیا مطمئن هستید؟</h5>
+                                                                                </div>
+                                                                                <div class="modal-footer">
+                                                                                    <button type="button"
+                                                                                        value="<?= $member['id'] ?>"
+                                                                                        class="btn btn-secondary close"
+                                                                                        data-dismiss="modal">لغو</button>
+                                                                                    <button type="submit"
+                                                                                        name="btn_change_status"
+                                                                                        class="btn btn-primary">حذف</button>
+                                                                                </div>
+                                                                            </form>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
-                                                            </div>
                                                             <?php } ?>
                                                         </td>
                                                     </tr>
