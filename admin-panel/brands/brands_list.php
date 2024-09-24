@@ -18,6 +18,7 @@ $res = $db->orderBy($sortField, $sortOrder)
     ->paginate('brand', $page);
 ?>
 
+
 <!doctype html>
 <html lang="en" dir="rtl">
 
@@ -32,6 +33,20 @@ $res = $db->orderBy($sortField, $sortOrder)
     <?php
     require_once('../../layout/css.php');
     ?>
+    <link rel="stylesheet" href="../../assets/css/sort.css">
+    <style>
+    .active::after {
+                color:
+                    <?= (isset($_SESSION[$prefix.'_sort_order']) and $_SESSION[$prefix.'_sort_order'] == 'DESC') ? '#000' : '#ccc' ?>
+                ;
+            }
+    
+            .active::before {
+                color:
+                    <?= (isset($_SESSION[$prefix.'_sort_order']) and $_SESSION[$prefix.'_sort_order'] == 'ASC') ? '#000' : '#ccc' ?>
+                ;
+            }
+</style>
 
     <title>برند ها</title>
 
@@ -175,35 +190,38 @@ $res = $db->orderBy($sortField, $sortOrder)
                                                                         title="<?= !empty($res) ? 'قابل حذف نیست' : 'حذف' ?>"
                                                                         aria-label="Delete"><i
                                                                             class="bi bi-trash-fill"></i></button>
+                                                                    <div class="modal fade" id="exampleModal<?= $brand['id'] ?>"
+                                                                        tabindex="-1" role="dialog"
+                                                                        aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                                        <div class="modal-dialog" role="document">
+                                                                            <div class="modal-content">
+                                                                                <div class="modal-header">
 
-                                                                    <div class="modal-dialog" role="document">
-                                                                        <div class="modal-content">
-                                                                            <div class="modal-header">
-
-                                                                                <h5 class="modal-title" id="exampleModalLabel">
-                                                                                    حذف داده</h5>
-                                                                                <button type="button" class="close"
-                                                                                    value="<?= $brand['id'] ?>"
-                                                                                    data-dismiss="modal" aria-label="Close">
-                                                                                    <span aria-hidden="true">&times;</span>
-                                                                                </button>
-                                                                            </div>
-                                                                            <form
-                                                                                action="brand_delete.php?id=<?= $brand['id'] ?>">
-                                                                                <div class="modal-body">
-                                                                                    <h5>آیا مطمئن هستید؟</h5>
-                                                                                </div>
-                                                                                <div class="modal-footer">
-                                                                                    <button type="button"
+                                                                                    <h5 class="modal-title"
+                                                                                        id="exampleModalLabel">
+                                                                                        حذف داده</h5>
+                                                                                    <button type="button" class="close"
                                                                                         value="<?= $brand['id'] ?>"
-                                                                                        class="btn btn-secondary close"
-                                                                                        data-dismiss="modal">لغو</button>
-                                                                                    <button type="submit"
-                                                                                        name="btn_change_status"
-                                                                                        class="btn btn-primary">ذخیره
-                                                                                        تنظیمات</button>
+                                                                                        data-dismiss="modal" aria-label="Close">
+                                                                                        <span aria-hidden="true">&times;</span>
+                                                                                    </button>
                                                                                 </div>
-                                                                            </form>
+                                                                                <form
+                                                                                    action="brand_delete.php?id=<?= $brand['id'] ?>" method="post" >
+                                                                                    <div class="modal-body">
+                                                                                        <h5>آیا مطمئن هستید؟</h5>
+                                                                                    </div>
+                                                                                    <div class="modal-footer">
+                                                                                        <button type="button"
+                                                                                            value="<?= $brand['id'] ?>"
+                                                                                            class="btn btn-secondary close"
+                                                                                            data-dismiss="modal">لغو</button>
+                                                                                        <button type="submit"
+                                                                                            name="btn_change_status"
+                                                                                            class="btn btn-primary">حذف</button>
+                                                                                    </div>
+                                                                                </form>
+                                                                            </div>
                                                                         </div>
                                                                     </div>
                                                                 <?php } ?>

@@ -253,40 +253,41 @@ $start = date("Y/m/d", $last_week);
                                 </div>
                                 <div class="header-message-list p-2">
                                     <?php
-                                    $db->pageLimit = 6;
-                                    $comments = $db->where('is_read', 0)
-                                        ->join('members', 'members.id = comment.member_id', 'LEFT')
-                                        ->orderBy('setdate', 'DESC')
-                                        ->paginate('comment', 1, "comment.id, CONCAT(members.fname, ' ', members.lname) AS name, members.image,subject, comment.setdate, comment.status");
-                                    if(count($comments) == 0){ ?>
-                                            <h6 class="text-center">داده ایی برای نمایش وجود ندارد</h6>
-                                    <?php }else{
-                                    foreach ($comments as $comment) {
-                                        ?>
-                                        <a class="dropdown-item" href="admin-panel/comments/comment_detail.php?id=<?= $comment['id'] ?>">
-                                            <div class="d-flex align-items-center">
-                                                <img src="../../<?= isset($comment['image']) ? $comment['image'] : "assets/images/admin/placeholder.png" ?>"
-                                                    alt="" class="rounded-circle" width="50" height="50">
-                                                <div class="ms-3 flex-grow-1 fw-bold">
-                                                    <h6
-                                                        class="mb-0 dropdown-msg-user fw-bold">
-                                                        <?= $comment['name'] ?><span
-                                                            class="msg-time float-end fw-bold">
-                                                            <?= jdate('Y/m/d', strtotime($comment['setdate'])) ?>
-                                                        </span></h6>
-                                                    <small
-                                                        class="mb-0 dropdown-msg-text text-secondary d-flex align-items-center"><?= $comment['subject'] ?></small>
+                                    if ($notification == 0) { ?>
+                                        <h6 class="text-center">داده ایی برای نمایش وجود ندارد</h6>
+                                    <?php } else {
+                                        $db->pageLimit = 6;
+                                        $comments = $db->where('is_read', 0)
+                                            ->join('members', 'members.id = comment.member_id', 'LEFT')
+                                            ->orderBy('setdate', 'DESC')
+                                            ->paginate('comment', 1, "comment.id, CONCAT(members.fname, ' ', members.lname) AS name, members.image,subject, comment.setdate, comment.status");
+                                        foreach ($comments as $comment) {
+                                            ?>
+                                            <a class="dropdown-item"
+                                                href="admin-panel/comments/comment_detail.php?id=<?= $comment['id'] ?>">
+                                                <div class="d-flex align-items-center">
+                                                    <img src="../../<?= isset($comment['image']) ? $comment['image'] : "assets/images/admin/placeholder.png" ?>"
+                                                        alt="" class="rounded-circle" width="50" height="50">
+                                                    <div class="ms-3 flex-grow-1 fw-bold">
+                                                        <h6 class="mb-0 dropdown-msg-user fw-bold">
+                                                            <?= $comment['name'] ?><span class="msg-time float-end fw-bold">
+                                                                <?= jdate('Y/m/d', strtotime($comment['setdate'])) ?>
+                                                            </span>
+                                                        </h6>
+                                                        <small
+                                                            class="mb-0 dropdown-msg-text text-secondary d-flex align-items-center"><?= $comment['subject'] ?></small>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </a>
-                                    <?php } 
+                                            </a>
+                                        <?php }
                                     } ?>
                                 </div>
                                 <div class="p-2">
                                     <div>
                                         <hr class="dropdown-divider">
                                     </div>
-                                    <a class="dropdown-item <?= count($comments) == 0?"disabled":"" ?>" href="<?= count($comments) != 0?"admin-panel/comments/comments_list.php?comment=1":"" ?>">
+                                    <a class="dropdown-item <?= $notification == 0 ? "disabled" : "" ?>"
+                                        href="<?= $notification != 0 ? "admin-panel/comments/comments_list.php?comment=1" : "" ?>">
                                         <div class="text-center">مشاهده همه پیام ها</div>
                                     </a>
                                 </div>

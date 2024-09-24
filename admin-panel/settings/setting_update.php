@@ -177,11 +177,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
     ?>
     <script src="../../assets/ckeditor/ckeditor.js"></script>
     <script src="../../assets/ckeditor/adapters/jquery.js"></script>
-    <script>
-        $(document).ready(function(){
-            $('#editor1').ckeditor();
-        });
-    </script>
+    <script src="assets/js/setting.js"></script>
     
     <?php require_once('../../layout/update_image.php') ?>
 </body>

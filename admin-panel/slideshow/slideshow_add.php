@@ -95,6 +95,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
 <?php 
         require_once('../../layout/js.php');
     ?>
+    <script src="assets/js/slideshow_edit.js"></script>
 </body>
 
 

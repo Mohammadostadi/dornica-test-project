@@ -103,6 +103,7 @@ $validator = new validator();
 <?php
         require_once('../../layout/js.php');
     ?>
+    <script src="assets/js/product_page_edit.js"></script>
 </body>
 
 

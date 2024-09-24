@@ -86,7 +86,7 @@
         require_once('../../layout/js.php');
     ?>
 
-
+<script src="assets/js/province_edit.js"></script>
 
 
 </body>

@@ -113,6 +113,7 @@
 <?php 
         require_once('../../layout/js.php');
     ?>
+    <script src="assets/js/payment_type_edit.js"></script>
 
 </body>
 

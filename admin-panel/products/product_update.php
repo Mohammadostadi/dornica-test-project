@@ -255,25 +255,14 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
 
 <?php
         require_once('../../layout/js.php');
-        separator('#price');
-        separator('#qty');
-        separator('#special');;
     ?>
-
+<script src="../../assets/js/jquery.number.min.js"></script>
 <script type="text/javascript" src="../../assets/datePiker/js/persianDatepicker.min.js"></script>
 <script src="../../assets/plugins/select2/js/select2.min.js"></script>
 <script src="../../assets/js/form-select2.js"></script>
-<script type="text/javascript">
-    $("#date").persianDatepicker({formatDate: "YYYY/0M/0D"});
-    $("#endTime").persianDatepicker({formatDate: "YYYY/0M/0D"});
-</script>
 <script src="../../assets/ckeditor/ckeditor.js"></script>
 <script src="../../assets/ckeditor/adapters/jquery.js"></script>
-<script>
-    $(document).ready(function(){
-        $('#editor1').ckeditor();
-    });
-</script>
+<script src="assets/js/product_edit.js"></script>
 <?php require_once('../../layout/update_image.php') ?>
 </body>
 

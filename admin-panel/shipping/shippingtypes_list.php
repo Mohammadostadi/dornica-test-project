@@ -29,6 +29,20 @@ $res = $db
     <?php
     require_once('../../layout/css.php');
     ?>
+    <link rel="stylesheet" href="../../assets/css/sort.css">
+    <style>
+    .active::after {
+                color:
+                    <?= (isset($_SESSION[$prefix.'_sort_order']) and $_SESSION[$prefix.'_sort_order'] == 'DESC') ? '#000' : '#ccc' ?>
+                ;
+            }
+    
+            .active::before {
+                color:
+                    <?= (isset($_SESSION[$prefix.'_sort_order']) and $_SESSION[$prefix.'_sort_order'] == 'ASC') ? '#000' : '#ccc' ?>
+                ;
+            }
+</style>
 
     <title>مدل ارسال</title>
 
@@ -176,6 +190,40 @@ $res = $db
                                                                             title="<?= !empty($res) ? "قابل حذف نیست" : "حذف" ?>"
                                                                             data-bs-original-title="حذف" aria-label="Delete"><i
                                                                                 class="bi bi-trash-fill"></i></button>
+                                                                                <div class="modal fade"
+                                                                id="exampleModal<?= $ship['id'] ?>" tabindex="-1"
+                                                                role="dialog" aria-labelledby="exampleModalLabel"
+                                                                aria-hidden="true">
+                                                                <div class="modal-dialog" role="document">
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-header">
+
+                                                                            <h5 class="modal-title"
+                                                                                id="exampleModalLabel">حذف داده</h5>
+                                                                            <button type="button" class="close"
+                                                                                value="<?= $ship['id'] ?>"
+                                                                                data-dismiss="modal" aria-label="Close">
+                                                                                <span aria-hidden="true">&times;</span>
+                                                                            </button>
+                                                                        </div>
+                                                                        <form
+                                                                            action="shippingtype_delete.php?id=<?= $ship['id'] ?>" method="post">
+                                                                            <div class="modal-body">
+                                                                                <h5>آیا مطمئن هستید؟</h5>
+                                                                            </div>
+                                                                            <div class="modal-footer">
+                                                                                <button type="button"
+                                                                                    value="<?= $ship['id'] ?>"
+                                                                                    class="btn btn-secondary close"
+                                                                                    data-dismiss="modal">لغو</button>
+                                                                                <button type="submit"
+                                                                                    name="btn_change_status"
+                                                                                    class="btn btn-primary">حذف</button>
+                                                                            </div>
+                                                                        </form>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
                                                                     <?php } ?>
                                                                 </div>
                                                             </td>
@@ -205,12 +253,10 @@ $res = $db
     </div>
     <!--end wrapper-->
 
-    <script>
-        const path = 'shippingtype_delete.php'
-    </script>
     <?php
     require_once('../../layout/js.php');
     ?>
+    <script src="assets/js/shipping.js"></script>
 </body>
 
 

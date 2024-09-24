@@ -105,11 +105,7 @@ $validator = new validator();
     ?>
     <script src="../../assets/ckeditor/ckeditor.js"></script>
     <script src="../../assets/ckeditor/adapters/jquery.js"></script>
-    <script>
-        $(document).ready(function(){
-            $('#editor1').ckeditor();
-        });
-    </script>
+    <script src="assets/js/page_edit.js"></script>
 </body>
 
 

@@ -44,7 +44,20 @@ $res = $filter->filterCheck($db, $data, 'comment', 'comments_list.php', $query, 
     <?php
     require_once('../../layout/css.php');
     ?>
-
+    <link rel="stylesheet" href="../../assets/css/sort.css">
+    <style>
+    .active::after {
+                color:
+                    <?= (isset($_SESSION[$prefix.'_sort_order']) and $_SESSION[$prefix.'_sort_order'] == 'DESC') ? '#000' : '#ccc' ?>
+                ;
+            }
+    
+            .active::before {
+                color:
+                    <?= (isset($_SESSION[$prefix.'_sort_order']) and $_SESSION[$prefix.'_sort_order'] == 'ASC') ? '#000' : '#ccc' ?>
+                ;
+            }
+</style>
     <title>لیست کامنت ها</title>
 </head>
 

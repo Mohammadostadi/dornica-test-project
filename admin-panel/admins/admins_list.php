@@ -32,7 +32,7 @@ $res = $db->orderBy($sortField, $sortOrder)
     <?php
     require_once ('../../layout/css.php');
     ?>
-<link rel="stylesheet" href="assets/style/admin_list_page.css">
+<link rel="stylesheet" href="../../assets/css/sort.css">
 <style>
     .active::after {
                 color:
@@ -251,7 +251,7 @@ $res = $db->orderBy($sortField, $sortOrder)
                                                                                         <span aria-hidden="true">&times;</span>
                                                                                     </button>
                                                                                 </div>
-                                                                                <form action="admin_delete.php?id=<?= $admin['id'] ?>">
+                                                                                <form action="admin_delete.php?id=<?= $admin['id'] ?>" method="post">
                                                                                     <div class="modal-body">
                                                                                         <h5>آیا مطمئن هستید؟</h5>
                                                                                     </div>
@@ -261,8 +261,7 @@ $res = $db->orderBy($sortField, $sortOrder)
                                                                                             data-dismiss="modal">لغو</button>
                                                                                         <button type="submit"
                                                                                             name="btn_change_status"
-                                                                                            class="btn btn-primary">ذخیره
-                                                                                            تنظیمات</button>
+                                                                                            class="btn btn-primary">حذف</button>
                                                                                     </div>
                                                                                 </form>
                                                                             </div>

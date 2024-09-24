@@ -3,7 +3,6 @@
 $prefix = 'members';
 require_once('../../app/loader.php');
 
-sortInTable($prefix, 'report_members_list', 'page');
 
 
 if (isset($_POST['report'])) {
@@ -44,8 +43,6 @@ members.city_id , cities.name as city , province.name as province');
 <head>
     <?php require_once("../../layout/css.php"); ?>
     <title>گزارش لیست مشتریان</title>
-    <link type="text/css" rel="stylesheet"
-        href="../../assets/persianDatepicker-master/css/persianDatepicker-default.css" />
 </head>
 
 <body>

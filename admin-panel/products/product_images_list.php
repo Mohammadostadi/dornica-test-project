@@ -30,6 +30,20 @@ $res = $filter->filterCheck($db, $data, 'product_image', 'product_images_list.ph
     <?php
     require_once('../../layout/css.php');
     ?>
+    <link rel="stylesheet" href="../../assets/css/sort.css">
+    <style>
+        .active::after {
+            color:
+                <?= (isset($_SESSION[$prefix . '_sort_order']) and $_SESSION[$prefix . '_sort_order'] == 'DESC') ? '#000' : '#ccc' ?>
+            ;
+        }
+
+        .active::before {
+            color:
+                <?= (isset($_SESSION[$prefix . '_sort_order']) and $_SESSION[$prefix . '_sort_order'] == 'ASC') ? '#000' : '#ccc' ?>
+            ;
+        }
+    </style>
 
     <title>لیست تصاویر محصول</title>
 
@@ -125,7 +139,7 @@ $res = $filter->filterCheck($db, $data, 'product_image', 'product_images_list.ph
                                                         <td class="col-lg-2 col-md-4"> <input class="col form-control"
                                                                 type="text" value="<?= $filter->is_exist('title') ?>"
                                                                 name="title" placeholder="عنوان"> </td>
-                                                                <td></td>
+                                                        <td></td>
                                                         <td class="col-lg-2 col-md-4"> <select
                                                                 class="form-select text-secondary" name="status"
                                                                 id="status">
@@ -137,12 +151,13 @@ $res = $filter->filterCheck($db, $data, 'product_image', 'product_images_list.ph
                                                             </select> </td>
                                                         <td class="col-lg-2 col-md-4 text-center button-filter">
                                                             <div class="btn-group p-0 m-0">
-                                                            <button type="submit" name="filtered" id="apply_filter"
-                                                                class="btn btn-success"> اعمال فیلتر</button>
-                                                            <?php if ((isset($_SESSION['product_image_filter']['product_image']) and !empty($_SESSION['product_image_filter']['product_image']))) { ?>
-                                                                <button type="submit" name="unFilter" id="delete_filter"
-                                                                    class="btn btn-danger button-filter"> حذف فیلتر</button>
-                                                            <?php } ?>
+                                                                <button type="submit" name="filtered" id="apply_filter"
+                                                                    class="btn btn-success"> اعمال فیلتر</button>
+                                                                <?php if ((isset($_SESSION['product_image_filter']['product_image']) and !empty($_SESSION['product_image_filter']['product_image']))) { ?>
+                                                                    <button type="submit" name="unFilter" id="delete_filter"
+                                                                        class="btn btn-danger button-filter"> حذف
+                                                                        فیلتر</button>
+                                                                <?php } ?>
                                                             </div>
                                                         </td>
                                                     </form>
@@ -179,6 +194,41 @@ $res = $filter->filterCheck($db, $data, 'product_image', 'product_images_list.ph
                                                                             data-bs-placement="bottom" title="حذف"
                                                                             data-bs-original-title="حذف" aria-label="Delete"><i
                                                                                 class="bi bi-trash-fill"></i></button>
+                                                                        <div class="modal fade"
+                                                                            id="exampleModal<?= $pimage['id'] ?>" tabindex="-1"
+                                                                            role="dialog" aria-labelledby="exampleModalLabel"
+                                                                            aria-hidden="true">
+                                                                            <div class="modal-dialog" role="document">
+                                                                                <div class="modal-content">
+                                                                                    <div class="modal-header">
+
+                                                                                        <h5 class="modal-title"
+                                                                                            id="exampleModalLabel">حذف داده</h5>
+                                                                                        <button type="button" class="close"
+                                                                                            value="<?= $pimage['id'] ?>"
+                                                                                            data-dismiss="modal" aria-label="Close">
+                                                                                            <span aria-hidden="true">&times;</span>
+                                                                                        </button>
+                                                                                    </div>
+                                                                                    <form
+                                                                                        action="product_image_delete.php?id=<?= $pimage['id'] ?>"
+                                                                                        method="post">
+                                                                                        <div class="modal-body">
+                                                                                            <h5>آیا مطمئن هستید؟</h5>
+                                                                                        </div>
+                                                                                        <div class="modal-footer">
+                                                                                            <button type="button"
+                                                                                                value="<?= $pimage['id'] ?>"
+                                                                                                class="btn btn-secondary close"
+                                                                                                data-dismiss="modal">لغو</button>
+                                                                                            <button type="submit"
+                                                                                                name="btn_change_status"
+                                                                                                class="btn btn-primary">حذف</button>
+                                                                                        </div>
+                                                                                    </form>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
                                                                     <?php } ?>
                                                                 </div>
                                                             </td>
@@ -206,13 +256,10 @@ $res = $filter->filterCheck($db, $data, 'product_image', 'product_images_list.ph
 
     </div>
     <!--end wrapper-->
-    <script>
-        const path = 'product_image_delete.php'
-    </script>
     <?php
     require_once('../../layout/js.php');
     ?>
-
+    <script src="assets/js/product_page.js"></script>
 
 </body>
 

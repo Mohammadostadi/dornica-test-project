@@ -28,6 +28,20 @@ $res = $db->orderBy($sortField, $sortOrder)
     <?php
     require_once ('../../layout/css.php');
     ?>
+    <link rel="stylesheet" href="../../assets/css/sort.css">
+    <style>
+    .active::after {
+                color:
+                    <?= (isset($_SESSION[$prefix.'_sort_order']) and $_SESSION[$prefix.'_sort_order'] == 'DESC') ? '#000' : '#ccc' ?>
+                ;
+            }
+    
+            .active::before {
+                color:
+                    <?= (isset($_SESSION[$prefix.'_sort_order']) and $_SESSION[$prefix.'_sort_order'] == 'ASC') ? '#000' : '#ccc' ?>
+                ;
+            }
+</style>
 
     <title>لیست تبلیغات</title>
 </head>
@@ -189,7 +203,7 @@ $res = $db->orderBy($sortField, $sortOrder)
                                                                                         <span aria-hidden="true">&times;</span>
                                                                                     </button>
                                                                                 </div>
-                                                                                <form action="ads_delete.php?id=<?= $ad['id'] ?>">
+                                                                                <form action="ads_delete.php?id=<?= $ad['id'] ?>" method="post">
                                                                                     <div class="modal-body">
                                                                                         <h5>آیا مطمئن هستید؟</h5>
                                                                                     </div>
@@ -199,8 +213,7 @@ $res = $db->orderBy($sortField, $sortOrder)
                                                                                             data-dismiss="modal">لغو</button>
                                                                                         <button type="submit"
                                                                                             name="btn_change_status"
-                                                                                            class="btn btn-primary">ذخیره
-                                                                                            تنظیمات</button>
+                                                                                            class="btn btn-primary">حذف</button>
                                                                                     </div>
                                                                                 </form>
                                                                             </div>

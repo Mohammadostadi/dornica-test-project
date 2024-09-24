@@ -165,6 +165,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
 <?php 
         require_once('../../layout/js.php');
     ?>
+    <script src="assets/js/team_edit.js" ></script>
 </body>
 
 <!-- Mirrored from codetheme.ir/onedash/demo/rtl/form-layouts.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 31 May 2024 08:56:22 GMT -->

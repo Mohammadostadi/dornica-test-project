@@ -42,6 +42,20 @@ $res = $filter->filterCheck($db, $data, 'order', 'orders_list.php', $query, 10, 
     <?php
     require_once('../../layout/css.php');
     ?>
+    <link rel="stylesheet" href="../../assets/css/sort.css">
+    <style>
+    .active::after {
+                color:
+                    <?= (isset($_SESSION[$prefix.'_sort_order']) and $_SESSION[$prefix.'_sort_order'] == 'DESC') ? '#000' : '#ccc' ?>
+                ;
+            }
+    
+            .active::before {
+                color:
+                    <?= (isset($_SESSION[$prefix.'_sort_order']) and $_SESSION[$prefix.'_sort_order'] == 'ASC') ? '#000' : '#ccc' ?>
+                ;
+            }
+</style>
     <link type="text/css" rel="stylesheet" href="../../assets/datePiker/css/persianDatepicker-default.css" />
     <title>لیست سفارشات</title>
 </head>

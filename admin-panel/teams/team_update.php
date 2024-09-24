@@ -208,6 +208,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['_insert'])){
 <?php 
         require_once('../../layout/js.php');
     ?>
+    <script src="assets/js/team_edit.js"></script>
     <?php require_once('../../layout/update_image.php') ?>
 </body>
 

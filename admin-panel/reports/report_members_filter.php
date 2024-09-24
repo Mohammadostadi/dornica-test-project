@@ -125,93 +125,10 @@ $province = $db->get('province', null, 'province.name , province.id ');
     <script src="../../assets/plugins/select2/js/select2.min.js"></script>
     <script src="../../assets/js/form-select2.js"></script>
     <script>
-        $('#report').click(function(){
-            $('body').load('report_members_filter.php');
-        })
-
+        const current_province = $("#province").val();
+        const current_city = "<?= isset($_POST['city']) ? $_POST['city'] : "" ?>";
     </script>
-    <!-- city ajax -->
-    <script>
-        $(document).ready(function () {
-            $("#province").change(function () {
-                const province = $("#province").val();
-                if (province != '') {
-                    get_city_change(province);
-                }
-            })
-
-            const current_province = $("#province").val();
-            const current_city = "<?= isset($_POST['city']) ? $_POST['city'] : "" ?>";
-
-            if (current_province != '' && current_city != '')
-                get_city_change(current_province, current_city);
-
-            if (current_province != '' && current_city == '')
-                get_city_change(current_province);
-
-
-
-            function get_city_change(province, city = null) {
-
-                $.ajax({
-                    url: "report_members_filter.php",
-                    type: "POST",
-                    data: {
-                        province_id: province,
-                        city_id: city
-                    },
-                    success: function (res) {
-                        $("#city").html(res);
-                    }
-
-                })
-
-            }
-
-        })
-    </script>
-    <script>
-        $(document).ready(function () {
-            $("#start_date").persianDatepicker({
-                formatDate: "YYYY/0M/0D",
-                selectedBefore: !1,
-                alwaysShow: !1,
-                onShow: function () {
-                    console.log("Datepicker is now visible");
-                },
-                onSelect: function () {
-                    if ($("#end_date").val() == '')
-                        $("#end_date").val($("#start_date").val());
-                },
-                onHide: function () {
-                    console.log("Datepicker is now hidden");
-                },
-
-            });
-
-        });
-    </script>
-    <script>
-        $(document).ready(function () {
-            $("#end_date").persianDatepicker({
-                formatDate: "YYYY/0M/0D",
-                selectedBefore: !1,
-                alwaysShow: !1,
-                onShow: function () {
-                    console.log("Datepicker is now visible");
-                },
-                onSelect: function () {
-                    if ($("#start_date").val() == '')
-                        $("#start_date").val($("#end_date").val());
-                },
-                onHide: function () {
-                    console.log("Datepicker is now hidden");
-                },
-
-            });
-
-        });
-    </script>
+    <script src="assets/js/report_member_filter.js"></script>
 </body>
 
 </html>

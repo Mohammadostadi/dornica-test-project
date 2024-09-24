@@ -35,6 +35,20 @@ $res = $db->join('blog_category', 'blogs.category_id = blog_category.id', ' LEFT
     <?php
     require_once('../../layout/css.php');
     ?>
+    <link rel="stylesheet" href="../../assets/css/sort.css">
+    <style>
+    .active::after {
+                color:
+                    <?= (isset($_SESSION[$prefix.'_sort_order']) and $_SESSION[$prefix.'_sort_order'] == 'DESC') ? '#000' : '#ccc' ?>
+                ;
+            }
+    
+            .active::before {
+                color:
+                    <?= (isset($_SESSION[$prefix.'_sort_order']) and $_SESSION[$prefix.'_sort_order'] == 'ASC') ? '#000' : '#ccc' ?>
+                ;
+            }
+</style>
     <link type="text/css" rel="stylesheet" href="../../assets/datePiker/css/persianDatepicker-default.css" />
 
     <title>لیست بلاگ ها </title>
@@ -234,7 +248,7 @@ $res = $db->join('blog_category', 'blogs.category_id = blog_category.id', ' LEFT
                                                                                         <span aria-hidden="true">&times;</span>
                                                                                     </button>
                                                                                 </div>
-                                                                                <form action="blog_delete.php?id=<?= $blog['id'] ?>">
+                                                                                <form action="blog_delete.php?id=<?= $blog['id'] ?>" method="post" >
                                                                                     <div class="modal-body">
                                                                                         <h5>آیا مطمئن هستید؟</h5>
                                                                                     </div>
@@ -244,8 +258,7 @@ $res = $db->join('blog_category', 'blogs.category_id = blog_category.id', ' LEFT
                                                                                             data-dismiss="modal">لغو</button>
                                                                                         <button type="submit"
                                                                                             name="btn_change_status"
-                                                                                            class="btn btn-primary">ذخیره
-                                                                                            تنظیمات</button>
+                                                                                            class="btn btn-primary">حذف</button>
                                                                                     </div>
                                                                                 </form>
                                                                             </div>

@@ -1,9 +1,5 @@
 <?php
 require_once('../../app/loader.php');
-// require_once('../../app/Controller/gender.php');
-
-
-// var_dump($_POST['militaryService']);die;
 $validator = new validator();
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['_insert'])) {
     $fname = securityCheck($_REQUEST['fname']);
@@ -145,16 +141,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['_insert'])) {
                             <div class="col-lg-6 d-none" id="militaryService">
                                 <label class="form-label">نظام وظیفه</label>
 
-                                <select name="militaryService" class="form-select" required>
+                                <select name="militaryService" class="form-select">
                                     <option value="">نظام وظیفه</option>
                                     <option <?= (isset($_POST['militaryService']) and $_POST['militaryService'] == 0)?"SELECTED":"" ?> value="0">سربازی</option>
                                     <option <?= (isset($_POST['militaryService']) and $_POST['militaryService'] == 1)?"SELECTED":"" ?> value="1">معافیت</option>
                                     <option <?= (isset($_POST['militaryService']) and $_POST['militaryService'] == 2)?"SELECTED":"" ?> value="2">در حال انجام وظیفه</option>
                                     <option <?= (isset($_POST['militaryService']) and $_POST['militaryService'] == 3)?"SELECTED":"" ?> value="3">پایان خدمت</option>
                                 </select>
-                                <div class="invalid-feedback">
-                                    فیلد سربازی نباید خالی باشد
-                                </div>
+                                <span><?= $validator->show("militaryService") ?></span>
                             </div>
                             <div class="col-lg-12 d-flex justify-content-end">
                                 <div class="row">

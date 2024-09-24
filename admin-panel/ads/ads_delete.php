@@ -1,7 +1,7 @@
 <?php
 
 require_once('../../app/loader.php');
-if($_SERVER['REQUEST_METHOD'] == 'GET' and isset($_GET['id'])){
+if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_GET['id'])){
     $id = securityCheck($_REQUEST['id']);
     $path = $db->where('id', $id)
     ->getOne('ads', 'image'); 

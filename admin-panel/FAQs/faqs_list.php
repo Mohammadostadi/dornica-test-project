@@ -27,7 +27,20 @@ $res = $db->orderBy($sortField, $sortOrder)
     <?php
     require_once('../../layout/css.php');
     ?>
-
+    <link rel="stylesheet" href="../../assets/css/sort.css">
+    <style>
+    .active::after {
+                color:
+                    <?= (isset($_SESSION[$prefix.'_sort_order']) and $_SESSION[$prefix.'_sort_order'] == 'DESC') ? '#000' : '#ccc' ?>
+                ;
+            }
+    
+            .active::before {
+                color:
+                    <?= (isset($_SESSION[$prefix.'_sort_order']) and $_SESSION[$prefix.'_sort_order'] == 'ASC') ? '#000' : '#ccc' ?>
+                ;
+            }
+</style>
     <title>لیست سوال</title>
 
 </head>
@@ -170,34 +183,40 @@ $res = $db->orderBy($sortField, $sortOrder)
                                                                         title="حذف" data-bs-original-title="حذف"
                                                                         aria-label="Delete"><i
                                                                             class="bi bi-trash-fill"></i></button>
-                                                                            
+                                                                    <div class="modal fade" id="exampleModal<?= $faq['id'] ?>"
+                                                                        tabindex="-1" role="dialog"
+                                                                        aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                                         <div class="modal-dialog" role="document">
                                                                             <div class="modal-content">
                                                                                 <div class="modal-header">
 
                                                                                     <h5 class="modal-title"
-                                                                                        id="exampleModalLabel">حذف داده</h5>
-                                                                                    <button type="button" class="close" value="<?= $faq['id'] ?>"
+                                                                                        id="exampleModalLabel">
+                                                                                        حذف داده</h5>
+                                                                                    <button type="button" class="close"
+                                                                                        value="<?= $faq['id'] ?>"
                                                                                         data-dismiss="modal" aria-label="Close">
                                                                                         <span aria-hidden="true">&times;</span>
                                                                                     </button>
                                                                                 </div>
-                                                                                <form action="faq_delete.php?id=<?= $faq['id'] ?>">
+                                                                                <form
+                                                                                    action="faq_delete.php?id=<?= $faq['id'] ?>" method="post" >
                                                                                     <div class="modal-body">
                                                                                         <h5>آیا مطمئن هستید؟</h5>
                                                                                     </div>
                                                                                     <div class="modal-footer">
-                                                                                        <button type="button" value="<?= $faq['id'] ?>"
+                                                                                        <button type="button"
+                                                                                            value="<?= $faq['id'] ?>"
                                                                                             class="btn btn-secondary close"
                                                                                             data-dismiss="modal">لغو</button>
                                                                                         <button type="submit"
                                                                                             name="btn_change_status"
-                                                                                            class="btn btn-primary">ذخیره
-                                                                                            تنظیمات</button>
+                                                                                            class="btn btn-primary">حذف</button>
                                                                                     </div>
                                                                                 </form>
                                                                             </div>
                                                                         </div>
+                                                                    </div>
                                                                 <?php } ?>
                                                             </div>
                                                         </td>
@@ -227,7 +246,7 @@ $res = $db->orderBy($sortField, $sortOrder)
     <?php
     require_once('../../layout/js.php');
     ?>
-
+    <script src="assets/js/faq_page.js"></script>
 </body>
 
 

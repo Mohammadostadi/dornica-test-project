@@ -649,3 +649,37 @@ function chartData($num, $field, $table){
     }
     return implode(', ', $data);
 } 
+
+
+function persian_number($number) {
+    $pnumbers = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+    $enumbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+    return str_replace($pnumbers, $enumbers, $number);
+}
+
+
+function _var_dump($input)
+{
+    $type = get_debug_type($input);
+
+    if (is_array($input)) {
+        echo $type . '<br>';
+        foreach ($input as $key => $value) {
+            $length_array = strlen($input[$key]);
+            echo    $key . ' => ' . get_debug_type($input[$key]) . ' ' . "'" . $input[$key] . "'" . ' ' . '(length =' . ' ' . $length_array . ' ' . ')' . '<br>';
+        }
+    } elseif ((is_bool($input))) {
+        if ($input == 1) {
+            echo 'boolean' . ' ' . 'true' . ' ';
+        } else {
+            echo 'boolean' . ' ' . 'false' . ' ';
+        }
+    } else {
+        $length = strlen($input);
+        if (is_string($input)) {
+            echo $type . ' ' . "' " . $input . " '" . ' ' . '(length =' . ' ' . $length . ')';
+        } else {
+            echo $type . ' '  . $input  . ' ';
+        }
+    }
+}
